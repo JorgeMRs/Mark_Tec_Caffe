@@ -94,7 +94,7 @@ nav ul li a {
 
 nav ul li a:hover {
     background-color: #320; /* Color de fondo al hacer hover */
-    color: #000000; /* Color de texto al hacer hover */
+    color: #ffffff; /* Color de texto al hacer hover */
     border-radius: 20px;
 }
 
@@ -215,6 +215,20 @@ button {
 .cta-content h3 {
     margin: 0;
     font-size: 36px;
+}
+
+/* clase para button fa-solid, mas espacio entre texto y icono*/
+.fa-solid, .fas {
+    margin-left: 8px; 
+    font-weight: 900;
+}
+
+/* clase para los iconos de redes sociales, espacio entre icono y texto */
+.fa-xl {
+    margin-right: 0.3vw;
+    font-size: 1.5em;
+    line-height: .04167em;
+    vertical-align: -.125em;
 }
 
 .cta-content button {
