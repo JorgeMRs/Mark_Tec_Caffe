@@ -212,8 +212,6 @@ button {
     text-align: center;
     padding: 60px 20px;
 }
-
-=======
 .cta-content h3 {
     margin: 0;
     font-size: 36px;
@@ -443,4 +441,4 @@ textarea {
 .social-icons li {
     display: inline; /* Mostrar los elementos de la lista en línea */
 }
-}
+

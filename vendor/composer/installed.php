@@ -3,7 +3,7 @@
         'name' => 'jose/mark_tec_caffe',
         'pretty_version' => 'dev-develop',
         'version' => 'dev-develop',
-        'reference' => '5a56f1b016a859f6b98e1cc876440673779db2ef',
+        'reference' => 'd031fe5fe97d6fc37bacbc48266c87e93ad83676',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -22,7 +22,7 @@
         'jose/mark_tec_caffe' => array(
             'pretty_version' => 'dev-develop',
             'version' => 'dev-develop',
-            'reference' => '5a56f1b016a859f6b98e1cc876440673779db2ef',
+            'reference' => 'd031fe5fe97d6fc37bacbc48266c87e93ad83676',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

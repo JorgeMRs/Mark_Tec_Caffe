@@ -8,6 +8,7 @@
     <meta name="author" content="Eduardo Delgado, Luciano Britos, Jose Sanchez, Jorge Martinez">
     <title>Home</title>
     <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/form.css">
     <script src="https://kit.fontawesome.com/3047b62e1b.js" crossorigin="anonymous"></script>
     <link rel="icon" href="assets/img/logo-removebg-preview.png">
 </head>
@@ -37,12 +38,15 @@
         <h1>Contáctanos</h1>
         <p>¡Estamos aquí para ayudarte! Si tienes alguna pregunta, comentario o sugerencia, no dudes en ponerte en
             contacto con nosotros.</p>
-        <form>
-            <input name="name" type="text" class="feedback-input" placeholder="Name" />
-            <input name="email" type="text" class="feedback-input" placeholder="Email" />
-            <textarea name="text" class="feedback-input" placeholder="Comment"></textarea>
-            <input type="submit" value="SUBMIT" />
-        </form>
+            <form method="post" action="../src/email/send_email.php" id="contact-form">
+                <input name="name" type="text" class="feedback-input" placeholder="Name" />
+                <input name="email" type="text" class="feedback-input" placeholder="Email" />
+                <input type="text" name="subject" class="feedback-input" placeholder="Asunto">
+                <textarea name="message" class="feedback-input" placeholder="Comment"></textarea>
+                <input type="submit" value="SUBMIT" />
+              </form>
+              <div id="formMessage" style="display:none;">Enviado con exito</div>
+              <div id="loaderContainer" style="display:none;">Cargando...</div>         
         <ul class="centered-list">
             <li><strong>Redes Sociales:</strong>
                 <ul class="social-icons">
@@ -58,42 +62,10 @@
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="icon" href="assets/img/logo-removebg-preview.png">
 </head>
-<body>
-    <div class="contactos">
-        <h1>Contáctanos</h1>
-        <p>¡Estamos aquí para ayudarte! Si tienes alguna pregunta, comentario o sugerencia, no dudes en ponerte en contacto con nosotros.</p>
-        <form action="../src/email/send_email.php" method="post">
-            <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" name="nombre" class="form-control" id="nombre" required>
-            </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" name="email" class="form-control" id="email" required>
-                <input type="text" name="subject" id="input-subject" placeholder="Asunto">
-            </div>   
-            <div class="form-floating">
-                <textarea class="form-control" placeholder="Escriba su mensaje aquí" id="texto" name="texto" style="height: 100px;" required></textarea>    
-            </div>
-            <button type="submit" class="btn btn-success mt-3">Enviar</button>
-        </form>
-        <ul>
-            <li><strong>Redes Sociales:</strong>
-                <a href="#" target="_blank"><img src="Imagenes/facebook.png" alt="Logo de Facebook" width="15"></a>
-                <a href="#" target="_blank"><img src="Imagenes/x.png" alt="Logo de X" width="15"></a>
-                <a href="" target="_blank"><img src="Imagenes/Instagram_icon.png" alt="Logo de Instagram" width="15"></a>
-                <a href="" target="_blank"><img src="Imagenes/Youtube_logo.png" alt="Logo de Youtube" width="20"></a>
-            </li>
-            <li><strong>Dirección:</strong> bla bla bla</li>
-            <li><strong>Horario de Atención:</strong> blablablabal </li>
-        </ul>
-        <p>Julio 2023 © Todos los derechos reservados by Café Sabrosos</p>
-    </div>
-
-</body>
 
 </html>
         <p>¡Esperamos que vengas pronto!</p>
     </div>
+    <script src="assets/js/contactForm.js"></script>
 </body>
 </html>

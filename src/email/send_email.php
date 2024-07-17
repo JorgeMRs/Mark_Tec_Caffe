@@ -2,7 +2,7 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require '../vendor/autoload.php';
+require '../../vendor/autoload.php';
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../..'); // Ruta al directorio raíz del proyecto
 $dotenv->load();
@@ -28,14 +28,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
-        $mail->Username = $_ENV['PHP_EMAIL']; // Tu correo electrónico SMTP
-        $mail->Password = $_ENV['PHP_PW']; // Tu contraseña SMTP
+        $mail->Username = $_ENV['SMTPEMAIL']; // Tu correo electrónico SMTP
+        $mail->Password = $_ENV['SMTPPASS']; // Tu contraseña SMTP
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
 
         // Configuración del correo
         $mail->setFrom($email, $name); // Reemplaza con tu correo de Gmail y nombre del remitente
-        $mail->addAddress($_ENV['PHP_EMAIL']); // Reemplaza con tu correo de destino
+        $mail->addAddress($_ENV['SMTPEMAIL']); // Reemplaza con tu correo de destino
 
         $mail->isHTML(true);
         $mail->Subject = $subject;
