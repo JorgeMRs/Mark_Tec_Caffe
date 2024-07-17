@@ -14,6 +14,7 @@ body {
 }
 
 header {
+    position: relative; /* Añadir posición relativa */
     background-color: #320;
     color: #fff;
     padding: 10px 0;
@@ -212,11 +213,11 @@ button {
     padding: 60px 20px;
 }
 
+
 .cta-content h3 {
     margin: 0;
     font-size: 36px;
 }
-
 /* clase para button fa-solid, mas espacio entre texto y icono*/
 .fa-solid, .fas {
     margin-left: 8px; 
@@ -229,6 +230,10 @@ button {
     font-size: 1.5em;
     line-height: .04167em;
     vertical-align: -.125em;
+}
+.cta-content h3 {
+    margin: 0;
+    font-size: 36px;
 }
 
 .cta-content button {
@@ -354,3 +359,88 @@ footer {
         display: block; /* Mostrar el icono de menú en pantallas pequeñas */
     }
 }
+    .contactos {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color:#ffffff;
+    border-radius: 70px;
+    box-shadow: 0 0 200px rgba(234, 225, 225, 0.1);
+    }
+
+    .contactos h1,
+    .contactos p {
+    text-align: center;
+    color: #333;
+    text-align: auto;
+}
+.content-contacto{
+    font-family: Arial, sans-serif;
+    background-color: #14120c;
+    margin: 0;
+    padding: 0;
+}
+form { max-width:420px; margin:50px auto; }
+
+.feedback-input {
+  color:#444;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight:500;
+  font-size: 18px;
+  border-radius: 5px;
+  line-height: 22px;
+  background-color: transparent;
+  border:2px solid #b8860b;
+  transition: all 0.3s;
+  padding: 13px;
+  margin-bottom: 15px;
+  width:100%;
+  box-sizing: border-box;
+  outline:0;
+}
+
+.feedback-input:focus { border:2px solid #b8860b; }
+
+textarea {
+  height: 150px;
+  line-height: 150%;
+  resize:vertical;
+}
+
+[type="submit"] {
+  font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+  width: 100%;
+  background:#b8860b;
+  border-radius:5px;
+  border:0;
+  cursor:pointer;
+  color:444;
+  font-size:24px;
+  padding-top:10px;
+  padding-bottom:10px;
+  transition: all 0.3s;
+  margin-top:-4px;
+  font-weight:700;
+}
+[type="submit"]:hover { background:#b8860b; }
+.centered-list {
+    list-style-type: none; /* Quitar el marcador de lista */
+    padding: 0; /* Quitar el padding */
+    text-align: center; /* Centrar el texto */
+}
+
+.centered-list li {
+    margin: 10px 0; /* Espaciado entre los elementos de la lista */
+}
+
+.social-icons {
+    list-style-type: none; /* Quitar el marcador de lista */
+    padding: 0; /* Quitar el padding */
+    display: inline-flex; /* Mostrar los iconos en línea */
+    gap: 10px; /* Espaciado entre los iconos */
+}
+
+.social-icons li {
+    display: inline; /* Mostrar los elementos de la lista en línea */
+}
+
