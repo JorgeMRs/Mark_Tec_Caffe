@@ -3,6 +3,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 require '../vendor/autoload.php';
+use Dotenv\Dotenv;
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../..'); // Ruta al directorio raíz del proyecto
 $dotenv->load();
