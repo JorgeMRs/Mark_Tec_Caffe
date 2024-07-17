@@ -213,6 +213,11 @@ button {
     padding: 60px 20px;
 }
 
+=======
+.cta-content h3 {
+    margin: 0;
+    font-size: 36px;
+}
 /* clase para button fa-solid, mas espacio entre texto y icono*/
 .fa-solid, .fas {
     margin-left: 8px; 
@@ -438,8 +443,4 @@ textarea {
 .social-icons li {
     display: inline; /* Mostrar los elementos de la lista en línea */
 }
-
-
-
-
-
+}
