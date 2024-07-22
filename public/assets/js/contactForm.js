@@ -1,38 +1,57 @@
+// Funcion para enviar el formulario de contacto
 document.addEventListener('DOMContentLoaded', function () {
-    const form = document.querySelector('#contact-form');
-    const formMessage = document.querySelector('#formMessage'); // Añadir un elemento para mensajes
-    const loaderContainer = document.querySelector('#loaderContainer'); // Añadir un elemento para el loader
-    const submitButton = document.querySelector('input[type="submit"]');
-  
-    form.addEventListener('submit', function (event) {
-      event.preventDefault(); // Evitar el envío normal del formulario
-  
+  const form = document.querySelector('#contact-form');
+  const formMessage = document.querySelector('#formMessage');
+  const loaderContainer = document.querySelector('#loaderContainer');
+  const submitButton = document.querySelector('input[type="submit"]');
+  const modalBackground = document.querySelector('#modal-background');
+  const modalMessage = document.querySelector('#modal-message');
+  const closeModalButton = document.querySelector('#close-modal');
+
+ // Evento al enviar el formulario de contacto al servidor y mostrar un mensaje de exito o error
+  form.addEventListener('submit', function (event) {
+      event.preventDefault();
+
       const formData = new FormData(this);
-  
-      // Añadir imágenes seleccionadas desde el carrusel si es necesario
-      // formData.append('selected_images', JSON.stringify(selectedImages));
-  
+
+      loaderContainer.style.display = 'block';
+      submitButton.style.display = 'none';
+
       fetch(this.action, {
-        method: 'POST',
-        body: formData
+          method: 'POST',
+          body: formData
       })
       .then(response => response.text())
       .then(data => {
-        formMessage.style.display = 'block';
-        formMessage.textContent = data; // Mostrar la respuesta del servidor
-        alert("Enviado con exito");
-        form.reset(); // Resetear el formulario después de enviar
-        setTimeout(() => {
+        // Ocultar el contenedor de cargador y mostrar el contenedor de mensaje de exito o error
+          loaderContainer.style.display = 'none';
+          submitButton.style.display = 'block';
           formMessage.style.display = 'none';
-        }, 10000); // Mostrar el mensaje durante 10 segundos
-        console.log(data);
+
+          // En caso de que el correo se envie, mostrar un mensaje de exito
+          if (data.includes('El mensaje se ha enviado correctamente.')) {
+              modalMessage.textContent = 'Correo enviado correctamente';
+              closeModalButton.classList.remove('error');
+
+              // En caso de que el correo no se envie, mostrar un mensaje de error
+          } else {
+              modalMessage.textContent = 'Hubo un error al enviar el mensaje. Por favor, intenta de nuevo.';
+              closeModalButton.classList.add('error');
+          }
+          
+          modalBackground.style.display = 'flex';
+          form.reset();
+          
+          closeModalButton.addEventListener('click', () => {
+              modalBackground.style.display = 'none';
+          });
       })
       .catch(error => {
-        loaderContainer.style.display = 'none';
-        submitButton.style.display = 'block';
-        formMessage.style.display = 'block';
-        formMessage.textContent = 'Hubo un error al enviar el mensaje. Por favor, intenta de nuevo.';
-        console.error('Error:', error);
+          loaderContainer.style.display = 'none';
+          submitButton.style.display = 'block';
+          formMessage.style.display = 'block';
+          formMessage.textContent = 'Hubo un error al enviar el mensaje. Por favor, intenta de nuevo.';
+          console.error('Error:', error);
       });
-    });
   });
+});

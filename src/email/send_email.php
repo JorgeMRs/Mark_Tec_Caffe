@@ -47,16 +47,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <p><strong>Asunto:</strong> {$subject}</p>
                         <p><strong>Mensaje:</strong> {$message}</p>";
 
-        
-
         $messageBody .= "<hr><p>Este mensaje fue enviado desde la dirección IP: {$_SERVER['REMOTE_ADDR']}</p>";
 
         $mail->Body = $messageBody;
 
         $mail->send();
         echo 'El mensaje se ha enviado correctamente.';
-
-       
     } catch (Exception $e) {
         echo 'Hubo un error al enviar el mensaje: ' . $e->getMessage();
     }
