@@ -1,0 +1,17 @@
+{
+    "name": "jose/mark_tec_caffe",
+    "autoload": {
+        "psr-4": {
+            "Jose\\MarkTecCaffe\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Mark Tec S.A.S"
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^6.9",
+        "vlucas/phpdotenv": "^5.6"
+    }
+}
