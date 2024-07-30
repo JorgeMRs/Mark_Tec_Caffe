@@ -7,12 +7,11 @@
     },
     "authors": [
         {
-            "name": "MarkTeck582",
-            "email": "jocady1122@gmail.com"
+            "name": "Mark Tec S.A.S"
         }
     ],
     "require": {
-        "vlucas/phpdotenv": "^5.6",
-        "phpmailer/phpmailer": "^6.9"
+        "phpmailer/phpmailer": "^6.9",
+        "vlucas/phpdotenv": "^5.6"
     }
 }
