@@ -1,8 +1,8 @@
 {
-    "name": "jose/mark_tec_caffe",
+    "name": "luchito/mark_tec_caffe",
     "autoload": {
         "psr-4": {
-            "Jose\\MarkTecCaffe\\": "src/"
+            "Luchito\\MarkTecCaffe\\": "src/"
         }
     },
     "authors": [

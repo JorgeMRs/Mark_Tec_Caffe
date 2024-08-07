@@ -1,0 +1,242 @@
+/* Estilos generales */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+    color: white;
+    height: 100%;
+}
+
+header {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.user-icon {
+    width: 40px;
+    height: 40px;
+    margin: 0 5px;
+  }
+  nav {
+    display: flex;
+    align-items: center; /* Alinea verticalmente los elementos */
+    justify-content: space-between; /* Distribuye los elementos en el espacio disponible */
+    padding: 20px 50px;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center; /* Alinea verticalmente el logo y el texto */
+  }
+  
+  .logo img {
+    width: 70px;
+    height: 70px; /* Ajusta el tamaño del logo */
+    margin-right: 10px;
+  }
+  
+  .logo h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .nav-links {
+    display: flex;
+    align-items: center; /* Alinea verticalmente los elementos de la lista */
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .nav-links li {
+    margin: 0 10px;
+  }
+  
+  .nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-links a:hover {
+    color: #b8860b;
+  }
+  
+  .user-icon {
+    width: 40px;
+    height: 40px;
+    margin: 0 5px;
+  }
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.5); /* Fondo semitransparente negro */
+}
+
+
+nav .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    width: 60%;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 50%;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+nav ul li a:hover {
+    color: #b8860b; /* Color dorado al pasar el cursor */
+}
+.logo {
+    display: flex;
+    align-items: center; /* Alinea verticalmente al centro */
+}
+
+.logo img {
+    width: 70px; /* Ajusta el tamaño del logo según tus necesidades */
+    margin-right: 10px; /* Espacio entre el logo y el texto */
+}
+
+.logo h1 {
+    margin: 0; /* Elimina el margen por defecto */
+}
+
+
+.carousel-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    color: white;
+    padding: 0 20px;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+}
+
+.carousel-content h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.carousel-content p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.buttons a {
+    text-decoration: none;
+    color: white;
+    padding: 10px 20px;
+    border: 2px solid white;
+    margin: 0 10px;
+    transition: all 0.3s ease;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.buttons a:hover {
+    background-color: #b8860b; /* Color dorado */
+    border-color: #b8860b;
+}
+
+.carousel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.carousel-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 2ms ease-in-out; /* Transición de opacidad */
+}
+
+.carousel-item.active {
+    opacity: 1;
+    z-index: 1;
+}
+
+.carousel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.transition-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0;
+    transition: opacity 1s ease-in-out; /* Transición de opacidad */
+    z-index: 2;
+}
+
+.transition-layer.show {
+    opacity: 1;
+}
+
+.carousel-indicators {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 3;
+}
+
+.carousel-indicators .indicator {
+    width: 12px;
+    height: 12px;
+    border: 2px solid #fff;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.carousel-indicators .indicator.active {
+    background: rgba(255, 255, 255, 1);
+}

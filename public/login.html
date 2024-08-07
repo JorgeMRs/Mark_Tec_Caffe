@@ -1,18 +1,16 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="/public//assets/css/login.css">
+    <link rel="stylesheet" href="assets/css/login.css">
     <title>Login</title>
 </head>
 <body>
 <div class="container" id="container">
     <div class="form-container sign-up-container">
-        <!-- action="#" -->
-        <form  id="registroForm" >
+        <form action="#">
             <h1>Registrarte</h1>
             <div class="social-container">
                 <a href="#" class="social"><i class="fab fa-google"></i></a>
@@ -20,15 +18,11 @@
                 <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
             </div>
             <span>O usa tu email para registrarte</span>
-            <input type="text" name="nombre" placeholder="Nombre" required>
-            <input type="text" name="apellido" placeholder="Apellido" required>
-            <input type="email" name="correo" placeholder="Correo" required>
-            <input type="text" name="genero" placeholder="Género" required>
-            <input type="text" name="telefono" placeholder="Teléfono" required>
-            <input type="password" name="contrasena" placeholder="Contraseña" required>
-            <button type="submit">Registrar</button>
+            <input type="text" placeholder="Nombre">
+            <input type="email" placeholder="Email">
+            <input type="password" placeholder="Contraseña">
+            <button>Iniciar sesión</button>
         </form>
-  
     </div>
     <div class="form-container sign-in-container">
         <form action="#">
@@ -60,7 +54,6 @@
         </div>
     </div>
 </div>
-    
-<script src="./login.js" defer></script>
+<script src="/public/assets/js/login.js"></script>
 </body>
 </html>
