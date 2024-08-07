@@ -1,29 +1,43 @@
-/* Estilos generales */
-body, html {
+/* General styles */
+body {
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
-    overflow-x: hidden;
-    color: white;
-    height: 100%;
-    background-color: #333; /* Fondo oscuro */
+    background: #141414; /* Color de fondo más neutro */
+    color: #e0e0e0; /* Color de texto más claro */
+    line-height: 1.6;
+    min-height: 100vh;
 }
 
+/* Header styles */
 header {
+    background-color: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    color: white;
+    padding: 1rem;
     position: relative;
-    height: 10vh;
-    overflow: hidden;
+    width: 100%;
+    z-index: 1000;
+    transition: all 0.3s ease;
 }
 
-nav {
+.user-icon {
+    width: 40px;
+    height: 40px;
+    margin: 0 5px;
+}
+
+header:hover {
+    background-color: rgba(0, 0, 0, 0.95);
+}
+
+.header-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 50px;
-    position: absolute;
-    width: 90%;
-    top: 0;
-    z-index: 1000;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap; /* Allow wrapping for smaller screens */
 }
 
 .logo {
@@ -31,162 +45,319 @@ nav {
     align-items: center;
 }
 
-.logo img {
-    width: 70px;
-    height: 70px;
-    margin-right: 10px;
+.logo-image {
+    width: 60px;
+    height: auto;
+    margin-right: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.logo-image:hover {
+    transform: rotate(360deg);
 }
 
 .logo h1 {
     margin: 0;
     font-size: 24px;
     font-weight: bold;
-    color: white;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    color: #FFD700; /* Color dorado suave para el texto */
+    background: linear-gradient(45deg, #fff, #ffcc00); /* Degradado dorado */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 nav ul {
+    list-style-type: none;
     display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
+    flex-wrap: wrap; /* Allow wrapping for smaller screens */
 }
 
 nav ul li {
-    margin: 0 15px;
+    margin-left: 1.5rem;
 }
 
 nav ul li a {
     color: white;
     text-decoration: none;
-    font-size: 16px;
-    transition: color 0.3s ease;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
 }
 
-nav ul li a:hover {
-    color: #b8860b; /* Color dorado al pasar el cursor */
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #ffcc00; /* Color dorado suave para el subrayado */
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
 }
 
-.content-contacto {
-    padding: 20px 20px 20px; /* Ajusta el padding */
+nav ul li a:hover::after {
+    transform: scaleX(1);
+}
+
+/* Contact form styles */
+.contactos {
+    max-width: 800px;
+    margin: 6rem auto 3rem;
+    padding: 3rem;
+    background-color: #2e2e2e; /* Fondo gris oscuro para contraste */
+    border-radius: 20px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contactos:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+}
+
+.contactos h1 {
+    color: #ffd700; /* Dorado suave para los títulos */
     text-align: center;
-    background-color: #444;
+    font-size: 2.8rem;
+    margin-bottom: 1.5rem;
+    position: relative;
 }
 
-.content-contacto h1, .content-contacto p {
-    color: white;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+.contactos h1::after {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(45deg, #555, #777); /* Degradado gris suave */
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
-#contact-form {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
+.contactos p {
+    text-align: center;
+    color: #d0d0d0; /* Gris claro para el texto */
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
 }
 
 .feedback-input {
     width: 100%;
     padding: 15px;
-    margin-bottom: 10px;
+    margin-bottom: 1.5rem;
     border: none;
-    border-radius: 5px;
-    background-color: #666;
-    color: white;
-    box-sizing: border-box;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: #3a3a3a; /* Gris oscuro para los campos de entrada */
+    color: #eee;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
-.feedback-input::placeholder {
-    color: #ddd;
+.feedback-input:focus {
+    outline: none;
+    background-color: #4a4a4a; /* Gris más claro al enfocar */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 }
 
-#contact-form input[type="submit"] {
-    width: 100%;
-    padding: 15px;
-    background-color: #b8860b;
-    border: none;
-    border-radius: 5px;
+textarea.feedback-input {
+    height: 180px;
+    resize: vertical;
+}
+
+input[type="submit"] {
+    background: linear-gradient(45deg, #444, #222);
     color: white;
-    font-size: 16px;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 50px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-#contact-form input[type="submit"]:hover {
-    background-color: #a57508;
+input[type="submit"]:hover {
+    background: linear-gradient(45deg, #222, #444);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
 
+/* Social media icons */
 .centered-list {
-    list-style: none;
+    list-style-type: none;
     padding: 0;
-    margin: 20px 0 0;
+    text-align: center;
+    margin-top: 3rem;
 }
 
-.centered-list .social-icons {
+.social-icons {
     display: flex;
     justify-content: center;
     padding: 0;
-    margin: 0;
 }
 
 .social-icons li {
-    margin: 0 10px;
+    margin: 0 15px;
 }
 
-.social-icons li a {
-    color: white;
-    font-size: 24px;
-    transition: color 0.3s ease;
+.social-icons a {
+    color: #e0e0e0;
+    font-size: 28px;
+    transition: all 0.3s ease;
 }
 
-.social-icons li a:hover {
-    color: #b8860b; /* Color dorado */
+.social-icons a:hover {
+    color: #b0b0b0;
+    transform: translateY(-5px);
 }
 
+/* Modal styles */
 .modal-background {
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.modal-background.show {
-    visibility: visible;
-    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
 }
 
 .modal {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
+    background-color: #222; /* Fondo del modal más oscuro */
+    color: #eee;
+    padding: 3rem;
+    border-radius: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9);
+    animation: modalAppear 0.5s ease;
 }
 
-.modal p {
-    color: black;
-    margin-bottom: 20px;
+@keyframes modalAppear {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
 }
 
-.modal button {
-    padding: 10px 20px;
-    background-color: #b8860b;
-    border: none;
-    border-radius: 5px;
+#close-modal {
+    background: linear-gradient(45deg, #444, #222);
     color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 50px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-.modal button:hover {
-    background-color: #a57508;
+#close-modal:hover {
+    background: linear-gradient(45deg, #222, #444);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* Main section styles */
+main {
+    background-color: #1e1e1e; /* Color oscuro para contraste */
+    color: #e0e0e0; /* Color de texto claro */
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+main h2 {
+    color: #f5a623; /* Dorado suave para los títulos */
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+main p {
+    color: #d0d0d0; /* Gris claro para el texto */
+    line-height: 1.6;
+    font-size: 1.1rem;
+}
+
+button.main-btn {
+    background: linear-gradient(45deg, #333, #555); /* Degradado oscuro para los botones */
+    color: #fff;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+button.main-btn:hover {
+    background: linear-gradient(45deg, #555, #333); /* Invertir degradado en hover */
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        align-items: flex-start; /* Align to the left */
+    }
+
+    .logo h1 {
+        font-size: 1.5rem; /* Reduce font size on small screens */
+    }
+
+    nav ul {
+        flex-direction: column; /* Change to column on small screens */
+        align-items: center; /* Center items */
+        margin-top: 1rem;
+    }
+
+    nav ul li {
+        margin: 0.5rem 0; /* Vertical spacing between links */
+    }
+
+    .contactos {
+        padding: 2rem;
+        margin: 5rem 1rem 2rem;
+    }
+
+    .contactos h1 {
+        font-size: 2rem; /* Reduce title size on small screens */
+    }
+
+    .contactos p {
+        font-size: 1rem; /* Reduce text size on small screens */
+    }
+
+    .feedback-input {
+        padding: 12px; /* Reduce padding on small screens */
+        font-size: 0.9rem; /* Reduce font size on small screens */
+    }
+
+    input[type="submit"] {
+        padding: 12px 20px; /* Reduce padding on small screens */
+        font-size: 1rem; /* Reduce font size on small screens */
+    }
+
+    .social-icons a {
+        font-size: 24px; /* Reduce icon size on small screens */
+    }
 }
