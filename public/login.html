@@ -10,7 +10,8 @@
 <body>
 <div class="container" id="container">
     <div class="form-container sign-up-container">
-        <form action="#">
+        <!-- action="#" -->
+        <form  id="registroForm" action="#" >
             <h1>Registrarte</h1>
             <div class="social-container">
                 <a href="#" class="social"><i class="fab fa-google"></i></a>
@@ -18,11 +19,15 @@
                 <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
             </div>
             <span>O usa tu email para registrarte</span>
-            <input type="text" placeholder="Nombre">
-            <input type="email" placeholder="Email">
-            <input type="password" placeholder="Contraseña">
-            <button>Iniciar sesión</button>
+            <input type="text" name="nombre" placeholder="Nombre" required>
+            <input type="text" name="apellido" placeholder="Apellido" required>
+            <input type="email" name="correo" placeholder="Correo" required>
+            <input type="text" name="genero" placeholder="Género" required>
+            <input type="text" name="telefono" placeholder="Teléfono" required>
+            <input type="password" name="contrasena" placeholder="Contraseña" required>
+            <button type="submit">Registrar</button>
         </form>
+  
     </div>
     <div class="form-container sign-in-container">
         <form action="#">
@@ -54,6 +59,7 @@
         </div>
     </div>
 </div>
-<script src="/public/assets/js/login.js"></script>
+    
+<script src="./assets/js/login.js" defer></script>
 </body>
 </html>
