@@ -2,23 +2,12 @@
 header('Content-Type: application/json');
 $response = array();
 
+require_once __DIR__ . '/db_connect.php';
+
 try {
+    $conn = getDbConnection();
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // Configuración de conexión
-        $host = 'localhost';
-        $port = 3306;  // Puerto por defecto de MySQL
-        $user = 'root';
-        $password = 'password';
-        $database = 'new_schema';
-
-        // Crear conexión
-        $conn = new mysqli($host, $user, $password, $database, $port);
-
-        // Verificar conexión
-        if ($conn->connect_error) {
-            throw new Exception('Error de conexión a la base de datos: ' . $conn->connect_error);
-        }
-
         // Obtener datos del formulario
         $nombre = $_POST['nombre'] ?? '';
         $apellido = $_POST['apellido'] ?? '';
