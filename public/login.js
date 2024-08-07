@@ -36,11 +36,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const contentType = response.headers.get('content-type');
                 if (contentType && contentType.includes('application/json')) {
-                    const result = await response.json();
 
+                    const result = await response.json();
+                   
                     if (result.status === 'success') {
-                        alert('Registro exitoso');
-                    } else if (result.message === 'Correo ya registrado') {
+                        alert('Registro exitoso', result.status);
+                    } else if (result.status !== 'success') {
                         alert('El correo ya está registrado.');
                     } else {
                         alert(`Error: ${result.message}`);
