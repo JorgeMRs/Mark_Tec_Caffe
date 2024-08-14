@@ -3,31 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/login.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <link rel="stylesheet" href="assets/css/login.css" media="screen and (min-width: 769px)">
+    <link rel="stylesheet" href="assets/css/loginmobile.css" media="screen and (max-width: 768px)">
     <title>Login</title>
 </head>
 <body>
 <div class="container" id="container">
     <div class="form-container sign-up-container">
-        <!-- action="#" -->
-        <form  id="registroForm" action="#" >
+        <form id="registroForm" action="#">
             <h1>Registrarte</h1>
             <div class="social-container">
                 <a href="#" class="social"><i class="fab fa-google"></i></a>
                 <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social"><i class="fa-brands fa-apple"></i></a>
             </div>
             <span>O usa tu email para registrarte</span>
-            <input type="text" name="nombre" placeholder="Nombre" required>
-            <input type="text" name="apellido" placeholder="Apellido" required>
-            <input type="email" name="correo" placeholder="Correo" required>
-            <input type="text" name="genero" placeholder="Género" required>
-            <input type="text" name="telefono" placeholder="Teléfono" required>
-            <input type="password" name="contrasena" placeholder="Contraseña" required>
+            <input type="email" placeholder="Email">
+            <input type="password" placeholder="Contraseña">
+            <input type="passwordConfirm" placeholder="Confirmar contraseña">
+            <br>
+            <div class="g-recaptcha" name="g-recaptcha-response" data-sitekey="6Ld7OLopAAAAACh4r0jIvSXfR0K2YgYx1zFeYjRm"></div>
+            <br>
             <button type="submit">Registrar</button>
         </form>
-  
     </div>
     <div class="form-container sign-in-container">
         <form action="/src/db/login.php" method="POST">
@@ -35,31 +36,32 @@
             <div class="social-container">
                 <a href="#" class="social"><i class="fab fa-google"></i></a>
                 <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social"><i class="fa-brands fa-apple"></i></a>
             </div>
             <span>O usa tu email</span>
-            <input type="email" name="email" placeholder="Email">
-            <input type="password" name="password" placeholder="Contraseña">
+            <input type="email" placeholder="Email">
+            <input type="password" placeholder="Contraseña">
             <a href="#">¿Olvidaste tu contraseña?</a>
-            <button>Iniciar sesón</button>
+            <button>Iniciar sesión</button>
         </form>
     </div>
     <div class="overlay-container">
         <div class="overlay">
             <div class="overlay-panel overlay-left">
                 <h1>Bienvenido</h1>
-                <p>Ingresa sus datos para poder utilizar el sitio</p>
+                <p>Ingresa tus datos para poder utilizar el sitio</p>
                 <button class="ghost" id="signIn">Iniciar sesión</button>
+                <a href="/index.html" class="index-button">Inicio</a>
             </div>
             <div class="overlay-panel overlay-right">
                 <h1>Holi!</h1>
                 <p>Registrate para poder utilizar el sitio</p>
                 <button class="ghost" id="signUp">Registrarte</button>
+                <a href="/index.html" class="index-button">Inicio</a>
             </div>
         </div>
     </div>
 </div>
-    
-<script src="./assets/js/login.js" defer></script>
+<script src="assets/js/login.js"></script>
 </body>
 </html>

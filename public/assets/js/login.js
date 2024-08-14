@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             try {
-                const response = await fetch('/src/db/Pruebaborrar.php', {
+                const response = await fetch('/src/db/registro.php', {
                     method: 'POST',
                     body: formData
                 });
