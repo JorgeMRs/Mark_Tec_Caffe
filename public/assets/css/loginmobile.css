@@ -121,6 +121,54 @@ a.index-button:active {
     color: #fff;
     transform: scale(0.98);
 }
+.form-container form {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    padding: 0 50px;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.social-container {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.social-container a {
+    border: 1px solid #dddddd;
+    border-radius: 50%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 10px;
+    height: 40px;
+    width: 40px;
+}
+
+form h1 {
+    margin-bottom: 20px;
+    text-align: center;
+    width: 100%;
+    display: block;
+    white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+    font-size: 24px; /* Ajusta el tamaño de la fuente según sea necesario */
+}
+
+.form-container {
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+    form h1 {
+        font-size: 20px; /* Ajuste el tamaño de la fuente para pantallas más pequeñas */
+    }
+}
+
 
 /* Contenedor de la superposición */
 .overlay-container {
@@ -163,4 +211,22 @@ a.index-button:active {
         padding: 12px;
     }
 }
+/* Ocultar uno de los formularios por defecto */
+.sign-up-form {
+    display: none;
+}
+
+/* Mostrar el formulario activo */
+.active-form {
+    display: block;
+}
+.sign-up-form {
+    display: none;
+}
+
+/* Mostrar el formulario activo */
+.active-form {
+    display: block;
+}
+
 
