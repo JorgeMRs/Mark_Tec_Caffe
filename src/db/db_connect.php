@@ -1,9 +1,9 @@
 <?php
-require_once __DIR__ . '/../../vendor/autoload.php'; // Ajusta la ruta según la ubicación de tu archivo
+require_once '/../../vendor/autoload.php'; // Ajusta la ruta según la ubicación de tu archivo
 
 use Dotenv\Dotenv;
 
-$dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
+$dotenv = Dotenv::createImmutable('/../../');
 $dotenv->load();
 
 function getDbConnection() {

@@ -2,7 +2,7 @@
 header('Content-Type: application/json');
 $response = array();
 
-require_once __DIR__ . '/db_connect.php';
+require_once '/db_connect.php';
 
 try {
     $conn = getDbConnection();

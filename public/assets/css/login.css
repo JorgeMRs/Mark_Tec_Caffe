@@ -46,6 +46,7 @@ a {
     max-width: 100%;
     min-height: 480px;
     display: flex;
+    flex-direction: row; /* Asegura que el contenedor tenga una dirección de fila por defecto */
 }
 
 .form-container {
@@ -177,13 +178,16 @@ form {
 
 input {
     background-color: #f4f4f4;
-    border: none;
+    border: 2px solid transparent;
     padding: 12px 15px;
     margin: 8px 0;
     width: 100%;
     border-radius: 8px;
 }
-
+input:hover,
+input:focus {
+    border: 2px solid #b8860b; /* Cambia el color y grosor del borde cuando el ratón esté sobre el input */
+}
 button {
     border-radius: 20px;
     border: 1px solid #b8860b;
@@ -194,7 +198,7 @@ button {
     padding: 12px 45px;
     letter-spacing: 1px;
     text-transform: uppercase;
-    transition: transform 80ms ease-in;
+    transition: transform 0.3s ease-in;
 }
 
 button:active {
@@ -205,9 +209,13 @@ button:focus {
     outline: none;
 }
 
+
 button.ghost {
     background-color: transparent;
     border-color: #ffffff;
+}
+button.ghost:hover {
+    background-color:  rgba(255, 255, 255, 0.2);;
 }
 
 a.index-button {
@@ -222,7 +230,7 @@ a.index-button {
     font-size: 12px;
     font-weight: bold;
     text-align: center;
-    transition: transform 80ms ease-in;
+    transition: transform 0.3s ease-in;
 }
 
 a.index-button:hover {
