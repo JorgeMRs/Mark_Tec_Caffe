@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'luchito/mark_tec_caffe',
-        'pretty_version' => 'dev-main',
-        'version' => 'dev-main',
-        'reference' => '2ededd4a642e0cae2fdc5cd5d79dec8e63b03291',
+        'pretty_version' => 'dev-develop',
+        'version' => 'dev-develop',
+        'reference' => 'ae820fe27e36e772b759dfdec0987508da5401e6',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -20,9 +20,9 @@
             'dev_requirement' => false,
         ),
         'luchito/mark_tec_caffe' => array(
-            'pretty_version' => 'dev-main',
-            'version' => 'dev-main',
-            'reference' => '2ededd4a642e0cae2fdc5cd5d79dec8e63b03291',
+            'pretty_version' => 'dev-develop',
+            'version' => 'dev-develop',
+            'reference' => 'ae820fe27e36e772b759dfdec0987508da5401e6',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
