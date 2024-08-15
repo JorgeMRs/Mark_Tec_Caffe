@@ -4,6 +4,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,6 +16,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
     <link rel="icon" type="image/x-icon" href="/public/assets/img/icons/favicon.ico">
     <link rel="stylesheet" href="/public/assets/css/style.css">
 </head>
+
 <body>
     <header>
         <nav>
@@ -22,18 +24,18 @@ $isLoggedIn = isset($_SESSION['user_id']);
                 <img src="/public/assets/img/logo-removebg-preview.png" alt="Logo" class="logo-image">
                 <h1>Café Sabroso</h1>
             </div>
-            
-                <ul class="nav-links">
-                    <li><a href="/public/local.html">Locales</a></li>
-                    <li><a href="#">Productos</a></li>
-                    <li><a href="#">Ofertas</a></li>
-                    <li><a href="#">Reservas</a></li>
-                    <li><a href="/public/contactos.html">Contacto</a></li>
-                    <?php if ($isLoggedIn): ?>
+
+            <ul class="nav-links">
+                <li><a href="/public/local.html">Locales</a></li>
+                <li><a href="#">Productos</a></li>
+                <li><a href="#">Ofertas</a></li>
+                <li><a href="#">Reservas</a></li>
+                <li><a href="/public/contactos.html">Contacto</a></li>
+                <?php if ($isLoggedIn): ?>
                     <li><a href="/src/db/logout.php">Cerrar sesión</a></li>
                 <?php endif; ?>
-                    <li><a href="/public/login.html"><img src="/public/assets/img/image.png" alt="Usuario" class="user-icon"></a></li>         
-                </ul>
+                <li><a href="/public/login.html"><img src="/public/assets/img/image.png" alt="Usuario" class="user-icon"></a></li>
+            </ul>
         </nav>
         <div class="carousel-content">
             <h1>RECIEN HECHO, TODOS LOS DIAS</h1>
@@ -45,13 +47,13 @@ $isLoggedIn = isset($_SESSION['user_id']);
         </div>
         <div class="carousel">
             <div class="carousel-item active fade-in">
-                <img src="/public/assets/img/360_F_324543250_PZe6n442krQsG3rMsmgVnyLXzBQA2UHH.jpg" alt="Image 1">
+                <img src="/public/assets/img/kishore-v-tf7Y9kMhETg-unsplash.jpg" alt="Image 1">
             </div>
             <div class="carousel-item fade-out">
-                <img src="/public/assets/img/istockphoto-1428594094-612x612.jpg" alt="Image 2">
+                <img src="/public/assets/img/senya-mitin-PIy8Hrys8bQ-unsplash.jpg" alt="Image 2">
             </div>
             <div class="carousel-item fade-out">
-                <img src="/public/assets/img/UC8A1834.jpg" alt="Image 3">
+                <img src="/public/assets/img/hamza-nouasria-P2mIRmNIIPQ-unsplash.jpg" alt="Image 3">
             </div>
         </div>
         <div class="carousel-indicators">
@@ -64,9 +66,10 @@ $isLoggedIn = isset($_SESSION['user_id']);
         <!-- Otros contenidos de la página -->
     </main>
     <footer>
-        
+
         <!-- Pie de página -->
     </footer>
     <script src="/public/assets/js/nose.js"></script>
 </body>
+
 </html>
