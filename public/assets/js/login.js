@@ -25,10 +25,11 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(response => response.json())
         .then(data => {
-            const errorContainer = document.querySelector('#registroForm #error-container');
             if (data.status === 'success') {
-                window.location.href = data.redirect;
+                // Redirigir a index.php con el parámetro showModal
+                window.location.href = 'https://cafesabrosos.myvnc.com/index.php?showModal=true';
             } else {
+                const errorContainer = document.querySelector('#registroForm #error-container');
                 errorContainer.textContent = data.message;
             }
         })

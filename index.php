@@ -8,16 +8,87 @@ $isLoggedIn = isset($_SESSION['user_id']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cafe Sabrosos</title>
+    <title>Café Sabroso</title>
     <link rel="icon" type="image/png" sizes="16x16" href="/public/assets/img/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/public/assets/img/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="48x48" href="/public/assets/img/icons/favicon-48x48.png">
     <link rel="icon" type="image/png" sizes="48x48" href="/public/assets/img/icons/favicon-64x64.png">
     <link rel="icon" type="image/x-icon" href="/public/assets/img/icons/favicon.ico">
     <link rel="stylesheet" href="/public/assets/css/style.css">
+    <style>
+        .overlay {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9); /* Fondo gris claro con opacidad */
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Ancho del modal */
+            max-width: 500px; /* Ancho máximo del modal */
+            position: relative;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #B9860A; /* Color del botón de cerrar */
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            color: #d95b1d;
+        }
+
+        h2 {
+            color: #B9860A; /* Color del título */
+        }
+
+        .activationModal p {
+            color: #555;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+    </style>
 </head>
 
 <body>
+    <div id="overlay" class="overlay"></div>
+    <div id="activationModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2>¡Cuenta no activada!</h2>
+            <p>Tu cuenta aún no ha sido activada. Por favor, revisa tu correo electrónico y sigue el enlace para activar tu cuenta.</p>
+            <p>Si no has recibido el correo, verifica tu carpeta de spam.</p>
+        </div>
+    </div>
+
     <header>
         <nav>
             <div class="logo">
@@ -66,10 +137,40 @@ $isLoggedIn = isset($_SESSION['user_id']);
         <!-- Otros contenidos de la página -->
     </main>
     <footer>
-
         <!-- Pie de página -->
     </footer>
     <script src="/public/assets/js/nose.js"></script>
+    <script>
+  function closeModal() {
+        document.getElementById('activationModal').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+        
+        // Actualizar la URL para eliminar el parámetro 'showModal'
+        const url = new URL(window.location);
+        url.searchParams.delete('showModal');
+        window.history.pushState({}, '', url);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Verificar si la página fue redirigida con el parámetro 'showModal'
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('showModal')) {
+            const modal = document.getElementById('activationModal');
+            const overlay = document.getElementById('overlay');
+
+            // Mostrar el modal y la capa de fondo
+            modal.style.display = 'block';
+            overlay.style.display = 'block';
+
+            // Cerrar el modal si el usuario hace clic fuera del modal
+            window.onclick = function(event) {
+                if (event.target == overlay) {
+                    closeModal();
+                }
+            }
+        }
+    });
+    </script>
 </body>
 
 </html>

@@ -3,6 +3,7 @@ header('Content-Type: application/json');
 $response = array();
 
 require_once './db_connect.php';
+require_once '../email/verificationEmail.php'; // Archivo para funciones de envío de correo
 
 try {
     // Crear conexión
@@ -48,19 +49,29 @@ try {
         // Encriptar contraseña
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-        // Insertar en la base de datos
-        $sql = "INSERT INTO cliente (correo, contrasena, nombre, apellido) VALUES (?, ?, ?, ?)";
+        // Generar un token de verificación
+        $verificationToken = bin2hex(random_bytes(16)); // Genera un token de 32 caracteres en hexadecimal
+
+        // Insertar en la base de datos (sin activar la cuenta)
+        $sql = "INSERT INTO cliente (correo, contrasena, nombre, apellido, estado_activacion, token_verificacion) VALUES (?, ?, ?, ?, 0, ?)";
         $stmt = $conn->prepare($sql);
 
         if ($stmt) {
-            $stmt->bind_param("ssss", $email, $hashedPassword, $nombre, $apellido);
+            $stmt->bind_param("sssss", $email, $hashedPassword, $nombre, $apellido, $verificationToken);
 
             if ($stmt->execute()) {
-                session_start(); // Iniciar sesión
-                $_SESSION['user_id'] = $stmt->insert_id; // Guardar el ID del usuario en la sesión
-                $response['status'] = 'success';
-                $response['message'] = 'Datos insertados correctamente';
-                $response['redirect'] = '/index.php'; // Redirección a la página de inicio
+                // Enviar el correo de verificación
+                $verificationLink = "https://cafesabrosos.myvnc.com/public/registro.php?token=" . $verificationToken;
+                $emailSubject = "Verifica tu cuenta";
+                $emailBody = "Hola $nombre,\n\nPor favor, verifica tu cuenta haciendo clic en el siguiente enlace:\n$verificationLink\n\nGracias!";
+                
+                if (sendEmail($email, $emailSubject, $emailBody)) {
+                    $response['status'] = 'success';
+                    $response['redirect'] = 'https://cafesabrosos.myvnc.com/index.php'; // Redirige al usuario a index.php
+                } else {
+                    throw new Exception('No se pudo enviar el correo de verificación.');
+                }
+
             } else {
                 throw new Exception('Error al insertar datos: ' . $stmt->error);
             }
