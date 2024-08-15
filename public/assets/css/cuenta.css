@@ -1,0 +1,229 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4; /* Gris muy claro */
+    color: #333333; /* Gris oscuro */
+}
+
+header {
+    background-color: #DAA520; /* Dorado */
+    padding: 10px 0;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin: 0 auto;
+}
+
+nav .logo {
+    display: flex;
+    align-items: center; /* Alinea verticalmente el logo y el texto */
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    width: 60%;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+nav .logo img {
+    width: 70px;
+    height: 70px; /* Ajusta el tamaño del logo */
+    margin-right: 10px;
+}
+
+nav .menu {
+    display: flex;
+}
+
+nav .menu a {
+    color: #ffffff; /* Blanco */
+    margin: 0 15px;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+nav .menu a:hover {
+    text-decoration: underline;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    padding: 40px 0;
+}
+
+.profile-container {
+    background-color: #ffffff; /* Blanco */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.35); /* Negro con opacidad del 35% */
+    width: 90%;
+    max-width: 400px;
+}
+
+.profile-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #8B4513; /* Marrón */
+}
+
+.profile-info {
+    margin-bottom: 15px;
+}
+
+.profile-info .input-container {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.profile-info .input-container i {
+    position: absolute;
+    top: 50%;
+    right: 10px; /* Ajusta este valor según el espacio necesario */
+    transform: translateY(-50%);
+    color: #333333; /* Gris oscuro */
+}
+
+.profile-info input {
+    width: 90%;
+    padding: 10px 30px 10px 10px; /* Aumenta el padding a la izquierda para el ícono */
+    font-size: 16px;
+    border: none;
+    border-bottom: 1px solid #b8860b; /* Color oro oscuro */
+    background-color: transparent;
+    color: #8B4513; /* Marrón */
+}
+
+.profile-info input::placeholder {
+    color: #8B4513; /* Marrón */
+}
+
+.profile-info input:focus {
+    outline: none;
+    border-bottom: 2px solid #DAA520; /* Dorado */
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.action-buttons button {
+    width: 48%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.logout-btn {
+    background-color: #b8860b;
+    color: #ffffff; /* Blanco */
+}
+
+.logout-btn:hover {
+    background-color: #8B4513; /* Marrón */
+}
+
+.delete-btn {
+    background-color: #b8860b; /* Color oro oscuro */
+    color: #ffffff; /* Blanco */
+}
+
+.delete-btn:hover {
+    background-color: #8B4513; /* Marrón */
+}
+
+.save-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #b8860b; /* Color oro oscuro */
+    color: #ffffff; /* Blanco */
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.save-btn:hover {
+    background-color: #8B4513; /* Marrón */
+}
+
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #DAA520; /* Dorado */
+    color: #ffffff; /* Blanco */
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    nav .menu {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav .menu a {
+        margin: 5px 0;
+    }
+
+    .profile-container {
+        width: 100%;
+        max-width: none;
+        margin: 0 20px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav .logo {
+        margin-bottom: 10px;
+    }
+
+    .save-btn {
+        padding: 12px;
+        font-size: 18px;
+    }
+}
+
+/* Estilo para los campos de nombre y apellido */
+.name-fields {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.name-fields input[type="text"] {
+    width: 48%;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-bottom: 1px solid #b8860b; /* Color oro oscuro */
+    background-color: transparent;
+    color: #8B4513; /* Marrón */
+}
+
+.name-fields input[type="text"]::placeholder {
+    color: #8B4513; /* Marrón */
+}
+
+.name-fields input[type="text"]:focus {
+    outline: none;
+    border-bottom: 2px solid #DAA520; /* Dorado */
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración de Cuenta</title>
+    <link rel="stylesheet" href="../public/assets/css/cuenta.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="/public/assets/img/logo-removebg-preview.png" alt="Logo" class="logo-image">
+                <h1>Café Sabroso</h1>
+            </div>
+            <div class="menu">
+                <a href="/index.html">Inicio</a>
+                <a href="#">Pedidos</a>
+                <a href="#">Productos</a>
+                <a href="/public/contactos.html">Contacto</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="profile-container">
+            <h1>Configuración de Cuenta</h1>
+            <div class="profile-info">
+                <div class="name-fields">
+                    <input type="text" name="nombre" placeholder="Nombre:" maxlength="50" required>
+                    <input type="text" name="apellido" placeholder="Apellido:" maxlength="50" required>
+                </div>
+                <div class="input-container">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                    <input type="email" name="correo" id="correo" placeholder="Correo:">
+                </div>
+                <div class="input-container">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                    <input type="password" name="contraseña" id="password" placeholder="Contraseña:" maxlength="64">
+                </div>
+                
+                <input type="tel" name="telefono" id="telefono" placeholder="Telefono:">
+                <input type="date" id="cumpleaños">
+            </div>
+    
+            <button class="save-btn">Guardar Cambios</button>
+
+            <div class="action-buttons">
+                <button class="logout-btn">Cerrar Sesión</button>
+                <button class="delete-btn">Eliminar Cuenta</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Mi Perfil. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>
