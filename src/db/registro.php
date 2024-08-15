@@ -2,30 +2,38 @@
 header('Content-Type: application/json');
 $response = array();
 
-require_once __DIR__ . '/db_connect.php';
+require_once './db_connect.php';
 
 try {
+    // Crear conexión
     $conn = getDbConnection();
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Obtener datos del formulario
         $nombre = $_POST['nombre'] ?? '';
         $apellido = $_POST['apellido'] ?? '';
-        $correo = $_POST['correo'] ?? '';
-        $genero = $_POST['genero'] ?? '';
-        $telefono = $_POST['telefono'] ?? '';
-        $contrasena = $_POST['contrasena'] ?? '';
+        $email = $_POST['email'] ?? '';
+        $password = $_POST['password'] ?? '';
+        $passwordConfirm = $_POST['passwordConfirm'] ?? '';
 
         // Validar los datos
-        if (empty($nombre) || empty($apellido) || empty($correo) || empty($genero) || empty($telefono) || empty($contrasena)) {
+        if (empty($nombre) || empty($apellido) || empty($email) || empty($password) || empty($passwordConfirm)) {
             throw new Exception('Todos los campos son obligatorios.');
+        }
+
+        if ($password !== $passwordConfirm) {
+            throw new Exception('Las contraseñas no coinciden.');
+        }
+
+        if (strlen($password) < 8) {
+            throw new Exception('La contraseña debe tener al menos 8 caracteres.');
         }
 
         // Verificar si el correo ya está registrado
         $sql = "SELECT COUNT(*) as count FROM cliente WHERE correo = ?";
         $stmt = $conn->prepare($sql);
         if ($stmt) {
-            $stmt->bind_param("s", $correo);
+            $stmt->bind_param("s", $email);
             $stmt->execute();
             $result = $stmt->get_result();
             $row = $result->fetch_assoc();
@@ -38,18 +46,21 @@ try {
         }
 
         // Encriptar contraseña
-        $contrasena = password_hash($contrasena, PASSWORD_DEFAULT);
+        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
         // Insertar en la base de datos
-        $sql = "INSERT INTO cliente (correo, contrasena, nombre, apellido, genero, tel) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO cliente (correo, contrasena, nombre, apellido) VALUES (?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
 
         if ($stmt) {
-            $stmt->bind_param("ssssss", $correo, $contrasena, $nombre, $apellido, $genero, $telefono);
+            $stmt->bind_param("ssss", $email, $hashedPassword, $nombre, $apellido);
 
             if ($stmt->execute()) {
+                session_start(); // Iniciar sesión
+                $_SESSION['user_id'] = $stmt->insert_id; // Guardar el ID del usuario en la sesión
                 $response['status'] = 'success';
                 $response['message'] = 'Datos insertados correctamente';
+                $response['redirect'] = '/index.php'; // Redirección a la página de inicio
             } else {
                 throw new Exception('Error al insertar datos: ' . $stmt->error);
             }

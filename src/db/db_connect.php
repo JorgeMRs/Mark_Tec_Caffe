@@ -8,19 +8,18 @@ $dotenv->load();
 
 function getDbConnection() {
     $host = $_ENV['DB_HOST'];
-    $port = 3306;  // Puerto por defecto de MySQL
     $user = $_ENV['DB_USER'];
     $password = $_ENV['DB_PASS'];
     $database = $_ENV['DB_NAME'];
 
     // Crear conexión
-    $conn = new mysqli($host, $user, $password, $database, $port);
+    $mysqli = new mysqli($host, $user, $password, $database);
 
     // Verificar conexión
-    if ($conn->connect_error) {
-        throw new Exception('Error de conexión a la base de datos: ' . $conn->connect_error);
+    if ($mysqli->connect_error) {
+        throw new Exception('Error de conexión a la base de datos: ' . $mysqli->connect_error);
     }
 
-    return $conn;
+    return $mysqli;
 }
 ?>

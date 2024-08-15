@@ -1,9 +1,18 @@
+<?php
+session_start();
+$isLoggedIn = isset($_SESSION['user_id']);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coffee Blend</title>
+    <title>Cafe Sabrosos</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="/public/assets/img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/public/assets/img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/public/assets/img/icons/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/public/assets/img/icons/favicon-64x64.png">
+    <link rel="icon" type="image/x-icon" href="/public/assets/img/icons/favicon.ico">
     <link rel="stylesheet" href="/public/assets/css/style.css">
 </head>
 <body>
@@ -20,6 +29,9 @@
                     <li><a href="#">Ofertas</a></li>
                     <li><a href="#">Reservas</a></li>
                     <li><a href="/public/contactos.html">Contacto</a></li>
+                    <?php if ($isLoggedIn): ?>
+                    <li><a href="/src/db/logout.php">Cerrar sesión</a></li>
+                <?php endif; ?>
                     <li><a href="/public/login.html"><img src="/public/assets/img/image.png" alt="Usuario" class="user-icon"></a></li>         
                 </ul>
         </nav>
@@ -52,6 +64,7 @@
         <!-- Otros contenidos de la página -->
     </main>
     <footer>
+        
         <!-- Pie de página -->
     </footer>
     <script src="/public/assets/js/nose.js"></script>
