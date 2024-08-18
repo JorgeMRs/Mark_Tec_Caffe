@@ -10,15 +10,12 @@ try {
     $conn = getDbConnection();
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // Obtener datos del formulario
-        $nombre = $_POST['nombre'] ?? '';
-        $apellido = $_POST['apellido'] ?? '';
         $email = $_POST['email'] ?? '';
         $password = $_POST['password'] ?? '';
         $passwordConfirm = $_POST['passwordConfirm'] ?? '';
 
         // Validar los datos
-        if (empty($nombre) || empty($apellido) || empty($email) || empty($password) || empty($passwordConfirm)) {
+        if (empty($email) || empty($password) || empty($passwordConfirm)) {
             throw new Exception('Todos los campos son obligatorios.');
         }
 
@@ -53,7 +50,7 @@ try {
         $verificationToken = bin2hex(random_bytes(16)); // Genera un token de 32 caracteres en hexadecimal
 
         // Insertar en la base de datos (sin activar la cuenta)
-        $sql = "INSERT INTO cliente (correo, contrasena, nombre, apellido, estado_activacion, token_verificacion) VALUES (?, ?, ?, ?, 0, ?)";
+        $sql = "INSERT INTO cliente (correo, contrasena, estadoActivacion, tokenVerificacion) VALUES (?, ?, 0, ?)";
         $stmt = $conn->prepare($sql);
 
         if ($stmt) {
@@ -63,7 +60,7 @@ try {
                 // Enviar el correo de verificación
                 $verificationLink = "https://cafesabrosos.myvnc.com/public/registro.php?token=" . $verificationToken;
                 $emailSubject = "Verifica tu cuenta";
-                $emailBody = "Hola $nombre,\n\nPor favor, verifica tu cuenta haciendo clic en el siguiente enlace:\n$verificationLink\n\nGracias!";
+                $emailBody = getVerificationEmailBody($nombre, $verificationLink);
                 
                 if (sendEmail($email, $emailSubject, $emailBody)) {
                     $response['status'] = 'success';

@@ -21,5 +21,6 @@ function getDbConnection() {
     }
 
     return $mysqli;
+    
 }
 ?>

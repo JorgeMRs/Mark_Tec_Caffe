@@ -7,7 +7,7 @@ if ($token) {
     $conn = getDbConnection();
 
     // Verificar el token
-    $sql = "SELECT idCliente FROM cliente WHERE token_verificacion = ? AND estado_activacion = 0";
+    $sql = "SELECT idCliente FROM cliente WHERE tokenVerificacion = ? AND estadoActivacion = 0";
     $stmt = $conn->prepare($sql);
     if ($stmt) {
         $stmt->bind_param("s", $token);
@@ -15,10 +15,10 @@ if ($token) {
         $result = $stmt->get_result();
         if ($result->num_rows === 1) {
             // Activar la cuenta
-            $sql = "UPDATE cliente SET estado_activacion = 1, token_verificacion = NULL WHERE token_verificacion = ?";
+            $sql = "UPDATE cliente SET estadoActivacion = 1, tokenVerificacion = NULL WHERE tokenVerificacion = ?";
             $stmt = $conn->prepare($sql);
             if ($stmt) {
-                $stmt->bind_param("s", $token);
+                $stmt->bind_param("s", $token); // Aquí usamos "s" porque tokenVerificacion es varchar
                 if ($stmt->execute()) {
                     $message = "Cuenta activada exitosamente. Ahora puedes iniciar sesión.";
                 } else {
@@ -98,6 +98,21 @@ if ($token) {
         a:hover {
             text-decoration: underline;
         }
+        .btn-back {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #B9860A;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn-back:hover {
+            background-color: #d95b1d;
+        }
     </style>
 </head>
 <body>
@@ -109,6 +124,7 @@ if ($token) {
         <p>Gracias por registrarte en nuestro sitio. Se ha enviado un correo electrónico a la dirección que proporcionaste con un enlace para activar tu cuenta.</p>
         <p>Por favor, revisa tu bandeja de entrada y sigue las instrucciones en el correo para activar tu cuenta.</p>
         <p>Si no ves el correo en tu bandeja de entrada, revisa tu carpeta de spam o correo no deseado.</p>
+        <a href="/" class="btn-back">Volver a Inicio</a>
     </div>
     <div class="footer">
         <p>&copy; 2024 Café Sabrosos. Todos los derechos reservados.</p>

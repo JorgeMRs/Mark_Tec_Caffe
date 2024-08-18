@@ -19,7 +19,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
         .overlay {
             display: none;
             position: fixed;
-            z-index: 999;
+            z-index: 9998;
             left: 0;
             top: 0;
             width: 100%;
@@ -30,7 +30,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
         .modal {
             display: none;
             position: fixed;
-            z-index: 1000;
+            z-index: 9999;
             left: 0;
             top: 0;
             width: 100%;
@@ -67,11 +67,12 @@ $isLoggedIn = isset($_SESSION['user_id']);
         }
 
         h2 {
+            text-align: center;
             color: #B9860A; /* Color del título */
         }
 
-        .activationModal p {
-            color: #555;
+        .modal p {
+            color: #333;
             font-size: 16px;
             line-height: 1.6;
         }
@@ -104,8 +105,10 @@ $isLoggedIn = isset($_SESSION['user_id']);
                 <li><a href="/public/contactos.html">Contacto</a></li>
                 <?php if ($isLoggedIn): ?>
                     <li><a href="/src/db/logout.php">Cerrar sesión</a></li>
+                    <li><a href="/public/cuenta.php"><img src="/public/assets/img/image.png" alt="Usuario" class="user-icon"></a></li>
+                <?php else: ?>
+                    <li><a href="/public/login.html"><img src="/public/assets/img/image.png" alt="Usuario" class="user-icon"></a></li>
                 <?php endif; ?>
-                <li><a href="/public/login.html"><img src="/public/assets/img/image.png" alt="Usuario" class="user-icon"></a></li>
             </ul>
         </nav>
         <div class="carousel-content">
