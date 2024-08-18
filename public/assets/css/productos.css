@@ -26,7 +26,19 @@ header {
     height: 40px;
     margin: 0 5px;
 }
+.image-link {
+    display: block;
+    text-decoration: none; /* Elimina el subrayado del enlace */
+}
 
+.image-container {
+    cursor: pointer; /* Cambia el cursor para indicar que es clickeable */
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+}
 nav {
     display: flex;
     align-items: center; /* Alinea verticalmente los elementos */
@@ -194,15 +206,121 @@ nav ul li a:hover::after {
     padding: 2px 6px;
     font-size: 12px;
 }
-h1{
+.title-container {
+    text-align: center;
+    margin-bottom: 20px; /* Espacio debajo del título */
+    width: 100%; /* Asegura que el contenedor tenga el mismo ancho que el contenido principal */
+}
+.main-category-title {
     font-family: 'Poppins';
     font-weight: 700;
     text-align: center;
     font-size: 64px;
     color: #1E1E1E;
+    margin-bottom: 20px; /* Espacio debajo del título */
+    margin: 0; /* Sin margen izquierdo */
 }
 
+/* Contenedor principal para centrar el contenido en relación con el grid */
+.main-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra el contenido horizontalmente */
+}
+
+/* Main Content Layout */
+.content-container {
+    display: flex;
+    flex-direction: column;
+    margin: 20px auto;
+    max-width: 1200px;
+}
+
+/* Title Styles */
+h1 {
+    font-family: 'Poppins';
+    font-weight: 700;
+    text-align: center;
+    font-size: 64px;
+    color: #1E1E1E;
+    margin-bottom: 20px; /* Espacio debajo del título */
+    margin: 0;
+    margin-left: 30vh;
+}
+
+/* Main Content Layout */
+.main-content {
+    display: flex;
+    width: 100%;
+}
+
+/* Sidebar Styles */
+/* Sidebar Styles */
+.sidebar {
+    width: 20%;
+    background-color: #ffffff; /* Blanco */
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-right: 20px;
+}
+
+.sidebar h2 {
+    font-family: 'Poppins';
+    font-weight: 700;
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+    justify-content: center;
+}
+
+/* Category Item Styles */
+.category-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.category-item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.category-item p {
+    font-family: 'Poppins';
+    font-size: 24px;
+    color: #333;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Hover Effect for Category Items */
+.category-item:hover {
+    background-color: #F2C960; /* Fondo dorado al pasar el mouse */
+    color: #ffffff; /* Color de texto blanco para mejor contraste */
+}
+
+/* Highlight Selected Category */
+.category-item.selected {
+    background-color: #F2C960; /* Fondo dorado para la categoría seleccionada */
+    color: #ffffff; /* Color de texto blanco para mejor contraste */
+}
+
+/* Main Content Layout */
+.main-content {
+    display: flex;
+    margin: 0 auto; /* Centra el contenido principal */
+}
+
+/* Product Grid Styles */
 .product-grid {
+    flex: 1;
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 3 columnas de igual tamaño */
     gap: 20px; /* Espacio entre los elementos */
@@ -251,7 +369,7 @@ h1{
 /* Footer Styles */
 footer {
     background-color: #DAA520; /* Dorado */
-    color: #8B4513;
+    color: #1B0D0B;
     text-align: center;
 }
 
@@ -292,7 +410,7 @@ footer {
 }
 
 .footer-section ul li a {
-    color: #8B4513;
+    color: #1B0D0B;
     text-decoration: none;
     transition: color 0.3s ease;
 }
@@ -308,7 +426,7 @@ footer {
 }
 
 .socials a {
-    color: #8B4513;
+    color: #1B0D0B;
     margin: 0 10px;
     font-size: 20px;
     transition: color 0.3s ease;
@@ -319,7 +437,7 @@ footer {
 }
 
 .footer-bottom {
-    background-color: #8B4513; /* Marrón oscuro */
+    background-color: #1B0D0B; /* Marrón oscuro */
     padding: 20px 0;
     width: 100%;
     font-family: 'Poppins';

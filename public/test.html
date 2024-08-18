@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        /* Basic Styling */
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px;
+            display: flex;
+        }
+
+        /* Columns */
+        .left-column {
+            width: 65%;
+            position: relative;
+        }
+
+        .right-column {
+            width: 35%;
+            margin-top: 60px;
+        }
+
+        /* Left Column */
+        .left-column img {
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .left-column img.active {
+            opacity: 1;
+        }
+
+        /* Product Description */
+        .product-description {
+            border-bottom: 1px solid #E1E8EE;
+            margin-bottom: 20px;
+        }
+
+        .product-description span {
+            font-size: 12px;
+            color: #358ED7;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+
+        .product-description h1 {
+            font-weight: 300;
+            font-size: 52px;
+            color: #43484D;
+            letter-spacing: -2px;
+        }
+
+        .product-description p {
+            font-size: 16px;
+            font-weight: 300;
+            color: #86939E;
+            line-height: 24px;
+        }
+        /* Product Color */
+.product-color {
+  margin-bottom: 30px;
+}
+ 
+ 
+
+/* Product Price */
+.product-price {
+  display: flex;
+  align-items: center;
+}
+ 
+.product-price span {
+  font-size: 26px;
+  font-weight: 300;
+  color: #43474D;
+  margin-right: 20px;
+}
+ 
+.cart-btn {
+  display: inline-block;
+  background-color: #7DC855;
+  border-radius: 6px;
+  font-size: 16px;
+  color: #FFFFFF;
+  text-decoration: none;
+  padding: 12px 30px;
+  transition: all .5s;
+}
+.cart-btn:hover {
+  background-color: #64af3d;
+}
+    </style>
+    <main class="container">
+
+        <!-- Left Column / Imagen del cafe -->
+        <div class="left-column">
+            <img data-image="black" src="images/black.png" alt="">
+        </div>
+
+
+        <!-- Right Column -->
+        <div class="right-column">
+
+            <!-- Product Description -->
+            <div class="product-description">
+                 <span>Cafés Especiales</span> <!--Aqui iria la categoria del producto -->
+                <h1>Beats EP</h1>
+                <p>The preferred choice of a vast range of acclaimed DJs. Punchy, bass-focused sound and high isolation.
+                    Sturdy headband and on-ear cushions suitable for live performance</p>
+            </div>
+
+            <!-- Product Pricing -->
+            <div class="product-price">
+                <span>148$</span>
+                <a href="#" class="cart-btn">Add to cart</a>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
