@@ -6,7 +6,11 @@ use Dotenv\Dotenv;
 $dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
 $dotenv->load();
 
-function getDbConnection() {
+/**
+ * @throws Exception
+ */
+function getDbConnection(): mysqli
+{
     $host = $_ENV['DB_HOST'];
     $user = $_ENV['DB_USER'];
     $password = $_ENV['DB_PASS'];
@@ -23,4 +27,3 @@ function getDbConnection() {
     return $mysqli;
     
 }
-?>

@@ -4,7 +4,11 @@ require_once '../src/db/db_connect.php';
 $token = $_GET['token'] ?? '';
 
 if ($token) {
-    $conn = getDbConnection();
+    try {
+        $conn = getDbConnection();
+    } catch (Exception $e) {
+
+    }
 
     // Verificar el token
     $sql = "SELECT idCliente FROM cliente WHERE tokenVerificacion = ? AND estadoActivacion = 0";

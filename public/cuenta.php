@@ -1,6 +1,8 @@
 <?php
 session_start();
 require '../src/db/db_connect.php';
+require '../src/uploads/avatarUpload.php';
+require '../src/uploads/avatarDelete.php';
 
 // Verificar si el usuario está autenticado
 if (!isset($_SESSION['user_id'])) {
@@ -11,18 +13,37 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 $conn = getDbConnection();
 
-// Inicializa variables
 $successMessage = '';
+$errorMessage = '';
 $nombre = '';
 $apellido = '';
 $telefono = '';
 $fechaNacimiento = '';
 $correo = '';
 $contraseña = '';
-$errorMessage = '';
+$avatar = '';
 
 try {
+    
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // Procesar subida del avatar
+        if (isset($_FILES['avatar'])) {
+            $avatarUploadMessage = uploadAvatar($user_id, $_FILES['avatar'], $conn);
+            if (strpos($avatarUploadMessage, 'Error') !== false) {
+                $errorMessage = $avatarUploadMessage;
+            } else {
+                $successMessage = $avatarUploadMessage;
+            }
+        }
+        // Procesar eliminación del avatar
+        if (isset($_POST['deleteAvatar']) && $_POST['deleteAvatar'] === 'true') {
+            $deleteAvatarMessage = deleteAvatar($user_id, $conn);
+            if (str_contains($deleteAvatarMessage, 'Error')) {
+                $errorMessage = $deleteAvatarMessage;
+            } else {
+                $successMessage = $deleteAvatarMessage;
+            }
+        }
         // Obtener datos del formulario
         $correo = $_POST['correo'] ?? '';
         $nombre = $_POST['nombre'] ?? '';
@@ -47,9 +68,8 @@ try {
             if ($stmtCheckPassword->execute()) {
                 $stmtCheckPassword->bind_result($hashedPassword);
                 if ($stmtCheckPassword->fetch()) {
-                    // Verificar la contraseña ingresada
                     if (password_verify($contraseña, $hashedPassword)) {
-                        $stmtCheckPassword->close(); // Cerrar la declaración anterior
+                        $stmtCheckPassword->close();
 
                         // Actualizar datos
                         $sqlUpdate = "UPDATE cliente SET nombre=?, apellido=?, tel=?, fechaNacimiento=?, correo=? WHERE idCliente=?";
@@ -63,7 +83,6 @@ try {
                             } else {
                                 $errorMessage = "Error actualizando los datos: " . $stmtUpdate->error;
                             }
-
                             $stmtUpdate->close();
                         } else {
                             $errorMessage = "Error preparando la consulta de actualización: " . $conn->error;
@@ -84,12 +103,12 @@ try {
     }
 
     // Recuperar la información del usuario
-    $sql = "SELECT nombre, apellido, tel, fechaNacimiento, correo FROM cliente WHERE idCliente=?";
+    $sql = "SELECT nombre, apellido, tel, fechaNacimiento, correo, avatar FROM cliente WHERE idCliente=?";
     if ($stmt = $conn->prepare($sql)) {
         $stmt->bind_param("i", $user_id);
-        
+
         if ($stmt->execute()) {
-            $stmt->bind_result($nombre, $apellido, $telefono, $fechaNacimiento, $correo);
+            $stmt->bind_result($nombre, $apellido, $telefono, $fechaNacimiento, $correo, $avatar);
             if ($stmt->fetch()) {
                 // Datos ya están disponibles en las variables
             } else {
@@ -105,12 +124,10 @@ try {
 
     $conn->close();
 
-    // Obtener el mensaje de éxito y borrarlo de la sesión
     if (isset($_SESSION['successMessage'])) {
         $successMessage = $_SESSION['successMessage'];
         unset($_SESSION['successMessage']);
     }
-
 } catch (Exception $e) {
     $errorMessage = 'Excepción capturada: ' . $e->getMessage();
 }
@@ -118,6 +135,7 @@ try {
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -125,6 +143,7 @@ try {
     <link rel="stylesheet" href="../public/assets/css/cuenta.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
+
 <body>
     <header>
         <nav>
@@ -143,8 +162,24 @@ try {
     <main>
         <section class="profile-container">
             <h1>Configuración de Cuenta</h1>
-            <form action="cuenta.php" method="POST">
+            <form action="cuenta.php" method="POST" enctype="multipart/form-data">
                 <div class="profile-info">
+                    <!-- Sección para el avatar -->
+                    <div class="avatar-section">
+                        <label for="avatar" class="avatar-label">Foto de Perfil:</label>
+                        <div class="avatar-preview">
+                            <img src="<?php echo isset($avatar) ? '/public/assets/img/avatars/' . htmlspecialchars($avatar) . '?t=' . time() : '/public/assets/img/user-circle-svgrepo-com.svg'; ?>" alt="Avatar" class="avatar-image">
+                        </div>
+                        <input type="file" name="avatar" id="avatar" accept="image/*">
+                        <?php if (!empty($avatar)): ?>
+                            <!-- Formulario para eliminar el avatar, mostrado solo si hay avatar -->
+                            <form action="cuenta.php" method="POST" style="display:inline;">
+                                <input type="hidden" name="deleteAvatar" value="true">
+                                <button type="submit" class="delete-avatar-btn">Eliminar Avatar</button>
+                            </form>
+                        <?php endif; ?>
+                    </div>
+                    <!-- Resto del formulario... -->
                     <div class="name-fields">
                         <input type="text" name="nombre" placeholder="Nombre:" maxlength="50" required value="<?php echo htmlspecialchars($nombre); ?>">
                         <input type="text" name="apellido" placeholder="Apellido:" maxlength="50" required value="<?php echo htmlspecialchars($apellido); ?>">
@@ -158,21 +193,25 @@ try {
                         <input type="password" name="contraseña" id="password" placeholder="Contraseña:" maxlength="64" required>
                     </div>
                     <input type="tel" name="telefono" id="telefono" placeholder="Teléfono:" maxlength="9" value="<?php echo htmlspecialchars($telefono); ?>">
-                    <input type="date" name="fechaNacimiento" id="cumpleaños" 
-                           <?php echo isset($fechaNacimiento) && $fechaNacimiento ? 'readonly' : ''; ?> 
-                           value="<?php echo htmlspecialchars($fechaNacimiento); ?>">
+                    <input type="date" name="fechaNacimiento" id="cumpleaños"
+                        <?php echo isset($fechaNacimiento) && $fechaNacimiento ? 'readonly' : ''; ?>
+                        value="<?php echo htmlspecialchars($fechaNacimiento); ?>">
                 </div>
                 <button type="submit" class="save-btn">Guardar Cambios</button>
             </form>
             <div class="action-buttons">
-                <button class="logout-btn">Cerrar Sesión</button>
-                <button class="delete-btn">Eliminar Cuenta</button>
+                <form action="/src/db/logout.php" method="POST" class="logout-form">
+                    <button type="submit" class="logout-btn">Cerrar Sesión</button>
+                </form>
+                <form action="">
+                    <button class="delete-btn">Eliminar Cuenta</button>
+                </form>
             </div>
             <?php if ($errorMessage): ?>
-            <div class="error-message"><?php echo htmlspecialchars($errorMessage); ?></div>
+                <div class="error-message"><?php echo htmlspecialchars($errorMessage); ?></div>
             <?php endif; ?>
             <?php if ($successMessage): ?>
-            <div class="success-message"><?php echo htmlspecialchars($successMessage); ?></div>
+                <div class="success-message"><?php echo htmlspecialchars($successMessage); ?></div>
             <?php endif; ?>
         </section>
     </main>
@@ -180,4 +219,5 @@ try {
         <p>&copy; 2024 Mi Perfil. Todos los derechos reservados.</p>
     </footer>
 </body>
+
 </html>

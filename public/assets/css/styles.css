@@ -1,18 +1,19 @@
-/* Estilos generales */
-body, html {
+/* General styles */
+body {
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
-    background: #1e0e03; /* Fondo claro para contraste */
-    color: #000000; /* Color de texto oscuro para mejor legibilidad */
+    background: #141414; /* Color de fondo más neutro */
+    color: #e0e0e0; /* Color de texto más claro */
     line-height: 1.6;
     min-height: 100vh;
 }
 
 /* Header styles */
 header {
-    background-color: rgba(255, 255, 255, 0.1); /* Fondo blanco semi-transparente */
-    backdrop-filter: blur(10px); /* Efecto borroso */
-    color: black; 
+    background-color: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    color: white;
     padding: 1rem;
     position: relative;
     width: 100%;
@@ -27,7 +28,7 @@ header {
 }
 
 header:hover {
-    background-color: rgba(255, 255, 255, 0.2); /* Aumentar la opacidad en hover */
+    background-color: rgba(0, 0, 0, 0.95);
 }
 
 .header-content {
@@ -59,8 +60,8 @@ header:hover {
     margin: 0;
     font-size: 24px;
     font-weight: bold;
-    color: #ffd700; /* Dorado para el texto */
-    background: linear-gradient(45deg, #d4af37, #f5e1a4); /* Degradado dorado */
+    color: #FFD700; /* Color dorado suave para el texto */
+    background: linear-gradient(45deg, #fff, #ffcc00); /* Degradado dorado */
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -76,7 +77,7 @@ nav ul li {
 }
 
 nav ul li a {
-    color: #fff; /* Color blanco para los enlaces */
+    color: white;
     text-decoration: none;
     font-weight: 500;
     transition: all 0.3s ease;
@@ -90,7 +91,7 @@ nav ul li a::after {
     height: 2px;
     bottom: -5px;
     left: 0;
-    background-color: #ffd700; /* Dorado para el subrayado */
+    background-color: #ffcc00; /* Color dorado suave para el subrayado */
     transform: scaleX(0);
     transition: transform 0.3s ease;
 }
@@ -104,9 +105,9 @@ nav ul li a:hover::after {
     max-width: 800px;
     margin: 6rem auto 3rem;
     padding: 3rem;
-    background-color: #e5d8b7; /* Marrón claro para contraste */
+    background-color: #2e2e2e; /* Fondo gris oscuro para contraste */
     border-radius: 20px;
-    box-shadow: 0 15px 30px #ffba81;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(10px);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -117,20 +118,27 @@ nav ul li a:hover::after {
 }
 
 .contactos h1 {
-    color: #ffd700; /* Dorado para los títulos */
+    color: #ffd700; /* Dorado suave para los títulos */
     text-align: center;
     font-size: 2.8rem;
     margin-bottom: 1.5rem;
+    position: relative;
 }
 
-.content-contacto h1, .content-contacto p {
-    color: #333; /* Marrón oscuro para el texto */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+.contactos h1::after {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(45deg, #555, #777); /* Degradado gris suave */
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .contactos p {
     text-align: center;
-    color: #8b4513; /* Marrón claro para el texto */
+    color: #d0d0d0; /* Gris claro para el texto */
     margin-bottom: 2rem;
     font-size: 1.1rem;
 }
@@ -143,14 +151,14 @@ nav ul li a:hover::after {
     border-radius: 10px;
     font-size: 1rem;
     transition: all 0.3s ease;
-    background-color: #f4e1d2; /* Marrón claro para los campos de entrada */
-    color: #333; /* Marrón oscuro para el texto */
+    background-color: #3a3a3a; /* Gris oscuro para los campos de entrada */
+    color: #eee;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .feedback-input:focus {
     outline: none;
-    background-color: #d8c4a6; /* Marrón más claro al enfocar */
+    background-color: #4a4a4a; /* Gris más claro al enfocar */
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 }
 
@@ -160,8 +168,8 @@ textarea.feedback-input {
 }
 
 input[type="submit"] {
-    background: linear-gradient(45deg, #8b4513, #ffd700); /* Degradado marrón a dorado para el botón */
-    color: #fff;
+    background: linear-gradient(45deg, #444, #222);
+    color: white;
     border: none;
     padding: 15px 30px;
     border-radius: 50px;
@@ -174,7 +182,7 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-    background: linear-gradient(45deg, #ffd700, #8b4513); /* Invertir degradado en hover */
+    background: linear-gradient(45deg, #222, #444);
     transform: translateY(-3px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
@@ -198,13 +206,13 @@ input[type="submit"]:hover {
 }
 
 .social-icons a {
-    color: #8b4513; /* Marrón oscuro para los íconos sociales */
+    color: #e0e0e0;
     font-size: 28px;
     transition: all 0.3s ease;
 }
 
 .social-icons a:hover {
-    color: #ffd700; /* Dorado para hover */
+    color: #b0b0b0;
     transform: translateY(-5px);
 }
 
@@ -221,8 +229,8 @@ input[type="submit"]:hover {
 }
 
 .modal {
-    background-color: #4b3621; /* Marrón oscuro para el modal */
-    color: #e0e0e0;
+    background-color: #222; /* Fondo del modal más oscuro */
+    color: #eee;
     padding: 3rem;
     border-radius: 20px;
     position: absolute;
@@ -246,8 +254,8 @@ input[type="submit"]:hover {
 }
 
 #close-modal {
-    background: linear-gradient(45deg, #8b4513, #ffd700); /* Degradado marrón a dorado para el botón de cerrar modal */
-    color: #fff;
+    background: linear-gradient(45deg, #444, #222);
+    color: white;
     border: none;
     padding: 12px 25px;
     border-radius: 50px;
@@ -260,15 +268,15 @@ input[type="submit"]:hover {
 }
 
 #close-modal:hover {
-    background: linear-gradient(45deg, #ffd700, #8b4513); /* Invertir degradado en hover */
+    background: linear-gradient(45deg, #222, #444);
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 }
 
 /* Main section styles */
 main {
-    background-color: #d8c4a6; /* Marrón claro para contraste */
-    color: #333; /* Marrón oscuro para el texto */
+    background-color: #1e1e1e; /* Color oscuro para contraste */
+    color: #e0e0e0; /* Color de texto claro */
     padding: 2rem;
     border-radius: 15px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
@@ -276,19 +284,19 @@ main {
 }
 
 main h2 {
-    color: #ffd700; /* Dorado para los títulos */
+    color: #f5a623; /* Dorado suave para los títulos */
     font-size: 2rem;
     margin-bottom: 1rem;
 }
 
 main p {
-    color: #8b4513; /* Marrón oscuro para el texto */
+    color: #d0d0d0; /* Gris claro para el texto */
     line-height: 1.6;
     font-size: 1.1rem;
 }
 
 button.main-btn {
-    background: linear-gradient(45deg, #8b4513, #ffd700); /* Degradado marrón a dorado para los botones */
+    background: linear-gradient(45deg, #333, #555); /* Degradado oscuro para los botones */
     color: #fff;
     border: none;
     padding: 12px 25px;
@@ -300,68 +308,20 @@ button.main-btn {
 }
 
 button.main-btn:hover {
-    background: linear-gradient(45deg, #ffd700, #8b4513); /* Invertir degradado en hover */
+    background: linear-gradient(45deg, #555, #333); /* Invertir degradado en hover */
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
 }
 
 /* Responsive design */
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
     .header-content {
         flex-direction: column;
         align-items: flex-start; /* Align to the left */
     }
 
     .logo h1 {
-        font-size: 2rem; /* Reduce font size on medium screens */
-    }
-
-    nav ul {
-        flex-direction: column; /* Change to column on medium screens */
-        align-items: center; /* Center items */
-        margin-top: 1rem;
-    }
-
-    nav ul li {
-        margin: 0.5rem 0; /* Vertical spacing between links */
-    }
-
-    .contactos {
-        padding: 2rem;
-        margin: 5rem 1rem 2rem;
-    }
-
-    .contactos h1 {
-        font-size: 2.2rem; /* Reduce title size on medium screens */
-    }
-
-    .contactos p {
-        font-size: 1rem; /* Reduce text size on medium screens */
-    }
-
-    .feedback-input {
-        padding: 12px; /* Reduce padding on medium screens */
-        font-size: 0.9rem; /* Reduce font size on medium screens */
-    }
-
-    input[type="submit"] {
-        padding: 12px 20px; /* Reduce padding on medium screens */
-        font-size: 1rem; /* Reduce font size on medium screens */
-    }
-
-    .social-icons a {
-        font-size: 24px; /* Reduce icon size on medium screens */
-    }
-}
-
-@media (max-width: 768px) {
-    .header-content {
-        flex-direction: column;
-        align-items: center; /* Center items on small screens */
-    }
-
-    .logo h1 {
-        font-size: 1.5rem; /* Further reduce font size on small screens */
+        font-size: 1.5rem; /* Reduce font size on small screens */
     }
 
     nav ul {
@@ -380,24 +340,24 @@ button.main-btn:hover {
     }
 
     .contactos h1 {
-        font-size: 1.8rem; /* Further reduce title size on small screens */
+        font-size: 2rem; /* Reduce title size on small screens */
     }
 
     .contactos p {
-        font-size: 0.9rem; /* Further reduce text size on small screens */
+        font-size: 1rem; /* Reduce text size on small screens */
     }
 
     .feedback-input {
-        padding: 10px; /* Further reduce padding on small screens */
-        font-size: 0.8rem; /* Further reduce font size on small screens */
+        padding: 12px; /* Reduce padding on small screens */
+        font-size: 0.9rem; /* Reduce font size on small screens */
     }
 
     input[type="submit"] {
-        padding: 10px 20px; /* Further reduce padding on small screens */
-        font-size: 0.9rem; /* Further reduce font size on small screens */
+        padding: 12px 20px; /* Reduce padding on small screens */
+        font-size: 1rem; /* Reduce font size on small screens */
     }
 
     .social-icons a {
-        font-size: 20px; /* Further reduce icon size on small screens */
+        font-size: 24px; /* Reduce icon size on small screens */
     }
 }

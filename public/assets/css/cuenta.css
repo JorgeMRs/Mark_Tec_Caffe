@@ -133,24 +133,37 @@ main {
     color: #333333; /* Gris oscuro */
 }
 
-.action-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-}
-
-.action-buttons button {
-    width: 48%;
-    padding: 10px;
+/* Botones generales */
+button {
+    width: 100%;
+    padding: 12px;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
     text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+button:hover {
+    background-color: #8B4513; /* Marrón */
+    color: #ffffff; /* Blanco */
+}
+
+/* Botón de guardar cambios */
+.save-btn {
+    background-color: #b8860b; /* Color oro oscuro */
+    color: #ffffff; /* Blanco */
+}
+
+.save-btn:hover {
+    background-color: #8B4513; /* Marrón */
+}
+
+/* Botón de cerrar sesión */
 .logout-btn {
-    background-color: #b8860b;
+    background-color: #b8860b; /* Color oro oscuro */
     color: #ffffff; /* Blanco */
 }
 
@@ -158,6 +171,7 @@ main {
     background-color: #8B4513; /* Marrón */
 }
 
+/* Botón de eliminar cuenta */
 .delete-btn {
     background-color: #b8860b; /* Color oro oscuro */
     color: #ffffff; /* Blanco */
@@ -167,20 +181,36 @@ main {
     background-color: #8B4513; /* Marrón */
 }
 
-.save-btn {
+/* Botones de acción en la sección de perfil */
+.action-buttons {
+    margin-top: 2vh;
+    display: flex;
+    justify-content: space-between; /* Distribuye el espacio entre los botones */
     width: 100%;
-    padding: 10px;
-    background-color: #b8860b; /* Color oro oscuro */
-    color: #ffffff; /* Blanco */
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    text-align: center;
-    margin-top: 30px;
 }
 
-.save-btn:hover {
+.action-buttons form {
+    width: 48%; /* Ajusta el ancho de los formularios */
+    margin: 0; /* Elimina el margen predeterminado */
+}
+
+.action-buttons button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.action-buttons .logout-btn,
+.action-buttons .delete-btn {
+    background-color: #b8860b; /* Color oro oscuro */
+    color: #ffffff; /* Blanco */
+}
+
+.action-buttons .logout-btn:hover,
+.action-buttons .delete-btn:hover {
     background-color: #8B4513; /* Marrón */
 }
 
@@ -275,4 +305,33 @@ footer {
     font-size: 16px;
     text-align: center;
     transition: opacity 0.6s ease;
+}
+
+.avatar-section {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.avatar-label {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #8B4513; /* Marrón */
+}
+
+.avatar-preview {
+    margin-bottom: 10px;
+}
+
+.avatar-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #b8860b; /* Color oro oscuro */
+}
+
+input[type="file"] {
+    display: block;
+    margin: 0 auto;
 }

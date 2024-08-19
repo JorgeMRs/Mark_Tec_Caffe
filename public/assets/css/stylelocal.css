@@ -1,0 +1,305 @@
+:root {
+    --primary-color: #b8860b;
+    --secondary-color: #1e3a8a;
+    --background-color: #0f172a;
+    --text-color: #e2e8f0;
+    --accent-color: #b8860b;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  
+  header {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.85));
+    padding: 1rem;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo-image {
+    width: 60px;
+    height: auto;
+    margin-right: 1rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .logo-image:hover {
+    transform: rotate(360deg);
+  }
+  
+  .logo h1 {
+    font-family: 'Playfair Display', serif;
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+    background: linear-gradient(45deg, #fff, var(--primary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  /* General styles for nav */
+  nav ul {
+    list-style-type: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+  }
+  
+  nav ul li {
+    margin-left: 1.5rem;
+  }
+  
+  nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  
+  nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #ffcc00;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+  
+  nav ul li a:hover::after {
+    transform: scaleX(1);
+  }
+  /* Add this to your existing CSS */
+
+  .user-icon {
+    width: 40px;
+    height: 40px;
+    margin: 0 5px;
+    height: auto;
+    display: inline-block;
+    vertical-align: middle;
+    transition: opacity 0.3s ease;
+}
+
+nav ul li a img.user-icon {
+    margin-left: 0.5rem; /* Adjust spacing if needed */
+}
+
+nav ul li a:hover img.user-icon {
+    opacity: 0.7; /* Add a hover effect if desired */
+}
+
+  .fa-user-circle {
+    font-size: 24px;
+    color: var(--primary-color);
+    transition: color 0.3s ease;
+  }
+  
+  .fa-user-circle:hover {
+    color: var(--accent-color);
+  }
+  
+  .hero {
+    background-image: url('/assets/img/hero-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 25vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    margin-top: 80px;
+  }
+  
+  .hero h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  .hero p {
+    font-size: 1.5rem;
+    max-width: 600px;
+    color: var(--text-color);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  }
+  
+  .mapa-world {
+    margin: 4rem auto;
+    max-width: 1200px;
+  }
+  
+  .map-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+  
+  .map-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  .pin {
+    position: absolute;
+    cursor: pointer;
+  }
+  
+  .pin-dot {
+    display: block;
+    width: 12px;
+    height: 12px;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    box-shadow: 0 0 0 rgba(184, 134, 11, 0.4);
+    animation: pulse 2s infinite;
+  }
+  
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(184, 134, 11, 0.4);
+    }
+    70% {
+      box-shadow: 0 0 0 10px rgba(184, 134, 11, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(184, 134, 11, 0);
+    }
+  }
+  
+  .pin::after {
+    content: attr(data-country);
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: var(--text-color);
+    padding: 5px 10px;
+    border-radius: 5px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+  }
+  
+  .pin:hover::after {
+    opacity: 1;
+  }
+  
+  .pin.francia { left: 46.8%; top: 45%; }
+  .pin.alemania { left: 50.8%; top: 42%; }
+  .pin.portugal { left: 43.8%; top: 50%; }
+  
+  .locations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .location-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .location-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .location-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .location-card h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--primary-color);
+    padding: 1rem;
+    margin: 0;
+  }
+  
+  .location-card p {
+    padding: 0 1rem 1rem;
+    color: var(--text-color);
+  }
+  
+  footer {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: var(--text-color);
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+  }
+  
+  @media (max-width: 768px) {
+    .header-content {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    nav ul {
+      flex-direction: column;
+      align-items: center;
+      margin-top: 1rem;
+    }
+  
+    nav ul li {
+      margin: 0.5rem 0;
+    }
+  
+    .hero h2 {
+      font-size: 3rem;
+    }
+  
+    .hero p {
+      font-size: 1.2rem;
+    }
+  
+    .locations-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
