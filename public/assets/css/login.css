@@ -37,9 +37,9 @@ a {
 }
 
 .container {
-    background-color: #ffffff; /* Blanco */
+    background-color: #ffffff;
     border-radius: 30px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35); /* Sombra con negro */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
     position: relative;
     overflow: hidden;
     width: 100vh;
@@ -166,7 +166,7 @@ a {
 }
 
 form {
-    background-color: #ffffff; /* Blanco */
+    background-color: #ffffff;
     display: flex;
     flex-direction: column;
     padding: 0 50px;

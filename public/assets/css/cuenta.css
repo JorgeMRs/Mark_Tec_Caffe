@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 body {
     display: flex;
     flex-direction: column;
@@ -6,74 +7,242 @@ body {
     padding: 0;
     background-color: #f4f4f4; /* Gris muy claro */
     color: #333333; /* Gris oscuro */
-    font-family: Arial, sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
 
+/* Header Styles */
 header {
-    background-color: #DAA520; /* Dorado */
-    padding: 10px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+
+.image-link {
+    display: block;
+    text-decoration: none; /* Elimina el subrayado del enlace */
+}
+
+.image-container {
+    cursor: pointer; /* Cambia el cursor para indicar que es clickeable */
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+}
+.user-icon {
+    width: 40px;
+    height: 40px;
+    margin: 0 5px;
+}
+
+.header-content {
+    position: absolute;
+    top: 37%;
+    right: 18%;
+    transform: translateY(-50%);
+    text-align: center;
+}
+
+.header-content .top-subtitle {
+    font-family: 'Poppins';
+    font-weight: 700;
+    font-size: 32px;
+    color: #DAA520;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.header-content .subtitle {
+    font-family: 'Poppins';
+    font-weight: 700;
+    font-size: 36px;
+    color: white;
+    margin: 10px 0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.header-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.header-buttons .btn {
+    font-family: 'Poppins';
+    font-weight: 600;
+    display: inline-block;
+    padding: 7px 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #653508; /* Color dorado */
+    border-radius: 18px;
+    border-style: solid;
+    border-width: 3px;
+    border-color: #DAA520;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    flex: 1; /* Hace que todos los botones tengan el mismo ancho */
+    text-align: center;
+    max-width: 80px; /* Controla el ancho máximo de los botones */
+}
+
+.header-buttons .btn:hover {
+    background-color: #DAA520; /* Color dorado más oscuro */
+}
+.user-icon {
+    width: 40px;
+    height: 40px;
+    margin: 0 5px;
 }
 
 nav {
     display: flex;
-    justify-content: space-between;
+    background-color: #1B0D0B;
     align-items: center;
-    width: 90%;
-    margin: 0 auto;
+    justify-content: space-around;
+    padding: 1rem;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-sizing: border-box;
+    /* Asegura que el padding no cause desbordamiento */
 }
 
-nav .logo {
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    /* Transición del color */
+    position: relative;
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    /* Altura de la línea */
+    bottom: -5px;
+    /* Posición de la línea debajo del texto */
+    left: 0;
+    background-color: #b8860b;
+    /* Color de la línea */
+    transform: scaleX(0);
+    /* Inicialmente no visible */
+    transition: transform 0.3s ease;
+    /* Transición de la línea */
+}
+
+nav ul li a:hover {
+    color: #b8860b;
+    /* Cambia el color del texto al pasar el ratón */
+}
+
+nav ul li a:hover::after {
+    transform: scaleX(1);
+    /* Muestra la línea al pasar el ratón */
+}
+
+.logo {
     display: flex;
     align-items: center;
+    /* Alinea verticalmente al centro */
+    margin-left: 4vh;
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    /* Elimina el subrayado del enlace */
+}
+
+.logo img {
+    width: 70px;
+    /* Ajusta el tamaño del logo según tus necesidades */
+    margin-right: 10px;
+    /* Espacio entre el logo y el texto */
+}
+
+.logo-link h1 {
+    font-family: 'Poppins';
+    margin: 0;
     font-size: 24px;
     font-weight: bold;
     color: white;
-    width: 60%;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(45deg, #FFF, #b8860b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-nav .logo img {
-    width: 70px;
-    height: 70px;
-    margin-right: 10px;
-}
-
-nav .menu {
+.nav-links {
     display: flex;
+    align-items: center;
+    /* Alinea verticalmente los elementos de la lista */
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-right: 3vh;
 }
 
-nav .menu a {
-    color: #ffffff; /* Blanco */
-    margin: 0 15px;
+.nav-links li {
+    margin: 0 10px;
+}
+
+.nav-links a {
+    color: white;
     text-decoration: none;
     font-size: 16px;
+    transition: color 0.3s ease;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
-nav .menu a:hover {
-    text-decoration: underline;
+.nav-links a:hover {
+    color: #b8860b;
+    /* Color dorado al pasar el cursor */
 }
 
-main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 12vh 0;
+.cart {
+    position: relative;
 }
 
+.cart img {
+    width: 30px;
+    height: 30px;
+}
+
+.cart-counter {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: #8B4513;
+    /* Marrón */
+    color: #ffffff;
+    /* Blanco */
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+}
+
+/* Estilos del contenedor de perfil */
 .profile-container {
-    background-color: #ffffff; /* Blanco */
+    background: whitesmoke;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.35); /* Negro con opacidad del 35% */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
     width: 90%;
-    max-width: 400px;
+    max-width: 600px; /* Ajustado para un mejor tamaño en pantallas grandes */
+    margin: 80px auto 100px; /* Centrando y ajustando el margen superior para espacio con el header */
 }
 
 .profile-container h1 {
     text-align: center;
     margin-bottom: 20px;
-    color: #8B4513; /* Marrón */
+    color: #8B4513;
 }
 
 .profile-info {
@@ -83,6 +252,7 @@ main {
 .profile-info .input-container {
     position: relative;
     margin-bottom: 15px;
+    padding-bottom: 5px; /* Ajusta el espacio para el borde inferior */
 }
 
 .profile-info .input-container i {
@@ -90,50 +260,41 @@ main {
     top: 50%;
     right: 10px;
     transform: translateY(-50%);
-    color: #333333; /* Gris oscuro */
+    color: #333333;
 }
 
 .profile-info input {
-    width: 90%;
-    padding: 10px 30px 10px 10px;
+    width: 100%;
+    padding: 10px;
     font-size: 16px;
     border: none;
-    border-bottom: 1px solid #b8860b; /* Color oro oscuro */
+    border-bottom: 1px solid #b8860b; /* Color dorado para el borde inferior */
     background-color: transparent;
-    color: #8B4513; /* Marrón */
+    color: #8B4513;
+    box-sizing: border-box; /* Asegura que el padding y el borde estén incluidos en el ancho total */
 }
 
 .profile-info input::placeholder {
-    color: #8B4513; /* Marrón */
+    color: #8B4513;
 }
+
 
 .profile-info input:focus {
     outline: none;
-    border-bottom: 2px solid #DAA520; /* Dorado */
+    border-bottom: 2px solid #DAA520; /* Color dorado más brillante para el enfoque */
 }
-
-.user-profile {
-    background-color: #ffffff; /* Blanco */
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.35); /* Negro con opacidad del 35% */
-    width: 90%;
-    max-width: 400px;
+.profile-info .input-container::after {
+    content: "";
+    display: block;
+    height: 2px; /* Altura del borde */
+    background: #DAA520; /* Color del borde cuando está enfocado */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1; /* Asegura que el borde esté detrás del contenido */
 }
-
-.user-profile h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #8B4513; /* Marrón */
-}
-
-.user-profile p {
-    margin-bottom: 10px;
-    font-size: 16px;
-    color: #333333; /* Gris oscuro */
-}
-
-/* Botones generales */
+/* Estilos del formulario */
 button {
     width: 100%;
     padding: 12px;
@@ -147,51 +308,48 @@ button {
 }
 
 button:hover {
-    background-color: #8B4513; /* Marrón */
-    color: #ffffff; /* Blanco */
+    background-color: #8B4513;
+    color: #ffffff;
 }
 
-/* Botón de guardar cambios */
 .save-btn {
-    background-color: #b8860b; /* Color oro oscuro */
-    color: #ffffff; /* Blanco */
+    background-color: #b8860b;
+    color: #ffffff;
 }
 
 .save-btn:hover {
-    background-color: #8B4513; /* Marrón */
+    background-color: #8B4513;
 }
 
-/* Botón de cerrar sesión */
 .logout-btn {
-    background-color: #b8860b; /* Color oro oscuro */
-    color: #ffffff; /* Blanco */
+    background-color: #b8860b;
+    color: #ffffff;
 }
 
 .logout-btn:hover {
-    background-color: #8B4513; /* Marrón */
+    background-color: #8B4513;
 }
 
-/* Botón de eliminar cuenta */
 .delete-btn {
-    background-color: #b8860b; /* Color oro oscuro */
-    color: #ffffff; /* Blanco */
+    background-color: #b8860b;
+    color: #ffffff;
 }
 
 .delete-btn:hover {
-    background-color: #8B4513; /* Marrón */
+    background-color: #8B4513;
 }
 
-/* Botones de acción en la sección de perfil */
+/* Estilos para los botones de acción en el perfil */
 .action-buttons {
     margin-top: 2vh;
     display: flex;
-    justify-content: space-between; /* Distribuye el espacio entre los botones */
+    justify-content: space-between;
     width: 100%;
 }
 
 .action-buttons form {
-    width: 48%; /* Ajusta el ancho de los formularios */
-    margin: 0; /* Elimina el margen predeterminado */
+    width: 48%;
+    margin: 0;
 }
 
 .action-buttons button {
@@ -205,108 +363,16 @@ button:hover {
 
 .action-buttons .logout-btn,
 .action-buttons .delete-btn {
-    background-color: #b8860b; /* Color oro oscuro */
-    color: #ffffff; /* Blanco */
+    background-color: #b8860b;
+    color: #ffffff;
 }
 
 .action-buttons .logout-btn:hover,
 .action-buttons .delete-btn:hover {
-    background-color: #8B4513; /* Marrón */
+    background-color: #8B4513;
 }
 
-footer {
-    text-align: center;
-    padding: 10px 0;
-    background-color: #DAA520; /* Dorado */
-    color: #ffffff; /* Blanco */
-    width: 100%;
-}
-
-/* Responsive Styles */
-@media screen and (max-width: 768px) {
-    nav .menu {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    nav .menu a {
-        margin: 5px 0;
-    }
-
-    .profile-container,
-    .user-profile {
-        width: 100%;
-        max-width: none;
-        margin: 0 20px;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    nav {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    nav .logo {
-        margin-bottom: 10px;
-    }
-
-    .save-btn {
-        padding: 12px;
-        font-size: 18px;
-    }
-}
-
-/* Estilo para los campos de nombre y apellido */
-.name-fields {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
-}
-
-.name-fields input[type="text"] {
-    width: 48%;
-    padding: 10px;
-    font-size: 16px;
-    border: none;
-    border-bottom: 1px solid #b8860b; /* Color oro oscuro */
-    background-color: transparent;
-    color: #8B4513; /* Marrón */
-}
-
-.name-fields input[type="text"]::placeholder {
-    color: #8B4513; /* Marrón */
-}
-
-.name-fields input[type="text"]:focus {
-    outline: none;
-    border-bottom: 2px solid #DAA520; /* Dorado */
-}
-.success-message {
-    display: block; /* Asegúrate de que el mensaje esté visible */
-    padding: 10px;
-    margin: 10px 0;
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
-    border-radius: 5px;
-    font-size: 16px;
-    text-align: center;
-    transition: opacity 0.6s ease;
-}
-.error-message {
-    display: block; /* Asegúrate de que el mensaje esté visible */
-    padding: 10px;
-    margin: 10px 0;
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-    border-radius: 5px;
-    font-size: 16px;
-    text-align: center;
-    transition: opacity 0.6s ease;
-}
-
+/* Estilos del avatar */
 .avatar-section {
     text-align: center;
     margin-bottom: 20px;
@@ -316,7 +382,7 @@ footer {
     display: block;
     font-size: 18px;
     margin-bottom: 10px;
-    color: #8B4513; /* Marrón */
+    color: #8B4513;
 }
 
 .avatar-preview {
@@ -328,10 +394,161 @@ footer {
     height: 100px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid #b8860b; /* Color oro oscuro */
+    border: 2px solid #b8860b;
 }
 
 input[type="file"] {
     display: block;
     margin: 0 auto;
+}
+
+/* Mensajes de éxito y error */
+.success-message {
+    display: block;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+    transition: opacity 0.6s ease;
+}
+
+.error-message {
+    display: block;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+    transition: opacity 0.6s ease;
+}
+
+/* Estilos para los campos de nombre y apellido */
+.name-fields {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.name-fields input[type="text"] {
+    width: 48%;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-bottom: 1px solid #b8860b;
+    background-color: transparent;
+    color: #8B4513;
+}
+
+.name-fields input[type="text"]::placeholder {
+    color: #8B4513;
+}
+
+.name-fields input[type="text"]:focus {
+    outline: none;
+    border-bottom: 2px solid #DAA520;
+}
+
+footer {
+    background-color: #DAA520;
+    /* Dorado */
+    color: #1B0D0B;
+    text-align: center;
+    width: 100%;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-section {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.footer-section h3 {
+    font-family: 'Poppins';
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.footer-section p,
+.footer-section ul {
+    font-family: 'Poppins';
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+    color: #1B0D0B;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+    color: #333;
+}
+
+.socials {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.socials a {
+    color: #1B0D0B;
+    margin: 0 10px;
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+
+.socials a:hover {
+    color: #333;
+}
+
+.footer-bottom {
+    background-color: #1B0D0B;
+    /* Marrón oscuro */
+    padding: 20px 0;
+    width: 100%;
+    font-family: 'Poppins';
+    font-size: 16px;
+    font-weight: 400;
+    color: #FFF;
+}
+
+@media (min-width: 768px) {
+    .footer-content {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+    }
+
+    .footer-section {
+        flex: 1;
+        padding: 0 20px;
+    }
 }

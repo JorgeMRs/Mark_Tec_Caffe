@@ -19,7 +19,7 @@ try {
     while ($row = $result->fetch_assoc()) {
         $productos[] = $row;
     }
-
+    
     // Devolver los productos en formato JSON
     echo json_encode($productos);
 

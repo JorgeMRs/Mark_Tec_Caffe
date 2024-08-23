@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarkShop - Carrito</title>
+    <link rel="stylesheet" href="/public/assets/css/stylecart.css">
+    <link rel="icon" href="/public/assets/img/logo-removebg-preview.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="/public/assets/img/logo-removebg-preview.png" alt="Logo" class="logo-image">
+                <h1>Café Sabroso</h1>
+            </div>
+            <div class="menu">
+                <a href="/index.html">Inicio</a>
+                <a href="#">Pedidos</a>
+                <a href="#">Productos</a>
+                <a href="/public/contactos.html">Contacto</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div id="titulocarrito">
+            <h2>Tu Carrito <span id="cart-counter2">0</span></h2>
+        </div>
+        <div class="carrito-grid">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="product">Producto</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody id="cart-items-tbody">
+                    <!-- Aquí se insertarán los elementos del carrito dinámicamente -->
+                </tbody>
+            </table>
+            <div class="order-summary">
+    <div class="total-amount">
+        <span>Total:</span>
+        <span id="total-price">0</span>
+        <div>
+            <button type="button" id="place-order-btn" onclick="window.location.href='pagar.html';">Realizar Pedido</button>
+        </div>
+        
+
+        </div>
+    </main>
+
+    <script src="/public/assets/js/update_cart.js"></script>
+    <script src="/public/assets/js/nav.js"></script>
+    <script src="/public/assets/js/fetch_cart.js"></script>
+        
+</body>
+
+</html>

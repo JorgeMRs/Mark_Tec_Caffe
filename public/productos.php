@@ -46,6 +46,8 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($producto['nombre']) ?></title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
         * {
             box-sizing: border-box;
         }
@@ -62,17 +64,17 @@ try {
         }
 
         .container {
-            flex: 1;
-            max-width: 1200px;
-            margin: 0 auto 100px;
-            margin-top: 200px;
-            padding: 15px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #ffffff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+    position: relative; /* Permite que los elementos hijos se posicionen absolutamente dentro de este contenedor */
+    max-width: 1200px;
+    margin: 0 auto 100px;
+    margin-top: 100px;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
         .user-icon {
             width: 40px;
@@ -86,7 +88,6 @@ try {
             align-items: center;
             justify-content: space-around;
             padding: 1rem;
-            position: absolute;
             width: 100%;
             top: 0;
             z-index: 1000;
@@ -427,6 +428,52 @@ try {
                 padding: 0 20px;
             }
         }
+        .navigation-links {
+        position: absolute;
+        top: 145px;
+        left: -530px;
+        z-index: 10;
+        display: flex;
+        justify-content: center; /* Centra horizontalmente */
+        width: 100%; /* Asegura que ocupe el ancho disponible */
+        padding: 0 20px; /* Espaciado interno */
+        box-sizing: border-box; /* Incluye padding en el ancho total */
+    }
+
+    .navigation-links a {
+        color: #DAA520;
+        text-decoration: none;
+        font-size: 18px;
+        margin: 0 10px;
+        display: inline-block; /* Asegura que el enlace no se expanda a todo el ancho */
+    }
+
+    .navigation-links a:hover {
+        color: #1B0D0B;
+    }
+
+    @media (max-width: 768px) {
+        .navigation-links {
+            top: 10vh; /* Ajusta la posición en pantallas pequeñas */
+            left: 0; /* Centra el enlace horizontalmente */
+        }
+
+        .navigation-links a {
+            font-size: 16px; /* Reduce el tamaño del texto en pantallas pequeñas */
+            margin: 0 5px; /* Reduce el margen en pantallas pequeñas */
+        }
+    }
+
+    @media (max-width: 480px) {
+        .navigation-links {
+            top: 8vh; /* Ajusta aún más en pantallas muy pequeñas */
+        }
+
+        .navigation-links a {
+            font-size: 14px; /* Reduce aún más el tamaño del texto */
+            margin: 0 2px; /* Reduce el margen para pantallas muy pequeñas */
+        }
+    }
     </style>
 </head>
 
@@ -457,15 +504,19 @@ try {
                 </div>
             </ul>
         </nav>
+        
     </header>
+    <div class="navigation-links">
+    <a href="tienda.html#main-category" id="back-to-store" onclick="setCategoryInLocalStorage('<?= htmlspecialchars($categoria['nombre']) ?>', <?= (int)$producto['idCategoria'] ?>)">Volver a la tienda</a>    </div>
     <main class="container">
+
         <!-- Left Column / Imagen del producto -->
         <div class="left-column">
             <img src="<?= htmlspecialchars($producto['imagen']) ?>" alt="<?= htmlspecialchars($producto['nombre']) ?>">
         </div>
-
         <!-- Right Column -->
         <div class="right-column">
+
             <!-- Product Description -->
             <div class="product-description">
                 <u><span><?= htmlspecialchars($categoria['nombre']) ?></span></u>
@@ -540,6 +591,16 @@ try {
                 }
             });
         });
+
+        function setCategoryInLocalStorage(category, idCategoria) {
+    const categoryData = {
+        category: category,
+        idCategoria: idCategoria
+    };
+    localStorage.setItem('selectedCategory', JSON.stringify(categoryData));
+}
+
+
     </script>
 </body>
 

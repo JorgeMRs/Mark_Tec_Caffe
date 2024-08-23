@@ -1,0 +1,251 @@
+:root {
+    --primary-color: #b8860b;
+    --text-color: #e2e8f0;
+    --accent-color: #b8860b;
+  }
+
+body {
+font-family: Arial, sans-serif;
+background: linear-gradient(to right, #ffffff, #aaaaaa);
+color: #333;
+margin: 0;
+padding: 0;
+  }
+
+header {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.85));
+    padding: 1rem;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo-image {
+    width: 60px;
+    height: auto;
+    margin-right: 1rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .logo-image:hover {
+    transform: rotate(360deg);
+  }
+  
+  .logo h1 {
+    font-family: 'Playfair Display', serif;
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+    background: linear-gradient(45deg, #fff, var(--primary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  /* General styles for nav */
+  nav ul {
+    list-style-type: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+  }
+  
+  nav ul li {
+    margin-left: 1.5rem;
+  }
+  
+  nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  
+  nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #ffcc00;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+  
+  nav ul li a:hover::after {
+    transform: scaleX(1);
+  }
+  /* Add this to your existing CSS */
+
+  .user-icon {
+    width: 40px;
+    height: 40px;
+    margin: 0 5px;
+    height: auto;
+    display: inline-block;
+    vertical-align: middle;
+    transition: opacity 0.3s ease;
+}
+
+nav ul li a img.user-icon {
+    margin-left: 0.5rem; /* Adjust spacing if needed */
+}
+
+nav ul li a:hover img.user-icon {
+    opacity: 0.7; /* Add a hover effect if desired */
+}
+
+.menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.menu a {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 8px 16px;
+    background-color: #DAA520;
+    border-radius: 5px;
+}
+
+.menu a:hover {
+    background-color: #cd853f;
+}
+
+.cart {
+    position: relative;
+}
+
+.cart img {
+    width: 30px;
+    height: 30px;
+}
+
+.cart-counter {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: #8B4513; /* Marrón */
+    color: #ffffff; /* Blanco */
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+}
+
+
+/* Form Styles */
+h2 {
+    text-align: center;
+    color: #8B4513;
+}
+
+form {
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+input[type="text"],
+input[type="tarjeta"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+
+.tarjeta {
+    position: relative;
+    display: inline-block;
+}
+
+#tarjeta {
+    padding-right: 401%;
+}
+
+.card-logo {
+    position: absolute;
+    top: 38%;
+    left: 470%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: auto;
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #DAA520;
+    color: #fff;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #cd853f;
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+/* Estilos para el calendario */
+input[type="month"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #333;
+    font-size: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+input[type="month"]::-webkit-calendar-picker-indicator {
+    background-color: #DAA520;
+    border-radius: 50%;
+    padding: 5px;
+    cursor: pointer;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    form {
+        width: 80%;
+    }
+
+    input[type="month"] {
+        font-size: 14px;
+    }
+}
