@@ -4,7 +4,8 @@ use PHPMailer\PHPMailer\Exception;
 
 require '../../vendor/autoload.php'; // Cargar el autoload de Composer
 
-function sendEmail($to, $subject, $body) {
+function sendEmail($to, $subject, $body): bool
+{
     $mail = new PHPMailer(true);
 
     try {
@@ -22,21 +23,22 @@ function sendEmail($to, $subject, $body) {
         $mail->addAddress($to);
 
         // Contenido del correo
-        $mail->isHTML(true); // Si quieres enviar HTML, cámbialo a true
+        $mail->isHTML(); // Si quieres enviar HTML, cámbialo a true
         $mail->Subject = $subject;
         $mail->Body    = $body;
 
         // Enviar el correo
         $mail->send();
         return true;
-    } catch (Exception $e) {
+    } catch (Exception) {
         // Registrar el error
         error_log('Mailer Error: ' . $mail->ErrorInfo);
         return false;
     }
 }
 
-function getVerificationEmailBody($name, $verificationLink) {
+function getVerificationEmailBody($verificationLink): string
+{
     return "
     <html>
     <head>
@@ -85,7 +87,7 @@ function getVerificationEmailBody($name, $verificationLink) {
     </head>
     <body>
         <div class='container'>
-            <h1>Hola $name,</h1>
+            <h1>Hola,</h1>
             <p>Gracias por registrarte en Cafe Sabrosos. Por favor, verifica tu cuenta haciendo clic en el siguiente enlace:</p>
             <p><a href='$verificationLink'>Verificar mi cuenta</a></p>
             <p>Si no solicitaste esta cuenta, ignora este correo.</p>
@@ -96,4 +98,3 @@ function getVerificationEmailBody($name, $verificationLink) {
     </body>
     </html>";
 }
-?>

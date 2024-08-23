@@ -10,18 +10,25 @@
     <link rel="icon" href="../../Imagenes/marklogo.png">
 </head>
 <body> 
-    <header>
-        <nav>
-            <div class="logo">
-                <img src="/public/assets/img/logo-removebg-preview.png" alt="Logo" class="logo-image">
-                <h1>Café Sabroso</h1>
+    <body class="body-local">
+        <header class="header-local">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="assets/img/logo-removebg-preview.png" alt="Logo de Café Sabrosos" class="logo-image">
+                    <h1>Café Sabrosos</h1>
+                </div>
+                <nav>
+                        <div class="cart">
+                            <a href="carrito.html">
+                                <img src="/public/assets/img/cart.png" alt="Carrito">
+                                <span id="cart-counter" class="cart-counter">0</span>
+                            </a>
+                        </div>        
+                    </ul>
+                </nav>
             </div>
-            <div class="menu">
-                <a href="/public/carrito.html">volver</a>
-
-            </div>
-        </nav>
-    </header>
+        </header>
+        <br><br><br>
     <form action="/index.html" method="post">
         <h2>Informacion de pago</h2>
         <label class="tarjeta">

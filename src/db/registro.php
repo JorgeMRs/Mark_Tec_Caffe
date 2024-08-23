@@ -54,14 +54,14 @@ try {
         $stmt = $conn->prepare($sql);
 
         if ($stmt) {
-            $stmt->bind_param("sssss", $email, $hashedPassword, $nombre, $apellido, $verificationToken);
+            $stmt->bind_param("sss", $email, $hashedPassword, $verificationToken);
 
             if ($stmt->execute()) {
                 // Enviar el correo de verificación
                 $verificationLink = "https://cafesabrosos.myvnc.com/public/registro.php?token=" . $verificationToken;
                 $emailSubject = "Verifica tu cuenta";
-                $emailBody = getVerificationEmailBody($nombre, $verificationLink);
-                
+                $emailBody = getVerificationEmailBody($verificationLink);
+
                 if (sendEmail($email, $emailSubject, $emailBody)) {
                     $response['status'] = 'success';
                     $response['redirect'] = 'https://cafesabrosos.myvnc.com/index.php'; // Redirige al usuario a index.php
@@ -88,4 +88,3 @@ try {
 }
 
 echo json_encode($response);
-?>

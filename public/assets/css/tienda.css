@@ -1,4 +1,4 @@
-/* General Styles */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 body {
     display: flex;
     flex-direction: column;
@@ -12,48 +12,167 @@ body {
 
 /* Header Styles */
 header {
-    background-color: #DAA520; /* Dorado */
-    padding: 10px 0;
+    position: relative;
+    height: 100vh; /* Altura del header */
+    background-image: url('/public/assets/img/tienda-background.png'); /* Ruta de la imagen de fondo */
+    background-size: cover; /* La imagen cubrirá todo el header */
+    background-position: center; /* Centrar la imagen */
+    background-repeat: no-repeat; /* Evitar que la imagen se repita */
+    overflow: hidden;
+}
+
+.user-icon {
+    width: 40px;
+    height: 40px;
+    margin: 0 5px;
 }
 
 nav {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 90%;
-    margin: 0 auto;
+    align-items: center; /* Alinea verticalmente los elementos */
+    backdrop-filter: blur(10px);
+    justify-content: space-around; /* Distribuye los elementos en el espacio disponible */
+    padding: 1rem;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.5); /* Fondo semitransparente negro */
+    transition: all 0.3s ease;
+}
+.header-content {
+    position: absolute;
+    top: 37%;
+    right: 18%;
+    transform: translateY(-50%);
+    text-align: center;
 }
 
+.header-content .top-subtitle {
+    font-family: 'Poppins';
+    font-weight: 700;
+    font-size: 32px;
+    color: #DAA520;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.header-content .subtitle {
+    font-family: 'Poppins';
+    font-weight: 700;
+    font-size: 36px;
+    color: white;
+    margin: 10px 0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.header-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.header-buttons .btn {
+    font-family: 'Poppins';
+    font-weight: 600;
+    display: inline-block;
+    padding: 7px 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #653508; /* Color dorado */
+    border-radius: 18px;
+    border-style: solid;
+    border-width: 3px;
+    border-color: #DAA520;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    flex: 1; /* Hace que todos los botones tengan el mismo ancho */
+    text-align: center;
+    max-width: 80px; /* Controla el ancho máximo de los botones */
+}
+
+.header-buttons .btn:hover {
+    background-color: #DAA520; /* Color dorado más oscuro */
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease; /* Transición del color */
+    position: relative;
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px; /* Altura de la línea */
+    bottom: -5px; /* Posición de la línea debajo del texto */
+    left: 0;
+    background-color: #b8860b; /* Color de la línea */
+    transform: scaleX(0); /* Inicialmente no visible */
+    transition: transform 0.3s ease; /* Transición de la línea */
+}
+
+nav ul li a:hover {
+    color: #b8860b; /* Cambia el color del texto al pasar el ratón */
+}
+
+nav ul li a:hover::after {
+    transform: scaleX(1); /* Muestra la línea al pasar el ratón */
+}
 .logo {
     display: flex;
+    align-items: center; /* Alinea verticalmente al centro */
+    margin-left: 4vh;
+}
+.logo-link {
+    display: flex;
     align-items: center;
+    text-decoration: none; /* Elimina el subrayado del enlace */
 }
 
 .logo img {
-    width: 50px;
-    height: 50px;
-    margin-right: 10px;
+    width: 70px; /* Ajusta el tamaño del logo según tus necesidades */
+    margin-right: 10px; /* Espacio entre el logo y el texto */
 }
 
-.logo h1 {
+.logo-link h1 {
+    margin: 0;
     font-size: 24px;
-    color: #ffffff; /* Blanco */
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(45deg, #FFF, #b8860b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-.menu {
+.nav-links {
     display: flex;
-    gap: 20px;
+    align-items: center; /* Alinea verticalmente los elementos de la lista */
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-right: 3vh;
 }
 
-.menu a {
-    color: #ffffff; /* Blanco */
+.nav-links li {
+    margin: 0 10px;
+}
+
+.nav-links a {
+    color: white;
     text-decoration: none;
     font-size: 16px;
-    font-weight: 600;
+    transition: color 0.3s ease;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
-.menu a:hover {
-    text-decoration: underline;
+.nav-links a:hover {
+    color: #b8860b; /* Color dorado al pasar el cursor */
 }
 
 .cart {
@@ -75,108 +194,65 @@ nav {
     padding: 2px 6px;
     font-size: 12px;
 }
-
-/* Estilos para los subtítulos de las secciones de productos */
-.section-title {
-    margin-bottom: 40px;
+h1{
+    font-family: 'Poppins';
+    font-weight: 700;
     text-align: center;
+    font-size: 64px;
+    color: #1E1E1E;
 }
 
-.section-title h3 {
-    font-size: 24px;
-    color: #8B4513; /* Color marrón */
-    border-bottom: 2px solid #DAA520; /* Línea dorada debajo del subtítulo */
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-}
-
-/* Main Styles */
-main {
-    flex: 1;
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas de igual tamaño */
+    gap: 20px; /* Espacio entre los elementos */
     padding: 20px;
+    margin: 0 auto; /* Centra la cuadrícula */
+    max-width: 1200px; /* Ancho máximo de la cuadrícula */
+    margin-bottom: 5vh;
 }
 
-#tituloproductos {
+.product-item {
     text-align: center;
-    margin-bottom: 20px;
+    margin: 0 auto 20px; /* Centra cada item y agrega margen inferior */
 }
 
-#search-form {
+.image-container {
+    background-color: white;
+    border-radius: 50px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    width: 256px; /* Ancho fijo de 256px */
+    height: 256px; /* Alto fijo de 256px */
+    transition: transform 0.3s ease;
+    margin: 0 auto;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Mantiene la relación de aspecto y recorta la imagen para llenar el contenedor */
+}
+
+.product-item h3 {
+    font-family: 'Poppins';
+    font-weight: 600;
+    font-size: 28px;
+    color: #333;
+    margin-top: 15px; /* Espacio entre la imagen y el texto */
     text-align: center;
-    margin-bottom: 20px;
+    justify-content: center;
+    margin: 10px 10px;
 }
 
-#search-input {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #b8860b; /* Color oro oscuro */
-    border-radius: 4px;
-    width: 70%;
-    max-width: 400px;
+.product-item:hover .image-container {
+    transform: translateY(-5px); /* Efecto de elevación al pasar el cursor en la imagen */
 }
-
-#search-button {
-    padding: 10px 20px;
-    background-color: #b8860b; /* Color oro oscuro */
-    color: #ffffff; /* Blanco */
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-#search-button:hover {
-    background-color: #8B4513; /* Marrón */
-}
-
 /* Footer Styles */
 footer {
     text-align: center;
-    padding: 10px 0;
+    padding: 30px 0;
     background-color: #DAA520; /* Dorado */
     color: #ffffff; /* Blanco */
     width: 100%;
-}
-
-/* Responsive Styles */
-@media screen and (max-width: 768px) {
-    nav {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .menu {
-        flex-direction: column;
-        gap: 10px;
-        align-items: flex-start;
-        margin-top: 10px;
-    }
-    
-    .cart {
-        margin-top: 10px;
-    }
-
-    #search-input {
-        width: 100%;
-    }
-
-    #search-button {
-        width: 100%;
-        margin-top: 10px;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .logo h1 {
-        font-size: 18px;
-    }
-
-    .menu a {
-        font-size: 14px;
-    }
-
-    .cart img {
-        width: 25px;
-        height: 25px;
-    }
 }

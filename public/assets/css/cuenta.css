@@ -1,56 +1,116 @@
+:root {
+    --primary-color: #b8860b;
+    --text-color: #e2e8f0;
+    --accent-color: #b8860b;
+  }
+
 body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4; /* Gris muy claro */
-    color: #333333; /* Gris oscuro */
-    font-family: Arial, sans-serif;
-}
+    background: linear-gradient(to right, #ffffff, #aaaaaa);
+    color: var(--text-color);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
 
 header {
-    background-color: #DAA520; /* Dorado */
-    padding: 10px 0;
-}
-
-nav {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.85));
+    padding: 1rem;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  .header-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 90%;
+    max-width: 1200px;
     margin: 0 auto;
-}
-
-nav .logo {
+  }
+  
+  .logo {
     display: flex;
     align-items: center;
+  }
+  
+  .logo-image {
+    width: 60px;
+    height: auto;
+    margin-right: 1rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .logo-image:hover {
+    transform: rotate(360deg);
+  }
+  
+  .logo h1 {
+    font-family: 'Playfair Display', serif;
+    margin: 0;
     font-size: 24px;
     font-weight: bold;
-    color: white;
-    width: 60%;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-nav .logo img {
-    width: 70px;
-    height: 70px;
-    margin-right: 10px;
-}
-
-nav .menu {
+    background: linear-gradient(45deg, #fff, var(--primary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  /* General styles for nav */
+  nav ul {
+    list-style-type: none;
     display: flex;
-}
-
-nav .menu a {
-    color: #ffffff; /* Blanco */
-    margin: 0 15px;
+    margin: 0;
+    padding: 0;
+  }
+  
+  nav ul li {
+    margin-left: 1.5rem;
+  }
+  
+  nav ul li a {
+    color: white;
     text-decoration: none;
-    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  
+  nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #ffcc00;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+  
+  nav ul li a:hover::after {
+    transform: scaleX(1);
+  }
+  /* Add this to your existing CSS */
+
+  .user-icon {
+    width: 40px;
+    height: 40px;
+    margin: 0 5px;
+    height: auto;
+    display: inline-block;
+    vertical-align: middle;
+    transition: opacity 0.3s ease;
 }
 
-nav .menu a:hover {
-    text-decoration: underline;
+nav ul li a img.user-icon {
+    margin-left: 0.5rem; /* Adjust spacing if needed */
+}
+
+nav ul li a:hover img.user-icon {
+    opacity: 0.7; /* Add a hover effect if desired */
 }
 
 main {
@@ -61,8 +121,28 @@ main {
     padding: 12vh 0;
 }
 
+.cart {
+    position: relative;
+}
+
+.cart img {
+    width: 30px;
+    height: 30px;
+}
+
+.cart-counter {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: #8B4513; /* Marrón */
+    color: #ffffff; /* Blanco */
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+}
+
 .profile-container {
-    background-color: #ffffff; /* Blanco */
+    background: whitesmoke;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.35); /* Negro con opacidad del 35% */
@@ -133,24 +213,37 @@ main {
     color: #333333; /* Gris oscuro */
 }
 
-.action-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-}
-
-.action-buttons button {
-    width: 48%;
-    padding: 10px;
+/* Botones generales */
+button {
+    width: 100%;
+    padding: 12px;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
     text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+button:hover {
+    background-color: #8B4513; /* Marrón */
+    color: #ffffff; /* Blanco */
+}
+
+/* Botón de guardar cambios */
+.save-btn {
+    background-color: #b8860b; /* Color oro oscuro */
+    color: #ffffff; /* Blanco */
+}
+
+.save-btn:hover {
+    background-color: #8B4513; /* Marrón */
+}
+
+/* Botón de cerrar sesión */
 .logout-btn {
-    background-color: #b8860b;
+    background-color: #b8860b; /* Color oro oscuro */
     color: #ffffff; /* Blanco */
 }
 
@@ -158,6 +251,7 @@ main {
     background-color: #8B4513; /* Marrón */
 }
 
+/* Botón de eliminar cuenta */
 .delete-btn {
     background-color: #b8860b; /* Color oro oscuro */
     color: #ffffff; /* Blanco */
@@ -167,21 +261,45 @@ main {
     background-color: #8B4513; /* Marrón */
 }
 
-.save-btn {
+/* Botones de acción en la sección de perfil */
+.action-buttons {
+    margin-top: 2vh;
+    display: flex;
+    justify-content: space-between; /* Distribuye el espacio entre los botones */
     width: 100%;
-    padding: 10px;
-    background-color: #b8860b; /* Color oro oscuro */
-    color: #ffffff; /* Blanco */
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    text-align: center;
-    margin-top: 30px;
 }
 
-.save-btn:hover {
+.action-buttons form {
+    width: 48%; /* Ajusta el ancho de los formularios */
+    margin: 0; /* Elimina el margen predeterminado */
+}
+
+.action-buttons button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.action-buttons .logout-btn,
+.action-buttons .delete-btn {
+    background-color: #b8860b; /* Color oro oscuro */
+    color: #ffffff; /* Blanco */
+}
+
+.action-buttons .logout-btn:hover,
+.action-buttons .delete-btn:hover {
     background-color: #8B4513; /* Marrón */
+}
+
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #DAA520; /* Dorado */
+    color: #ffffff; /* Blanco */
+    width: 100%;
 }
 
 /* Responsive Styles */
@@ -267,4 +385,33 @@ main {
     font-size: 16px;
     text-align: center;
     transition: opacity 0.6s ease;
+}
+
+.avatar-section {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.avatar-label {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #8B4513; /* Marrón */
+}
+
+.avatar-preview {
+    margin-bottom: 10px;
+}
+
+.avatar-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #b8860b; /* Color oro oscuro */
+}
+
+input[type="file"] {
+    display: block;
+    margin: 0 auto;
 }

@@ -8,12 +8,13 @@ $isLoggedIn = isset($_SESSION['user_id']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Café Sabroso</title>
+    <title>Café Sabrosos</title>
     <link rel="icon" type="image/png" sizes="16x16" href="/public/assets/img/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/public/assets/img/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="48x48" href="/public/assets/img/icons/favicon-48x48.png">
     <link rel="icon" type="image/png" sizes="48x48" href="/public/assets/img/icons/favicon-64x64.png">
     <link rel="icon" type="image/x-icon" href="/public/assets/img/icons/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/public/assets/css/style.css">
     <style>
         .overlay {
@@ -78,7 +79,6 @@ $isLoggedIn = isset($_SESSION['user_id']);
         }
     </style>
 </head>
-
 <body>
     <div id="overlay" class="overlay"></div>
     <div id="activationModal" class="modal">
@@ -92,14 +92,15 @@ $isLoggedIn = isset($_SESSION['user_id']);
 
     <header>
         <nav>
-            <div class="logo">
-                <img src="/public/assets/img/logo-removebg-preview.png" alt="Logo" class="logo-image">
-                <h1>Café Sabroso</h1>
+        <div class="logo">
+                <a href="/" class="logo-link">
+                    <img src="/public/assets/img/logo-removebg-preview.png" alt="Logo" class="logo-image">
+                    <h1>Café Sabrosos</h1>
+                </a>
             </div>
-
             <ul class="nav-links">
                 <li><a href="/public/local.html">Locales</a></li>
-                <li><a href="#">Productos</a></li>
+                <li><a href="/public/tienda.html">Productos</a></li>
                 <li><a href="#">Ofertas</a></li>
                 <li><a href="#">Reservas</a></li>
                 <li><a href="/public/contactos.html">Contacto</a></li>
@@ -109,6 +110,12 @@ $isLoggedIn = isset($_SESSION['user_id']);
                 <?php else: ?>
                     <li><a href="/public/login.html"><img src="/public/assets/img/image.png" alt="Usuario" class="user-icon"></a></li>
                 <?php endif; ?>
+                <div class="cart">
+                    <a href="carrito.html">
+                        <img src="/public/assets/img/cart.png" alt="Carrito">
+                        <span id="cart-counter" class="cart-counter">0</span>
+                    </a>
+                </div>
             </ul>
         </nav>
         <div class="carousel-content">
@@ -137,11 +144,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
         </div>
     </header>
     <main>
-        <!-- Otros contenidos de la página -->
     </main>
-    <footer>
-        <!-- Pie de página -->
-    </footer>
     <script src="/public/assets/js/nose.js"></script>
     <script>
   function closeModal() {

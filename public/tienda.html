@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cafe Sabrosos - Productos</title>
     <link rel="stylesheet" href="../public/assets/css/tienda.css">
     <link rel="icon" href="/public/assets/img/logo-removebg-preview.png">
-    <!-- Incluir una fuente atractiva de Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -16,74 +14,77 @@
     <header>
         <nav>
             <div class="logo">
-                <img src="/public/assets/img/logo-removebg-preview.png" alt="Logo" class="logo-image">
-                <h1>Café Sabroso</h1>
-            </div>
-            <div class="menu">
-                <a href="/index.html">Inicio</a>
-                <a href="#">Pedidos</a>
-                <a href="/public/contactos.html">Contacto</a>
-            </div>
-            <div class="cart">
-                <a href="/public/carrito.html">
-                    <img src="/public/assets/img/shopping-bag.svg" alt="Carrito">
-                    <span id="cart-counter" class="cart-counter">0</span>
+                <a href="/" class="logo-link">
+                    <img src="/public/assets/img/logo-removebg-preview.png" alt="Logo" class="logo-image">
+                    <h1>Café Sabrosos</h1>
                 </a>
             </div>
+            <ul class="nav-links">
+                <li><a href="/index.html">Inicio</a></li>
+                <li><a href="/public/local.html">Locales</a></li>
+                <li><a href="#">Ofertas</a></li>
+                <li><a href="#">Reservas</a></li>
+                <li><a href="/public/contactos.html">Contacto</a></li>
+                <li><a href="/public/login.html"><img src="/public/assets/img/image.png" alt="Usuario"
+                            class="user-icon"></a></li>
+                <div class="cart">
+                    <a href="carrito.html">
+                        <img src="/public/assets/img/cart.png" alt="Carrito">
+                        <span id="cart-counter" class="cart-counter">0</span>
+                    </a>
+                </div>
+            </ul>
         </nav>
-    </header>
-
-    <main>
-        <div id="tituloproductos" class="text-center mt-5">
-            <h2>Conoce nuestras bebidas y alimentos de temporada</h2>
+        <div class="header-content">
+            <h2 class="top-subtitle">Café Sabrosos</h2>
+            <h2 class="subtitle">Siempre el mejor café</h2>
+            <div class="header-buttons">
+                <a href="/public/menu.html" class="btn">Menú</a>
+                <a href="/public/reservas.html" class="btn">Reservas</a>
+            </div>
         </div>
-
-        <form id="search-form" method="GET" class="text-center my-4">
-            <input type="text" id="search-input" name="q" placeholder="Buscar producto...">
-            <button type="submit" id="search-button">Buscar</button>
-        </form>
-
-        <div class="container-fluid">
-            <div class="row">
-                <!-- Secciones de productos -->
-                <div class="col-12 section-title">
-                    <h3>Café</h3>
-                    <div class="products" id="cafe-products">
-                        <!-- Aquí puedes agregar productos de la sección Café -->
-                    </div>
+    </header>
+    <main>       
+        <h1>Nuestros productos</h1>
+        <div class="product-grid">
+            <div class="product-item">
+                <div class="image-container">
+                    <img src="/public/assets/img/productos/cortado.jpg" alt="Producto 1">
                 </div>
-
-                <div class="col-12 section-title">
-                    <h3>Café helado</h3>
-                    <div class="products" id="cafe-helado-products">
-                        <!-- Aquí puedes agregar productos de la sección Café helado -->
-                    </div>
+                <h3>Cafés <br> Especiales</h3>
+            </div>
+            <div class="product-item">
+                <div class="image-container">
+                    <img src="/public/assets/img/productos/cafe-con-leche/capuccino.jpg" alt="Producto 2">
                 </div>
-
-                <div class="col-12 section-title">
-                    <h3>Té</h3>
-                    <div class="products" id="te-products">
-                        <!-- Aquí puedes agregar productos de la sección Té -->
-                    </div>
+                <h3>Cafés <br> con Leche</h3>
+            </div>
+            <div class="product-item">
+                <div class="image-container">
+                    <img src="/public/assets/img/productos/coldbrew.jpg" alt="Producto 3">
                 </div>
-
-                <div class="col-12 section-title">
-                    <h3>Té Helado</h3>
-                    <div class="products" id="te-helado-products">
-                        <!-- Aquí puedes agregar productos de la sección Té Helado -->
-                    </div>
+                <h3>Cafés Fríos</h3>
+            </div>
+            <div class="product-item">
+                <div class="image-container">
+                    <img src="/public/assets/img/productos/dessert-5.jpg" alt="Producto 4">
                 </div>
-
-                <div class="col-12 section-title">
-                    <h3>Comidas</h3>
-                    <div class="products" id="comidas-products">
-                        <!-- Aquí puedes agregar productos de la sección Comidas -->
-                    </div>
+                <h3>Pasteles y <br> Postres</h3>
+            </div>
+            <div class="product-item">
+                <div class="image-container">
+                    <img src="/public/assets/img/productos/tipos-de-te.jpg" alt="Producto 5">
                 </div>
+                <h3>Té</h3>
+            </div>
+            <div class="product-item">
+                <div class="image-container">
+                    <img src="/public/assets/img/productos/bocadillo.jpg" alt="Producto 6">
+                </div>
+                <h3>Sandwiches y <br> Bocadillos</h3>
             </div>
         </div>
     </main>
-
     <footer>
         <p>&copy; 2024 Mi Perfil. Todos los derechos reservados.</p>
     </footer>

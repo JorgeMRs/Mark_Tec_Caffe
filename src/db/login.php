@@ -17,7 +17,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Preparar la consulta para obtener el id, la contraseña cifrada y el estado de activación del cliente
-    $conn = getDbConnection();
+    try {
+        $conn = getDbConnection();
+    } catch (Exception $e) {
+
+    }
     if ($stmt = $conn->prepare("SELECT idCliente, contrasena, estadoActivacion FROM cliente WHERE correo = ?")) {
         $stmt->bind_param("s", $correo);
         $stmt->execute();
@@ -51,4 +55,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $conn->close();
 }
-?>
