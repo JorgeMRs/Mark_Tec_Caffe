@@ -1,0 +1,146 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header Styles */
+header {
+    background-color: #DAA520; /* Cambiado a dorado */
+    color: #ffffff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.logo-image {
+    width: 70px;
+    margin-right: 10px;
+}
+
+.menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.menu a {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 8px 16px;
+    background-color: #DAA520;
+    border-radius: 5px;
+}
+
+.menu a:hover {
+    background-color: #cd853f;
+}
+
+/* Form Styles */
+h2 {
+    text-align: center;
+    color: #8B4513;
+}
+
+form {
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+input[type="text"],
+input[type="tarjeta"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+
+.tarjeta {
+    position: relative;
+    display: inline-block;
+}
+
+#tarjeta {
+    padding-right: 401%;
+}
+
+.card-logo {
+    position: absolute;
+    top: 38%;
+    left: 470%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: auto;
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #DAA520;
+    color: #fff;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #cd853f;
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+/* Estilos para el calendario */
+input[type="month"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #333;
+    font-size: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+input[type="month"]::-webkit-calendar-picker-indicator {
+    background-color: #DAA520;
+    border-radius: 50%;
+    padding: 5px;
+    cursor: pointer;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    form {
+        width: 80%;
+    }
+
+    input[type="month"] {
+        font-size: 14px;
+    }
+}
