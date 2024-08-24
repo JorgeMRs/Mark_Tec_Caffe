@@ -15,7 +15,7 @@ try {
 
         // Validar los datos
         if (empty($email) || empty($password) || empty($passwordConfirm)) {
-            throw new Exception('Todos los campos son obligatoriosdddd.');
+            throw new Exception('Todos los campos son obligatorios.');
         }
 
         if ($password !== $passwordConfirm) {

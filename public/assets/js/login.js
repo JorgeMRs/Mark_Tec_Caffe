@@ -14,6 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 	}
 
+	//consulta sql par aincresar cliente
+	
+
 	if (form) {
 		form.addEventListener('submit', async (event) => {
 			event.preventDefault();
