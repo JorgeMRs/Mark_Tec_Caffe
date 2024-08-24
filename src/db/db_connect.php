@@ -1,34 +1,29 @@
 <?php
-// $autoloadPath = __DIR__ . '/vendor/autoload.php';
-$autoloadPath = '../../vendor/autoload.php';
-if (!file_exists($autoloadPath)) {
-    die("El archivo autoload.php no se encuentra en la ruta esperada: $autoloadPath");
-}
-require_once $autoloadPath;
+require_once __DIR__ . '/../../vendor/'; // Ajusta la ruta según la ubicación de tu archivo
 
 use Dotenv\Dotenv;
 
-// Ajustar la ruta al archivo .env
-// $dotenv = Dotenv::createImmutable(__DIR__ .'/.env');
-$dotenv = Dotenv::createImmutable('../../');
-
+$dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
 $dotenv->load();
 
-function getDbConnection() {
+/**
+ * @throws Exception
+ */
+function getDbConnection(): mysqli
+{
     $host = $_ENV['DB_HOST'];
-    $port = $_ENV['DB_PORT'];
     $user = $_ENV['DB_USER'];
     $password = $_ENV['DB_PASS'];
     $database = $_ENV['DB_NAME'];
 
     // Crear conexión
-    $mysqli = new mysqli($host, $user, $password, $database, $port);
+    $mysqli = new mysqli($host, $user, $password, $database);
 
     // Verificar conexión
     if ($mysqli->connect_error) {
-        die("Connection failed: " . $mysqli->connect_error);
+        throw new Exception('Error de conexión a la base de datos: ' . $mysqli->connect_error);
     }
 
     return $mysqli;
+    
 }
-?>

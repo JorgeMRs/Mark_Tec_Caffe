@@ -1,65 +1,74 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Locales de Cafe Sabrosos">
-    <meta name="keywords" content="Cafe, Sabrosos, Cafe Sabrosos, Sabrosos Cafe">
+    <meta name="description" content="Descubre los locales de Café Sabrosos en todo el mundo. Disfruta de nuestro café de alta calidad y ambiente acogedor.">
+    <meta name="keywords" content="Cafe, Sabrosos, Cafe Sabrosos, Sabrosos Cafe, locales, internacional">
     <meta name="author" content="Mark Tec">
-    <title>Home</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <script src="https://kit.fontawesome.com/3047b62e1b.js" crossorigin="anonymous"></script>   
+    <title>Café Sabrosos - Locales Internacionales</title>
+    <link rel="stylesheet" href="assets/css/stylelocal.css">
+    <script src="https://kit.fontawesome.com/3047b62e1b.js" crossorigin="anonymous"></script>
     <link rel="icon" href="assets/img/logo-removebg-preview.png">
-    <title>Café Sabrosos - Locales</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <link rel="icon" href="img/logo-removebg-preview.png">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body class="body-local">
-    <div class="prueba1">
-        <header class="header-local">
-            <div class="header-content">
-                <div class="logo">
-                    <img src="assets/img/logo-removebg-preview.png" alt="Logo" class="logo-image">
-                    <h1>Café Sabrosos</h1>
-                </div>
-                <div class="menu-toggle">&#9776;</div>
-                <nav>
-                    <ul>
-                        <li><a href="/index.html">Inicio</a></li>
-                        <li><a href="#">Productos</a></li>
-                        <li><a href="#">Ofertas</a></li>
-                        <li><a href="#">Reservas</a></li>
-                        <li><a href="contactos.html">Contacto</a></li>
-                        <li><a href="login.html"><i class="fa-solid fa-user"></i></a></li>
-                    </ul>
-                </nav>
+    <header class="header-local">
+        <div class="header-content">
+            <div class="logo">
+                <img src="assets/img/logo-removebg-preview.png" alt="Logo de Café Sabrosos" class="logo-image">
+                <h1>Café Sabrosos</h1>
             </div>
-        </header>
-        <div class="container">
-            <h1>Locales de Café Sabrosos</h1>
-
-            <div class="location">
-                <h2>Francia</h2>
-                <p>Dirección: Rue Inventée 789, París, Francia</p>
-            </div>
-
-            <div class="location">
-                <h2>Alemania</h2>
-                <p>Dirección: Fiktive Straße 101, Berlín, Alemania</p>
-            </div>
-
-            <div class="location">
-                <h2>Portugal</h2>
-                <p>Dirección: Rua Imaginária 123, Lisboa, Portugal</p>
-            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="/index.html">Inicio</a></li>
+                    <li><a href="/public/tienda.html">Productos</a></li>
+                    <li><a href="#">Ofertas</a></li>
+                    <li><a href="#">Reservas</a></li>
+                    <li><a href="/public/contactos.html">Contacto</a></li>
+                    <li><a href="/public/login.html"><img src="/public/assets/img/image.png" alt="Usuario" class="user-icon"></a></li>         
+                </ul>
+            </nav>
         </div>
-        <footer class="footer-local">
-            <p>Julio 2023 © Todos los derechos reservados by Café Sabrosos</p>
-        </footer>
-    </div>
-    <script src="/cafesabrosos-project/cafesabrosos/assets/js/script.js"></script>
-</body>
+    </header>
 
+    <main>
+        <section class="hero">
+            <h2>Nuestros Locales</h2>
+            <p>Descubre la magia de Café Sabrosos alrededor del mundo</p>
+        </section>
+        
+        <section class="mapa-world">
+            <div class="map-container">
+                <img src="/public/assets/img/worldmap.png" alt="Mapa mundial con ubicaciones de Café Sabrosos">
+                <div class="pin francia" data-country="Francia"><span class="pin-dot"></span></div>
+                <div class="pin alemania" data-country="Alemania"><span class="pin-dot"></span></div>
+                <div class="pin portugal" data-country="Portugal"><span class="pin-dot"></span></div>
+            </div>
+        </section>
+
+        <section class="locations-grid">
+            <div class="location-card">
+                <img src="/public/assets/img/paris.jpg" alt="Café Sabrosos en París">
+                <h3>París, Francia</h3>
+                <p>Disfruta de nuestro café con vista a la Torre Eiffel</p>
+            </div>
+            <div class="location-card">
+                <img src="/public/assets/img/berlin.jpg" alt="Café Sabrosos en Berlín">
+                <h3>Berlín, Alemania</h3>
+                <p>Experimenta la fusión de tradición y modernidad</p>
+            </div>
+            <div class="location-card">
+                <img src="/public/assets/img/lisbon.jpg" alt="Café Sabrosos en Lisboa">
+                <h3>Lisboa, Portugal</h3>
+                <p>Saborea nuestro café con el encanto portugués</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Café Sabrosos. Todos los derechos reservados.</p>
+    </footer>
+</body>
 </html>

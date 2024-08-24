@@ -1,27 +1,31 @@
 /* Estilos generales */
 body, html {
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
     overflow-x: hidden;
-    color: white;
+    color: #333;
     height: 100%;
-    background-color: #333; /* Fondo oscuro */
 }
 
-header {
-    position: relative;
-    height: 10vh;
-    overflow: hidden;
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: url(/public/assets/img/abstract-smooth-brown-wall-background-layout-design-studio-room-web-template-business-report-with-smooth-circle-gradient-color.jpg) no-repeat;
+  background-size: cover;
+  background-position: center;
 }
-
+/* Estilos para el menú de navegación */
 nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px 50px;
-    position: absolute;
-    width: 90%;
+    background-color: transparent; /* Fondo transparente */
+    position: fixed;
+    width: 100%;
     top: 0;
     z-index: 1000;
 }
@@ -32,161 +36,105 @@ nav {
 }
 
 .logo img {
-    width: 70px;
-    height: 70px;
+    max-height: 40px;
     margin-right: 10px;
 }
 
 .logo h1 {
-    margin: 0;
+    color: #fff; /* Color del texto del logo */
     font-size: 24px;
     font-weight: bold;
-    color: white;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin: 0;
 }
 
-nav ul {
+.nav-links {
     display: flex;
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-nav ul li {
-    margin: 0 15px;
+.nav-links li {
+    margin-left: 30px;
 }
 
-nav ul li a {
-    color: white;
+.nav-links a {
     text-decoration: none;
-    font-size: 16px;
-    transition: color 0.3s ease;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-}
-
-nav ul li a:hover {
-    color: #b8860b; /* Color dorado al pasar el cursor */
-}
-
-.content-contacto {
-    padding: 20px 20px 20px; /* Ajusta el padding */
-    text-align: center;
-    background-color: #444;
-}
-
-.content-contacto h1, .content-contacto p {
-    color: white;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-}
-
-#contact-form {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-}
-
-.feedback-input {
-    width: 100%;
-    padding: 15px;
-    margin-bottom: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #666;
-    color: white;
-    box-sizing: border-box;
-}
-
-.feedback-input::placeholder {
-    color: #ddd;
-}
-
-#contact-form input[type="submit"] {
-    width: 100%;
-    padding: 15px;
-    background-color: #b8860b;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-#contact-form input[type="submit"]:hover {
-    background-color: #a57508;
-}
-
-.centered-list {
-    list-style: none;
-    padding: 0;
-    margin: 20px 0 0;
-}
-
-.centered-list .social-icons {
-    display: flex;
-    justify-content: center;
-    padding: 0;
-    margin: 0;
-}
-
-.social-icons li {
-    margin: 0 10px;
-}
-
-.social-icons li a {
-    color: white;
-    font-size: 24px;
+    color: #fff; /* Color del texto del menú */
+    font-size: 18px;
+    font-weight: 500;
     transition: color 0.3s ease;
 }
 
-.social-icons li a:hover {
-    color: #b8860b; /* Color dorado */
+.nav-links a:hover {
+    color: #d3b46f; /* Color al hacer hover */
 }
 
-.modal-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+.user-icon {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
 }
 
-.modal-background.show {
-    visibility: visible;
-    opacity: 1;
+.wrapper {
+  width: 420px;
+  height: auto;
+  background-color: transparent;
+  border: 2px solid rgba(255, 255, 255, .2);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+  color: #ffff;
+  border-radius: 10px;
+  padding: 30px 80px;
 }
 
-.modal {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
+.wrapper h1 {
+  font-size: 36px;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-.modal p {
-    color: black;
-    margin-bottom: 20px;
+.wrapper .input-box {
+  margin-bottom: 30px;
 }
 
-.modal button {
-    padding: 10px 20px;
-    background-color: #b8860b;
+.input-box input, .input-box textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 40px;
+  font-size: 16px;
+  color: #ffff;
+  padding: 20px;
+  margin-bottom: 15px;
+}
+
+.input-box input::placeholder, .input-box textarea::placeholder {
+  color: #ffff;
+  
+}
+
+.wrapper .btn {
+    width: 110%;
+    height: 50px;
+    background: #fff;
     border: none;
-    border-radius: 5px;
-    color: white;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;  
+    text-align: center; /* Centra el texto del botón */
+
 }
 
-.modal button:hover {
-    background-color: #a57508;
+header {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    transition: all 0.3s ease;
 }

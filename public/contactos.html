@@ -11,62 +11,42 @@
     <link rel="stylesheet" href="assets/css/form.css">
     <script src="https://kit.fontawesome.com/3047b62e1b.js" crossorigin="anonymous"></script>
     <link rel="icon" href="assets/img/logo-removebg-preview.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
+<body>
 
-<body class="content-contacto">
-    <header>
+    <header class="header-local">
         <div class="header-content">
             <div class="logo">
-                <img src="assets/img/logo-removebg-preview.png" alt="Logo" class="logo-image">
-                <h1>Café Sabroso</h1>
+                <img src="assets/img/logo-removebg-preview.png" alt="Logo de Café Sabrosos" class="logo-image">
+                <h1>Café Sabrosos</h1>
             </div>
             <nav>
-                <div class="menu-toggle">&#9776;</div>
-                <ul>
-                    <li><a href="../index.html">Inicio</a></li>
-                    <li><a href="#">Productos</a></li>
+                <ul class="nav-links">
+                    <li><a href="/index.html">Inicio</a></li>
+                    <li><a href="/public/tienda.html">Productos</a></li>
                     <li><a href="#">Ofertas</a></li>
                     <li><a href="#">Reservas</a></li>
                     <li><a href="contactos.html">Contacto</a></li>
-                    <li><a href="login.html"><i class="fa-solid fa-user"></i></a></li>
+                    <li><a href="/public/login.html"><img src="/public/assets/img/image.png" alt="Usuario" class="user-icon"></a></li>         
                 </ul>
             </nav>
         </div>
     </header>
-    
-    <div class="contactos">
-        <h1>Contáctanos</h1>
-        <p>¡Estamos aquí para ayudarte! Si tienes alguna pregunta, comentario o sugerencia, no dudes en ponerte en contacto con nosotros.</p>
+<main>
+ <div class="wrapper">
+    <h1>Contactos</h1>
+    <div class="input-box">
         <form method="post" action="../src/email/send_email.php" id="contact-form">
-            <input name="name" type="text" class="feedback-input" placeholder="Nombre" required />
-            <input name="email" type="email" class="feedback-input" placeholder="Email" required />
-            <input type="text" name="subject" class="feedback-input" placeholder="Asunto" required />
-            <textarea name="message" class="feedback-input" placeholder="Comentario" required></textarea>
-            <input type="submit" value="ENVIAR" />
+            <input name="name" type="text" class="feedback-input" placeholder="Nombre" required /> <br>
+            <input name="email" type="email" class="feedback-input" placeholder="Email" required /><br>
+            <input type="text" name="subject" class="feedback-input" placeholder="Asunto" required /><br>
+            <textarea name="message" class="feedback-input" placeholder="Comentario" required></textarea><br>
+            <input class="btn" type="submit" value="ENVIAR" />
         </form>
-        <div id="formMessage" style="display:none;">Enviado con éxito</div>
-        <div id="loaderContainer" style="display:none;">Cargando...</div>
-        
-        <ul class="centered-list">
-            <li><strong>Redes Sociales:</strong></li>
-            <ul class="social-icons">
-                <li><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
-                <li><a href="#"><i class="fa-brands fa-x-twitter"></i></a></li>
-                <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
-                <li><a href="#"><i class="fa-brands fa-youtube"></i></a></li>
-            </ul>
-        </ul>
-        <p>¡Esperamos que vengas pronto!</p>
     </div>
-    
-    <!-- ventana modal -->
-    <div id="modal-background" class="modal-background">
-        <div class="modal">
-            <p id="modal-message">Correo enviado correctamente</p>
-            <button id="close-modal">Cerrar</button>
-        </div>
-    </div>
+ </div>
+</main>
 
-    <script src="assets/js/contactForm.js"></script>
 </body>
 </html>
