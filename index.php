@@ -105,7 +105,6 @@ $isLoggedIn = isset($_SESSION['user_id']);
                 <li><a href="#">Reservas</a></li>
                 <li><a href="/public/contactos.html">Contacto</a></li>
                 <?php if ($isLoggedIn): ?>
-                    <li><a href="/src/db/logout.php">Cerrar sesión</a></li>
                     <li><a href="/public/cuenta.php"><img src="/public/assets/img/image.png" alt="Usuario" class="user-icon"></a></li>
                 <?php else: ?>
                     <li><a href="/public/login.html"><img src="/public/assets/img/image.png" alt="Usuario" class="user-icon"></a></li>

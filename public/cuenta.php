@@ -142,21 +142,36 @@ try {
     <title>Configuración de Cuenta</title>
     <link rel="stylesheet" href="../public/assets/css/cuenta.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 </head>
 
 <body>
-    <header>
+<header>
         <nav>
             <div class="logo">
-                <img src="/public/assets/img/logo-removebg-preview.png" alt="Logo" class="logo-image">
-                <h1>Café Sabroso</h1>
+                <a href="/" class="logo-link">
+                    <img src="/public/assets/img/logo-removebg-preview.png" alt="Logo" class="logo-image" />
+                    <h1>Café Sabrosos</h1>
+                </a>
             </div>
-            <div class="menu">
-                <a href="/index.html">Inicio</a>
-                <a href="#">Pedidos</a>
-                <a href="#">Productos</a>
-                <a href="/public/contactos.html">Contacto</a>
-            </div>
+            <ul class="nav-links">
+                <li><a href="/public/local.html">Locales</a></li>
+                <li><a href="/public/tienda.html">Productos</a></li>
+                <li><a href="#">Ofertas</a></li>
+                <li><a href="#">Reservas</a></li>
+                <li><a href="/public/contactos.html">Contacto</a></li>
+                <li>
+                    <a href="/public/cuenta.php"><img src="/public/assets/img/image.png" alt="Usuario"
+                            class="user-icon" /></a>
+                </li>
+                <div class="cart">
+                    <a href="carrito.html">
+                        <img src="/public/assets/img/cart.png" alt="Carrito" />
+                        <span id="cart-counter" class="cart-counter">0</span>
+                    </a>
+                </div>
+            </ul>
         </nav>
     </header>
     <main>
@@ -216,7 +231,42 @@ try {
         </section>
     </main>
     <footer>
-        <p>&copy; 2024 Mi Perfil. Todos los derechos reservados.</p>
+        <div class="footer-content">
+            <div class="footer-section about">
+                <h3>Café Sabrosos</h3>
+                <p>
+                    Disfruta del mejor café con nosotros. Nos preocupamos por cada
+                    detalle, desde la selección de los granos hasta la preparación de tu
+                    bebida.
+                </p>
+                <div class="socials">
+                    <a href="#"><i class="fa fa-facebook"></i></a>
+                    <a href="#"><i class="fa fa-instagram"></i></a>
+                    <a href="#"><i class="fa fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-section links">
+                <h3>Enlaces Rápidos</h3>
+                <ul>
+                    <li><a href="/public/local.html">Locales</a></li>
+                    <li><a href="/public/tienda.html">Productos</a></li>
+                    <li><a href="#">Ofertas</a></li>
+                    <li><a href="#">Reservas</a></li>
+                    <li><a href="/public/contactos.html">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-section contact">
+                <h3>Contáctanos</h3>
+                <ul>
+                    <li><i class="fa fa-map-marker"></i> 123 Calle Café, San José</li>
+                    <li><i class="fa fa-phone"></i> +598 123 4567</li>
+                    <li><i class="fa fa-envelope"></i> info@cafesabrosos.com</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Café Sabrosos. Todos los derechos reservados.</p>
+        </div>
     </footer>
 </body>
 
