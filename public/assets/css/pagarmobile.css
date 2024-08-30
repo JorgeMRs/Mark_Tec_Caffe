@@ -170,10 +170,10 @@ input[type="submit"]:hover {
 
 .card-logo {
     position: absolute;
-    right: 10px;
-    top: 50%;
+    right: 50px;
+    top: 280px;
     transform: translateY(-50%);
-    width: 24px;
+    width: 39px;
     height: auto;
     display: block;
 }
