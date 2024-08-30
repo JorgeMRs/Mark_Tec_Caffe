@@ -1,0 +1,180 @@
+:root {
+    --primary-color: #b8860b;
+    --text-color: #e2e8f0;
+    --accent-color: #b8860b;
+  }
+/* CSS para el body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+/* CSS para el header */
+.header-local {
+    background-color: #000000; /* Color de fondo negro */
+    padding: 15px 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-image {
+    width: 60px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.logo h1 {
+    font-family: 'Playfair Display', serif;
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+    background: linear-gradient(45deg, #fff, var(--primary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.site-title {
+    color: #ffffff; /* Texto blanco */
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.cart {
+    position: relative;
+}
+
+.cart img {
+    width: 30px;
+    height: 30px;
+}
+
+.cart-counter {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: #e74c3c; /* Color rojo para la notificación */
+    color: #ffffff; /* Texto blanco */
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 50%;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 768px) {
+    .site-title {
+        font-size: 20px; /* Tamaño del título reducido para móviles */
+    }
+    .cart-icon {
+        width: 30px; /* Tamaño del icono del carrito reducido para móviles */
+    }
+}
+
+/* CSS para el formulario y otros elementos */
+.form-container {
+    padding: 20px;
+}
+
+form {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: #333333;
+    text-align: center;
+}
+
+.payment-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.payment-buttons button {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.payment-buttons i {
+    font-size: 20px;
+    color: #333333;
+}
+
+input[type="text"],
+input[type="month"] {
+    width: 93%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+input[type="text"]::placeholder,
+input[type="month"]::placeholder {
+    color: #aaaaaa;
+}
+
+input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+label {
+    font-size: 14px;
+    color: #333333;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex-container input[type="text"],
+.flex-container input[type="month"] {
+    width: 48%;
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #b8860b;
+    border: none;
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #a07609;
+}
+
+.card-logo {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: auto;
+    display: block;
+}
+

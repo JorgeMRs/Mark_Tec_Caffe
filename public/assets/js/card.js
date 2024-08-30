@@ -1,4 +1,3 @@
-// Detectar tarjeta segun el numero
 document.getElementById('tarjeta').addEventListener('input', function() {
     const tarjeta = this.value;
     const cardLogo = document.getElementById('card-logo');
@@ -8,6 +7,9 @@ document.getElementById('tarjeta').addEventListener('input', function() {
         cardLogo.style.display = 'block';
     } else if (tarjeta.startsWith('4')) {
         cardLogo.src = '/public/assets/img/visa.png';
+        cardLogo.style.display = 'block';
+    } else if (tarjeta.startsWith('3')) {
+        cardLogo.src = '/public/assets/img/americanexpress.png';
         cardLogo.style.display = 'block';
     } else {
         cardLogo.style.display = 'none';

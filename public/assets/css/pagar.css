@@ -1,251 +1,308 @@
 :root {
-    --primary-color: #b8860b;
-    --text-color: #e2e8f0;
-    --accent-color: #b8860b;
-  }
+  --primary-color: #b8860b;
+  --text-color: #e2e8f0;
+  --accent-color: #b8860b;
+}
 
 body {
-font-family: Arial, sans-serif;
-background: linear-gradient(to right, #ffffff, #aaaaaa);
-color: #333;
-margin: 0;
-padding: 0;
-  }
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to right, #ffffff, #aaaaaa);
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
 
 header {
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.85));
-    padding: 1rem;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  }
-  .header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  .logo {
-    display: flex;
-    align-items: center;
-  }
-  
-  .logo-image {
-    width: 60px;
-    height: auto;
-    margin-right: 1rem;
-    transition: transform 0.3s ease;
-  }
-  
-  .logo-image:hover {
-    transform: rotate(360deg);
-  }
-  
-  .logo h1 {
-    font-family: 'Playfair Display', serif;
-    margin: 0;
-    font-size: 24px;
-    font-weight: bold;
-    background: linear-gradient(45deg, #fff, var(--primary-color));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  
-  /* General styles for nav */
-  nav ul {
-    list-style-type: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
-  }
-  
-  nav ul li {
-    margin-left: 1.5rem;
-  }
-  
-  nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    position: relative;
-  }
-  
-  nav ul li a::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    bottom: -5px;
-    left: 0;
-    background-color: #ffcc00;
-    transform: scaleX(0);
-    transition: transform 0.3s ease;
-  }
-  
-  nav ul li a:hover::after {
-    transform: scaleX(1);
-  }
-  /* Add this to your existing CSS */
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.85));
+  padding: 1rem;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
 
-  .user-icon {
-    width: 40px;
-    height: 40px;
-    margin: 0 5px;
-    height: auto;
-    display: inline-block;
-    vertical-align: middle;
-    transition: opacity 0.3s ease;
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo-image {
+  width: 60px;
+  height: auto;
+  margin-right: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.logo-image:hover {
+  transform: rotate(360deg);
+}
+
+.logo h1 {
+  font-family: 'Playfair Display', serif;
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+  background: linear-gradient(45deg, #fff, var(--primary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* General styles for nav */
+nav ul {
+  list-style-type: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  margin-left: 1.5rem;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+nav ul li a::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background-color: #ffcc00;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+nav ul li a:hover::after {
+  transform: scaleX(1);
+}
+
+.user-icon {
+  width: 40px;
+  height: 40px;
+  margin: 0 5px;
+  height: auto;
+  display: inline-block;
+  vertical-align: middle;
+  transition: opacity 0.3s ease;
 }
 
 nav ul li a img.user-icon {
-    margin-left: 0.5rem; /* Adjust spacing if needed */
+  margin-left: 0.5rem; /* Adjust spacing if needed */
 }
 
 nav ul li a:hover img.user-icon {
-    opacity: 0.7; /* Add a hover effect if desired */
+  opacity: 0.7; /* Add a hover effect if desired */
 }
 
 .menu {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    text-align: center;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
 }
 
 .menu a {
-    color: #ffffff;
-    text-decoration: none;
-    padding: 8px 16px;
-    background-color: #DAA520;
-    border-radius: 5px;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 8px 16px;
+  background-color: #DAA520;
+  border-radius: 5px;
 }
 
 .menu a:hover {
-    background-color: #cd853f;
+  background-color: #cd853f;
 }
 
 .cart {
-    position: relative;
+  position: relative;
 }
 
 .cart img {
-    width: 30px;
-    height: 30px;
+  width: 30px;
+  height: 30px;
 }
 
 .cart-counter {
-    position: absolute;
-    top: -5px;
-    right: -10px;
-    background-color: #8B4513; /* Marrón */
-    color: #ffffff; /* Blanco */
-    border-radius: 50%;
-    padding: 2px 6px;
-    font-size: 12px;
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background-color: #8B4513; /* Marrón */
+  color: #ffffff; /* Blanco */
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
 }
 
+/* Form Container */
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding-top: 80px; /* Adjust for header */
+}
 
 /* Form Styles */
 h2 {
-    text-align: center;
-    color: #8B4513;
+  text-align: center;
+  color: #8B4513;
 }
 
 form {
-    justify-content: center;
-    align-items: center;
-    width: 50%;
-    margin: 0 auto;
-    padding: 20px;
+  background: #f4f4f4;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
 }
 
 input[type="text"],
 input[type="tarjeta"],
 textarea,
 select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+  width: 96%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
-
 .tarjeta {
-    position: relative;
-    display: inline-block;
+  position: relative;
+  display: inline-block;
 }
 
 #tarjeta {
-    padding-right: 401%;
+  padding-right: 223%;
 }
 
 .card-logo {
-    position: absolute;
-    top: 38%;
-    left: 470%;
-    transform: translateY(-50%);
-    width: 50px;
-    height: auto;
+  position: absolute;
+  top: 40%;
+  left: 290%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: auto;
 }
 
 input[type="submit"] {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    border-radius: 5px;
-    border: none;
-    background-color: #DAA520;
-    color: #fff;
-    cursor: pointer;
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #DAA520;
+  color: #fff;
+  cursor: pointer;
 }
 
 input[type="submit"]:hover {
-    background-color: #cd853f;
+  background-color: #cd853f;
 }
 
 label {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 input[type="radio"],
 input[type="checkbox"] {
-    margin-right: 5px;
+  margin-right: 5px;
 }
 
 /* Estilos para el calendario */
 input[type="month"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    color: #333;
-    font-size: 16px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: #333;
+  font-size: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 input[type="month"]::-webkit-calendar-picker-indicator {
-    background-color: #DAA520;
-    border-radius: 50%;
-    padding: 5px;
-    cursor: pointer;
+  background-color: #DAA520;
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
 }
 
 /* Responsive Styles */
 @media (max-width: 768px) {
-    form {
-        width: 80%;
-    }
+  form {
+      width: 80%;
+  }
 
-    input[type="month"] {
-        font-size: 14px;
-    }
+  input[type="month"] {
+      font-size: 14px;
+  }
+}
+
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px; /* Adjust the gap between the fields if needed */
+}
+
+.flex-container input[type="text"],
+.flex-container input[type="month"] {
+  width: calc(50% - 5px); /* Adjust width for each input field to be 50% */
+}
+
+/* Ensure the cardholder's name field has full width */
+input[placeholder="Nombre en la tarjeta:"] {
+  width: 100%;
+  margin-top: 10px;
+}
+.payment-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px; /* Spacing between buttons */
+  margin-top: 20px; /* Space above the buttons */
+}
+
+.payment-buttons button {
+  background-color: #f4f4f4; /* Button background color */
+  border: 2px solid #DAA520; /* Button border color */
+  border-radius: 50%; /* Make the buttons circular */
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.payment-buttons button:hover {
+  background-color: #DAA520; /* Change background color on hover */
+}
+
+.payment-buttons i {
+  font-size: 19px;
+  color: #333; /* Icon color */
+}
+
+.payment-buttons button:hover i {
+  color: #fff; /* Change icon color on hover */
 }

@@ -110,7 +110,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
                     <li><a href="/public/login.html"><img src="/public/assets/img/image.png" alt="Usuario" class="user-icon"></a></li>
                 <?php endif; ?>
                 <div class="cart">
-                    <a href="carrito.html">
+                    <a href="/public/carrito.html">
                         <img src="/public/assets/img/cart.png" alt="Carrito">
                         <span id="cart-counter" class="cart-counter">0</span>
                     </a>
