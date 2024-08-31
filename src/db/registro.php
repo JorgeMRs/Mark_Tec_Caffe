@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: application/json');
-require_once __DIR__ . '/../../vendor/autoload.php'; // Ajusta la ruta según la ubicación de tu archivo
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 use Dotenv\Dotenv;
 
@@ -8,8 +8,8 @@ $dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
 $dotenv->load();
 
 require_once './db_connect.php';
-require_once '../email/verificationEmail.php'; // Archivo para funciones de envío de correo
-$recaptchaSecret = $_ENV['recaptchaSecret']; // Reemplaza con tu clave secreta de reCAPTCHA
+require_once '../email/verificationEmail.php';
+$recaptchaSecret = $_ENV['recaptchaSecret'];
 
 $response = array();
 
