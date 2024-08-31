@@ -1,305 +1,467 @@
 :root {
-    --primary-color: #b8860b;
-    --secondary-color: #1e3a8a;
-    --background-color: #0f172a;
-    --text-color: #e2e8f0;
-    --accent-color: #b8860b;
-  }
-  
-  html {
-    scroll-behavior: smooth;
-  }
-  
-  body {
-    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
-    background: var(--background-color);
-    color: var(--text-color);
-    line-height: 1.6;
-    min-height: 100vh;
-  }
-  
-  header {
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.85));
-    padding: 1rem;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  .logo {
-    display: flex;
-    align-items: center;
-  }
-  
-  .logo-image {
-    width: 60px;
-    height: auto;
-    margin-right: 1rem;
-    transition: transform 0.3s ease;
-  }
-  
-  .logo-image:hover {
-    transform: rotate(360deg);
-  }
-  
-  .logo h1 {
-    font-family: 'Playfair Display', serif;
-    margin: 0;
-    font-size: 24px;
-    font-weight: bold;
-    background: linear-gradient(45deg, #fff, var(--primary-color));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  
-  /* General styles for nav */
-  nav ul {
-    list-style-type: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
-  }
-  
-  nav ul li {
-    margin-left: 1.5rem;
-  }
-  
-  nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    position: relative;
-  }
-  
-  nav ul li a::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    bottom: -5px;
-    left: 0;
-    background-color: #ffcc00;
-    transform: scaleX(0);
-    transition: transform 0.3s ease;
-  }
-  
-  nav ul li a:hover::after {
-    transform: scaleX(1);
-  }
-  /* Add this to your existing CSS */
-
-  .user-icon {
-    width: 40px;
-    height: 40px;
-    margin: 0 5px;
-    height: auto;
-    display: inline-block;
-    vertical-align: middle;
-    transition: opacity 0.3s ease;
+  --primary-color: #b8860b;
+  --secondary-color: #1e3a8a;
+  --background-color: #0f172a;
+  --text-color: #e2e8f0;
+  --accent-color: #b8860b;
 }
 
-nav ul li a img.user-icon {
-    margin-left: 0.5rem; /* Adjust spacing if needed */
+body {
+  font-family: "Poppins", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  min-height: 100vh;
 }
 
-nav ul li a:hover img.user-icon {
-    opacity: 0.7; /* Add a hover effect if desired */
+
+
+.user-icon {
+  width: 40px;
+  height: 40px;
+  margin: 0 5px;
 }
 
-  .fa-user-circle {
-    font-size: 24px;
-    color: var(--primary-color);
-    transition: color 0.3s ease;
-  }
-  
-  .fa-user-circle:hover {
-    color: var(--accent-color);
-  }
-  
-  .hero {
-    background-image: url('/assets/img/hero-bg.jpg');
-    background-size: cover;
-    background-position: center;
-    height: 25vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 2rem;
-    margin-top: 80px;
-  }
-  
-  .hero h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 4rem;
-    margin-bottom: 1rem;
-    color: var(--primary-color);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  }
-  
-  .hero p {
-    font-size: 1.5rem;
-    max-width: 600px;
-    color: var(--text-color);
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-  }
-  
-  .mapa-world {
-    margin: 4rem auto;
-    max-width: 1200px;
-  }
-  
-  .map-container {
-    position: relative;
-    overflow: hidden;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  }
-  
-  .map-container img {
+nav {
+  display: flex;
+  align-items: center; /* Alinea verticalmente los elementos */
+  backdrop-filter: blur(10px);
+  justify-content: space-around; /* Distribuye los elementos en el espacio disponible */
+  padding: 1rem;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.5); /* Fondo semitransparente negro */
+  transition: all 0.3s ease;
+}
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease; /* Transición del color */
+  position: relative;
+}
+
+nav ul li a::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px; /* Altura de la línea */
+  bottom: -5px; /* Posición de la línea debajo del texto */
+  left: 0;
+  background-color: #b8860b; /* Color de la línea */
+  transform: scaleX(0); /* Inicialmente no visible */
+  transition: transform 0.3s ease; /* Transición de la línea */
+}
+
+nav ul li a:hover {
+  color: #b8860b; /* Cambia el color del texto al pasar el ratón */
+}
+
+nav ul li a:hover::after {
+  transform: scaleX(1); /* Muestra la línea al pasar el ratón */
+}
+.logo {
+  display: flex;
+  align-items: center; /* Alinea verticalmente al centro */
+  margin-left: 4vh;
+}
+.logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none; /* Elimina el subrayado del enlace */
+}
+
+.logo img {
+  width: 70px; /* Ajusta el tamaño del logo según tus necesidades */
+  margin-right: 10px; /* Espacio entre el logo y el texto */
+}
+
+.logo-link h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(45deg, #FFF, #b8860b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center; /* Alinea verticalmente los elementos de la lista */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-right: 3vh;
+}
+
+.nav-links li {
+  margin: 0 10px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s ease;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.nav-links a:hover {
+  color: #b8860b; /* Color dorado al pasar el cursor */
+}
+
+.cart {
+  position: relative;
+}
+
+.cart img {
+  width: 30px;
+  height: 30px;
+}
+
+.cart-counter {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background-color: #8B4513; /* Marrón */
+  color: #ffffff; /* Blanco */
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+}
+.hero {
+  background-image: url("/assets/img/hero-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 25vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  margin-top: 80px;
+}
+
+.hero h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero p {
+  font-size: 1.5rem;
+  max-width: 600px;
+  color: var(--text-color);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.mapa-world {
+  margin: 4rem auto;
+  max-width: 1200px;
+}
+
+.map-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  height: 150vh;
+  max-height: 1151px; /* También puedes limitar el alto máximo */
+}
+
+.map-container img {
     width: 100%;
     height: auto;
     display: block;
+}
+
+.pin {
+  position: absolute;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pin-dot {
+  display: block;
+  width: 12px;
+  height: 12px;
+  background-color: #1e3a8a;
+  border-radius: 50%;
+  box-shadow: 0 0 0 rgba(184, 134, 11, 0.4);
+  animation: pulse 2s infinite;
+}
+
+/* Inicialmente, las imágenes y la información están ocultas */
+.pin-image, .pin-info {
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  z-index: 10;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px); /* Initial position for animation */
+}
+
+/* Estilo de la imagen */
+.pin-image {
+  width: 320px !important;
+  height: 150px !important;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  bottom: -150px; /* Position below the pin */
+}
+
+/* Estilo del contenedor de información */
+.pin-info {
+  background-color: #fff;
+  width: 300px;
+  padding: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  bottom: -120px;
+}
+
+/* Mostrar imagen e información solo cuando el pin esté en hover */
+.pin:hover .pin-image, .pin:hover .pin-info {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0); /* Move to final position */
+}
+
+.pin-details {
+  padding: 10px;
+}
+
+.pin-details h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: var(--primary-color);
+}
+
+.pin-details p {
+  margin: 0;
+  color: black;
+  font-size: 0.9rem;
+}
+.pin.francia {
+  z-index: 10;
+}
+
+.pin.alemania {
+  z-index: 20;
+}
+
+.pin.portugal {
+  z-index: 30;
+}
+
+.pin.españa {
+  z-index: 40;
+}
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgb(255 0 0 / 95%);
+}
+  70% {
+    box-shadow: 0 0 0 10px rgba(184, 134, 11, 0);
   }
-  
-  .pin {
-    position: absolute;
-    cursor: pointer;
+  100% {
+    box-shadow: 0 0 0 0 rgba(184, 134, 11, 0);
   }
-  
-  .pin-dot {
-    display: block;
-    width: 12px;
-    height: 12px;
-    background-color: var(--accent-color);
-    border-radius: 50%;
-    box-shadow: 0 0 0 rgba(184, 134, 11, 0.4);
-    animation: pulse 2s infinite;
+}
+
+.pin::after {
+  content: attr(data-country);
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: var(--text-color);
+  padding: 5px 10px;
+  border-radius: 5px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  white-space: nowrap;
+}
+
+.pin.hover::after {
+  opacity: 1;
+}
+
+.pin.francia {
+  left: 32.8%;
+  top: 54%;
+}
+.pin.alemania {
+  left: 47.8%;
+  top: 46%;
+}
+.pin.portugal {
+  left: 15.8%;
+  top: 71%;
+}
+.pin.españa {
+  left: 23.8%;
+  top: 68%;
+}
+.locations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1350px;
+  margin: 35px auto;
+}
+.location-card {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.location-card:hover {
+  transform: translateY(-5px);
+}
+
+.location-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.location-card h3 {
+  font-family: "Playfair Display", serif;
+  color: var(--primary-color);
+  padding: 1rem;
+  margin: 0;
+}
+
+.location-card p {
+  padding: 0 1rem 1rem;
+  color: var(--text-color);
+}
+
+
+footer {
+  background-color: #1e3a8a;
+  color: #DAA421;
+  text-align: center;
+  width: 100%;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+footer p{
+  margin-top: 16px;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.footer-section {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.footer-section h3 {
+  font-family: 'Poppins';
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.footer-section p,
+.footer-section ul {
+  font-family: 'Poppins';
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+  color: #daa421;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+  color: #1B0D0B;
+}
+.footer-section h3{
+  margin-top: 24px;
+}
+.socials {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.socials a {
+  color: #daa421;
+  margin: 0 10px;
+  font-size: 20px;
+  transition: color 0.3s ease;
+}
+
+.socials a:hover {
+  color: #1B0D0B;
+}
+
+.footer-bottom {
+  background-color: #1B0D0B;
+  /* Marrón oscuro */
+  padding: 20px 0;
+  width: 100%;
+  font-family: 'Poppins';
+  font-size: 16px;
+  font-weight: 400;
+  color: #FFF;
+}
+
+@media (min-width: 768px) {
+  .footer-content {
+      flex-direction: row;
+      justify-content: space-between;
+      text-align: left;
   }
-  
-  @keyframes pulse {
-    0% {
-      box-shadow: 0 0 0 0 rgba(184, 134, 11, 0.4);
-    }
-    70% {
-      box-shadow: 0 0 0 10px rgba(184, 134, 11, 0);
-    }
-    100% {
-      box-shadow: 0 0 0 0 rgba(184, 134, 11, 0);
-    }
+
+  .footer-section {
+      flex: 1;
+      padding: 0 20px;
   }
+
   
-  .pin::after {
-    content: attr(data-country);
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.7);
-    color: var(--text-color);
-    padding: 5px 10px;
-    border-radius: 5px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    white-space: nowrap;
+}
+@media (max-width: 768px) {
+  .nav-links {
+      display: block !important;
+      /* Alinea verticalmente los elementos de la lista */
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      margin-right: 3vh;
   }
-  
-  .pin:hover::after {
-    opacity: 1;
-  }
-  
-  .pin.francia { left: 46.8%; top: 45%; }
-  .pin.alemania { left: 50.8%; top: 42%; }
-  .pin.portugal { left: 43.8%; top: 50%; }
-  
-  .locations-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    padding: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  .location-card {
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-  }
-  
-  .location-card:hover {
-    transform: translateY(-5px);
-  }
-  
-  .location-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-  }
-  
-  .location-card h3 {
-    font-family: 'Playfair Display', serif;
-    color: var(--primary-color);
-    padding: 1rem;
-    margin: 0;
-  }
-  
-  .location-card p {
-    padding: 0 1rem 1rem;
-    color: var(--text-color);
-  }
-  
-  footer {
-    background-color: rgba(0, 0, 0, 0.8);
-    color: var(--text-color);
-    text-align: center;
-    padding: 1rem;
-    margin-top: 2rem;
-  }
-  
-  @media (max-width: 768px) {
-    .header-content {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    nav ul {
-      flex-direction: column;
-      align-items: center;
-      margin-top: 1rem;
-    }
-  
-    nav ul li {
-      margin: 0.5rem 0;
-    }
-  
-    .hero h2 {
-      font-size: 3rem;
-    }
-  
-    .hero p {
-      font-size: 1.2rem;
-    }
-  
-    .locations-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-  
+}

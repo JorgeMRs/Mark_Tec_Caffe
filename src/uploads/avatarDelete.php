@@ -2,7 +2,7 @@
 function deleteAvatar($user_id, $conn): string
 {
     // Directorio de subida
-    $uploadDir = '/var/www/html/Mark_Tec_Caffe/public/assets/img/avatars/';
+    $uploadDir = '/var/www/cafesabrosos/public/assets/img/avatars/';
 
     // Inicializar la variable
     $currentAvatar = '';

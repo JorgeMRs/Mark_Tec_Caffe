@@ -11,13 +11,13 @@ function uploadAvatar($user_id, $file, $conn): string
     }
 
     // Directorio temporal
-    $tempDir = '/var/www/html/Mark_Tec_Caffe/tmp/';
-    if (!is_dir($tempDir) && !mkdir($tempDir, 0777, true)) {
-        return 'No se pudo crear el directorio temporal: ' . $tempDir;
-    }
+    $tempDir = '/var/www/cafesabrosos/tmp/';
+     if (!is_dir($tempDir) && !mkdir($tempDir, 0777, true)) {
+         return 'No se pudo crear el directorio temporal: ' . $tempDir;
+     }
 
     // Directorio de subida
-    $uploadDir = '/var/www/html/Mark_Tec_Caffe/public/assets/img/avatars/';
+    $uploadDir = '/var/www/cafesabrosos/public/assets/img/avatars/';
     if (!is_dir($uploadDir)) {
         return 'Directorio de subida no encontrado o ruta incorrecta: ' . $uploadDir;
     }

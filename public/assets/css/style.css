@@ -34,7 +34,7 @@ nav {
     position: absolute;
     width: 100%;
     top: 0;
-    z-index: 1000;
+    z-index: 999;
     background: rgba(0, 0, 0, 0.5); /* Fondo semitransparente negro */
     transition: all 0.3s ease;
 }
