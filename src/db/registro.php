@@ -1,10 +1,17 @@
 <?php
 header('Content-Type: application/json');
-$response = array();
+require_once __DIR__ . '/../../vendor/autoload.php'; // Ajusta la ruta según la ubicación de tu archivo
+
+use Dotenv\Dotenv;
+
+$dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
+$dotenv->load();
 
 require_once './db_connect.php';
 require_once '../email/verificationEmail.php'; // Archivo para funciones de envío de correo
-$recaptchaSecret = '6LemoDEqAAAAAO1YAig42ErXkI0XUoGQ631dFRwe'; // Reemplaza con tu clave secreta de reCAPTCHA
+$recaptchaSecret = $_ENV['recaptchaSecret']; // Reemplaza con tu clave secreta de reCAPTCHA
+
+$response = array();
 
 try {
     // Crear conexión
