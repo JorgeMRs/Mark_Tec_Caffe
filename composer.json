@@ -15,6 +15,7 @@
         "vlucas/phpdotenv": "^5.6",
         "kreait/firebase-php": "*",
       "ext-json": "*",
-      "ext-mysqli": "*"
+      "ext-mysqli": "*",
+        "stichoza/google-translate-php": "^5.2"
     }
 }

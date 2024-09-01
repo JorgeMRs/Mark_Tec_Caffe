@@ -3,6 +3,7 @@ session_start();
 require '../src/db/db_connect.php';
 require '../src/uploads/avatarUpload.php';
 require '../src/uploads/avatarDelete.php';
+require '../src/account/accountDelete.php';
 
 // Verificar si el usuario está autenticado
 if (!isset($_SESSION['user_id'])) {
@@ -24,8 +25,16 @@ $contraseña = '';
 $avatar = '';
 
 try {
-    
+
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        
+          // Procesar eliminación de cuenta
+        if (isset($_POST['deleteAccount']) && $_POST['deleteAccount'] === 'true') {
+            $deleteAccountMessage = deleteAccount($user_id); // Llamar a la función
+            if ($deleteAccountMessage) {
+                $errorMessage = $deleteAccountMessage;
+            }
+        }
         // Procesar subida del avatar
         if (isset($_FILES['avatar'])) {
             $avatarUploadMessage = uploadAvatar($user_id, $_FILES['avatar'], $conn);
@@ -147,7 +156,7 @@ try {
 </head>
 
 <body>
-<header>
+    <header>
         <nav>
             <div class="logo">
                 <a href="/" class="logo-link">
@@ -156,11 +165,11 @@ try {
                 </a>
             </div>
             <ul class="nav-links">
-                <li><a href="/public/local.html">Locales</a></li>
-                <li><a href="/public/tienda.html">Productos</a></li>
+                <li><a href="local.pp">Locales</a></li>
+                <li><a href="tienda.php">Productos</a></li>
                 <li><a href="#">Ofertas</a></li>
                 <li><a href="#">Reservas</a></li>
-                <li><a href="/public/contactos.html">Contacto</a></li>
+                <li><a href="contactos.html">Contacto</a></li>
                 <li>
                     <a href="/public/cuenta.php"><img src="/public/assets/img/image.png" alt="Usuario"
                             class="user-icon" /></a>
@@ -219,7 +228,7 @@ try {
                     <button type="submit" class="logout-btn">Cerrar Sesión</button>
                 </form>
                 <form action="">
-                    <button class="delete-btn">Eliminar Cuenta</button>
+                    <button type="button" class="delete-btn" id="deleteAccountBtn">Eliminar Cuenta</button>
                 </form>
             </div>
             <?php if ($errorMessage): ?>
@@ -230,6 +239,90 @@ try {
             <?php endif; ?>
         </section>
     </main>
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .modal-content h2{
+            color: #b8860b;
+        }
+        .modal-buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .modal-buttons button {
+    padding: 10px 20px;
+    border: none;
+    text-wrap: nowrap;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+        #confirmDeleteBtn {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        #cancelDeleteBtn {
+            background-color: #b8860b;
+            color: white;
+        }
+        form#deleteAccountForm {
+    margin-right: 1vh;
+    display: flex;
+    justify-content: space-between;
+}
+    </style>
+    <!-- Modal de confirmación -->
+    <div id="deleteAccountModal" class="modal">
+    <div class="modal-content">
+        <h2>¿Estás seguro que deseas eliminar tu cuenta?</h2>
+        <p>Esta acción no se puede deshacer.</p>
+        <div class="modal-buttons">
+            <form id="deleteAccountForm" method="POST">
+                <input type="hidden" name="deleteAccount" value="true">
+                <button type="button" id="confirmDeleteBtn">Sí, eliminar cuenta</button>
+            </form>
+            <button type="button" id="cancelDeleteBtn">Cancelar</button>
+        </div>
+    </div>
+</div>
+    <script>
+    document.getElementById('deleteAccountBtn').onclick = function() {
+        document.getElementById('deleteAccountModal').style.display = 'block';
+    };
+
+    document.getElementById('cancelDeleteBtn').onclick = function() {
+        document.getElementById('deleteAccountModal').style.display = 'none';
+    };
+
+    document.getElementById('confirmDeleteBtn').onclick = function() {
+        // Envía el formulario de eliminación de cuenta
+        document.getElementById('deleteAccountForm').submit();
+    };
+    </script>
     <footer>
         <div class="footer-content">
             <div class="footer-section about">

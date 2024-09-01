@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +8,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cafe Sabrosos - Productos</title>
-    <link rel="stylesheet" href="../public/assets/css/productos.css" />
+    <link rel="stylesheet" href="../public/assets/css/tienda.css" />
     <link rel="icon" href="/public/assets/img/logo-removebg-preview.png" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -21,11 +24,11 @@
                 </a>
             </div>
             <ul class="nav-links">
-                <li><a href="/public/local.html">Locales</a></li>
-                <li><a href="#">Productos</a></li>
+                <li><a href="local.php">Locales</a></li>
+                <li><a href="tienda.php">Productos</a></li>
                 <li><a href="#">Ofertas</a></li>
                 <li><a href="#">Reservas</a></li>
-                <li><a href="/public/contactos.html">Contacto</a></li>
+                <li><a href="contactos.html">Contacto</a></li>
                 <li>
                     <a href="/public/cuenta.php"><img src="/public/assets/img/image.png" alt="Usuario"
                             class="user-icon" /></a>
@@ -108,44 +111,67 @@
             <!-- Aquí se insertará el contenido dinámico para la categoría seleccionada en la categoria principal y esta ultima se ocultara y ahora sera visible category-details-->
 
     </main>
-    <footer id="footer">
-        <div class="footer-content">
-            <div class="footer-section about">
-                <h3>Café Sabrosos</h3>
-                <p>
-                    Disfruta del mejor café con nosotros. Nos preocupamos por cada
-                    detalle, desde la selección de los granos hasta la preparación de tu
-                    bebida.
-                </p>
-                <div class="socials">
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                    <a href="#"><i class="fa fa-instagram"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                </div>
-            </div>
-            <div class="footer-section links">
-                <h3>Enlaces Rápidos</h3>
-                <ul>
-                    <li><a href="/public/local.html">Locales</a></li>
-                    <li><a href="#">Productos</a></li>
-                    <li><a href="#">Ofertas</a></li>
-                    <li><a href="#">Reservas</a></li>
-                    <li><a href="/public/contactos.html">Contacto</a></li>
-                </ul>
-            </div>
-            <div class="footer-section contact">
-                <h3>Contáctanos</h3>
-                <ul>
-                    <li><i class="fa fa-map-marker"></i> 123 Calle Café, San José</li>
-                    <li><i class="fa fa-phone"></i> +598 123 4567</li>
-                    <li><i class="fa fa-envelope"></i> info@cafesabrosos.com</li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 Café Sabrosos. Todos los derechos reservados.</p>
-        </div>
-    </footer>
+    <?php include 'templates/footer.html'; ?>
 </body>
+
+<script>
+function addToCart(productId, quantity) {
+    if (<?php echo isset($_SESSION['user_id']) ? 'true' : 'false'; ?>) {
+        // Si el usuario está autenticado, hacer la solicitud al servidor
+        const url = '/src/cart/addCart.php';
+        const data = new URLSearchParams({
+            producto_id: productId,
+            cantidad: quantity
+        });
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: data.toString()
+        }).then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                updateCartCounter();
+                alert('Producto agregado al carrito.');
+            } else {
+                alert('Error: ' + data.message);
+            }
+        }).catch(error => {
+            alert('Error en la red. Por favor, inténtelo de nuevo.');
+        });
+    } else {
+        // Si el usuario no está autenticado, almacenar en localStorage
+        const carrito = JSON.parse(localStorage.getItem('carrito')) || {};
+        carrito[productId] = (carrito[productId] || 0) + quantity;
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+
+        const expirationTime = Date.now() + 3600000; // 1 hora
+        localStorage.setItem('cart_expiration', expirationTime);
+
+        updateCartCounter();
+        alert('Producto agregado al carrito local.');
+    }
+}
+
+function updateCartCounter() {
+    const cartCounterElement = document.getElementById('cart-counter');
+
+    fetch('/src/cart/getCartCounter.php')
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            cartCounterElement.textContent = data.totalQuantity;
+        } else {
+            handleLocalStorageCart(cartCounterElement);
+        }
+    }).catch(() => {
+        handleLocalStorageCart(cartCounterElement);
+    });
+}
+
+    </script>
+<script src="/public/assets/js/tienda.js"></script>
 <script src="/public/assets/js/productos.js"></script>
 </html>

@@ -1,0 +1,165 @@
+/* Variables de color */
+:root {
+    --background: hsl(36, 39%, 88%);
+    --foreground: hsl(36, 45%, 15%);
+    --primary: hsl(36, 45%, 70%);
+    --primary-foreground: hsl(36, 45%, 11%);
+    --secondary: hsl(40, 35%, 77%);
+    --secondary-foreground: hsl(36, 45%, 25%);
+    --accent: hsl(36, 64%, 57%);
+    --accent-foreground: hsl(36, 72%, 17%);
+    --destructive: hsl(0, 84%, 37%);
+    --destructive-foreground: hsl(0, 0%, 98%);
+    --muted: hsl(36, 33%, 75%);
+    --muted-foreground: hsl(36, 45%, 25%);
+    --card: hsl(36, 46%, 82%);
+    --card-foreground: hsl(36, 45%, 20%);
+    --popover: hsl(0, 0%, 100%);
+    --popover-foreground: hsl(240, 10%, 3.9%);
+    --border: hsl(36, 45%, 60%);
+    --input: hsl(36, 45%, 60%);
+    --ring: hsl(36, 45%, 30%);
+}
+
+/* Estilos generales */
+body {
+    font-family: 'Space Mono', monospace;
+    background-color: var(--background);
+    color: var(--foreground);
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'DM Sans', sans-serif;
+}
+
+/* Contenedor principal */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px;
+}
+
+/* Enlace de retorno */
+.back-link {
+    color: hsl(48, 100%, 30%);
+    display: block;
+    margin-bottom: 16px;
+    text-decoration: none;
+}
+
+/* Grid de producto */
+.product-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+}
+
+@media (min-width: 768px) {
+    .product-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Imagen del producto */
+.product-image {
+    width: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+/* Detalles del producto */
+.product-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+}
+
+/* Categoría del producto */
+.product-category {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .product-category {
+        text-align: left;
+    }
+}
+
+.category-link {
+    text-decoration: underline;
+    color: var(--foreground);
+}
+
+/* Título del producto */
+.product-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .product-title {
+        text-align: left;
+    }
+}
+
+/* Descripción del producto */
+.product-description {
+    color: var(--muted-foreground);
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .product-description {
+        text-align: left;
+    }
+}
+
+/* Precio del producto */
+.product-price {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .product-price {
+        text-align: left;
+    }
+}
+
+/* Control de cantidad */
+.quantity-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+@media (min-width: 768px) {
+    .quantity-control {
+        justify-content: flex-start;
+    }
+}
+
+.quantity-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    background-color: hsl(48, 100%, 30%);
+    color: white;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.quantity-btn:hover {
+    background-color: hsl(48, 100%, 35%);
+}

@@ -315,3 +315,19 @@ a.index-button:focus {
 .ocultar-texto {
     display: none;
 }
+
+.loading-message{
+    color: #fff; 
+    margin-top: 20px; 
+    font-size: 18px;
+    text-wrap: nowrap;
+    display: flex;
+    justify-content: center;
+}
+
+/* captcha */
+.g-recaptcha {
+    display: flex;
+    justify-content: center;
+    margin: 8px;
+}

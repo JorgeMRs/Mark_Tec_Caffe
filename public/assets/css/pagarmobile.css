@@ -84,6 +84,7 @@ body {
 /* CSS para el formulario y otros elementos */
 .form-container {
     padding: 20px;
+    margin-top: 100px;
 }
 
 form {
@@ -156,7 +157,7 @@ label {
 input[type="submit"] {
     width: 100%;
     padding: 12px;
-    background-color: #b8860b;
+    background-color: #DAA520;
     border: none;
     border-radius: 5px;
     color: #ffffff;
@@ -171,10 +172,12 @@ input[type="submit"]:hover {
 .card-logo {
     position: absolute;
     right: 50px;
-    top: 280px;
+    top: 363px;
     transform: translateY(-50%);
     width: 39px;
     height: auto;
     display: block;
 }
-
+.checkbox-container {
+    margin-bottom: 10px;
+}
