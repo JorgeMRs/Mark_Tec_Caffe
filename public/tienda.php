@@ -8,39 +8,20 @@ session_start();
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cafe Sabrosos - Productos</title>
-    <link rel="stylesheet" href="../public/assets/css/tienda.css" />
-    <link rel="icon" href="/public/assets/img/logo-removebg-preview.png" />
+    <link rel="stylesheet" href="assets/css/tienda.css" />
+    <link rel="icon" href="assets/img/logo-removebg-preview.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="assets/img/icons/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="assets/img/icons/favicon-64x64.png">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    <link rel="stylesheet" href="assets/css/nav-blur.css">
 </head>
 
 <body>
     <header>
-        <nav>
-            <div class="logo">
-                <a href="/" class="logo-link">
-                    <img src="/public/assets/img/logo-removebg-preview.png" alt="Logo" class="logo-image" />
-                    <h1>Café Sabrosos</h1>
-                </a>
-            </div>
-            <ul class="nav-links">
-                <li><a href="local.php">Locales</a></li>
-                <li><a href="tienda.php">Productos</a></li>
-                <li><a href="#">Ofertas</a></li>
-                <li><a href="#">Reservas</a></li>
-                <li><a href="contactos.html">Contacto</a></li>
-                <li>
-                    <a href="/public/cuenta.php"><img src="/public/assets/img/image.png" alt="Usuario"
-                            class="user-icon" /></a>
-                </li>
-                <div class="cart">
-                    <a href="carrito.html">
-                        <img src="/public/assets/img/cart.png" alt="Carrito" />
-                        <span id="cart-counter" class="cart-counter">0</span>
-                    </a>
-                </div>
-            </ul>
-        </nav>
+     <?php include 'templates/nav-blur.php'?>
         <div class="header-content">
             <h2 class="top-subtitle">Café Sabrosos</h2>
             <h2 class="subtitle">Siempre el mejor café</h2>
@@ -50,6 +31,9 @@ session_start();
             </div>
         </div>
     </header>
+    <script>
+
+    </script>
     <main>
         <div id="main-category">
             <h1 class="main-category-title">Nuestros productos</h1>
@@ -115,63 +99,63 @@ session_start();
 </body>
 
 <script>
-function addToCart(productId, quantity) {
-    if (<?php echo isset($_SESSION['user_id']) ? 'true' : 'false'; ?>) {
-        // Si el usuario está autenticado, hacer la solicitud al servidor
-        const url = '/src/cart/addCart.php';
-        const data = new URLSearchParams({
-            producto_id: productId,
-            cantidad: quantity
-        });
+    function addToCart(productId, quantity) {
+        if (<?php echo isset($_SESSION['user_id']) ? 'true' : 'false'; ?>) {
+            // Si el usuario está autenticado, hacer la solicitud al servidor
+            const url = '/src/cart/addCart.php';
+            const data = new URLSearchParams({
+                producto_id: productId,
+                cantidad: quantity
+            });
 
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: data.toString()
-        }).then(response => response.json())
-        .then(data => {
-            if (data.status === 'success') {
-                updateCartCounter();
-                alert('Producto agregado al carrito.');
-            } else {
-                alert('Error: ' + data.message);
-            }
-        }).catch(error => {
-            alert('Error en la red. Por favor, inténtelo de nuevo.');
-        });
-    } else {
-        // Si el usuario no está autenticado, almacenar en localStorage
-        const carrito = JSON.parse(localStorage.getItem('carrito')) || {};
-        carrito[productId] = (carrito[productId] || 0) + quantity;
-        localStorage.setItem('carrito', JSON.stringify(carrito));
-
-        const expirationTime = Date.now() + 3600000; // 1 hora
-        localStorage.setItem('cart_expiration', expirationTime);
-
-        updateCartCounter();
-        alert('Producto agregado al carrito local.');
-    }
-}
-
-function updateCartCounter() {
-    const cartCounterElement = document.getElementById('cart-counter');
-
-    fetch('/src/cart/getCartCounter.php')
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === 'success') {
-            cartCounterElement.textContent = data.totalQuantity;
+            fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: data.toString()
+                }).then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        updateCartCounter();
+                        alert('Producto agregado al carrito.');
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                }).catch(error => {
+                    alert('Error en la red. Por favor, inténtelo de nuevo.');
+                });
         } else {
-            handleLocalStorageCart(cartCounterElement);
-        }
-    }).catch(() => {
-        handleLocalStorageCart(cartCounterElement);
-    });
-}
+            // Si el usuario no está autenticado, almacenar en localStorage
+            const carrito = JSON.parse(localStorage.getItem('carrito')) || {};
+            carrito[productId] = (carrito[productId] || 0) + quantity;
+            localStorage.setItem('carrito', JSON.stringify(carrito));
 
-    </script>
+            const expirationTime = Date.now() + 3600000; // 1 hora
+            localStorage.setItem('cart_expiration', expirationTime);
+
+            updateCartCounter();
+            alert('Producto agregado al carrito local.');
+        }
+    }
+
+    function updateCartCounter() {
+        const cartCounterElement = document.getElementById('cart-counter');
+
+        fetch('/src/cart/getCartCounter.php')
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    cartCounterElement.textContent = data.totalQuantity;
+                } else {
+                    handleLocalStorageCart(cartCounterElement);
+                }
+            }).catch(() => {
+                handleLocalStorageCart(cartCounterElement);
+            });
+    }
+</script>
 <script src="/public/assets/js/tienda.js"></script>
 <script src="/public/assets/js/productos.js"></script>
+
 </html>

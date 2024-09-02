@@ -16,8 +16,6 @@ body {
   min-height: 100vh;
 }
 
-
-
 .user-icon {
   width: 40px;
   height: 40px;
@@ -29,7 +27,7 @@ nav {
   align-items: center; /* Alinea verticalmente los elementos */
   backdrop-filter: blur(10px);
   justify-content: space-around; /* Distribuye los elementos en el espacio disponible */
-  padding: 1rem;
+  padding: 1rem 0;
   position: absolute;
   width: 100%;
   top: 0;

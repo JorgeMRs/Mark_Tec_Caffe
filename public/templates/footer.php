@@ -8,9 +8,9 @@
                 bebida.
             </p>
             <div class="socials">
-                <a href="#"><i class="fa fa-facebook"></i></a>
-                <a href="#"><i class="fa fa-instagram"></i></a>
-                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
             </div>
         </div>
         <div class="footer-section links">
@@ -26,7 +26,7 @@
         <div class="footer-section contact">
             <h3>Contáctanos</h3>
             <ul>
-                <li><i class="fa fa-map-marker"></i> 123 Calle Café, San José</li>
+                <li><i class="fa-solid fa-location-dot"></i> 123 Calle Café, San José</li>
                 <li><i class="fa fa-phone"></i> +598 123 4567</li>
                 <li><i class="fa fa-envelope"></i> info@cafesabrosos.com</li>
             </ul>

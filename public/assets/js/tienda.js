@@ -17,7 +17,49 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }, 100); // Pequeña espera para asegurar que el contenido esté cargado
     }
-
+  
+        const toggleButton = document.querySelector('.toggle-button');
+        const navLinks = document.querySelector('.nav-links');
+        const dropdownLinks = document.querySelectorAll('.dropdown-link');
+    
+        // Evento para mostrar/ocultar el menú de navegación
+        toggleButton.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+        });
+    
+        // Evento para mostrar/ocultar el menú desplegable en móviles
+        dropdownLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const dropdown = link.parentElement;
+                dropdown.classList.toggle('active');
+            });
+        });
+    
+        // Agregar eventos a las categorías dentro del dropdown de la vista móvil
+        const mobileCategoryDropdown = document.querySelector('#mobile-category-dropdown');
+        const mobileCategories = mobileCategoryDropdown.querySelectorAll('a');
+    
+        mobileCategories.forEach(category => {
+            category.addEventListener('click', function() {
+                const categoryName = this.getAttribute('data-category');
+                const categoryId = this.getAttribute('data-category-id');
+    
+                // Guardar la categoría seleccionada en localStorage
+                localStorage.setItem('selectedCategory', JSON.stringify({ category: categoryName, idCategoria: categoryId }));
+    
+                // Ocultar categorías principales y mostrar los detalles
+                document.getElementById('main-category').style.display = 'none';
+                document.getElementById('category-details').style.display = 'block';
+    
+                // Cargar productos para la categoría seleccionada
+                loadProducts(categoryName, categoryId);
+    
+                // Establecer el fragmento de URL para el desplazamiento
+                window.location.hash = 'category-details';
+                scrollToCategoryDetails();
+            });
+        });
     // Función para cargar productos
     function loadProducts(category, idCategoria) {
         fetch(`/src/db/product.php?idCategoria=${idCategoria}`)

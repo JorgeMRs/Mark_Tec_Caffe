@@ -31,7 +31,10 @@ $conn->close();
     <title>Café Sabrosos - Locales Internacionales</title>
     <link rel="stylesheet" href="assets/css/stylelocal.css">
     <script src="https://kit.fontawesome.com/3047b62e1b.js" crossorigin="anonymous"></script>
-    <link rel="icon" href="assets/img/logo-removebg-preview.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="assets/img/icons/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="assets/img/icons/favicon-64x64.png">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 

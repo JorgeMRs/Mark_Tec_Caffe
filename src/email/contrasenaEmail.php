@@ -2,43 +2,42 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require '../../vendor/autoload.php'; // Cargar el autoload de Composer
+require '../vendor/autoload.php'; // Adjust the path as necessary
 
-function sendEmail($to, $subject, $body): bool
+function sendPasswordResetEmail($to, $subject, $body): bool
 {
     $mail = new PHPMailer(true);
 
     try {
-        // Configuración del servidor
+        // Server settings
         $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com'; // Servidor SMTP
+        $mail->Host = 'smtp.gmail.com'; // Specify main and backup SMTP servers
         $mail->SMTPAuth = true;
-        $mail->Username = $_ENV['SMTPEMAIL']; // Tu correo SMTP
-        $mail->Password = $_ENV['SMTPPASS']; // Tu contraseña SMTP
-        $mail->SMTPSecure = 'tls'; // Habilitar encriptación TLS
-        $mail->Port = 587; // Puerto para TLS
+        $mail->Username = $_ENV['SMTPEMAIL']; // SMTP username
+        $mail->Password = $_ENV['SMTPPASS']; // SMTP password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Enable TLS encryption
+        $mail->Port = 587; // TCP port to connect to
 
-        // Remitente y destinatario
-        $mail->setFrom('no-reply@cafesabrosos.myvnc.com', 'Cafe Sabrosos S.A.S');
-        $mail->addAddress($to);
+        // Recipients
+        $mail->setFrom('no-reply@cafesabrosos.myvnc.com', 'Café Sabrosos');
+        $mail->addAddress($to); // Add a recipient
 
-        // Contenido del correo
-        $mail->isHTML(); // Si quieres enviar HTML, cámbialo a true
+        // Content
+        $mail->isHTML(true); // Set email format to HTML
         $mail->CharSet = 'UTF-8';
         $mail->Subject = $subject;
         $mail->Body    = $body;
 
-        // Enviar el correo
         $mail->send();
         return true;
-    } catch (Exception) {
-        // Registrar el error
+    } catch (Exception $e) {
+        // Log error
         error_log('Mailer Error: ' . $mail->ErrorInfo);
         return false;
     }
 }
 
-function getVerificationEmailBody($verificationLink): string
+function getPasswordResetEmailBody($resetLink): string
 {
     return "
     <html>
@@ -88,10 +87,10 @@ function getVerificationEmailBody($verificationLink): string
     </head>
     <body>
         <div class='container'>
-            <h1>Hola,</h1>
-            <p>Gracias por registrarte en Cafe Sabrosos. Por favor, verifica tu cuenta haciendo clic en el siguiente enlace:</p>
-            <p><a href='$verificationLink'>Verificar mi cuenta</a></p>
-            <p>Si no solicitaste esta cuenta, ignora este correo.</p>
+            <h1>Solicitud de Restablecimiento de Contraseña</h1>
+            <p>Recibimos una solicitud para restablecer la contraseña de tu cuenta. Por favor, haz clic en el siguiente enlace para crear una nueva contraseña:</p>
+            <p><a href='$resetLink'>Restablecer mi contraseña</a></p>
+            <p>Si no solicitaste este restablecimiento de contraseña, ignora este correo.</p>
             <div class='footer'>
                 <p>&copy; 2024 Café Sabrosos. Todos los derechos reservados.</p>
             </div>
@@ -99,3 +98,4 @@ function getVerificationEmailBody($verificationLink): string
     </body>
     </html>";
 }
+?>

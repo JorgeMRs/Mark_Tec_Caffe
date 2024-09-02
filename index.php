@@ -16,6 +16,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
     <link rel="icon" type="image/x-icon" href="/public/assets/img/icons/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/public/assets/css/style.css">
+    <link rel="stylesheet" href="/public/assets/css/nav-blur.css">
     <style>
         .overlay {
             display: none;
@@ -165,32 +166,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
         </script>
     <?php endif; ?>
     <header>
-        <nav>
-            <div class="logo">
-                <a href="/" class="logo-link">
-                    <img src="/public/assets/img/logo-removebg-preview.png" alt="Logo" class="logo-image">
-                    <h1>Café Sabrosos</h1>
-                </a>
-            </div>
-            <ul class="nav-links">
-                <li><a href="/public/local.php">Locales</a></li>
-                <li><a href="/public/tienda.php">Productos</a></li>
-                <li><a href="#">Ofertas</a></li>
-                <li><a href="#">Reservas</a></li>
-                <li><a href="/public/contactos.html">Contacto</a></li>
-                <?php if ($isLoggedIn): ?>
-                    <li><a href="/public/cuenta.php"><img src="/public/assets/img/image.png" alt="Usuario" class="user-icon"></a></li>
-                <?php else: ?>
-                    <li><a href="/public/login.html"><img src="/public/assets/img/image.png" alt="Usuario" class="user-icon"></a></li>
-                <?php endif; ?>
-                <div class="cart">
-                    <a href="carrito.html">
-                        <img src="/public/assets/img/cart.png" alt="Carrito">
-                        <span id="cart-counter" class="cart-counter">0</span>
-                    </a>
-                </div>
-            </ul>
-        </nav>
+    <?php include 'public/templates/nav-blur.php'?>
         <div class="carousel-content">
             <h1>RECIEN HECHO, TODOS LOS DIAS</h1>
             <p>Café recién preparado con granos seleccionados para ofrecerte una experiencia inigualable</p>

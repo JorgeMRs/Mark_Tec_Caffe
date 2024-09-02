@@ -90,40 +90,20 @@ try {
 
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="assets/img/icons/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="assets/img/icons/favicon-64x64.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars('Café Sabrosos - ' . $producto['nombre']) ?></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="assets/css/productos.css">
+    <link rel="stylesheet" href="assets/css/nav.css">
+    
 </head>
 <body>
     <header>
-        <nav>
-            <div class="logo">
-                <a href="/" class="logo-link">
-                    <img src="/public/assets/img/logo-removebg-preview.png" alt="Logo" class="logo-image" />
-                    <h1>Café Sabrosos</h1>
-                </a>
-            </div>
-            <ul class="nav-links">
-                <li><a href="local.php">Locales</a></li>
-                <li><a href="tienda.php">Productos</a></li>
-                <li><a href="#">Ofertas</a></li>
-                <li><a href="#">Reservas</a></li>
-                <li><a href="contactos.html">Contacto</a></li>
-                <li>
-                    <a href="cuenta.php"><img src="/public/assets/img/image.png" alt="Usuario" class="user-icon" /></a>
-                </li>
-                <div class="cart">
-                    <a href="carrito.html">
-                        <img src="/public/assets/img/cart.png" alt="Carrito" />
-                        <span id="cart-counter" class="cart-counter">0</span>
-                    </a>
-                </div>
-                <li>
-                    <button id="language-toggle" class="language-btn">ES</button>
-                </li>
-            </ul>
-        </nav>
+    <?php include 'nav.html'?>
     </header>
 
     <div class="container">
