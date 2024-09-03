@@ -4,6 +4,8 @@ use PHPMailer\PHPMailer\Exception;
 
 require '../../vendor/autoload.php'; // Cargar el autoload de Composer
 
+// funcion para enviar el correo de verificación
+
 function sendEmail($to, $subject, $body): bool
 {
     $mail = new PHPMailer(true);

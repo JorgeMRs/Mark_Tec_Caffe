@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'db_connect.php'; // Ajusta el path a tu conexión a la base de datos
+require_once 'db_connect.php';
 
 header('Content-Type: application/json');
 

@@ -12,14 +12,6 @@ $dotenv->load();
 $errorMessage = '';
 $successMessage = '';
 
-
-$expectedReferer = "https://cafesabrosos.myvnc.com/public/cuenta.php";
-
-if (!isset($_SERVER['HTTP_REFERER']) || $_SERVER['HTTP_REFERER'] !== $expectedReferer) {
-    header("Location: error/404.html");
-    exit();
-}
-
 try {
     // Check request method
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {

@@ -2,6 +2,8 @@
 session_start();
 include '../db/db_connect.php';
 
+// Función para agregar un producto al carrito
+
 try {
     // Verificar si el usuario está autenticado
     if (!isset($_SESSION['user_id'])) {
@@ -29,22 +31,35 @@ try {
     // Iniciar transacción
     $conn->begin_transaction();
 
-    // Verificar si el carrito del cliente ya existe
-    $queryCarrito = $conn->prepare('SELECT idCarrito FROM carrito WHERE idCliente = ?');
-    $queryCarrito->bind_param('i', $idCliente);
-    $queryCarrito->execute();
-    $resultCarrito = $queryCarrito->get_result();
-    $carrito = $resultCarrito->fetch_assoc();
+    // Verificar si el carrito actual del cliente ya está vinculado a un pedido
+    $queryPedido = $conn->prepare('SELECT idPedido FROM pedido WHERE idCarrito = (SELECT idCarrito FROM carrito WHERE idCliente = ?) AND estado IN ("Pendiente", "En Preparación", "Listo para Recoger", "Completado")');
+    $queryPedido->bind_param('i', $idCliente);
+    $queryPedido->execute();
+    $resultPedido = $queryPedido->get_result();
 
-    if ($carrito) {
-        // Si el carrito ya existe, usar su ID
-        $idCarrito = $carrito['idCarrito'];
-    } else {
-        // Crear un nuevo carrito
+    if ($resultPedido->num_rows > 0) {
+        // Si el carrito ya está vinculado a un pedido, crear un nuevo carrito
         $queryInsertCarrito = $conn->prepare('INSERT INTO carrito (idCliente, fechaCreacion) VALUES (?, NOW())');
         $queryInsertCarrito->bind_param('i', $idCliente);
         $queryInsertCarrito->execute();
         $idCarrito = $conn->insert_id;
+    } else {
+        // Si no está vinculado, reutilizar el carrito existente
+        $queryCarrito = $conn->prepare('SELECT idCarrito FROM carrito WHERE idCliente = ?');
+        $queryCarrito->bind_param('i', $idCliente);
+        $queryCarrito->execute();
+        $resultCarrito = $queryCarrito->get_result();
+        $carrito = $resultCarrito->fetch_assoc();
+
+        if ($carrito) {
+            $idCarrito = $carrito['idCarrito'];
+        } else {
+            // Si no existe carrito, crear uno nuevo
+            $queryInsertCarrito = $conn->prepare('INSERT INTO carrito (idCliente, fechaCreacion) VALUES (?, NOW())');
+            $queryInsertCarrito->bind_param('i', $idCliente);
+            $queryInsertCarrito->execute();
+            $idCarrito = $conn->insert_id;
+        }
     }
 
     // Verificar si el producto ya está en el carrito
@@ -78,4 +93,5 @@ try {
 } finally {
     $conn->close();
 }
+
 ?>

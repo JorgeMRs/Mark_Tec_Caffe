@@ -7,16 +7,16 @@
     </div>
     <div class="nav-content">
         <ul class="nav-links">
-            <li><a href="local.php">Locales</a></li>
+            <li><a href="/public/local.php">Locales</a></li>
             <li class="desktop-only"><a href="/public/tienda.php">Productos</a></li>
             <li><a href="#">Ofertas</a></li>
             <li><a href="#">Reservas</a></li>
-            <li><a href="contactos.html">Contacto</a></li>
+            <li><a href="/public/contactos.php">Contacto</a></li>
         </ul>
         <div class="nav-icons">
             <a href="/public/cuenta.php"><img src="/public/assets/img/image.png" alt="Usuario" class="user-icon" /></a>
             <div class="cart">
-                <a href="carrito.html">
+                <a href="/public/carrito.html">
                     <img src="/public/assets/img/cart.png" alt="Carrito" />
                     <span id="cart-counter" class="cart-counter">0</span>
                 </a>

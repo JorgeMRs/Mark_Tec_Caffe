@@ -95,7 +95,7 @@ session_start();
             <!-- Aquí se insertará el contenido dinámico para la categoría seleccionada en la categoria principal y esta ultima se ocultara y ahora sera visible category-details-->
 
     </main>
-    <?php include 'templates/footer.html'; ?>
+    <?php include 'templates/footer.php'; ?>
 </body>
 
 <script>

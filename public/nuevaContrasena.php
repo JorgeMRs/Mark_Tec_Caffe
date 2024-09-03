@@ -9,13 +9,6 @@ $successMessage = '';
 
 $token = $_GET['token'] ?? '';
 
-
-if (!isset($_SESSION['token']) || $token !== $_SESSION['token']) {
-    // Token no válido o no coincide, redirigir o mostrar un error
-    header("Location: error/404.html");
-    exit();
-}
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $token = $_POST['token'] ?? '';
     $nuevaContrasena = $_POST['nuevaContrasena'] ?? '';

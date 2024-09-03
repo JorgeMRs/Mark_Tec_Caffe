@@ -12,6 +12,9 @@ $user_id = $_SESSION['user_id'];
 $conn = getDbConnection();
 header('Content-Type: application/json');
 
+
+// funcion para subir el avatar del usuario
+
 function uploadAvatar($user_id, $file, $conn): array
 {
     $response = ['success' => false, 'message' => ''];

@@ -16,6 +16,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/nav-blur.css">
+    <link rel="stylesheet" href="assets/css/footer.css">
 
 </head>
 
@@ -33,14 +34,14 @@
                     <input id="email" name="email" type="email" class="feedback-input" required /><br>
                     <label for="subject">Asunto</label>
                     <input id="subject" type="text" name="subject" class="feedback-input" required /><br>
-                    <label for="message">Comentario</label>
+                    <label for="message">Comentario o mensaje</label>
                     <textarea id="message" name="message" class="feedback-input" required></textarea><br>
                     <input class="btn" type="submit" value="ENVIAR" />
                 </form>
             </div>
         </div>
     </main>
-
+    <?php include 'templates/footer.php' ?>
 </body>
 
 </html>

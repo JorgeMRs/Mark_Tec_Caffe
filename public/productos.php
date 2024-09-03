@@ -103,7 +103,7 @@ try {
 </head>
 <body>
     <header>
-    <?php include 'nav.html'?>
+    <?php include 'templates/nav.php'?>
     </header>
 
     <div class="container">

@@ -4,6 +4,8 @@ use PHPMailer\PHPMailer\Exception;
 
 require '../vendor/autoload.php'; // Adjust the path as necessary
 
+// funcion para enviar el correo de restablecer contraseña
+
 function sendPasswordResetEmail($to, $subject, $body): bool
 {
     $mail = new PHPMailer(true);

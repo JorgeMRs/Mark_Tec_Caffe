@@ -85,7 +85,6 @@ document.querySelector('#registroForm').addEventListener('submit', function(even
 // Validaciones de inicio de sesión
 document.getElementById('loginForm').addEventListener('submit', function(event) {
     event.preventDefault();
-
     let isValid = true;
     const email = document.querySelector('#loginForm input[name="email"]').value;
     const password = document.querySelector('#loginForm input[name="password"]').value;
@@ -106,6 +105,8 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         .then(response => response.json())
         .then(data => {
             if (data.success) {
+                const errorContainer = document.querySelector('#loginForm #error-container');
+                errorContainer.textContent = '';
                 setTimeout(function() {
                     window.location.href = data.redirect;
                 }, 1500);
@@ -119,6 +120,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         .catch(error => {
             console.error('Error:', error);
             const errorContainer = document.querySelector('#loginForm #error-container');
+            errorContainer.textContent = '';
             errorContainer.textContent = 'Se ha producido un error al procesar tu solicitud.';
             // Ocultar el modal en caso de error
             document.getElementById('loadingModal').style.display = 'none';
@@ -126,6 +128,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     } else {
         // Mostrar un mensaje de error de validación si el formulario no es válido
         const errorContainer = document.querySelector('#loginForm #error-container');
+        errorContainer.textContent = '';
         errorContainer.textContent = 'Por favor, completa todos los campos correctamente.';
     }
 });

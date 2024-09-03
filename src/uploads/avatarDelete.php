@@ -15,6 +15,8 @@ header('Content-Type: application/json');
 
 $response = ['success' => false, 'message' => ''];
 
+// funcion para borrar avatar del usuario
+
 try {
     // Directory where avatars are stored
     $uploadDir = '/var/www/cafesabrosos/public/assets/img/avatars/';
