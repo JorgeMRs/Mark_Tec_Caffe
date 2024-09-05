@@ -1,8 +1,8 @@
 {
-    "name": "jose/mark_tec_caffe",
+    "name": "luchito/mark_tec_caffe",
     "autoload": {
         "psr-4": {
-            "Jose\\MarkTecCaffe\\": "src/"
+            "Luchito\\MarkTecCaffe\\": "src/"
         }
     },
     "authors": [
@@ -12,6 +12,10 @@
     ],
     "require": {
         "phpmailer/phpmailer": "^6.9",
-        "vlucas/phpdotenv": "^5.6"
+        "vlucas/phpdotenv": "^5.6",
+        "kreait/firebase-php": "*",
+      "ext-json": "*",
+      "ext-mysqli": "*",
+        "stichoza/google-translate-php": "^5.2"
     }
 }

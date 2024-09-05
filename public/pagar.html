@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="pagar">
+    <meta name="author" content="MarkTec">
+    <title>MarkShop</title>
+    <link rel="stylesheet" href="assets/css/pagar.css" media="screen and (min-width: 769px)">
+    <link rel="stylesheet" href="assets/css/pagarmobile.css" media="screen and (max-width: 768px)">
+    <link rel="icon" href="assets/img/icons/favicon-32x32.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="body-local">
+    <header class="header-local">
+        <div class="header-content">
+            <div class="logo">
+                <img src="assets/img/logo-removebg-preview.png" alt="Logo de Café Sabrosos" class="logo-image">
+                <h1>Café Sabrosos</h1>
+            </div>
+            <nav>
+                <div class="cart">
+                    <a href="carrito.html">
+                        <img src="/public/assets/img/cart.png" alt="Carrito">
+                        <span id="cart-counter" class="cart-counter">0</span>
+                    </a>
+                </div>        
+            </nav>
+        </div>
+    </header>
+    <div class="form-container">
+        <form action="/index.html" method="post">
+            <h2>Información de pago</h2>
+            <div class="payment-buttons">
+                <button type="button" class="paypal-button">
+                    <i class="fab fa-paypal"></i>
+                </button>
+                <button type="button" class="google-button">
+                    <i class="fab fa-google"></i>
+                </button>
+                <button type="button" class="apple-button">
+                    <i class="fab fa-apple"></i>
+                </button>
+            </div>
+            <label class="tarjeta">
+                <input id="tarjeta" type="text" placeholder="Número de tarjeta:" maxlength="16" required>
+                <img id="card-logo" class="card-logo" src="" alt="Card Logo" style="display: none;">
+            </label>
+            <div class="flex-container">
+                <input id="cvv" type="text" placeholder="CVV:" maxlength="4" required>
+                <input type="month" name="fecha" required>
+            </div>
+            <input type="text" placeholder="Nombre del titular:" required>
+            <div class="checkbox-container">
+                <input type="checkbox" name="terminos" id="terminos">
+                <label for="terminos">Guardar esta información</label>
+            </div>
+            <input type="submit" value="Finalizar pago">
+        </form>
+    </div>
+    <script src="assets/js/card.js"></script>
+</body>
+</html>

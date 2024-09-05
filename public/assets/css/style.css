@@ -1,0 +1,403 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+/* Estilos generales */
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    min-height: 100vh;
+    color: #333333;
+    font-family: 'Montserrat', sans-serif;
+}
+
+header {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    
+}
+
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+.user-icon {
+    width: 40px;
+    height: 40px;
+    margin: 0 5px;
+}
+
+nav {
+    display: flex;
+    align-items: center; /* Alinea verticalmente los elementos */
+    backdrop-filter: blur(10px);
+    justify-content: space-around; /* Distribuye los elementos en el espacio disponible */
+    padding: 1rem;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.5); /* Fondo semitransparente negro */
+    transition: all 0.3s ease;
+}
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease; /* Transición del color */
+    position: relative;
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px; /* Altura de la línea */
+    bottom: -5px; /* Posición de la línea debajo del texto */
+    left: 0;
+    background-color: #b8860b; /* Color de la línea */
+    transform: scaleX(0); /* Inicialmente no visible */
+    transition: transform 0.3s ease; /* Transición de la línea */
+}
+
+nav ul li a:hover {
+    color: #b8860b; /* Cambia el color del texto al pasar el ratón */
+}
+
+nav ul li a:hover::after {
+    transform: scaleX(1); /* Muestra la línea al pasar el ratón */
+}
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    display: flex;
+    align-items: center; /* Alinea verticalmente al centro */
+    margin-left: 4vh;
+}
+
+.logo img {
+    width: 70px; /* Ajusta el tamaño del logo según tus necesidades */
+    margin-right: 10px; /* Espacio entre el logo y el texto */
+}
+.logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none; /* Elimina el subrayado del enlace */
+}
+
+
+.logo-link h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(45deg, #FFF, #b8860b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.logo h1 {
+    font-family: 'Poppins';
+    font-weight: 700;
+    margin: 0; /* Elimina el margen por defecto */
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(45deg, #FFF, #b8860b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center; /* Alinea verticalmente los elementos de la lista */
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-right: 5vh;
+}
+
+.nav-links li {
+    margin: 0 10px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.nav-links a:hover {
+    color: #b8860b; /* Color dorado al pasar el cursor */
+}
+.main-content {
+    margin-top: 60px; /* Ajusta según el tamaño de tu nav */
+}
+.cart {
+    position: relative;
+}
+
+.cart img {
+    width: 30px;
+    height: 30px;
+}
+
+.cart-counter {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: #8B4513; /* Marrón */
+    color: #ffffff; /* Blanco */
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+}
+>>>>>>> 07c1bbe16b8418eff07af61e63f38a94b7f0d21a
+=======
+>>>>>>> e82cc75a02b7f17ee0984c21538c82723fdb7cc9
+@media (max-width: 768px) {
+    .main-content {
+        margin-top: 80px; /* Aumenta el margen para pantallas pequeñas */
+    }
+}
+
+/* Estilos para pantallas pequeñas */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column; /* Cambia a columna en pantallas pequeñas */
+        padding: 10px; /* Reduce el padding */
+    }
+
+    .header-content {
+        flex-direction: column; /* Cambia a columna en pantallas pequeñas */
+        align-items: flex-start; /* Alinea a la izquierda */
+    }
+
+    .nav-links {
+        flex-direction: column; /* Cambia a columna en pantallas pequeñas */
+        width: 100%; /* Ocupa todo el ancho */
+        margin-top: 10px; /* Espacio entre logo y enlaces */
+    }
+
+    .nav-links li {
+        margin: 5px 0; /* Espacio vertical entre enlaces */
+    }
+
+    .logo {
+        margin-left: 10%;
+        margin-right: 20%;
+    }
+
+    .logo h1 {
+        font-size: 20px; /* Reduce el tamaño del texto en pantallas pequeñas */
+    }
+
+    .user-icon {
+        width: 30px; /* Reduce el tamaño del icono de usuario */
+        height: 30px;
+    }
+}
+@media (max-width: 768px) {
+    nav {
+        padding: 20px 10px; /* Aumenta el padding superior para agregar espacio */
+    }
+}
+
+/* Estilos para el contenido del carrusel */
+.carousel-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+<<<<<<< HEAD
+<<<<<<< HEAD
+    margin-top: 10%;
+=======
+    justify-content: center;
+>>>>>>> 07c1bbe16b8418eff07af61e63f38a94b7f0d21a
+=======
+    margin-top: 10%;
+>>>>>>> e82cc75a02b7f17ee0984c21538c82723fdb7cc9
+    height: 100%;
+    text-align: center;
+    color: white;
+    padding: 0 20px;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+}
+
+.carousel-content h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    font-family: 'Poppins';
+    font-weight: 500;
+}
+
+.carousel-content p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.buttons a {
+    text-decoration: none;
+    color: white;
+    padding: 10px 20px;
+    border: 2px solid white;
+    margin: 0 10px;
+    transition: all 0.3s ease;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.buttons a:hover {
+    background-color: #b8860b; /* Color dorado */
+    border-color: #b8860b;
+}
+
+/* Estilos para el carrusel */
+.carousel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.carousel-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 2ms ease-in-out; /* Transición de opacidad */
+}
+
+.carousel-item.active {
+    opacity: 1;
+    z-index: 1;
+}
+
+.carousel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.transition-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0;
+    transition: opacity 1s ease-in-out; /* Transición de opacidad */
+    z-index: 2;
+}
+
+.transition-layer.show {
+    opacity: 1;
+}
+
+.carousel-indicators {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 3;
+}
+
+.carousel-indicators .indicator {
+    width: 12px;
+    height: 12px;
+    border: 2px solid #fff;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.carousel-indicators .indicator.active {
+    background: rgba(255, 255, 255, 1);
+}
+/* Estilos para pantallas pequeñas */
+@media (max-width: 768px) {
+    .carousel-content h1 {
+            margin-top: 50%;
+            font-size: 35px;
+            margin-bottom: 20px;
+            font-family: 'Poppins';
+            font-weight: 500;  
+    }
+    nav {
+        flex-direction: column; /* Cambia a columna en pantallas pequeñas */
+        padding: 10px; /* Reduce el padding */
+    }
+
+    .header-content {
+        flex-direction: column; /* Cambia a columna en pantallas pequeñas */
+        align-items: flex-start; /* Alinea a la izquierda */
+    }
+
+    .nav-links {
+        flex-direction: column; /* Cambia a columna en pantallas pequeñas */
+        width: 100%; /* Ocupa todo el ancho */
+        margin-top: 10px; /* Espacio entre logo y enlaces */
+    }
+
+    .nav-links li {
+        margin: 5px 0; /* Espacio vertical entre enlaces */
+    }
+
+    .logo {
+        margin-left: 10%;
+        margin-right: 20%;
+    }
+
+    .logo h1 {
+        font-size: 20px; /* Reduce el tamaño del texto en pantallas pequeñas */
+    }
+
+    .user-icon {
+        width: 30px; /* Reduce el tamaño del icono de usuario */
+        height: 30px;
+    }
+
+    /* Añade margen superior para evitar que el contenido choque con el nav */
+    .main-content {
+        margin-top: 80px; /* Ajusta según el tamaño del nav */
+    }
+}
+<<<<<<< HEAD
+
+/* Estilos para el carrito */
+.carrito {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 300px;
+    z-index: 1000;
+    right: 0; /* Alinea el carrito al borde derecho del contenedor */
+    top: 100%; /* Posiciona el carrito justo debajo del icono */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Añade una sombra para mejor visibilidad */
+}
+
+.cart:hover .carrito {
+    display: block;
+}
+=======
+>>>>>>> 07c1bbe16b8418eff07af61e63f38a94b7f0d21a
