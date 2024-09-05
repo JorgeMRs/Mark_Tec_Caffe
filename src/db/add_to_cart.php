@@ -1,6 +1,6 @@
-```php
+
 <?php
-session_start();
+// session_start();
 require_once 'db_connect.php'; // Ajusta el path a tu conexión a la base de datos
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

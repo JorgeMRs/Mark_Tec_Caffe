@@ -43,10 +43,8 @@
     </div>
     <script src="../public/assets/js/carritoP.js"></script>
     <script>
-        session_start();
-        $user_id = $_SESSION['user_id'];
-        const userId = <?php echo json_encode($user_id); ?>; // ID del cliente desde la sesión
-        // const userId = 10; // ID del cliente
+        // session_start();
+        const userId = 10; // ID del usuario
         const ivaRate = 0.21; // Tasa de IVA (21%)
 
         fetch(`/src/db/get_cart_products.php?user_id=${userId}`)
@@ -99,7 +97,6 @@
                 addEventListeners();
             })
             .catch(error => console.error('Error:', error));
-
 
         function updateSubtotalAndTax() {
             let subtotal = 0;

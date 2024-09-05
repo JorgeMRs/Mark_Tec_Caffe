@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../../vendor/'; // Ajusta la ruta según la ubicación de tu archivo
+require_once __DIR__ . '/../../vendor/autoload.php'; // Ajusta la ruta según la ubicación de tu archivo
 
 use Dotenv\Dotenv;
 

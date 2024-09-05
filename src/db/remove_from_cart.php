@@ -12,8 +12,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $product_id = $data['product_id']; // Asegúrate de que el nombre del campo es correcto
 
         
-        $user_id = $_SESSION['user_id']; // ID del usuario desde la sesión
-
+        // $user_id = $_SESSION['user_id']; // ID del usuario desde la sesión
+        $user_id = 10; // ID del usuario de prueba
         // Obtener la conexión a la base de datos
         $conn = getDbConnection();
 

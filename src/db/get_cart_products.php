@@ -3,7 +3,8 @@ require_once 'db_connect.php'; // Ajusta el path a tu conexión a la base de dat
 
 header('Content-Type: application/json');
 
-$user_id = $_GET['user_id'];
+// $user_id = $_GET['user_id'];
+$user_id = 10;
 
 try {
     $conn = getDbConnection();
