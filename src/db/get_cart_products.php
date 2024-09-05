@@ -12,7 +12,8 @@ try {
     exit();
 }
 
-if ($stmt = $conn->prepare("SELECT p.nombre, p.imagen, p.descripcion, cd.cantidad, cd.precio 
+
+if ($stmt = $conn->prepare("SELECT p.idProducto, p.nombre, p.imagen, p.descripcion, cd.cantidad, cd.precio 
                             FROM carritodetalle cd 
                             JOIN producto p ON cd.idProducto = p.idProducto 
                             JOIN carrito c ON cd.idCarrito = c.idCarrito 
@@ -29,6 +30,8 @@ if ($stmt = $conn->prepare("SELECT p.nombre, p.imagen, p.descripcion, cd.cantida
     echo json_encode($products);
 
     $stmt->close();
+} else {
+    echo json_encode(['success' => false, 'message' => 'Error en la consulta.']);
 }
 
 $conn->close();

@@ -1,3 +1,4 @@
+```php
 <?php
 session_start();
 require_once 'db_connect.php'; // Ajusta el path a tu conexión a la base de datos
@@ -14,10 +15,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-
-    
-
-    
     // Obtener el precio del producto
     if ($stmt = $conn->prepare("SELECT precio FROM producto WHERE idProducto = ?")) {
         $stmt->bind_param("i", $product_id);
