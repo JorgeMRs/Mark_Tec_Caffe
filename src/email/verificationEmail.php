@@ -4,8 +4,6 @@ use PHPMailer\PHPMailer\Exception;
 
 require '../../vendor/autoload.php'; // Cargar el autoload de Composer
 
-// funcion para enviar el correo de verificación
-
 function sendEmail($to, $subject, $body): bool
 {
     $mail = new PHPMailer(true);
@@ -26,7 +24,6 @@ function sendEmail($to, $subject, $body): bool
 
         // Contenido del correo
         $mail->isHTML(); // Si quieres enviar HTML, cámbialo a true
-        $mail->CharSet = 'UTF-8';
         $mail->Subject = $subject;
         $mail->Body    = $body;
 

@@ -1,17 +1,9 @@
 <?php
 header('Content-Type: application/json');
-require_once __DIR__ . '/../../vendor/autoload.php';
-
-use Dotenv\Dotenv;
-
-$dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
-$dotenv->load();
+$response = array();
 
 require_once './db_connect.php';
-require_once '../email/verificationEmail.php';
-$recaptchaSecret = $_ENV['recaptchaSecret'];
-
-$response = array();
+require_once '../email/verificationEmail.php'; // Archivo para funciones de envío de correo
 
 try {
     // Crear conexión
@@ -21,14 +13,6 @@ try {
         $email = $_POST['email'] ?? '';
         $password = $_POST['password'] ?? '';
         $passwordConfirm = $_POST['passwordConfirm'] ?? '';
-        
-        
-        $recaptchaResponse = $_POST['g-recaptcha-response'] ?? '';
-        
-        // Verificar el token de reCAPTCHA
-        $recaptchaVerifyUrl = 'https://www.google.com/recaptcha/api/siteverify';
-        $recaptchaResponse = file_get_contents($recaptchaVerifyUrl . '?secret=' . $recaptchaSecret . '&response=' . $recaptchaResponse);
-        $recaptchaResponseKeys = json_decode($recaptchaResponse, true);
 
         // Validar los datos
         if (empty($email) || empty($password) || empty($passwordConfirm)) {
@@ -41,10 +25,6 @@ try {
 
         if (strlen($password) < 8) {
             throw new Exception('La contraseña debe tener al menos 8 caracteres.');
-        }
-
-        if (!$recaptchaResponseKeys['success']) {
-            throw new Exception('Error en la verificación de reCAPTCHA. Inténtalo de nuevo.');
         }
 
         // Verificar si el correo ya está registrado

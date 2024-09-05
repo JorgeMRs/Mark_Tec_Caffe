@@ -2,9 +2,10 @@
 include 'db_connect.php';
 
 try {
-    
+    // Obtener conexión a la base de datos
     $conn = getDbConnection();
 
+    // Obtener la categoría desde la query string
     $idCategoria = $_GET['idCategoria'];
 
     // Preparar y ejecutar la consulta SQL

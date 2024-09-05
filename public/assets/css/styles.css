@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 body {
   display: flex;
   flex-direction: column;
@@ -155,3 +156,145 @@ main {
     height: 20px;
   }
 }
+=======
+/* Estilos generales */
+body, html {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    color: #333;
+    height: 100%;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: url(/public/assets/img/abstract-smooth-brown-wall-background-layout-design-studio-room-web-template-business-report-with-smooth-circle-gradient-color.jpg) no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+/* Estilos para el menú de navegación */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background-color: transparent; /* Fondo transparente */
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    max-height: 40px;
+    margin-right: 10px;
+}
+
+.logo h1 {
+    color: #fff; /* Color del texto del logo */
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    margin-left: 30px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #fff; /* Color del texto del menú */
+    font-size: 18px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #d3b46f; /* Color al hacer hover */
+}
+
+.user-icon {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+}
+
+.wrapper {
+  width: 420px;
+  height: auto;
+  background-color: transparent;
+  border: 2px solid rgba(255, 255, 255, .2);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+  color: #ffff;
+  border-radius: 10px;
+  padding: 30px 80px;
+}
+
+.wrapper h1 {
+  font-size: 36px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.wrapper .input-box {
+  margin-bottom: 30px;
+}
+
+.input-box input, .input-box textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 40px;
+  font-size: 16px;
+  color: #ffff;
+  padding: 20px;
+  margin-bottom: 15px;
+}
+
+.input-box input::placeholder, .input-box textarea::placeholder {
+  color: #ffff;
+  
+}
+
+.wrapper .btn {
+    width: 110%;
+    height: 50px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;  
+    text-align: center; /* Centra el texto del botón */
+
+}
+
+header {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+>>>>>>> 07c1bbe16b8418eff07af61e63f38a94b7f0d21a

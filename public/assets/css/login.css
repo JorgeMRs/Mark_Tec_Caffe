@@ -314,6 +314,7 @@ a.index-button:focus {
 }
 .ocultar-texto {
     display: none;
+<<<<<<< HEAD
 }
 
 .loading-message{
@@ -330,4 +331,6 @@ a.index-button:focus {
     display: flex;
     justify-content: center;
     margin: 8px;
+=======
+>>>>>>> 07c1bbe16b8418eff07af61e63f38a94b7f0d21a
 }

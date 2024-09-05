@@ -16,17 +16,16 @@ $isLoggedIn = isset($_SESSION['user_id']);
     <link rel="icon" type="image/x-icon" href="/public/assets/img/icons/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/public/assets/css/style.css">
-    <link rel="stylesheet" href="/public/assets/css/nav-blur.css">
     <style>
         .overlay {
             display: none;
             position: fixed;
-            z-index: 1000;
+            z-index: 9998;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
+            background-color: rgba(0, 0, 0, 0.9); /* Fondo gris claro con opacidad */
         }
 
         .modal {
@@ -47,8 +46,8 @@ $isLoggedIn = isset($_SESSION['user_id']);
             margin: 15% auto;
             padding: 20px;
             border: 1px solid #888;
-            width: 80%;
-            max-width: 500px;
+            width: 80%; /* Ancho del modal */
+            max-width: 500px; /* Ancho máximo del modal */
             position: relative;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -60,7 +59,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
             right: 20px;
             font-size: 24px;
             font-weight: bold;
-            color: #B9860A;
+            color: #B9860A; /* Color del botón de cerrar */
             cursor: pointer;
         }
 
@@ -70,7 +69,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
 
         h2 {
             text-align: center;
-            color: #B9860A;
+            color: #B9860A; /* Color del título */
         }
 
         .modal p {
@@ -78,76 +77,8 @@ $isLoggedIn = isset($_SESSION['user_id']);
             font-size: 16px;
             line-height: 1.6;
         }
-
-        /* Estilos para el carrito */
-        .carrito {
-            display: none;
-            position: absolute;
-            background-color: white;
-            border: 1px solid #ccc;
-            padding: 10px;
-            width: 300px;
-            z-index: 1000;
-        }
-
-        .cart:hover .carrito {
-            display: block;
-        }
-    </style>
-    <style>
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-
-        /* Estilo para el contenido del modal */
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 500px;
-            border-radius: 8px;
-            text-align: center;
-            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .modal-content button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            margin-top: 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-
-        .modal-content h2 {
-            margin-bottom: 20px;
-            font-size: 24px;
-            color: #B9860A;
-        }
-
-        .modal-content p {
-            font-size: 18px;
-            color: #666;
-        }
-        .modal-content button {
-            background-color: #B9860A;
-        }
     </style>
 </head>
-
 <body>
     <div id="overlay" class="overlay"></div>
     <div id="activationModal" class="modal">
@@ -158,30 +89,34 @@ $isLoggedIn = isset($_SESSION['user_id']);
             <p>Si no has recibido el correo, verifica tu carpeta de spam.</p>
         </div>
     </div>
-    <?php if (isset($_GET['accountDeleted']) && $_GET['accountDeleted'] == 'true'): ?>
-        <div class="modal" id="accountDeletedModal">
-            <div class="modal-content">
-                <h2>Cuenta eliminada</h2>
-                <p>Tu cuenta ha sido eliminada exitosamente.</p>
-                <button onclick="closeModalAccount()">Cerrar</button>
-            </div>
-        </div>
-        <script>
-            function closeModalAccount() {
-                document.getElementById('accountDeletedModal').style.display = 'none';
 
-                // Actualiza la URL sin el parámetro 'accountDeleted'
-                var url = new URL(window.location.href);
-                url.searchParams.delete('accountDeleted');
-                window.history.replaceState({}, '', url);
-            }
-
-            // Mostrar el modal
-            document.getElementById('accountDeletedModal').style.display = 'block';
-        </script>
-    <?php endif; ?>
     <header>
-    <?php include 'public/templates/nav-blur.php'?>
+        <nav>
+        <div class="logo">
+                <a href="/" class="logo-link">
+                    <img src="/public/assets/img/logo-removebg-preview.png" alt="Logo" class="logo-image">
+                    <h1>Café Sabrosos</h1>
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/public/local.html">Locales</a></li>
+                <li><a href="/public/tienda.html">Productos</a></li>
+                <li><a href="#">Ofertas</a></li>
+                <li><a href="#">Reservas</a></li>
+                <li><a href="/public/contactos.html">Contacto</a></li>
+                <?php if ($isLoggedIn): ?>
+                    <li><a href="/public/cuenta.php"><img src="/public/assets/img/image.png" alt="Usuario" class="user-icon"></a></li>
+                <?php else: ?>
+                    <li><a href="/public/login.html"><img src="/public/assets/img/image.png" alt="Usuario" class="user-icon"></a></li>
+                <?php endif; ?>
+                <div class="cart">
+                    <a href="carrito.html">
+                        <img src="/public/assets/img/cart.png" alt="Carrito">
+                        <span id="cart-counter" class="cart-counter">0</span>
+                    </a>
+                </div>
+            </ul>
+        </nav>
         <div class="carousel-content">
             <h1>RECIEN HECHO, TODOS LOS DIAS</h1>
             <p>Café recién preparado con granos seleccionados para ofrecerte una experiencia inigualable</p>
@@ -210,37 +145,36 @@ $isLoggedIn = isset($_SESSION['user_id']);
     <main>
     </main>
     <script src="/public/assets/js/nose.js"></script>
-    <script src="/public/assets/js/carrito.js"></script>
     <script>
-        function closeModal() {
-            document.getElementById('activationModal').style.display = 'none';
-            document.getElementById('overlay').style.display = 'none';
+  function closeModal() {
+        document.getElementById('activationModal').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+        
+        // Actualizar la URL para eliminar el parámetro 'showModal'
+        const url = new URL(window.location);
+        url.searchParams.delete('showModal');
+        window.history.pushState({}, '', url);
+    }
 
-            // Actualizar la URL para eliminar el parámetro 'showModal'
-            const url = new URL(window.location);
-            url.searchParams.delete('showModal');
-            window.history.pushState({}, '', url);
-        }
+    document.addEventListener('DOMContentLoaded', function() {
+        // Verificar si la página fue redirigida con el parámetro 'showModal'
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('showModal')) {
+            const modal = document.getElementById('activationModal');
+            const overlay = document.getElementById('overlay');
 
-        document.addEventListener('DOMContentLoaded', function() {
-            // Verificar si la página fue redirigida con el parámetro 'showModal'
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.has('showModal')) {
-                const modal = document.getElementById('activationModal');
-                const overlay = document.getElementById('overlay');
+            // Mostrar el modal y la capa de fondo
+            modal.style.display = 'block';
+            overlay.style.display = 'block';
 
-                // Mostrar el modal y la capa de fondo
-                modal.style.display = 'block';
-                overlay.style.display = 'block';
-
-                // Cerrar el modal si el usuario hace clic fuera del modal
-                window.onclick = function(event) {
-                    if (event.target == overlay) {
-                        closeModal();
-                    }
+            // Cerrar el modal si el usuario hace clic fuera del modal
+            window.onclick = function(event) {
+                if (event.target == overlay) {
+                    closeModal();
                 }
             }
-        });
+        }
+    });
     </script>
 </body>
 

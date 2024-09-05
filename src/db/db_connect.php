@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../../vendor/autoload.php'; // Ajusta la ruta según la ubicación de tu archivo
+require_once __DIR__ . '/../../vendor/'; // Ajusta la ruta según la ubicación de tu archivo
 
 use Dotenv\Dotenv;
 
@@ -9,9 +9,6 @@ $dotenv->load();
 /**
  * @throws Exception
  */
-
-// funcion para obtener la conexión a la base de datos
-
 function getDbConnection(): mysqli
 {
     $host = $_ENV['DB_HOST'];
