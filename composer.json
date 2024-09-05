@@ -1,0 +1,21 @@
+{
+    "name": "luchito/mark_tec_caffe",
+    "autoload": {
+        "psr-4": {
+            "Luchito\\MarkTecCaffe\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Mark Tec S.A.S"
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^6.9",
+        "vlucas/phpdotenv": "^5.6",
+        "kreait/firebase-php": "*",
+      "ext-json": "*",
+      "ext-mysqli": "*",
+        "stichoza/google-translate-php": "^5.2"
+    }
+}

@@ -1,0 +1,157 @@
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-image: url("/public/assets/img/contactos-background.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  font-family: 'Monterrat', sans-serif;
+}
+header {
+  position: relative;
+  overflow: hidden;
+}
+/* Estilos del contenido principal */
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+.user-icon {
+  width: 40px;
+  height: 40px;
+  margin: 0 5px;
+}
+.wrapper {
+  max-width: 600px;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin: 100px auto 100px auto;
+}
+
+.wrapper h1 {
+  margin-bottom: 25px;
+  font-size: 32px;
+  color: #333;
+}
+
+.input-box {
+  margin-top: 20px;
+}
+
+.feedback-input {
+  width: 100%;
+  padding: 15px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+  resize: none;
+}
+
+.feedback-input:focus {
+  border-color: #b8860b;
+  outline: none;
+}
+
+.btn {
+  width: 100%;
+  padding: 15px;
+  background-color: #daa520;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #1b0d0b;
+  transform: scale(1.05);
+}
+
+.btn:focus {
+  outline: none;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+
+
+  .logo h1 {
+    font-size: 20px;
+  }
+
+  nav {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  nav ul li {
+    margin-bottom: 10px;
+  }
+
+  .wrapper {
+    padding: 20px;
+  }
+
+  .wrapper h1 {
+    font-size: 24px;
+  }
+
+  .feedback-input,
+  .btn {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .cart img,
+  nav .icons img {
+    height: 25px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-image {
+    width: 50px;
+  }
+
+  .logo h1 {
+    font-size: 18px;
+  }
+
+  nav {
+    padding: 10px;
+  }
+
+  .wrapper {
+    padding: 15px;
+  }
+
+  .wrapper h1 {
+    font-size: 20px;
+  }
+
+  .feedback-input,
+  .btn {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .cart img,
+  nav .icons img {
+    height: 20px;
+  }
+}

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva Orden</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/public/assets/css/ordenMozo.css">
+</head>
+<body>
+    <div class="card">
+        <div class="card-header">
+            <h3>Nueva Orden</h3>
+            <p>Crea una nueva orden de pedido.</p>
+        </div>
+        <div class="card-body">
+            <form id="orderForm">
+                <div class="form-group">
+                    <label for="table">Mesa</label>
+                    <select id="table" name="table">
+                        <option value="1">Mesa 1</option>
+                        <option value="2">Mesa 2</option>
+                        <option value="3">Mesa 3</option>
+                        <option value="4">Mesa 4</option>
+                        <option value="5">Mesa 5</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="order">Pedido</label>
+                    <select id="order" name="order">
+                        <option value="1">Ensalada César</option>
+                        <option value="2">Bruschetta</option>
+                        <option value="3">Empanadas</option>
+                        <option value="4">Milanesa a la Napolitana</option>
+                        <option value="5">Ravioles de Espinaca</option>
+                        <option value="6">Bife de Chorizo</option>
+                        <option value="7">Tiramisu</option>
+                        <option value="8">Flan con Dulce de Leche</option>
+                        <option value="9">Helado de Chocolate</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="note">Nota</label>
+                    <textarea id="note" name="note" placeholder="Agrega una nota al pedido"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="quantity">Cantidad</label>
+                    <select id="quantity" name="quantity">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+        <div class="card-footer">
+            <button id="sendToKitchen" class="btn btn-primary">Enviar a Cocina</button>
+            <button id="viewHistory" class="btn btn-secondary">Ver Historial</button>
+        </div>
+    </div>
+    <script src="/public/assets/js/ordenMozo.js"></script>
+</body>
+</html>
