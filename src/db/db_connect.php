@@ -9,6 +9,9 @@ $dotenv->load();
 /**
  * @throws Exception
  */
+
+// funcion para obtener la conexión a la base de datos
+
 function getDbConnection(): mysqli
 {
     $host = $_ENV['DB_HOST'];

@@ -49,6 +49,10 @@ if ($token) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="assets/img/icons/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="assets/img/icons/favicon-64x64.png">
     <title>Confirmación de Registro</title>
     <style>
         body {

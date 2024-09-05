@@ -1,8 +1,7 @@
 <?php
 session_start();
 require '../src/db/db_connect.php';
-require '../src/uploads/avatarUpload.php';
-require '../src/uploads/avatarDelete.php';
+require '../src/account/accountDelete.php';
 
 // Verificar si el usuario está autenticado
 if (!isset($_SESSION['user_id'])) {
@@ -24,24 +23,18 @@ $contraseña = '';
 $avatar = '';
 
 try {
-    
+
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        // Procesar subida del avatar
-        if (isset($_FILES['avatar'])) {
-            $avatarUploadMessage = uploadAvatar($user_id, $_FILES['avatar'], $conn);
-            if (strpos($avatarUploadMessage, 'Error') !== false) {
-                $errorMessage = $avatarUploadMessage;
+
+        // Procesar eliminación de cuenta
+        if (isset($_POST['eliminarCuenta']) && $_POST['eliminarCuenta'] === 'verdadero') {
+            $deleteAccountMessage = deleteAccount($user_id); // Llamar a la función
+            if ($deleteAccountMessage) {
+                $errorMessage = $deleteAccountMessage;
             } else {
-                $successMessage = $avatarUploadMessage;
-            }
-        }
-        // Procesar eliminación del avatar
-        if (isset($_POST['deleteAvatar']) && $_POST['deleteAvatar'] === 'true') {
-            $deleteAvatarMessage = deleteAvatar($user_id, $conn);
-            if (str_contains($deleteAvatarMessage, 'Error')) {
-                $errorMessage = $deleteAvatarMessage;
-            } else {
-                $successMessage = $deleteAvatarMessage;
+                // Redirigir después de eliminar la cuenta
+                header('Location: /index.php');
+                exit();
             }
         }
         // Obtener datos del formulario
@@ -140,59 +133,35 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Configuración de Cuenta</title>
-    <link rel="stylesheet" href="../public/assets/css/cuenta.css">
+    <link rel="stylesheet" href="assets/css/cuenta.css">
+    <link rel="stylesheet" href="assets/css/nav.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/public/assets/img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/public/assets/img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/public/assets/img/icons/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/public/assets/img/icons/favicon-64x64.png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 </head>
 
 <body>
-<header>
-        <nav>
-            <div class="logo">
-                <a href="/" class="logo-link">
-                    <img src="/public/assets/img/logo-removebg-preview.png" alt="Logo" class="logo-image" />
-                    <h1>Café Sabrosos</h1>
-                </a>
-            </div>
-            <ul class="nav-links">
-                <li><a href="/public/local.html">Locales</a></li>
-                <li><a href="/public/tienda.html">Productos</a></li>
-                <li><a href="#">Ofertas</a></li>
-                <li><a href="#">Reservas</a></li>
-                <li><a href="/public/contactos.html">Contacto</a></li>
-                <li>
-                    <a href="/public/cuenta.php"><img src="/public/assets/img/image.png" alt="Usuario"
-                            class="user-icon" /></a>
-                </li>
-                <div class="cart">
-                    <a href="carrito.html">
-                        <img src="/public/assets/img/cart.png" alt="Carrito" />
-                        <span id="cart-counter" class="cart-counter">0</span>
-                    </a>
-                </div>
-            </ul>
-        </nav>
+    <header>
+    <?php include 'templates/nav-blur.php'; ?>
     </header>
     <main>
         <section class="profile-container">
             <h1>Configuración de Cuenta</h1>
             <form action="cuenta.php" method="POST" enctype="multipart/form-data">
                 <div class="profile-info">
-                    <!-- Sección para el avatar -->
                     <div class="avatar-section">
                         <label for="avatar" class="avatar-label">Foto de Perfil:</label>
                         <div class="avatar-preview">
                             <img src="<?php echo isset($avatar) ? '/public/assets/img/avatars/' . htmlspecialchars($avatar) . '?t=' . time() : '/public/assets/img/user-circle-svgrepo-com.svg'; ?>" alt="Avatar" class="avatar-image">
                         </div>
                         <input type="file" name="avatar" id="avatar" accept="image/*">
-                        <?php if (!empty($avatar)): ?>
-                            <!-- Formulario para eliminar el avatar, mostrado solo si hay avatar -->
-                            <form action="cuenta.php" method="POST" style="display:inline;">
-                                <input type="hidden" name="deleteAvatar" value="true">
-                                <button type="submit" class="delete-avatar-btn">Eliminar Avatar</button>
-                            </form>
-                        <?php endif; ?>
+                        <div class="error-avatar" style="display: none;"></div>
+                        <div class="success-avatar" style="display: none;"></div>
+                        <button type="button" id="deleteAvatarBtn" class="delete-avatar-btn" style="display: <?php echo !empty($avatar) ? 'block' : 'none'; ?>;">Eliminar Avatar</button>
                     </div>
                     <!-- Resto del formulario... -->
                     <div class="name-fields">
@@ -200,12 +169,11 @@ try {
                         <input type="text" name="apellido" placeholder="Apellido:" maxlength="50" required value="<?php echo htmlspecialchars($apellido); ?>">
                     </div>
                     <div class="input-container">
-                        <i class="fa-solid fa-pen-to-square"></i>
                         <input type="email" name="correo" id="correo" placeholder="Correo:" value="<?php echo htmlspecialchars($correo); ?>">
                     </div>
                     <div class="input-container">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                        <input type="password" name="contraseña" id="password" placeholder="Contraseña:" maxlength="64" required>
+                        <a href="cambiarContrasena.php"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <input type="password" name="contraseña" id="password" placeholder="Contraseña" maxlength="64">
                     </div>
                     <input type="tel" name="telefono" id="telefono" placeholder="Teléfono:" maxlength="9" value="<?php echo htmlspecialchars($telefono); ?>">
                     <input type="date" name="fechaNacimiento" id="cumpleaños"
@@ -219,17 +187,355 @@ try {
                     <button type="submit" class="logout-btn">Cerrar Sesión</button>
                 </form>
                 <form action="">
-                    <button class="delete-btn">Eliminar Cuenta</button>
+                    <button type="button" class="delete-btn" id="deleteAccountBtn">Eliminar Cuenta</button>
                 </form>
             </div>
             <?php if ($errorMessage): ?>
-                <div class="error-message"><?php echo htmlspecialchars($errorMessage); ?></div>
+                <div id="errorMessage" class="error-message"><?php echo htmlspecialchars($errorMessage); ?></div>
             <?php endif; ?>
             <?php if ($successMessage): ?>
-                <div class="success-message"><?php echo htmlspecialchars($successMessage); ?></div>
+                <div id="successMessage" class="success-message"><?php echo htmlspecialchars($successMessage); ?></div>
             <?php endif; ?>
         </section>
     </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const avatarInput = document.getElementById('avatar');
+            const avatarImage = document.querySelector('.avatar-image');
+            const successAvatarDiv = document.querySelector('.success-avatar');
+            const errorAvatarDiv = document.querySelector('.error-avatar');
+            const deleteAvatarBtn = document.getElementById('deleteAvatarBtn');
+            const saveBtn = document.querySelector('.save-btn');
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+
+            function clearGeneralMessages() {
+                if (errorMessage) {
+                    errorMessage.style.display = 'none';
+                }
+                if (successMessage) {
+                    successMessage.style.display = 'none';
+                }
+            }
+            saveBtn.addEventListener('click', function(event) {
+                if (errorAvatarDiv.textContent.trim() !== '' || successAvatarDiv.textContent.trim() !== '') {
+                    successAvatarDiv.style.display = 'none';
+                    errorAvatarDiv.style.display = 'none';
+                }
+            });
+
+            successAvatarDiv.style.display = 'none';
+            errorAvatarDiv.style.display = 'none';
+
+            if (avatarInput) {
+                avatarInput.addEventListener('change', function(event) {
+                    clearGeneralMessages();
+                    const file = event.target.files[0];
+
+                    if (file) {
+                        const formData = new FormData();
+                        formData.append('avatar', file);
+
+                        fetch('/src/uploads/avatarUpload.php', {
+                                method: 'POST',
+                                body: formData
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    avatarImage.src = '/public/assets/img/avatars/' + encodeURIComponent(data.avatar) + '?t=' + new Date().getTime();
+
+                                    avatarInput.value = '';
+
+                                    successAvatarDiv.textContent = data.message;
+                                    successAvatarDiv.style.display = 'block';
+                                    errorAvatarDiv.textContent = '';
+                                    errorAvatarDiv.style.display = 'none';
+                                    deleteAvatarBtn.style.display = 'block';
+                                } else {
+                                    avatarInput.value = '';
+                                    errorAvatarDiv.textContent = data.message;
+                                    errorAvatarDiv.style.display = 'block';
+                                    successAvatarDiv.textContent = ''; 
+                                    successAvatarDiv.style.display = 'none';
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                avatarInput.value = '';
+
+                                errorAvatarDiv.textContent = 'Error al subir el avatar. Por favor, intenta de nuevo.';
+                                errorAvatarDiv.style.display = 'block'; 
+                                successAvatarDiv.textContent = '';
+                                successAvatarDiv.style.display = 'none';
+                            });
+                    }
+                });
+            }
+
+
+
+            if (deleteAvatarBtn) {
+                deleteAvatarBtn.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    clearGeneralMessages();
+
+                    if (confirm('¿Estás seguro de que deseas eliminar tu avatar?')) {
+                        fetch('/src/uploads/avatarDelete.php', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    action: 'deleteAvatar'
+                                })
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    avatarImage.src = '/public/assets/img/user-circle-svgrepo-com.svg';
+
+                                    deleteAvatarBtn.style.display = 'none';
+
+                                    successAvatarDiv.textContent = data.message;
+                                    successAvatarDiv.style.display = 'block';
+                                    errorAvatarDiv.textContent = '';
+                                    errorAvatarDiv.style.display = 'none'; 
+                                } else {
+                                    errorAvatarDiv.textContent = data.message;
+                                    errorAvatarDiv.style.display = 'block';
+                                    successAvatarDiv.textContent = '';
+                                    successAvatarDiv.style.display = 'none'; 
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                errorAvatarDiv.textContent = 'Error al eliminar el avatar. Por favor, intenta de nuevo.';
+                                errorAvatarDiv.style.display = 'block';
+                                successAvatarDiv.textContent = '';
+                                successAvatarDiv.style.display = 'none';
+                            });
+                    }
+                });
+            }
+        });
+    </script>
+    <style>
+        /* Existing styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .modal-content h2 {
+            color: #b8860b;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .modal-buttons button {
+            padding: 10px 20px;
+            border: none;
+            white-space: nowrap;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 195px;
+        }
+
+        #confirmDeleteBtn {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        #cancelDeleteBtn {
+            background-color: #b8860b;
+            color: white;
+        }
+
+        form#deleteAccountForm {
+            margin-right: 1vh;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .modal-content p a {
+            color: #b8860b;
+        }
+
+        .modal-content p a:hover {
+            color: #333;
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                margin: 50% auto;
+                width: 85%;
+            }
+
+            .modal-buttons {
+                flex-direction: column;
+            }
+
+            .modal-buttons button {
+                width: 100%;
+                max-width: none;
+                margin-top: 10px;
+            }
+
+            form#deleteAccountForm {
+                margin-right: 0;
+                display: flex;
+            }
+        }
+
+        .profile-container {
+            padding: 18px;
+        }
+
+        /* Styles for the second modal */
+        #codeVerificationModal .modal-content {
+            background-color: #f9f9f9;
+        }
+
+        #codeVerificationModal input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        #codeVerificationModal #verifyCodeBtn {
+            background-color: #b8860b;
+            color: white;
+        }
+
+        #codeVerificationModal #cancelCodeVerificationBtn {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        #generatedCode {
+            user-select: none;
+            /* Evita que el texto sea seleccionado */
+        }
+
+        .back-button {
+            border: none;
+            font-size: 18px;
+            color: #b8860b;
+            background-color: #f9f9f9;
+            cursor: pointer;
+            margin-bottom: 10px;
+            text-decoration: underline;
+        }
+
+        .back-button:hover {
+            background-color: #f9f9f9;
+            color: #b8860b;
+        }
+    </style>
+
+    <!-- First Modal: Confirm Deletion -->
+    <div id="deleteAccountModal" class="modal">
+        <div class="modal-content">
+            <h2>¿Estás seguro de que deseas eliminar tu cuenta?</h2>
+            <p>Esta acción no se puede deshacer.</p>
+            <p><a href="politicas-de-eliminacion-de-cuenta.html" target="_blank">Haz clic aquí para conocer las políticas de eliminación de datos.</a></p>
+            <div class="modal-buttons">
+                <form id="deleteAccountForm" method="POST">
+                    <input type="hidden" name="eliminarCuenta" value="verdadero">
+                    <button type="button" id="confirmDeleteBtn">Sí, eliminar cuenta</button>
+                </form>
+                <button type="button" id="cancelDeleteBtn">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Second Modal: Code Verification -->
+    <div id="codeVerificationModal" class="modal">
+        <div class="modal-content">
+            <button type="button" id="backToDeleteModalBtn" class="back-button">
+                &larr; Regresar
+            </button>
+            <h2>Verificación de Código</h2>
+            <p>Ingresa el código de verificación para proceder con la eliminación:</p>
+            <p id="generatedCode"></p>
+            <input type="text" id="userInputCode" placeholder="Ingresa el código aquí">
+            <div class="modal-buttons">
+                <button type="button" id="verifyCodeBtn">Verificar Código</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Handle the first modal
+        document.getElementById('deleteAccountBtn').onclick = function() {
+            document.getElementById('deleteAccountModal').style.display = 'block';
+        };
+
+        document.getElementById('cancelDeleteBtn').onclick = function() {
+            document.getElementById('deleteAccountModal').style.display = 'none';
+        };
+
+        // Random code generation
+        function generateRandomCode() {
+            return Math.floor(100000 + Math.random() * 900000); // Generates a 6-digit random number
+        }
+
+        // Handle the second modal
+        document.getElementById('confirmDeleteBtn').onclick = function() {
+            // Close the first modal
+            document.getElementById('deleteAccountModal').style.display = 'none';
+
+            // Generate and display the random code in the second modal
+            var randomCode = generateRandomCode();
+            document.getElementById('generatedCode').textContent = 'Código: ' + randomCode;
+
+            // Show the second modal
+            document.getElementById('codeVerificationModal').style.display = 'block';
+
+            // Verify the code
+            document.getElementById('verifyCodeBtn').onclick = function() {
+                var userCode = document.getElementById('userInputCode').value;
+                if (userCode == randomCode) {
+                    // Proceed with account deletion
+                    document.getElementById('deleteAccountForm').submit();
+                } else {
+                    alert('Código incorrecto. Inténtalo de nuevo.');
+                }
+            };
+        };
+
+        document.getElementById('backToDeleteModalBtn').onclick = function() {
+            document.getElementById('codeVerificationModal').style.display = 'none';
+            document.getElementById('deleteAccountModal').style.display = 'block';
+        };
+    </script>
     <footer>
         <div class="footer-content">
             <div class="footer-section about">

@@ -20,6 +20,7 @@ header {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 .user-icon {
     width: 40px;
@@ -160,6 +161,8 @@ nav ul li a:hover::after {
     font-size: 12px;
 }
 >>>>>>> 07c1bbe16b8418eff07af61e63f38a94b7f0d21a
+=======
+>>>>>>> e82cc75a02b7f17ee0984c21538c82723fdb7cc9
 @media (max-width: 768px) {
     .main-content {
         margin-top: 80px; /* Aumenta el margen para pantallas pequeñas */
@@ -216,10 +219,14 @@ nav ul li a:hover::after {
     flex-direction: column;
     align-items: center;
 <<<<<<< HEAD
+<<<<<<< HEAD
     margin-top: 10%;
 =======
     justify-content: center;
 >>>>>>> 07c1bbe16b8418eff07af61e63f38a94b7f0d21a
+=======
+    margin-top: 10%;
+>>>>>>> e82cc75a02b7f17ee0984c21538c82723fdb7cc9
     height: 100%;
     text-align: center;
     color: white;

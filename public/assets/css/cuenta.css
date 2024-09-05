@@ -1,7 +1,10 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 >>>>>>> 07c1bbe16b8418eff07af61e63f38a94b7f0d21a
+=======
+>>>>>>> e82cc75a02b7f17ee0984c21538c82723fdb7cc9
 body {
     display: flex;
     flex-direction: column;
@@ -95,6 +98,7 @@ header {
 .header-buttons .btn:hover {
     background-color: #DAA520; /* Color dorado más oscuro */
 }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .user-icon {
@@ -234,6 +238,8 @@ nav ul li a:hover::after {
 }
 
 >>>>>>> 07c1bbe16b8418eff07af61e63f38a94b7f0d21a
+=======
+>>>>>>> e82cc75a02b7f17ee0984c21538c82723fdb7cc9
 /* Estilos del contenedor de perfil */
 .profile-container {
     background: whitesmoke;
@@ -559,6 +565,9 @@ footer {
     }
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e82cc75a02b7f17ee0984c21538c82723fdb7cc9
 .success-avatar {
     display: block;
     padding: 10px;
@@ -583,6 +592,10 @@ footer {
     font-size: 16px;
     text-align: center;
     transition: opacity 0.6s ease;
+<<<<<<< HEAD
 }
 =======
 >>>>>>> 07c1bbe16b8418eff07af61e63f38a94b7f0d21a
+=======
+}
+>>>>>>> e82cc75a02b7f17ee0984c21538c82723fdb7cc9

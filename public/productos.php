@@ -1,5 +1,20 @@
 <?php
 include '../src/db/db_connect.php';
+require '../vendor/autoload.php'; // Asegúrate de incluir el autoloader de Composer
+
+use Stichoza\GoogleTranslate\GoogleTranslate;
+
+session_start();
+// Comprobar si se ha enviado una preferencia de idioma
+if (isset($_GET['lang'])) {
+    $lang = $_GET['lang'];
+    if (in_array($lang, ['es', 'en', 'fr', 'de', 'pt'])) {
+        $_SESSION['language'] = $lang;
+    }
+}
+
+// Obtener el idioma preferido de la sesión o usar español como predeterminado
+$language = isset($_SESSION['language']) ? $_SESSION['language'] : 'es';
 try {
     // Obtener conexión a la base de datos
     $conn = getDbConnection();
@@ -28,6 +43,39 @@ try {
     $resultCategoria = $queryCategoria->get_result();
     $categoria = $resultCategoria->fetch_assoc();
 
+    // Crear instancia de GoogleTranslate
+    $tr = new GoogleTranslate();
+
+    // Obtener traducciones en español
+    $nombreProductoES = $producto['nombre'];
+    $descripcionProductoES = $producto['descripcion'];
+    $nombreCategoriaES = $categoria['nombre'];
+
+    // Obtener traducciones en inglés
+    $tr->setSource('es')->setTarget('en');
+    $nombreProductoEN = $tr->translate($producto['nombre']);
+    $descripcionProductoEN = $tr->translate($producto['descripcion']);
+    $nombreCategoriaEN = $tr->translate($categoria['nombre']);
+
+    // Obtener traducciones en francés
+    $tr->setSource('es')->setTarget('fr');
+    $nombreProductoFR = $tr->translate($producto['nombre']);
+    $descripcionProductoFR = $tr->translate($producto['descripcion']);
+    $nombreCategoriaFR = $tr->translate($categoria['nombre']);
+
+    // Obtener traducciones en alemán
+    $tr->setSource('es')->setTarget('de');
+    $nombreProductoDE = $tr->translate($producto['nombre']);
+    $descripcionProductoDE = $tr->translate($producto['descripcion']);
+    $nombreCategoriaDE = $tr->translate($categoria['nombre']);
+
+    // Obtener traducciones en portugués
+    $tr->setSource('es')->setTarget('pt');
+    $nombreProductoPT = $tr->translate($producto['nombre']);
+    $descripcionProductoPT = $tr->translate($producto['descripcion']);
+    $nombreCategoriaPT = $tr->translate($categoria['nombre']);
+
+    // Cerrar conexión a la base de datos
     $conn->close();
 } catch (Exception $e) {
     // Manejo de errores de conexión
@@ -42,499 +90,124 @@ try {
 
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="assets/img/icons/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="assets/img/icons/favicon-64x64.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= htmlspecialchars($producto['nombre']) ?></title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
-        * {
-            box-sizing: border-box;
-        }
-
-        /* Basic Styling */
-        html,
-        body {
-            height: 100%;
-            margin: 0;
-            font-family: 'Roboto', sans-serif;
-            display: flex;
-            flex-direction: column;
-            background-color: #f5f5f5;
-        }
-
-        .container {
-    position: relative; /* Permite que los elementos hijos se posicionen absolutamente dentro de este contenedor */
-    max-width: 1200px;
-    margin: 0 auto 100px;
-    margin-top: 100px;
-    padding: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #ffffff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-        .user-icon {
-            width: 40px;
-            height: 40px;
-            margin: 0 5px;
-        }
-
-        nav {
-            display: flex;
-            background-color: #1B0D0B;
-            align-items: center;
-            justify-content: space-around;
-            padding: 1rem;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-sizing: border-box;
-            /* Asegura que el padding no cause desbordamiento */
-        }
-
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-            /* Transición del color */
-            position: relative;
-        }
-
-        nav ul li a::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 2px;
-            /* Altura de la línea */
-            bottom: -5px;
-            /* Posición de la línea debajo del texto */
-            left: 0;
-            background-color: #b8860b;
-            /* Color de la línea */
-            transform: scaleX(0);
-            /* Inicialmente no visible */
-            transition: transform 0.3s ease;
-            /* Transición de la línea */
-        }
-
-        nav ul li a:hover {
-            color: #b8860b;
-            /* Cambia el color del texto al pasar el ratón */
-        }
-
-        nav ul li a:hover::after {
-            transform: scaleX(1);
-            /* Muestra la línea al pasar el ratón */
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            /* Alinea verticalmente al centro */
-            margin-left: 4vh;
-        }
-
-        .logo-link {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            /* Elimina el subrayado del enlace */
-        }
-
-        .logo img {
-            width: 70px;
-            /* Ajusta el tamaño del logo según tus necesidades */
-            margin-right: 10px;
-            /* Espacio entre el logo y el texto */
-        }
-
-        .logo-link h1 {
-            margin: 0;
-            font-size: 24px;
-            font-weight: bold;
-            color: white;
-            background: linear-gradient(45deg, #FFF, #b8860b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            /* Alinea verticalmente los elementos de la lista */
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            margin-right: 3vh;
-        }
-
-        .nav-links li {
-            margin: 0 10px;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-size: 16px;
-            transition: color 0.3s ease;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-        }
-
-        .nav-links a:hover {
-            color: #b8860b;
-            /* Color dorado al pasar el cursor */
-        }
-
-        .cart {
-            position: relative;
-        }
-
-        .cart img {
-            width: 30px;
-            height: 30px;
-        }
-
-        .cart-counter {
-            position: absolute;
-            top: -5px;
-            right: -10px;
-            background-color: #8B4513;
-            /* Marrón */
-            color: #ffffff;
-            /* Blanco */
-            border-radius: 50%;
-            padding: 2px 6px;
-            font-size: 12px;
-        }
-
-        /* Columns */
-        .left-column {
-            width: 65%;
-            position: relative;
-        }
-
-        .right-column {
-            width: 35%;
-            margin-top: 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        /* Left Column */
-        .left-column img {
-            width: 100%;
-            margin-right: 25vh;
-            height: 584px;
-            object-fit: cover;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-        }
-
-        /* Product Description */
-        .product-description {
-            border-bottom: 1px solid #E1E8EE;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .product-description span {
-            font-size: 12px;
-            color: #1B0D0B;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            text-decoration: none;
-        }
-
-        .product-description h1 {
-            margin-bottom: 5px;
-            font-weight: 300;
-            font-size: 52px;
-            color: #43484D;
-            letter-spacing: -2px;
-        }
-
-        .product-description p {
-            text-align: center;
-            display: inline-flex;
-            width: 35vh;
-            margin: 20px 20px;
-            font-size: 16px;
-            font-weight: 300;
-            color: #86939E;
-            line-height: 24px;
-        }
-
-        /* Product Color */
-        .product-color {
-            margin-bottom: 30px;
-        }
-
-        /* Product Price */
-        .product-price {
-            display: flex;
-            align-items: center;
-            flex-direction: column;
-            margin-top: 20px;
-        }
-
-        .product-price span {
-            font-size: 26px;
-            font-weight: 300;
-            color: #43474D;
-            margin-bottom: 20px;
-        }
-
-        .cart-btn {
-            display: inline-block;
-            background-color: #DAA520;
-            font-size: 16px;
-            color: #FFFFFF;
-            text-decoration: none;
-            padding: 12px 30px;
-            transition: all .5s;
-            margin-top: 10px;
-        }
-
-        .cart-btn:hover {
-            background-color: #1B0D0B;
-        }
-
-        /* Quantity Selector */
-        .quantity-selector {
-            display: flex;
-            align-items: center;
-            margin: 20px 0;
-        }
-
-        .quantity-selector button {
-            background-color: #DAA520;
-            color: white;
-            border: none;
-            /* border-radius: 6px; */
-            padding: 10px 15px;
-            font-size: 16px;
-            cursor: pointer;
-            margin: 0 5px;
-        }
-
-        .quantity-selector button:hover {
-            background-color: #1B0D0B;
-        }
-
-        .quantity-selector span {
-            font-size: 24px;
-            margin: 0 15px;
-        }
-
-        footer {
-            background-color: #DAA520;
-            /* Dorado */
-            color: #1B0D0B;
-            text-align: center;
-            width: 100%;
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-
-        .footer-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .footer-section {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .footer-section h3 {
-            font-family: 'Poppins';
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-
-        .footer-section p,
-        .footer-section ul {
-            font-family: 'Poppins';
-            font-size: 16px;
-            font-weight: 400;
-        }
-
-        .footer-section ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .footer-section ul li {
-            margin-bottom: 10px;
-        }
-
-        .footer-section ul li a {
-            color: #1B0D0B;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-section ul li a:hover {
-            color: #333;
-        }
-
-        .socials {
-            display: flex;
-            justify-content: center;
-            margin-top: 10px;
-        }
-
-        .socials a {
-            color: #1B0D0B;
-            margin: 0 10px;
-            font-size: 20px;
-            transition: color 0.3s ease;
-        }
-
-        .socials a:hover {
-            color: #333;
-        }
-
-        .footer-bottom {
-            background-color: #1B0D0B;
-            /* Marrón oscuro */
-            padding: 20px 0;
-            width: 100%;
-            font-family: 'Poppins';
-            font-size: 16px;
-            font-weight: 400;
-            color: #FFF;
-        }
-
-        @media (min-width: 768px) {
-            .footer-content {
-                flex-direction: row;
-                justify-content: space-between;
-                text-align: left;
-            }
-
-            .footer-section {
-                flex: 1;
-                padding: 0 20px;
-            }
-        }
-        .navigation-links {
-        position: absolute;
-        top: 145px;
-        left: -530px;
-        z-index: 10;
-        display: flex;
-        justify-content: center; /* Centra horizontalmente */
-        width: 100%; /* Asegura que ocupe el ancho disponible */
-        padding: 0 20px; /* Espaciado interno */
-        box-sizing: border-box; /* Incluye padding en el ancho total */
-    }
-
-    .navigation-links a {
-        color: #DAA520;
-        text-decoration: none;
-        font-size: 18px;
-        margin: 0 10px;
-        display: inline-block; /* Asegura que el enlace no se expanda a todo el ancho */
-    }
-
-    .navigation-links a:hover {
-        color: #1B0D0B;
-    }
-
-    @media (max-width: 768px) {
-        .navigation-links {
-            top: 10vh; /* Ajusta la posición en pantallas pequeñas */
-            left: 0; /* Centra el enlace horizontalmente */
-        }
-
-        .navigation-links a {
-            font-size: 16px; /* Reduce el tamaño del texto en pantallas pequeñas */
-            margin: 0 5px; /* Reduce el margen en pantallas pequeñas */
-        }
-    }
-
-    @media (max-width: 480px) {
-        .navigation-links {
-            top: 8vh; /* Ajusta aún más en pantallas muy pequeñas */
-        }
-
-        .navigation-links a {
-            font-size: 14px; /* Reduce aún más el tamaño del texto */
-            margin: 0 2px; /* Reduce el margen para pantallas muy pequeñas */
-        }
-    }
-    </style>
+    <title><?= htmlspecialchars('Café Sabrosos - ' . $producto['nombre']) ?></title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/productos.css">
+    <link rel="stylesheet" href="assets/css/nav.css">
+    
 </head>
-
 <body>
     <header>
-        <nav>
-            <div class="logo">
-                <a href="/" class="logo-link">
-                    <img src="/public/assets/img/logo-removebg-preview.png" alt="Logo" class="logo-image" />
-                    <h1>Café Sabrosos</h1>
-                </a>
-            </div>
-            <ul class="nav-links">
-                <li><a href="/public/local.html">Locales</a></li>
-                <li><a href="#">Productos</a></li>
-                <li><a href="#">Ofertas</a></li>
-                <li><a href="#">Reservas</a></li>
-                <li><a href="/public/contactos.html">Contacto</a></li>
-                <li>
-                    <a href="/public/cuenta.php"><img src="/public/assets/img/image.png" alt="Usuario"
-                            class="user-icon" /></a>
-                </li>
-                <div class="cart">
-                    <a href="carrito.html">
-                        <img src="/public/assets/img/cart.png" alt="Carrito" />
-                        <span id="cart-counter" class="cart-counter">0</span>
+    <?php include 'templates/nav.php'?>
+    </header>
+
+    <div class="container">
+        <div class="grid">
+            <div class="product-container">
+                <div class="back-link">
+                    <a href="tienda.php#main-category" class="text-primary" id="back-to-store" onclick="setCategoryInLocalStorage('<?= htmlspecialchars($categoria['nombre']) ?>', <?= (int)$producto['idCategoria'] ?>)">
+                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m12 19-7-7 7-7"></path>
+                            <path d="M19 12H5"></path>
+                        </svg>
+                        <span data-lang="es">Regresar a la tienda</span>
+                        <span data-lang="en" style="display: none;">Back to Store</span>
+                        <span data-lang="fr" style="display: none;">Retour au magasin</span>
+                        <span data-lang="de" style="display: none;">Zurück zum Laden</span>
+                        <span data-lang="pt" style="display: none;">Voltar à loja</span>
                     </a>
                 </div>
-            </ul>
-        </nav>
-        
-    </header>
-    <div class="navigation-links">
-    <a href="tienda.html#main-category" id="back-to-store" onclick="setCategoryInLocalStorage('<?= htmlspecialchars($categoria['nombre']) ?>', <?= (int)$producto['idCategoria'] ?>)">Volver a la tienda</a>    </div>
-    <main class="container">
-
-        <!-- Left Column / Imagen del producto -->
-        <div class="left-column">
-            <img src="<?= htmlspecialchars($producto['imagen']) ?>" alt="<?= htmlspecialchars($producto['nombre']) ?>">
-        </div>
-        <!-- Right Column -->
-        <div class="right-column">
-
-            <!-- Product Description -->
-            <div class="product-description">
-                <u><span><?= htmlspecialchars($categoria['nombre']) ?></span></u>
-                <h1><?= htmlspecialchars($producto['nombre']) ?></h1>
-                <p><?= htmlspecialchars($producto['descripcion']) ?></p>
-            </div>
-
-            <!-- Product Pricing -->
-            <div class="product-price">
-                <span>$<?= number_format($producto['precio'], 2) ?></span>
-                <div class="quantity-selector">
-                    <button id="decrease">-</button>
-                    <span id="quantity">1</span>
-                    <button id="increase">+</button>
+                <div class="product-image-container">
+                    <img src="<?= htmlspecialchars($producto['imagen']) ?>" alt="<?= htmlspecialchars($producto['nombre']) ?>" class="product-image">
                 </div>
-                <a href="#" class="cart-btn">Agregar al carrito</a>
+            </div>
+            <div class="details-grid">
+                <div>
+                    <p class="product-category" data-lang="es"><?php echo $nombreCategoriaES; ?></p>
+                    <p class="product-category" data-lang="en" style="display:none;"><?php echo $nombreCategoriaEN; ?></p>
+                    <p class="product-category" data-lang="fr" style="display:none;"><?php echo $nombreCategoriaFR; ?></p>
+                    <p class="product-category" data-lang="de" style="display:none;"><?php echo $nombreCategoriaDE; ?></p>
+                    <p class="product-category" data-lang="pt" style="display:none;"><?php echo $nombreCategoriaPT; ?></p>
+                    <h1 class="product-title" data-lang="es"><?php echo $nombreProductoES; ?></h1>
+                    <h1 class="product-title" data-lang="en" style="display:none;"><?php echo $nombreProductoEN; ?></h1>
+                    <h1 class="product-title" data-lang="fr" style="display:none;"><?php echo $nombreProductoFR; ?></h1>
+                    <h1 class="product-title" data-lang="de" style="display:none;"><?php echo $nombreProductoDE; ?></h1>
+                    <h1 class="product-title" data-lang="pt" style="display:none;"><?php echo $nombreProductoPT; ?></h1>
+                    <p class="product-description" data-lang="es"><?php echo $descripcionProductoES; ?></p>
+                    <p class="product-description" data-lang="en" style="display:none;"><?php echo $descripcionProductoEN; ?></p>
+                    <p class="product-description" data-lang="fr" style="display:none;"><?php echo $descripcionProductoFR; ?></p>
+                    <p class="product-description" data-lang="de" style="display:none;"><?php echo $descripcionProductoDE; ?></p>
+                    <p class="product-description" data-lang="pt" style="display:none;"><?php echo $descripcionProductoPT; ?></p>
+                </div>
+                <div class="price-container">
+                    <div class="product-price">$<?php echo number_format($producto['precio'], 2); ?></div>
+                    <div class="quantity-control">
+                        <button class="btn-outline">
+                            <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12h14"></path>
+                            </svg>
+                        </button>
+                        <div class="quantity">1</div>
+                        <button class="btn-outline">
+                            <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12h14"></path>
+                                <path d="M12 5v14"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn-lg" data-lang="es">Agregar al Carrito</button>
+                    <button class="btn-lg btn-outline" data-lang="es">Comprar Ahora</button>
+                    <button class="btn-lg" data-lang="en" style="display:none;">Add to Cart</button>
+                    <button class="btn-lg btn-outline" data-lang="en" style="display:none;">Buy Now</button>
+                    <button class="btn-lg" data-lang="fr" style="display:none;">Ajouter au panier</button>
+                    <button class="btn-lg btn-outline" data-lang="fr" style="display:none;">Acheter maintenant</button>
+                    <button class="btn-lg" data-lang="de" style="display:none;">In den Warenkorb</button>
+                    <button class="btn-lg btn-outline" data-lang="de" style="display:none;">Jetzt kaufen</button>
+                    <button class="btn-lg" data-lang="pt" style="display:none;">Adicionar ao carrinho</button>
+                    <button class="btn-lg btn-outline" data-lang="pt" style="display:none;">Comprar Agora</button>
+                </div>
+                <div class="card">
+                    <div class="header">
+                        <button class="back-button">
+                            <i class="fas fa-chevron-left icon"></i>
+                            <span class="sr-only">Back</span>
+                        </button>
+                        <h3 id="toggle-title">Metodos de Pagos</h3>
+                    </div>
+                    <div class="content">
+                        <div class="buttons">
+                            <button class="payment-button">
+                                <i class="fa-brands fa-cc-visa icon"></i>
+                            </button>
+                            <button class="payment-button">
+                                <i class="fa-brands fa-cc-mastercard icon"></i>
+                            </button>
+                            <button class="payment-button">
+                                <i class="fa-brands fa-paypal icon"></i>
+                            </button>
+                            <button class="payment-button">
+                                <i class="fa-brands fa-cc-amex icon"></i>
+                            </button>
+                            <button class="payment-button">
+                                <i class="fa-brands fa-google-pay icon"></i>
+                            </button>
+                            <button class="payment-button">
+                                <i class="fa-brands fa-apple-pay icon"></i>
+                            </button>
+                            <!-- Añade más íconos según sea necesario -->
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </main>
+    </div>
     <footer>
         <div class="footer-content">
             <div class="footer-section about">
@@ -545,9 +218,9 @@ try {
                     bebida.
                 </p>
                 <div class="socials">
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                    <a href="#"><i class="fa fa-instagram"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
                 </div>
             </div>
             <div class="footer-section links">
@@ -563,7 +236,7 @@ try {
             <div class="footer-section contact">
                 <h3>Contáctanos</h3>
                 <ul>
-                    <li><i class="fa fa-map-marker"></i> 123 Calle Café, San José</li>
+                    <li><i class="fa-solid fa-location-dot"></i> 123 Calle Café, San José</li>
                     <li><i class="fa fa-phone"></i> +598 123 4567</li>
                     <li><i class="fa fa-envelope"></i> info@cafesabrosos.com</li>
                 </ul>
@@ -573,34 +246,191 @@ try {
             <p>&copy; 2024 Café Sabrosos. Todos los derechos reservados.</p>
         </div>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const title = document.getElementById('toggle-title');
+            const buttons = document.querySelector('.buttons');
+
+            title.addEventListener('click', () => {
+                // Toggle rotation for the icon
+                const icon = document.querySelector('.back-button .icon');
+                icon.classList.toggle('rotate');
+
+                // Toggle the visibility of the buttons
+                buttons.classList.toggle('show');
+            });
+        });
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const quantityElement = document.getElementById('quantity');
+            const quantityElement = document.querySelector('.quantity');
             let quantity = parseInt(quantityElement.textContent);
 
-            document.getElementById('increase').addEventListener('click', function() {
-                quantity += 1;
-                quantityElement.textContent = quantity;
-            });
-
-            document.getElementById('decrease').addEventListener('click', function() {
+            document.querySelector('.quantity-control .btn-outline:first-of-type').addEventListener('click', function() {
                 if (quantity > 1) {
                     quantity -= 1;
                     quantityElement.textContent = quantity;
                 }
             });
+
+            document.querySelector('.quantity-control .btn-outline:last-of-type').addEventListener('click', function() {
+                quantity += 1;
+                quantityElement.textContent = quantity;
+            });
+
+            document.querySelector('.action-buttons .btn-lg:first-of-type').addEventListener('click', function(e) {
+                e.preventDefault();
+                const productId = '<?= htmlspecialchars($id_producto) ?>';
+                const quantity = parseInt(quantityElement.textContent);
+                addToCart(productId, quantity);
+            });
+
+            updateCartCounter();
         });
 
+        function addToCart(productId, quantity) {
+            if (<?php echo isset($_SESSION['user_id']) ? 'true' : 'false'; ?>) {
+                const url = '/src/cart/addCart.php';
+                const data = new URLSearchParams({
+                    producto_id: productId,
+                    cantidad: quantity
+                });
+
+                fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: data.toString()
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            updateCartCounter();
+                            alert('Producto agregado al carrito.');
+                        } else {
+                            alert('Error: ' + data.message);
+                        }
+                    })
+                    .catch(error => {
+                        alert('Error en la red. Por favor, inténtelo de nuevo.');
+                    });
+            } else {
+                const carrito = JSON.parse(localStorage.getItem('carrito')) || {};
+                carrito[productId] = (carrito[productId] || 0) + quantity;
+                localStorage.setItem('carrito', JSON.stringify(carrito));
+
+                const expirationTime = Date.now() + 3600000; // 1 hora
+                localStorage.setItem('cart_expiration', expirationTime);
+
+                updateCartCounter();
+                alert('Producto agregado al carrito local.');
+            }
+        }
+
+        function updateCartCounter() {
+            const cartCounterElement = document.getElementById('cart-counter');
+
+            fetch('/src/cart/getCartCounter.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        cartCounterElement.textContent = data.totalQuantity;
+                    } else {
+                        handleLocalStorageCart(cartCounterElement);
+                    }
+                })
+                .catch(() => {
+                    handleLocalStorageCart(cartCounterElement);
+                });
+        }
+
+        function handleLocalStorageCart(cartCounterElement) {
+            if (isCartExpired()) {
+                clearExpiredCart();
+            }
+            const carrito = JSON.parse(localStorage.getItem('carrito')) || {};
+            const totalQuantity = Object.values(carrito).reduce((acc, quantity) => acc + quantity, 0);
+            cartCounterElement.textContent = totalQuantity;
+        }
+
+        function getCartExpiration() {
+            return parseInt(localStorage.getItem('cart_expiration'));
+        }
+
+        function isCartExpired() {
+            const expirationTime = getCartExpiration();
+            return expirationTime && Date.now() > expirationTime;
+        }
+
+        function clearExpiredCart() {
+            localStorage.removeItem('carrito');
+            localStorage.removeItem('cart_expiration');
+        }
+
         function setCategoryInLocalStorage(category, idCategoria) {
-    const categoryData = {
-        category: category,
-        idCategoria: idCategoria
-    };
-    localStorage.setItem('selectedCategory', JSON.stringify(categoryData));
-}
+            const categoryData = {
+                category,
+                idCategoria
+            };
+            localStorage.setItem('selectedCategory', JSON.stringify(categoryData));
+        }
 
+        document.getElementById('language-toggle').addEventListener('click', function() {
+            const languageMap = {
+                'ES': 'es',
+                'EN': 'en',
+                'FR': 'fr',
+                'DE': 'de',
+                'PT': 'pt'
+            };
+            const languageKeys = Object.keys(languageMap);
 
+            let currentLang = this.innerText;
+            let nextLangIndex = (languageKeys.indexOf(currentLang) + 1) % languageKeys.length;
+            let nextLang = languageKeys[nextLangIndex];
+            this.innerText = nextLang;
+
+            translateContent(languageMap[nextLang]);
+        });
+
+        function translateContent(lang) {
+            const languages = ['es', 'en', 'fr', 'de', 'pt'];
+            languages.forEach((language) => {
+                document.querySelectorAll(`[data-lang="${language}"]`).forEach(el => {
+                    el.style.display = language === lang ? 'block' : 'none';
+                });
+            });
+
+            const translations = {
+                'en': {
+                    addToCart: 'Add to Cart',
+                    backToStore: 'Back to Store'
+                },
+                'es': {
+                    addToCart: 'Agregar al carrito',
+                    backToStore: 'Regresar a la tienda'
+                },
+                'fr': {
+                    addToCart: 'Ajouter au panier',
+                    backToStore: 'Retour au magasin'
+                },
+                'de': {
+                    addToCart: 'In den Warenkorb',
+                    backToStore: 'Zurück zum Laden'
+                },
+                'pt': {
+                    addToCart: 'Adicionar ao carrinho',
+                    backToStore: 'Voltar à loja'
+                }
+            };
+
+            document.querySelector('.action-buttons .btn-lg:first-of-type').innerText = translations[lang].addToCart;
+            document.getElementById('back-to-store').querySelector('span').innerText = translations[lang].backToStore;
+        }
     </script>
+    <script src="assets/js/productos.js"></script>
 </body>
 
 </html>
