@@ -1,192 +1,333 @@
-/* Estilos generales */
-body, html {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    overflow-x: hidden;
-    color: white;
-    height: 100%;
-    background-color: #333; /* Fondo oscuro */
+<<<<<<< HEAD
+<<<<<<< HEAD
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-image: url("/public/assets/img/contactos-background.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  font-family: 'Monterrat', sans-serif;
 }
-
 header {
-    position: relative;
-    height: 10vh;
-    overflow: hidden;
+  position: relative;
+  overflow: hidden;
+}
+/* Estilos del contenido principal */
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+.user-icon {
+  width: 40px;
+  height: 40px;
+  margin: 0 5px;
+}
+.wrapper {
+  max-width: 600px;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin: 100px auto 100px auto;
 }
 
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 50px;
-    position: absolute;
-    width: 90%;
-    top: 0;
-    z-index: 1000;
+.wrapper h1 {
+  margin-bottom: 25px;
+  font-size: 32px;
+  color: #333;
 }
 
-.logo {
-    display: flex;
-    align-items: center;
-}
-
-.logo img {
-    width: 70px;
-    height: 70px;
-    margin-right: 10px;
-}
-
-.logo h1 {
-    margin: 0;
-    font-size: 24px;
-    font-weight: bold;
-    color: white;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-nav ul {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-nav ul li {
-    margin: 0 15px;
-}
-
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: 16px;
-    transition: color 0.3s ease;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-}
-
-nav ul li a:hover {
-    color: #b8860b; /* Color dorado al pasar el cursor */
-}
-
-.content-contacto {
-    padding: 20px 20px 20px; /* Ajusta el padding */
-    text-align: center;
-    background-color: #444;
-}
-
-.content-contacto h1, .content-contacto p {
-    color: white;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-}
-
-#contact-form {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
+.input-box {
+  margin-top: 20px;
 }
 
 .feedback-input {
-    width: 100%;
-    padding: 15px;
-    margin-bottom: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #666;
-    color: white;
-    box-sizing: border-box;
+  width: 100%;
+  padding: 15px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+  resize: none;
 }
 
-.feedback-input::placeholder {
-    color: #ddd;
+.feedback-input:focus {
+  border-color: #b8860b;
+  outline: none;
 }
 
-#contact-form input[type="submit"] {
-    width: 100%;
-    padding: 15px;
-    background-color: #b8860b;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.btn {
+  width: 100%;
+  padding: 15px;
+  background-color: #daa520;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-#contact-form input[type="submit"]:hover {
-    background-color: #a57508;
+.btn:hover {
+  background-color: #1b0d0b;
+  transform: scale(1.05);
 }
 
-.centered-list {
-    list-style: none;
-    padding: 0;
-    margin: 20px 0 0;
+.btn:focus {
+  outline: none;
 }
 
-.centered-list .social-icons {
-    display: flex;
-    justify-content: center;
-    padding: 0;
-    margin: 0;
-}
+/* Estilos responsivos */
+@media (max-width: 768px) {
 
-.social-icons li {
-    margin: 0 10px;
-}
 
-.social-icons li a {
-    color: white;
-    font-size: 24px;
-    transition: color 0.3s ease;
-}
+  .logo h1 {
+    font-size: 20px;
+  }
 
-.social-icons li a:hover {
-    color: #b8860b; /* Color dorado */
-}
-
-.modal-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    display: flex;
+  nav {
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
+  }
 
-.modal-background.show {
-    visibility: visible;
-    opacity: 1;
-}
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
 
-.modal {
-    background: white;
+  nav ul li {
+    margin-bottom: 10px;
+  }
+
+  .wrapper {
     padding: 20px;
-    border-radius: 10px;
-    text-align: center;
+  }
+
+  .wrapper h1 {
+    font-size: 24px;
+  }
+
+  .feedback-input,
+  .btn {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .cart img,
+  nav .icons img {
+    height: 25px;
+  }
 }
 
-.modal p {
-    color: black;
-    margin-bottom: 20px;
+@media (max-width: 480px) {
+  .logo-image {
+    width: 50px;
+  }
+
+  .logo h1 {
+    font-size: 18px;
+  }
+
+  nav {
+    padding: 10px;
+  }
+
+  .wrapper {
+    padding: 15px;
+  }
+
+  .wrapper h1 {
+    font-size: 20px;
+  }
+
+  .feedback-input,
+  .btn {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .cart img,
+  nav .icons img {
+    height: 20px;
+  }
+}
+=======
+/* Estilos generales */
+body, html {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    color: #333;
+    height: 100%;
 }
 
-.modal button {
-    padding: 10px 20px;
-    background-color: #b8860b;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+=======
+>>>>>>> e82cc75a02b7f17ee0984c21538c82723fdb7cc9
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-image: url("/public/assets/img/contactos-background.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  font-family: 'Monterrat', sans-serif;
+}
+header {
+  position: relative;
+  overflow: hidden;
+}
+/* Estilos del contenido principal */
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+.user-icon {
+  width: 40px;
+  height: 40px;
+  margin: 0 5px;
+}
+.wrapper {
+  max-width: 600px;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin: 100px auto 100px auto;
 }
 
-.modal button:hover {
-    background-color: #a57508;
+.wrapper h1 {
+  margin-bottom: 25px;
+  font-size: 32px;
+  color: #333;
 }
+
+.input-box {
+  margin-top: 20px;
+}
+
+.feedback-input {
+  width: 100%;
+  padding: 15px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+  resize: none;
+}
+
+.feedback-input:focus {
+  border-color: #b8860b;
+  outline: none;
+}
+
+.btn {
+  width: 100%;
+  padding: 15px;
+  background-color: #daa520;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #1b0d0b;
+  transform: scale(1.05);
+}
+<<<<<<< HEAD
+>>>>>>> 07c1bbe16b8418eff07af61e63f38a94b7f0d21a
+=======
+
+.btn:focus {
+  outline: none;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+
+
+  .logo h1 {
+    font-size: 20px;
+  }
+
+  nav {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  nav ul li {
+    margin-bottom: 10px;
+  }
+
+  .wrapper {
+    padding: 20px;
+  }
+
+  .wrapper h1 {
+    font-size: 24px;
+  }
+
+  .feedback-input,
+  .btn {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .cart img,
+  nav .icons img {
+    height: 25px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-image {
+    width: 50px;
+  }
+
+  .logo h1 {
+    font-size: 18px;
+  }
+
+  nav {
+    padding: 10px;
+  }
+
+  .wrapper {
+    padding: 15px;
+  }
+
+  .wrapper h1 {
+    font-size: 20px;
+  }
+
+  .feedback-input,
+  .btn {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .cart img,
+  nav .icons img {
+    height: 20px;
+  }
+}
+>>>>>>> e82cc75a02b7f17ee0984c21538c82723fdb7cc9

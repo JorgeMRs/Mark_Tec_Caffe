@@ -1,0 +1,747 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4; /* Gris muy claro */
+  color: #333333; /* Gris oscuro */
+  font-family: "Montserrat", sans-serif;
+=======
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4; /* Gris muy claro */
+    color: #333333; /* Gris oscuro */
+    font-family: 'Montserrat', sans-serif;
+>>>>>>> 07c1bbe16b8418eff07af61e63f38a94b7f0d21a
+=======
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4; /* Gris muy claro */
+  color: #333333; /* Gris oscuro */
+  font-family: "Montserrat", sans-serif;
+>>>>>>> e82cc75a02b7f17ee0984c21538c82723fdb7cc9
+}
+
+/* Header Styles */
+header {
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e82cc75a02b7f17ee0984c21538c82723fdb7cc9
+  position: relative;
+  height: 100vh; /* Altura del header */
+  background-image: url("/public/assets/img/tienda-background.png"); /* Ruta de la imagen de fondo */
+  background-size: cover; /* La imagen cubrirá todo el header */
+  background-position: center; /* Centrar la imagen */
+  background-repeat: no-repeat; /* Evitar que la imagen se repita */
+  overflow: hidden;
+<<<<<<< HEAD
+}
+
+.image-link {
+  display: block;
+  text-decoration: none; /* Elimina el subrayado del enlace */
+}
+
+.image-container {
+  cursor: pointer; /* Cambia el cursor para indicar que es clickeable */
+}
+
+.image-container img {
+  width: 100%;
+  height: auto;
+}
+
+
+.header-content {
+  position: absolute;
+  top: 37%;
+  right: 18%;
+  transform: translateY(-50%);
+  text-align: center;
+}
+
+.header-content .top-subtitle {
+  font-family: "Poppins";
+  font-weight: 700;
+  font-size: 32px;
+  color: #daa520;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.header-content .subtitle {
+  font-family: "Poppins";
+  font-weight: 700;
+  font-size: 36px;
+  color: white;
+  margin: 10px 0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.header-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.header-buttons .btn {
+  font-family: "Poppins";
+  font-weight: 600;
+  display: inline-block;
+  padding: 7px 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #653508; /* Color dorado */
+  border-radius: 18px;
+  border-style: solid;
+  border-width: 3px;
+  border-color: #daa520;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  flex: 1; /* Hace que todos los botones tengan el mismo ancho */
+  text-align: center;
+  max-width: 80px; /* Controla el ancho máximo de los botones */
+}
+
+.header-buttons .btn:hover {
+  background-color: #daa520; /* Color dorado más oscuro */
+}
+
+.title-container {
+  text-align: center;
+  margin-bottom: 20px; /* Espacio debajo del título */
+  width: 100%; /* Asegura que el contenedor tenga el mismo ancho que el contenido principal */
+}
+.main-category-title {
+  font-family: "Poppins";
+  font-weight: 700;
+  text-align: center;
+  font-size: 64px;
+  color: #1e1e1e;
+  margin-bottom: 20px; /* Espacio debajo del título */
+  margin: 0; /* Sin margen izquierdo */
+}
+
+/* Contenedor principal para centrar el contenido en relación con el grid */
+.main-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centra el contenido horizontalmente */
+}
+
+/* Main Content Layout */
+.content-container {
+  display: flex;
+  flex-direction: column;
+  margin: 20px auto;
+  max-width: 1200px;
+}
+
+/* Title Styles */
+h1 {
+  font-family: "Poppins";
+  font-weight: 700;
+  text-align: center;
+  font-size: 64px;
+  color: #1e1e1e;
+  margin-bottom: 20px; /* Espacio debajo del título */
+  margin: 0;
+  margin-left: 30vh;
+}
+
+/* Main Content Layout */
+.main-content {
+  display: flex;
+  width: 100%;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 250px; /* Ajusta este valor según sea necesario */
+    padding: 20px;
+    background-color: #ffffff; /* Color de fondo del sidebar */
+    border-radius: 8px; /* Bordes redondeados para un diseño más moderno */
+    height: auto; /* Altura dinámica basada en el contenido */
+    max-height: 80vh; /* Limita la altura máxima al 80% de la altura de la pantalla */ /* Habilita el scroll si el contenido excede la altura máxima */
+    top: 20px; /* El sidebar se pegará cuando alcance 20px desde la parte superior */
+}
+
+.sticky-sidebar {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 20px;
+}
+
+.category-item:hover {
+    background-color: #daa520; /* Cambia el color de fondo al pasar el cursor */
+    color: white;
+}
+
+.sidebar h2 {
+    font-family: "Poppins";
+    font-weight: 700;
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+    justify-content: center;
+}
+
+/* Category Item Styles */
+.category-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.category-item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.category-item p {
+    font-family: "Poppins";
+    font-size: 24px;
+    color: #333;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Hover Effect for Category Items */
+.category-item:hover {
+    background-color: #f2c960; /* Fondo dorado al pasar el mouse */
+    color: #ffffff; /* Color de texto blanco para mejor contraste */
+}
+
+/* Highlight Selected Category */
+.category-item.selected {
+    background-color: #f2c960; /* Fondo dorado para la categoría seleccionada */
+    color: #ffffff; /* Color de texto blanco para mejor contraste */
+}
+
+/* Main Content Layout */
+.main-content {
+  display: flex;
+  margin: 0 auto; /* Centra el contenido principal */
+}
+
+/* Product Grid Styles */
+.product-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columnas de igual tamaño */
+  gap: 20px; /* Espacio entre los elementos */
+  padding: 20px;
+  margin: 0 auto; /* Centra la cuadrícula */
+  max-width: 1200px; /* Ancho máximo de la cuadrícula */
+  margin-bottom: 5vh;
+}
+
+.product-item {
+  text-align: center;
+  margin: 0 auto 20px; /* Centra cada item y agrega margen inferior */
+}
+
+.image-container {
+  background-color: white;
+  border-radius: 50px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  width: 256px; /* Ancho fijo de 256px */
+  height: 256px; /* Alto fijo de 256px */
+  transition: transform 0.3s ease;
+  margin: 0 auto;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Mantiene la relación de aspecto y recorta la imagen para llenar el contenedor */
+}
+
+.product-item h3 {
+  font-family: "Poppins";
+  font-weight: 600;
+  font-size: 28px;
+  color: #333;
+  margin-top: 15px; /* Espacio entre la imagen y el texto */
+  text-align: center;
+  justify-content: center;
+  margin: 10px 10px;
+}
+
+.product-item:hover .image-container {
+  transform: translateY(
+    -5px
+  ); /* Efecto de elevación al pasar el cursor en la imagen */
+}
+/* Footer Styles */
+footer {
+  background-color: #daa520; /* Dorado */
+  color: #1b0d0b;
+  text-align: center;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.footer-section {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.footer-section h3 {
+  font-family: "Poppins";
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.footer-section p,
+.footer-section ul {
+  font-family: "Poppins";
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+  color: #1b0d0b;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+  color: #333;
+}
+
+.socials {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.socials a {
+  color: #1b0d0b;
+  margin: 0 10px;
+  font-size: 20px;
+  transition: color 0.3s ease;
+}
+
+.socials a:hover {
+  color: #333;
+}
+
+.footer-bottom {
+  background-color: #1b0d0b; /* Marrón oscuro */
+  padding: 20px 0;
+  width: 100%;
+  font-family: "Poppins";
+  font-size: 16px;
+  font-weight: 400;
+  color: #fff;
+}
+
+@media (min-width: 768px) {
+  .footer-content {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+  .footer-section {
+    flex: 1;
+    padding: 0 20px;
+  }
+}
+/* Estilos para el menú responsive */
+=======
+    position: relative;
+    height: 100vh; /* Altura del header */
+    background-image: url('/public/assets/img/tienda-background.png'); /* Ruta de la imagen de fondo */
+    background-size: cover; /* La imagen cubrirá todo el header */
+    background-position: center; /* Centrar la imagen */
+    background-repeat: no-repeat; /* Evitar que la imagen se repita */
+    overflow: hidden;
+=======
+>>>>>>> e82cc75a02b7f17ee0984c21538c82723fdb7cc9
+}
+
+.image-link {
+  display: block;
+  text-decoration: none; /* Elimina el subrayado del enlace */
+}
+
+.image-container {
+  cursor: pointer; /* Cambia el cursor para indicar que es clickeable */
+}
+
+.image-container img {
+  width: 100%;
+  height: auto;
+}
+
+
+.header-content {
+  position: absolute;
+  top: 37%;
+  right: 18%;
+  transform: translateY(-50%);
+  text-align: center;
+}
+
+.header-content .top-subtitle {
+  font-family: "Poppins";
+  font-weight: 700;
+  font-size: 32px;
+  color: #daa520;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.header-content .subtitle {
+  font-family: "Poppins";
+  font-weight: 700;
+  font-size: 36px;
+  color: white;
+  margin: 10px 0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.header-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.header-buttons .btn {
+  font-family: "Poppins";
+  font-weight: 600;
+  display: inline-block;
+  padding: 7px 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #653508; /* Color dorado */
+  border-radius: 18px;
+  border-style: solid;
+  border-width: 3px;
+  border-color: #daa520;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  flex: 1; /* Hace que todos los botones tengan el mismo ancho */
+  text-align: center;
+  max-width: 80px; /* Controla el ancho máximo de los botones */
+}
+
+.header-buttons .btn:hover {
+  background-color: #daa520; /* Color dorado más oscuro */
+}
+
+.title-container {
+  text-align: center;
+  margin-bottom: 20px; /* Espacio debajo del título */
+  width: 100%; /* Asegura que el contenedor tenga el mismo ancho que el contenido principal */
+}
+.main-category-title {
+  font-family: "Poppins";
+  font-weight: 700;
+  text-align: center;
+  font-size: 64px;
+  color: #1e1e1e;
+  margin-bottom: 20px; /* Espacio debajo del título */
+  margin: 0; /* Sin margen izquierdo */
+}
+
+/* Contenedor principal para centrar el contenido en relación con el grid */
+.main-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centra el contenido horizontalmente */
+}
+
+/* Main Content Layout */
+.content-container {
+  display: flex;
+  flex-direction: column;
+  margin: 20px auto;
+  max-width: 1200px;
+}
+
+/* Title Styles */
+h1 {
+  font-family: "Poppins";
+  font-weight: 700;
+  text-align: center;
+  font-size: 64px;
+  color: #1e1e1e;
+  margin-bottom: 20px; /* Espacio debajo del título */
+  margin: 0;
+  margin-left: 30vh;
+}
+
+/* Main Content Layout */
+.main-content {
+  display: flex;
+  width: 100%;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 250px; /* Ajusta este valor según sea necesario */
+    padding: 20px;
+    background-color: #ffffff; /* Color de fondo del sidebar */
+    border-radius: 8px; /* Bordes redondeados para un diseño más moderno */
+    height: auto; /* Altura dinámica basada en el contenido */
+    max-height: 80vh; /* Limita la altura máxima al 80% de la altura de la pantalla */ /* Habilita el scroll si el contenido excede la altura máxima */
+    top: 20px; /* El sidebar se pegará cuando alcance 20px desde la parte superior */
+}
+
+.sticky-sidebar {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 20px;
+}
+
+.category-item:hover {
+    background-color: #daa520; /* Cambia el color de fondo al pasar el cursor */
+    color: white;
+}
+
+.sidebar h2 {
+    font-family: "Poppins";
+    font-weight: 700;
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+    justify-content: center;
+}
+
+/* Category Item Styles */
+.category-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.category-item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.category-item p {
+    font-family: "Poppins";
+    font-size: 24px;
+    color: #333;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Hover Effect for Category Items */
+.category-item:hover {
+    background-color: #f2c960; /* Fondo dorado al pasar el mouse */
+    color: #ffffff; /* Color de texto blanco para mejor contraste */
+}
+
+/* Highlight Selected Category */
+.category-item.selected {
+    background-color: #f2c960; /* Fondo dorado para la categoría seleccionada */
+    color: #ffffff; /* Color de texto blanco para mejor contraste */
+}
+
+/* Main Content Layout */
+.main-content {
+  display: flex;
+  margin: 0 auto; /* Centra el contenido principal */
+}
+
+/* Product Grid Styles */
+.product-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columnas de igual tamaño */
+  gap: 20px; /* Espacio entre los elementos */
+  padding: 20px;
+  margin: 0 auto; /* Centra la cuadrícula */
+  max-width: 1200px; /* Ancho máximo de la cuadrícula */
+  margin-bottom: 5vh;
+}
+
+.product-item {
+  text-align: center;
+  margin: 0 auto 20px; /* Centra cada item y agrega margen inferior */
+}
+
+.image-container {
+  background-color: white;
+  border-radius: 50px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  width: 256px; /* Ancho fijo de 256px */
+  height: 256px; /* Alto fijo de 256px */
+  transition: transform 0.3s ease;
+  margin: 0 auto;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Mantiene la relación de aspecto y recorta la imagen para llenar el contenedor */
+}
+
+.product-item h3 {
+  font-family: "Poppins";
+  font-weight: 600;
+  font-size: 28px;
+  color: #333;
+  margin-top: 15px; /* Espacio entre la imagen y el texto */
+  text-align: center;
+  justify-content: center;
+  margin: 10px 10px;
+}
+
+.product-item:hover .image-container {
+  transform: translateY(
+    -5px
+  ); /* Efecto de elevación al pasar el cursor en la imagen */
+}
+/* Footer Styles */
+footer {
+  background-color: #daa520; /* Dorado */
+  color: #1b0d0b;
+  text-align: center;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.footer-section {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.footer-section h3 {
+  font-family: "Poppins";
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.footer-section p,
+.footer-section ul {
+  font-family: "Poppins";
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+  color: #1b0d0b;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+  color: #333;
+}
+
+.socials {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.socials a {
+  color: #1b0d0b;
+  margin: 0 10px;
+  font-size: 20px;
+  transition: color 0.3s ease;
+}
+
+.socials a:hover {
+  color: #333;
+}
+
+.footer-bottom {
+  background-color: #1b0d0b; /* Marrón oscuro */
+  padding: 20px 0;
+  width: 100%;
+  font-family: "Poppins";
+  font-size: 16px;
+  font-weight: 400;
+  color: #fff;
+}
+
+@media (min-width: 768px) {
+  .footer-content {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+  .footer-section {
+    flex: 1;
+    padding: 0 20px;
+  }
+}
+<<<<<<< HEAD
+
+>>>>>>> 07c1bbe16b8418eff07af61e63f38a94b7f0d21a
+=======
+/* Estilos para el menú responsive */
+>>>>>>> e82cc75a02b7f17ee0984c21538c82723fdb7cc9
