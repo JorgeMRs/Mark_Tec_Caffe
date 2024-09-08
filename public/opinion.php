@@ -204,6 +204,7 @@
         }
       });
     </script>
+    <script src="/public/assets/js/updateCartCounter.js"></script>
 </body>
 
 </html>

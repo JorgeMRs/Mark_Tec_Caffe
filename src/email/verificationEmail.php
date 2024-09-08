@@ -2,7 +2,7 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require '../../vendor/autoload.php'; // Cargar el autoload de Composer
+require '../../vendor/autoload.php';
 
 // funcion para enviar el correo de verificación
 
@@ -17,11 +17,11 @@ function sendEmail($to, $subject, $body): bool
         $mail->SMTPAuth = true;
         $mail->Username = $_ENV['SMTPEMAIL']; // Tu correo SMTP
         $mail->Password = $_ENV['SMTPPASS']; // Tu contraseña SMTP
-        $mail->SMTPSecure = 'tls'; // Habilitar encriptación TLS
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Habilitar encriptación TLS
         $mail->Port = 587; // Puerto para TLS
 
         // Remitente y destinatario
-        $mail->setFrom('no-reply@cafesabrosos.myvnc.com', 'Cafe Sabrosos S.A.S');
+        $mail->setFrom('cafesabrosos@gmail.com', 'Cafe Sabrosos S.A.S');
         $mail->addAddress($to);
 
         // Contenido del correo

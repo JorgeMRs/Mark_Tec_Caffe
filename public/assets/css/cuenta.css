@@ -1,7 +1,4 @@
 body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4; /* Gris muy claro */
@@ -10,10 +7,7 @@ body {
 }
 
 /* Header Styles */
-header {
-    position: relative;
-    overflow: hidden;
-}
+
 
 
 .image-link {
@@ -29,68 +23,7 @@ header {
     width: 100%;
     height: auto;
 }
-.user-icon {
-    width: 40px;
-    height: 40px;
-    margin: 0 5px;
-}
 
-.header-content {
-    position: absolute;
-    top: 37%;
-    right: 18%;
-    transform: translateY(-50%);
-    text-align: center;
-}
-
-.header-content .top-subtitle {
-    font-family: 'Poppins';
-    font-weight: 700;
-    font-size: 32px;
-    color: #DAA520;
-    margin: 0;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-.header-content .subtitle {
-    font-family: 'Poppins';
-    font-weight: 700;
-    font-size: 36px;
-    color: white;
-    margin: 10px 0;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-}
-
-.header-buttons {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-}
-
-.header-buttons .btn {
-    font-family: 'Poppins';
-    font-weight: 600;
-    display: inline-block;
-    padding: 7px 20px;
-    margin-left: 20px;
-    margin-right: 20px;
-    font-size: 16px;
-    color: white;
-    background-color: #653508; /* Color dorado */
-    border-radius: 18px;
-    border-style: solid;
-    border-width: 3px;
-    border-color: #DAA520;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-    flex: 1; /* Hace que todos los botones tengan el mismo ancho */
-    text-align: center;
-    max-width: 80px; /* Controla el ancho máximo de los botones */
-}
-
-.header-buttons .btn:hover {
-    background-color: #DAA520; /* Color dorado más oscuro */
-}
 /* Estilos del contenedor de perfil */
 .profile-container {
     background: whitesmoke;
@@ -176,7 +109,7 @@ button:hover {
 }
 
 .save-btn {
-    background-color: #b8860b;
+    background-color: #DAA520;
     color: #ffffff;
 }
 
@@ -194,7 +127,7 @@ button:hover {
 }
 
 .delete-btn {
-    background-color: #b8860b;
+    background-color: #DAA520;
     color: #ffffff;
 }
 
@@ -226,7 +159,7 @@ button:hover {
 
 .action-buttons .logout-btn,
 .action-buttons .delete-btn {
-    background-color: #b8860b;
+    background-color: #DAA520;
     color: #ffffff;
 }
 
@@ -317,104 +250,6 @@ input[type="file"] {
     outline: none;
     border-bottom: 2px solid #DAA520;
 }
-
-footer {
-    background-color: #DAA520;
-    /* Dorado */
-    color: #1B0D0B;
-    text-align: center;
-    width: 100%;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-}
-
-
-.footer-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-.footer-section {
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.footer-section h3 {
-    font-family: 'Poppins';
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 15px;
-}
-
-.footer-section p,
-.footer-section ul {
-    font-family: 'Poppins';
-    font-size: 16px;
-    font-weight: 400;
-}
-
-.footer-section ul {
-    list-style: none;
-    padding: 0;
-}
-
-.footer-section ul li {
-    margin-bottom: 10px;
-}
-
-.footer-section ul li a {
-    color: #1B0D0B;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.footer-section ul li a:hover {
-    color: #333;
-}
-
-.socials {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-}
-
-.socials a {
-    color: #1B0D0B;
-    margin: 0 10px;
-    font-size: 20px;
-    transition: color 0.3s ease;
-}
-
-.socials a:hover {
-    color: #333;
-}
-
-.footer-bottom {
-    background-color: #1B0D0B;
-    /* Marrón oscuro */
-    padding: 20px 0;
-    width: 100%;
-    font-family: 'Poppins';
-    font-size: 16px;
-    font-weight: 400;
-    color: #FFF;
-}
-
-@media (min-width: 768px) {
-    .footer-content {
-        flex-direction: row;
-        justify-content: space-between;
-        text-align: left;
-    }
-
-    .footer-section {
-        flex: 1;
-        padding: 0 20px;
-    }
-}
 .success-avatar {
     display: block;
     padding: 10px;
@@ -439,4 +274,8 @@ footer {
     font-size: 16px;
     text-align: center;
     transition: opacity 0.6s ease;
+}
+.delete-avatar-btn{
+    background-color: #DAA520;
+    color: #ffffff;
 }

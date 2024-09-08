@@ -283,7 +283,7 @@ $conn->close();
                         <div class="local-hours">
                         <i class="fa-solid fa-clock" style="color: #1b0d0b; margin-right: 10px;"></i> <p>Lunes a Viernes: 7:00 - 19:00</p>
                         </div>
-                        <button class="btn-secondary">Obtener Indicaciones</button>
+                        <button class="btn-secondary">Realizar reserva</button>
                     </div>
                 </div>
                 <!-- Local en Alemania -->
@@ -297,7 +297,7 @@ $conn->close();
                         <div class="local-hours">
                         <i class="fa-solid fa-clock" style="color: #1b0d0b; margin-right: 10px;"></i><p>Lunes a Sábado: 8:00 - 20:00</p>
                         </div>
-                        <button class="btn-secondary">Obtener Indicaciones</button>
+                        <button class="btn-secondary">Realizar reserva</button>
                     </div>
                 </div>
                 <!-- Local en Portugal -->
@@ -311,7 +311,7 @@ $conn->close();
                         <div class="local-hours">
                         <i class="fa-solid fa-clock" style="color: #1b0d0b; margin-right: 10px;"></i><p>Lunes a Domingo: 7:00 - 22:00</p>
                         </div>
-                        <button class="btn-secondary">Obtener Indicaciones</button>
+                        <button class="btn-secondary">Realizar reserva</button>
                     </div>
                 </div>
                 <div class="local-card">
@@ -324,7 +324,7 @@ $conn->close();
                         <div class="local-hours">
                         <i class="fa-solid fa-clock" style="color: #1b0d0b; margin-right: 10px;"></i> <p>Lunes a Domingo: 7:00 - 22:00</p>
                         </div>
-                        <button class="btn-secondary">Obtener Indicaciones</button>
+                        <button class="btn-secondary">Realizar reserva</button>
                     </div>
                 </div>
             </section>
@@ -333,5 +333,5 @@ $conn->close();
 
     <?php include 'templates/footer.php'; ?>
 </body>
-
+<script src="/public/assets/js/updateCartCounter.js"></script>
 </html>

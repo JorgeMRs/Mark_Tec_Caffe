@@ -32,7 +32,7 @@ try {
     $conn->begin_transaction();
 
     // Verificar si el carrito actual del cliente ya está vinculado a un pedido
-    $queryPedido = $conn->prepare('SELECT idPedido FROM pedido WHERE idCarrito = (SELECT idCarrito FROM carrito WHERE idCliente = ?) AND estado IN ("Pendiente", "En Preparación", "Listo para Recoger", "Completado")');
+    $queryPedido = $conn->prepare('SELECT idPedido FROM pedido WHERE idCarrito = (SELECT idCarrito FROM carrito WHERE idCliente = ? ORDER BY fechaCreacion DESC LIMIT 1) AND estado IN ("Pendiente", "En Preparación", "Listo para Recoger", "Completado")');
     $queryPedido->bind_param('i', $idCliente);
     $queryPedido->execute();
     $resultPedido = $queryPedido->get_result();
@@ -45,7 +45,7 @@ try {
         $idCarrito = $conn->insert_id;
     } else {
         // Si no está vinculado, reutilizar el carrito existente
-        $queryCarrito = $conn->prepare('SELECT idCarrito FROM carrito WHERE idCliente = ?');
+        $queryCarrito = $conn->prepare('SELECT idCarrito FROM carrito WHERE idCliente = ? ORDER BY fechaCreacion DESC LIMIT 1');
         $queryCarrito->bind_param('i', $idCliente);
         $queryCarrito->execute();
         $resultCarrito = $queryCarrito->get_result();

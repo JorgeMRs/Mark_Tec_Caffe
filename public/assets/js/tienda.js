@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             </div>
                         </a>
                         <h3>${producto.nombre}</h3>
-                        <span class="precio">$${precio.toFixed(2)}</span>
+                        <span class="precio">€${precio.toFixed(2)}</span>
                     </div>
                     `;
                 });

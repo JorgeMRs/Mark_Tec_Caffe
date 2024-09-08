@@ -21,7 +21,7 @@
 </head>
 
 <body>
-        <?php include 'templates/nav.php' ?>
+        <?php include 'templates/nav-blur.php' ?>
     <main>
         <div class="wrapper">
             <h1>¡Ponete en contacto con nosotros!
@@ -43,5 +43,5 @@
     </main>
     <?php include 'templates/footer.php' ?>
 </body>
-
+<script src="/public/assets/js/updateCartCounter.js"></script>
 </html>

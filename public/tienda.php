@@ -157,5 +157,6 @@ session_start();
 </script>
 <script src="/public/assets/js/tienda.js"></script>
 <script src="/public/assets/js/productos.js"></script>
+<script src="/public/assets/js/updateCartCounter.js"></script>
 
 </html>

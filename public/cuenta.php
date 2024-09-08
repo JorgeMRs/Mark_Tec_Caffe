@@ -135,6 +135,8 @@ try {
     <title>Configuración de Cuenta</title>
     <link rel="stylesheet" href="assets/css/cuenta.css">
     <link rel="stylesheet" href="assets/css/nav.css">
+    <link rel="stylesheet" href="assets/css/footer.css">
+    <link rel="stylesheet" href="assets/css/modal.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
     <link rel="icon" type="image/png" sizes="16x16" href="/public/assets/img/icons/favicon-32x32.png">
@@ -142,11 +144,13 @@ try {
     <link rel="icon" type="image/png" sizes="48x48" href="/public/assets/img/icons/favicon-48x48.png">
     <link rel="icon" type="image/png" sizes="48x48" href="/public/assets/img/icons/favicon-64x64.png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
 </head>
 
 <body>
     <header>
-    <?php include 'templates/nav-blur.php'; ?>
+        <?php include 'templates/nav-blur.php'; ?>
     </header>
     <main>
         <section class="profile-container">
@@ -198,268 +202,236 @@ try {
             <?php endif; ?>
         </section>
     </main>
+    <style>
+.cropper-modal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 1 !important;
+    background: transparent;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Asegúrate de que esté encima de otros elementos */
+}
+
+/* Contenido del Modal */
+.cropper-modal-content {
+    background: #fff;
+    padding: 20px; /* Ajustado para mayor espacio */
+    border-radius: 8px;
+    position: relative;
+    max-width: 90%; /* Ajustar según necesidad */
+    max-height: 90vh; /* Asegurarse de que el contenido no sobrepase la pantalla */
+    overflow: auto; /* Permite el scroll si el contenido es demasiado grande */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Botón de Cierre del Modal */
+.cropper-close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #f1f1f1;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    z-index: 10000;
+}
+
+/* Imagen dentro del Modal */
+.cropper-image {
+    max-width: 100%;
+    max-height: 60vh; /* Ajustar la altura de la imagen para que no sobrepase el contenedor */
+    display: block;
+    margin: 0 auto;
+}
+
+/* Contenedor de Botones */
+.cropper-buttons {
+    display: flex;
+    justify-content: center; /* Centra los botones horizontalmente */
+    margin-top: 10px;
+    gap: 10px; /* Añade un espacio entre los botones */
+}
+
+/* Botones dentro del Modal */
+.cropper-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+/* Botón para Recortar */
+.cropper-crop-button {
+    background-color: #DAA520;
+    color: white;
+}
+
+/* Botón para Cancelar */
+.cropper-cancel-button {
+    background-color: #8B4513;
+    color: white;
+}
+.cropper-crop-button:hover {
+background-color: #DAA520;
+}
+    </style>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const avatarInput = document.getElementById('avatar');
-            const avatarImage = document.querySelector('.avatar-image');
-            const successAvatarDiv = document.querySelector('.success-avatar');
-            const errorAvatarDiv = document.querySelector('.error-avatar');
-            const deleteAvatarBtn = document.getElementById('deleteAvatarBtn');
-            const saveBtn = document.querySelector('.save-btn');
-            const errorMessage = document.getElementById('errorMessage');
-            const successMessage = document.getElementById('successMessage');
+document.addEventListener('DOMContentLoaded', function() {
+    const avatarInput = document.getElementById('avatar');
+    const avatarImage = document.querySelector('.avatar-image');
+    const successAvatarDiv = document.querySelector('.success-avatar');
+    const errorAvatarDiv = document.querySelector('.error-avatar');
+    const deleteAvatarBtn = document.getElementById('deleteAvatarBtn');
+    const cropperModal = document.getElementById('cropperModal');
+    const cropperImage = document.getElementById('cropperImage');
+    const cropImageBtn = document.getElementById('cropImageBtn');
+    const cancelCropBtn = document.getElementById('cancelCropBtn');
+    const closeCropperModal = document.querySelector('.cropper-close-button'); // Actualizado para usar la clase
+    let cropper;
 
-            function clearGeneralMessages() {
-                if (errorMessage) {
-                    errorMessage.style.display = 'none';
-                }
-                if (successMessage) {
-                    successMessage.style.display = 'none';
-                }
-            }
-            saveBtn.addEventListener('click', function(event) {
-                if (errorAvatarDiv.textContent.trim() !== '' || successAvatarDiv.textContent.trim() !== '') {
-                    successAvatarDiv.style.display = 'none';
-                    errorAvatarDiv.style.display = 'none';
-                }
-            });
-
-            successAvatarDiv.style.display = 'none';
+    function clearGeneralMessages() {
+        if (errorAvatarDiv) {
             errorAvatarDiv.style.display = 'none';
+        }
+        if (successAvatarDiv) {
+            successAvatarDiv.style.display = 'none';
+        }
+    }
 
-            if (avatarInput) {
-                avatarInput.addEventListener('change', function(event) {
-                    clearGeneralMessages();
-                    const file = event.target.files[0];
+    if (avatarInput) {
+        avatarInput.addEventListener('change', function(event) {
+            clearGeneralMessages();
+            const file = event.target.files[0];
 
-                    if (file) {
-                        const formData = new FormData();
-                        formData.append('avatar', file);
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    cropperImage.src = e.target.result;
+                    cropperModal.style.display = 'flex';
 
-                        fetch('/src/uploads/avatarUpload.php', {
-                                method: 'POST',
-                                body: formData
-                            })
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.success) {
-                                    avatarImage.src = '/public/assets/img/avatars/' + encodeURIComponent(data.avatar) + '?t=' + new Date().getTime();
-
-                                    avatarInput.value = '';
-
-                                    successAvatarDiv.textContent = data.message;
-                                    successAvatarDiv.style.display = 'block';
-                                    errorAvatarDiv.textContent = '';
-                                    errorAvatarDiv.style.display = 'none';
-                                    deleteAvatarBtn.style.display = 'block';
-                                } else {
-                                    avatarInput.value = '';
-                                    errorAvatarDiv.textContent = data.message;
-                                    errorAvatarDiv.style.display = 'block';
-                                    successAvatarDiv.textContent = ''; 
-                                    successAvatarDiv.style.display = 'none';
-                                }
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                                avatarInput.value = '';
-
-                                errorAvatarDiv.textContent = 'Error al subir el avatar. Por favor, intenta de nuevo.';
-                                errorAvatarDiv.style.display = 'block'; 
-                                successAvatarDiv.textContent = '';
-                                successAvatarDiv.style.display = 'none';
-                            });
+                    if (cropper) {
+                        cropper.destroy();
                     }
-                });
+
+                    cropper = new Cropper(cropperImage, {
+                        aspectRatio: 1, // Puedes ajustar la relación de aspecto
+                        viewMode: 1
+                    });
+                };
+                reader.readAsDataURL(file);
             }
+        });
+    }
 
+    cropImageBtn.addEventListener('click', function() {
+        const canvas = cropper.getCroppedCanvas();
+        canvas.toBlob(function(blob) {
+            const formData = new FormData();
+            formData.append('avatar', blob, 'avatar.png');
 
+            fetch('/src/uploads/avatarUpload.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    avatarImage.src = '/public/assets/img/avatars/' + encodeURIComponent(data.avatar) + '?t=' + new Date().getTime();
+                    successAvatarDiv.textContent = data.message;
+                    successAvatarDiv.style.display = 'block';
+                    errorAvatarDiv.style.display = 'none';
+                    deleteAvatarBtn.style.display = 'block';
+                    cropperModal.style.display = 'none';
+                    avatarInput.value = '';
+                } else {
+                    errorAvatarDiv.textContent = data.message;
+                    errorAvatarDiv.style.display = 'block';
+                    successAvatarDiv.style.display = 'none';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                errorAvatarDiv.textContent = 'Error al subir el avatar. Por favor, intenta de nuevo.';
+                errorAvatarDiv.style.display = 'block';
+                successAvatarDiv.style.display = 'none';
+            });
+        }, 'image/png');
+    });
 
-            if (deleteAvatarBtn) {
-                deleteAvatarBtn.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    clearGeneralMessages();
+    cancelCropBtn.addEventListener('click', function() {
+        cropperModal.style.display = 'none';
+        avatarInput.value = ''; // Resetea el campo de archivo
+    });
 
-                    if (confirm('¿Estás seguro de que deseas eliminar tu avatar?')) {
-                        fetch('/src/uploads/avatarDelete.php', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify({
-                                    action: 'deleteAvatar'
-                                })
-                            })
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.success) {
-                                    avatarImage.src = '/public/assets/img/user-circle-svgrepo-com.svg';
+    closeCropperModal.addEventListener('click', function() {
+        cropperModal.style.display = 'none';
+        avatarInput.value = ''; // Resetea el campo de archivo
+    });
 
-                                    deleteAvatarBtn.style.display = 'none';
+    if (deleteAvatarBtn) {
+        deleteAvatarBtn.addEventListener('click', function(event) {
+            event.preventDefault();
+            clearGeneralMessages();
 
-                                    successAvatarDiv.textContent = data.message;
-                                    successAvatarDiv.style.display = 'block';
-                                    errorAvatarDiv.textContent = '';
-                                    errorAvatarDiv.style.display = 'none'; 
-                                } else {
-                                    errorAvatarDiv.textContent = data.message;
-                                    errorAvatarDiv.style.display = 'block';
-                                    successAvatarDiv.textContent = '';
-                                    successAvatarDiv.style.display = 'none'; 
-                                }
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                                errorAvatarDiv.textContent = 'Error al eliminar el avatar. Por favor, intenta de nuevo.';
-                                errorAvatarDiv.style.display = 'block';
-                                successAvatarDiv.textContent = '';
-                                successAvatarDiv.style.display = 'none';
-                            });
+            if (confirm('¿Estás seguro de que deseas eliminar tu avatar?')) {
+                fetch('/src/uploads/avatarDelete.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ action: 'deleteAvatar' })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        avatarImage.src = '/public/assets/img/user-circle-svgrepo-com.svg';
+                        deleteAvatarBtn.style.display = 'none';
+                        successAvatarDiv.textContent = data.message;
+                        successAvatarDiv.style.display = 'block';
+                        errorAvatarDiv.style.display = 'none';
+                        avatarInput.value = '';
+                    } else {
+                        errorAvatarDiv.textContent = data.message;
+                        errorAvatarDiv.style.display = 'block';
+                        successAvatarDiv.style.display = 'none';
                     }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    errorAvatarDiv.textContent = 'Error al eliminar el avatar. Por favor, intenta de nuevo.';
+                    errorAvatarDiv.style.display = 'block';
+                    successAvatarDiv.style.display = 'none';
                 });
             }
         });
+    }
+});
+
     </script>
-    <style>
-        /* Existing styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 400px;
-            text-align: center;
-            border-radius: 10px;
-        }
-
-        .modal-content h2 {
-            color: #b8860b;
-        }
-
-        .modal-buttons {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 20px;
-        }
-
-        .modal-buttons button {
-            padding: 10px 20px;
-            border: none;
-            white-space: nowrap;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 16px;
-            width: 195px;
-        }
-
-        #confirmDeleteBtn {
-            background-color: #e74c3c;
-            color: white;
-        }
-
-        #cancelDeleteBtn {
-            background-color: #b8860b;
-            color: white;
-        }
-
-        form#deleteAccountForm {
-            margin-right: 1vh;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .modal-content p a {
-            color: #b8860b;
-        }
-
-        .modal-content p a:hover {
-            color: #333;
-        }
-
-        @media (max-width: 768px) {
-            .modal-content {
-                margin: 50% auto;
-                width: 85%;
-            }
-
-            .modal-buttons {
-                flex-direction: column;
-            }
-
-            .modal-buttons button {
-                width: 100%;
-                max-width: none;
-                margin-top: 10px;
-            }
-
-            form#deleteAccountForm {
-                margin-right: 0;
-                display: flex;
-            }
-        }
-
-        .profile-container {
-            padding: 18px;
-        }
-
-        /* Styles for the second modal */
-        #codeVerificationModal .modal-content {
-            background-color: #f9f9f9;
-        }
-
-        #codeVerificationModal input[type="text"] {
-            width: 80%;
-            padding: 10px;
-            margin-top: 10px;
-            font-size: 16px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-
-        #codeVerificationModal #verifyCodeBtn {
-            background-color: #b8860b;
-            color: white;
-        }
-
-        #codeVerificationModal #cancelCodeVerificationBtn {
-            background-color: #e74c3c;
-            color: white;
-        }
-
-        #generatedCode {
-            user-select: none;
-            /* Evita que el texto sea seleccionado */
-        }
-
-        .back-button {
-            border: none;
-            font-size: 18px;
-            color: #b8860b;
-            background-color: #f9f9f9;
-            cursor: pointer;
-            margin-bottom: 10px;
-            text-decoration: underline;
-        }
-
-        .back-button:hover {
-            background-color: #f9f9f9;
-            color: #b8860b;
-        }
-    </style>
-
+    <!-- Modal para Cropper.js -->
+    <div id="cropperModal" class="cropper-modal">
+    <div class="cropper-modal-content">
+        <button type="button" class="cropper-close-button">&times;</button>
+        <img id="cropperImage" class="cropper-image" src="" alt="Imagen para Recortar">
+        <div class="cropper-buttons">
+            <button type="button" id="cropImageBtn" class="cropper-crop-button">Recortar y Subir</button>
+            <button type="button" id="cancelCropBtn" class="cropper-cancel-button">Cancelar</button>
+        </div>
+    </div>
+</div>
     <!-- First Modal: Confirm Deletion -->
     <div id="deleteAccountModal" class="modal">
         <div class="modal-content">
@@ -575,5 +547,6 @@ try {
         </div>
     </footer>
 </body>
+<script src="/public/assets/js/updateCartCounter.js"></script>
 
 </html>

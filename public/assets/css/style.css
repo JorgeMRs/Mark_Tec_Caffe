@@ -26,46 +26,6 @@ header {
 }
 
 /* Estilos para pantallas pequeñas */
-@media (max-width: 768px) {
-    nav {
-        flex-direction: column; /* Cambia a columna en pantallas pequeñas */
-        padding: 10px; /* Reduce el padding */
-    }
-
-    .header-content {
-        flex-direction: column; /* Cambia a columna en pantallas pequeñas */
-        align-items: flex-start; /* Alinea a la izquierda */
-    }
-
-    .nav-links {
-        flex-direction: column; /* Cambia a columna en pantallas pequeñas */
-        width: 100%; /* Ocupa todo el ancho */
-        margin-top: 10px; /* Espacio entre logo y enlaces */
-    }
-
-    .nav-links li {
-        margin: 5px 0; /* Espacio vertical entre enlaces */
-    }
-
-    .logo {
-        margin-left: 10%;
-        margin-right: 20%;
-    }
-
-    .logo h1 {
-        font-size: 20px; /* Reduce el tamaño del texto en pantallas pequeñas */
-    }
-
-    .user-icon {
-        width: 30px; /* Reduce el tamaño del icono de usuario */
-        height: 30px;
-    }
-}
-@media (max-width: 768px) {
-    nav {
-        padding: 20px 10px; /* Aumenta el padding superior para agregar espacio */
-    }
-}
 
 /* Estilos para el contenido del carrusel */
 .carousel-content {
@@ -188,41 +148,9 @@ header {
             margin-bottom: 20px;
             font-family: 'Poppins';
             font-weight: 500;  
+            color: #fff;
     }
-    nav {
-        flex-direction: column; /* Cambia a columna en pantallas pequeñas */
-        padding: 10px; /* Reduce el padding */
-    }
-
-    .header-content {
-        flex-direction: column; /* Cambia a columna en pantallas pequeñas */
-        align-items: flex-start; /* Alinea a la izquierda */
-    }
-
-    .nav-links {
-        flex-direction: column; /* Cambia a columna en pantallas pequeñas */
-        width: 100%; /* Ocupa todo el ancho */
-        margin-top: 10px; /* Espacio entre logo y enlaces */
-    }
-
-    .nav-links li {
-        margin: 5px 0; /* Espacio vertical entre enlaces */
-    }
-
-    .logo {
-        margin-left: 10%;
-        margin-right: 20%;
-    }
-
-    .logo h1 {
-        font-size: 20px; /* Reduce el tamaño del texto en pantallas pequeñas */
-    }
-
-    .user-icon {
-        width: 30px; /* Reduce el tamaño del icono de usuario */
-        height: 30px;
-    }
-
+    
     /* Añade margen superior para evitar que el contenido choque con el nav */
     .main-content {
         margin-top: 80px; /* Ajusta según el tamaño del nav */

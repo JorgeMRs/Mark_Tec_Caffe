@@ -132,6 +132,7 @@ nav {
   height: 30px;
 }
 
+/* Estilo del contador del carrito */
 .cart-counter {
   position: absolute;
   top: -5px;
@@ -142,6 +143,139 @@ nav {
   padding: 2px 6px;
   font-size: 12px;
   transition: transform 0.3s ease-in-out;
+  font-family: "Monterrat", sans-serif;
+}
+
+.cart:hover .cart-counter {
+  transform: scale(1.1);
+}
+@keyframes expandVertical {
+  from {
+    max-height: 0; /* Comienza con altura cero */
+  }
+  to {
+    max-height: 350px; /* Ajusta este valor según la altura máxima deseada */
+  }
+}
+
+@keyframes expandVerticalOut {
+  from {
+    max-height: 350px; /* Altura máxima alcanzada durante la expansión */
+  }
+  to {
+    padding-top: 0;
+    max-height: 0; /* Vuelve a la altura cero */
+  }
+}
+
+.cart-preview {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  max-height: 0; /* Inicialmente oculto con altura cero */
+  overflow-y: hidden; /* Oculta el contenido que no cabe en el contenedor */
+  padding: 0; /* Sin relleno inicial */
+  opacity: 1; /* Siempre visible */
+  transform-origin: top; /* Asegura que la expansión comience desde la parte superior */
+  transition: none; /* Sin transición de opacidad */
+  display: none; /* Oculto por defecto */
+}
+
+/* Personalización del scrollbar para navegadores basados en WebKit */
+.cart-preview::-webkit-scrollbar {
+  width: 8px; /* Ancho del scrollbar */
+}
+
+.cart-preview::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Color de fondo del track */
+}
+
+.cart-preview::-webkit-scrollbar-thumb {
+  background: #888; /* Color del thumb (parte movible del scrollbar) */
+  border-radius: 10px; /* Bordes redondeados del thumb */
+}
+
+.cart-preview::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Color del thumb al pasar el mouse sobre él */
+}
+
+.cart-preview.visible {
+  overflow-y: scroll; /* Habilita el scrollbar cuando sea visible */
+  display: block; /* Mostrar el preview cuando esté visible */
+  padding: 10px; /* Relleno final del contenedor */
+  animation: expandVertical 0.3s ease-in-out forwards; /* Expansión lenta */
+}
+
+.cart-preview.hide {
+  animation: expandVerticalOut 0.3s ease-in-out forwards; /* Cierre lento */
+  overflow-y: scroll;
+  /* Se utiliza JavaScript para ocultar el contenedor después de la animación */
+}
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #ccc; /* Línea separadora */
+  padding: 10px 0;
+}
+
+.cart-subtotal {
+  display: flex;
+  justify-content: space-between; /* Alinea el texto y el precio */
+  padding: 10px 0;
+  font-size: 14px;
+  font-weight:400;
+  margin-top: 10px;
+}
+.cart-subtotal .subtotal-text {
+  text-align: left; /* Alinea el texto a la izquierda */
+}
+
+.cart-subtotal .subtotal-price {
+  text-align: right; /* Alinea el precio a la derecha */
+}
+
+.cart-item img {
+  width: 90px;
+  height: 80px;
+}
+h4{
+  color: #DAA421;
+}
+.cart-item-details {
+  flex-grow: 1;
+  margin-left: 10px;
+}
+
+.view-cart-button {
+  display: block;
+  margin-top: 10px;
+  text-align: center;
+  background-color: #DAA421;
+  color: white;
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+/* Ajustes adicionales cuando haya muchos productos en el carrito */
+.cart-preview ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0; /* Eliminar márgenes para que el contenido ocupe más espacio */
+}
+
+.cart-item-details h4 {
+  font-size: 14px;
+  margin: 0;
+}
+
+.cart-item-details p {
+  font-size: 12px;
+  margin: 0;
 }
 
 .cart:hover .cart-counter {
@@ -161,7 +295,6 @@ nav {
   color: white;
   margin-left: 10px;
 }
-
 /* Ocultar elementos en versiones móviles y desktop */
 .mobile-only {
   display: none;
@@ -174,8 +307,9 @@ nav {
 /* Responsivo */
 @media (max-width: 768px) {
   .nav-content {
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
+    margin-right: 0vh;
   }
 
   .nav-toggle {
@@ -199,8 +333,120 @@ nav {
   .nav-links.active {
     display: flex;
   }
-
+  .toggle-button:hover {
+    background-color: transparent;
+  }
   .nav-icons {
     margin-left: 0;
+  }
+}
+@media (max-width: 768px) {
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 1rem;
+    width: 100%;
+    top: 0;
+    position: relative;
+    z-index: 1000;
+    box-sizing: border-box;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    margin-left: 0;
+  }
+  .logo-link h1 {
+    display: none;
+  }
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    position: absolute;
+    top: 95px;
+    left: 0;
+    z-index: 999;
+  }
+  
+  .nav-links.active {
+    display: flex; /* Mostrar el menú cuando está activo */
+  }
+
+  .nav-links li {
+    margin: 15px 10px;
+  }
+
+  .nav-links .cart,
+  .nav-links .user-icon {
+    display: none; /* Ocultar carrito y usuario dentro del menú desplegable */
+  }
+
+  .nav-toggle {
+    display: block; /* Mostrar el botón de toggle en móviles */
+  }
+}
+
+/* Mobile styles for categories */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+
+  .nav-links.active {
+    display: block;
+  }
+
+  .dropdown-menu a {
+    padding: 15px;
+    font-size: 16px;
+  }
+}
+@media (max-width: 768px) {
+  .sidebar {
+    display: none; /* Oculta el sidebar en pantallas pequeñas */
+  }
+  /* Reorganizar categorías y productos en una sola columna */
+  .product-grid {
+    grid-template-columns: 1fr; /* Una sola columna */
+    gap: 10px; /* Reducir el espacio entre los elementos */
+  }
+
+  .product-item {
+    width: 100%; /* Asegura que los elementos ocupen todo el ancho */
+  }
+  .product-item h3 {
+    font-size: 24px; /* Ajustar el tamaño del texto para pantallas pequeñas */
+  }
+}
+
+/* Mostrar dropdown en pantallas móviles */
+@media (max-width: 768px) {
+  .mobile-only {
+    display: block; /* Mostrar en pantallas móviles */
+  }
+
+  .desktop-only {
+    display: none; /* Ocultar en pantallas móviles */
+  }
+
+  /* Ajustes adicionales para menú desplegable en móvil */
+  .dropdown-menu {
+    display: none; /* Oculto por defecto */
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+
+  .dropdown.open .dropdown-menu {
+    display: block; /* Mostrar menú desplegable al hacer clic */
+  }
+
+  .dropdown-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 }

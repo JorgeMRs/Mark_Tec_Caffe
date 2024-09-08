@@ -1,0 +1,230 @@
+:root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 45%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 5.9% 10%;
+    --radius: 0.5rem;
+}
+
+
+body{
+    font-family: 'Poppins';
+}
+.totalP {
+    height: 100%;
+    /* margin-top: 60px; */
+    padding: 10px;
+}
+
+#carta {
+    display: flex;
+    justify-content: space-around;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid hsl(var(--border));
+    /* Añadir borde */
+}
+
+.imagenP {
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+    max-height: 100%;
+    padding: 5px;
+    margin: 10px 20px 10px 20px;
+}
+
+div#precionu {
+    align-items: center;
+    display: flex;
+    padding: inherit;
+}
+
+
+/* Media Queries para hacer responsive el elemento con id carta en pantallas de menos de 600px */
+@media (max-width: 600px) {
+    #carta {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+    }
+
+    #carta img {
+        width: 100%;
+        height: auto;
+        margin-bottom: 10px;
+    }
+
+    #carta #nombredesc {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    #carta #cantidad {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    #carta #precionu {
+        text-align: center;
+        margin-bottom: 10px;
+        font-size: xx-large;
+    }
+
+    #carta .remove-btn {
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+        background-color: hsl(var(--destructive));
+        color: hsl(var(--destructive-foreground));
+        border: none;
+        border-radius: var(--radius);
+        cursor: pointer;
+    }
+}
+
+div#cantidad {
+    display: flex;
+    align-items: center;
+}
+
+.shadow {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    padding: 10px;
+}
+
+span#cantidadnum {
+    padding: 10px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 50px auto 100px;
+    padding: 30px;
+}
+
+.flex.items-center.justify-between {
+    display: flex;
+    justify-content: space-between;
+}
+h1.text-2xl.font-bold.mb-6 {
+    margin-left: 55px;
+}
+.flex.items-center.justify-between.font-medium.text-lg {
+    margin: 10px;
+    font-size: x-large;
+}
+
+.flex.items-center.justify-between {
+    display: flex;
+    justify-content: space-between;
+    font-size: larger;
+}
+
+button.quantity-btn.minus {
+    padding: 15px 20px;
+    border: 1px solid hsl(var(--border));
+    background: white;
+    font-size: x-large;
+}
+
+button.quantity-btn.plus {
+    padding: 15px 20px;
+    border: 1px solid hsl(var(--border));
+    background: white;
+    font-size: x-large;
+}
+
+button.remove-btn {
+    align-self: center;
+    border: 1px solid hsl(var(--border));
+    background: white;
+}
+
+.bg-background.rounded-lg.shadow.p-6.space-y-4 {
+    padding: 20px;
+}
+
+div#padre2 {
+    width: 90%;
+    /* height: 400px; */
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    margin: auto;
+    align-items: center;
+    border: 1px solid hsl(var(--border));
+    /* Añadir borde */
+}
+
+div#precionu {
+    align-items: center;
+    display: flex;
+}
+
+.bg-background {
+    background-color: hsl(var(--card));
+}
+
+.rounded-lg {
+    border-radius: var(--radius);
+}
+
+.shadow {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.quantity-btn,
+.remove-btn {
+    background-color: hsl(var(--secondary));
+    color: hsl(var(--secondary-foreground));
+    border: none;
+    padding: 5px 10px;
+    border-radius: var(--radius);
+    cursor: pointer;
+}
+
+.checkout-btn {
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    border: none;
+    padding: 10px 20px;
+    border-radius: var(--radius);
+    width: 100%;
+    cursor: pointer;
+}
+
+.divider {
+    height: 1px;
+    background-color: hsl(var(--border));
+    margin: 10px 0;
+}
+
+footer {
+    background-color: hsl(var(--muted));
+}
+
+/* Responsive Grid */
+@media (min-width: 768px) {
+    .grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 2rem;
+    }
+}
