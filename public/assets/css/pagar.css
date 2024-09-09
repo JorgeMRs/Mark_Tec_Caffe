@@ -165,6 +165,9 @@ form {
   width: 100%;
   max-width: 500px;
 }
+.order-type {
+  text-align: center;
+}
 
 h2 {
   text-align: center;
