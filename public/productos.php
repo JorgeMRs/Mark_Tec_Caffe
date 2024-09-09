@@ -90,40 +90,22 @@ try {
 
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="assets/img/icons/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="assets/img/icons/favicon-64x64.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars('Café Sabrosos - ' . $producto['nombre']) ?></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="assets/css/productos.css">
+    <link rel="stylesheet" href="assets/css/nav.css">
+    <link rel="stylesheet" href="assets/css/footer.css">
+
 </head>
+
 <body>
     <header>
-        <nav>
-            <div class="logo">
-                <a href="/" class="logo-link">
-                    <img src="/public/assets/img/logo-removebg-preview.png" alt="Logo" class="logo-image" />
-                    <h1>Café Sabrosos</h1>
-                </a>
-            </div>
-            <ul class="nav-links">
-                <li><a href="local.php">Locales</a></li>
-                <li><a href="tienda.php">Productos</a></li>
-                <li><a href="#">Ofertas</a></li>
-                <li><a href="#">Reservas</a></li>
-                <li><a href="contactos.html">Contacto</a></li>
-                <li>
-                    <a href="cuenta.php"><img src="/public/assets/img/image.png" alt="Usuario" class="user-icon" /></a>
-                </li>
-                <div class="cart">
-                    <a href="carrito.html">
-                        <img src="/public/assets/img/cart.png" alt="Carrito" />
-                        <span id="cart-counter" class="cart-counter">0</span>
-                    </a>
-                </div>
-                <li>
-                    <button id="language-toggle" class="language-btn">ES</button>
-                </li>
-            </ul>
-        </nav>
+        <?php include 'templates/nav.php' ?>
     </header>
 
     <div class="container">
@@ -165,7 +147,7 @@ try {
                     <p class="product-description" data-lang="pt" style="display:none;"><?php echo $descripcionProductoPT; ?></p>
                 </div>
                 <div class="price-container">
-                    <div class="product-price">$<?php echo number_format($producto['precio'], 2); ?></div>
+                    <div class="product-price">€<?php echo number_format($producto['precio'], 2); ?></div>
                     <div class="quantity-control">
                         <button class="btn-outline">
                             <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -228,44 +210,7 @@ try {
             </div>
         </div>
     </div>
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section about">
-                <h3>Café Sabrosos</h3>
-                <p>
-                    Disfruta del mejor café con nosotros. Nos preocupamos por cada
-                    detalle, desde la selección de los granos hasta la preparación de tu
-                    bebida.
-                </p>
-                <div class="socials">
-                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                </div>
-            </div>
-            <div class="footer-section links">
-                <h3>Enlaces Rápidos</h3>
-                <ul>
-                    <li><a href="/public/local.html">Locales</a></li>
-                    <li><a href="#">Productos</a></li>
-                    <li><a href="#">Ofertas</a></li>
-                    <li><a href="#">Reservas</a></li>
-                    <li><a href="/public/contactos.html">Contacto</a></li>
-                </ul>
-            </div>
-            <div class="footer-section contact">
-                <h3>Contáctanos</h3>
-                <ul>
-                    <li><i class="fa-solid fa-location-dot"></i> 123 Calle Café, San José</li>
-                    <li><i class="fa fa-phone"></i> +598 123 4567</li>
-                    <li><i class="fa fa-envelope"></i> info@cafesabrosos.com</li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 Café Sabrosos. Todos los derechos reservados.</p>
-        </div>
-    </footer>
+    <?php include 'templates/footer.php';?>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -283,119 +228,186 @@ try {
         });
     </script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const quantityElement = document.querySelector('.quantity');
-            let quantity = parseInt(quantityElement.textContent);
+document.addEventListener('DOMContentLoaded', function() {
+    const quantityElement = document.querySelector('.quantity');
+    const maxQuantity = 10;  // Límite máximo de cantidad
 
-            document.querySelector('.quantity-control .btn-outline:first-of-type').addEventListener('click', function() {
-                if (quantity > 1) {
-                    quantity -= 1;
-                    quantityElement.textContent = quantity;
-                }
-            });
+    function updateQuantity() {
+        return parseInt(quantityElement.textContent);
+    }
 
-            document.querySelector('.quantity-control .btn-outline:last-of-type').addEventListener('click', function() {
-                quantity += 1;
-                quantityElement.textContent = quantity;
-            });
+    document.querySelector('.quantity-control .btn-outline:first-of-type').addEventListener('click', function() {
+        let quantity = updateQuantity();
+        if (quantity > 1) {
+            quantity -= 1;
+            quantityElement.textContent = quantity;
+        }
+    });
 
-            document.querySelector('.action-buttons .btn-lg:first-of-type').addEventListener('click', function(e) {
-                e.preventDefault();
-                const productId = '<?= htmlspecialchars($id_producto) ?>';
-                const quantity = parseInt(quantityElement.textContent);
-                addToCart(productId, quantity);
-            });
+    document.querySelector('.quantity-control .btn-outline:last-of-type').addEventListener('click', function() {
+        let quantity = updateQuantity();
+        if (quantity < maxQuantity) {
+            quantity += 1;
+            quantityElement.textContent = quantity;
+        }
+    });
 
-            updateCartCounter();
+    document.querySelector('.action-buttons .btn-lg:first-of-type').addEventListener('click', function(e) {
+        e.preventDefault();
+        const productId = '<?= htmlspecialchars($id_producto) ?>';
+        const quantity = updateQuantity();
+        addToCart(productId, quantity);
+    });
+
+    document.querySelector('.action-buttons .btn-lg.btn-outline').addEventListener('click', function(e) {
+        e.preventDefault();
+        const productId = '<?= htmlspecialchars($id_producto) ?>';
+        const quantity = updateQuantity();
+        buyNow(productId, quantity);
+    });
+
+    updateCartCounter();
+});
+
+
+function addToCart(productId, quantity) {
+    if (<?php echo isset($_SESSION['user_id']) ? 'true' : 'false'; ?>) {
+        const url = '/src/cart/addCart.php';
+        const data = new URLSearchParams({
+            producto_id: productId,
+            cantidad: quantity
         });
 
-        function addToCart(productId, quantity) {
-            if (<?php echo isset($_SESSION['user_id']) ? 'true' : 'false'; ?>) {
-                const url = '/src/cart/addCart.php';
-                const data = new URLSearchParams({
-                    producto_id: productId,
-                    cantidad: quantity
-                });
+        fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: data.toString()
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    updateCartCounter();
+                    resetQuantity();
+                    alert('Producto agregado al carrito.');
+                    // Emitir evento personalizado
+                    const event = new CustomEvent('cartUpdated');
+                    document.dispatchEvent(event);
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            })
+            .catch(error => {
+                alert('Error en la red. Por favor, inténtelo de nuevo.');
+            });
+    } else {
+        const carrito = JSON.parse(localStorage.getItem('carrito')) || {};
+        carrito[productId] = (carrito[productId] || 0) + quantity;
+        localStorage.setItem('carrito', JSON.stringify(carrito));
 
-                fetch(url, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded'
-                        },
-                        body: data.toString()
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.status === 'success') {
-                            updateCartCounter();
-                            alert('Producto agregado al carrito.');
-                        } else {
-                            alert('Error: ' + data.message);
-                        }
-                    })
-                    .catch(error => {
-                        alert('Error en la red. Por favor, inténtelo de nuevo.');
-                    });
+        const expirationTime = Date.now() + 3600000; // 1 hora
+        localStorage.setItem('cart_expiration', expirationTime);
+
+        updateCartCounter();
+        resetQuantity();
+        alert('Producto agregado al carrito local.');
+        // Emitir evento personalizado
+        const event = new CustomEvent('cartUpdated');
+        document.dispatchEvent(event);
+    }
+}
+
+function resetQuantity() {
+    const quantityElement = document.querySelector('.quantity');
+    quantityElement.textContent = '1';
+}
+
+function buyNow(productId, quantity) {
+    if (<?php echo isset($_SESSION['user_id']) ? 'true' : 'false'; ?>) {
+        const url = `/src/cart/addCart.php`;
+        const data = new URLSearchParams({
+            producto_id: productId,
+            cantidad: quantity
+        });
+
+        fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: data.toString()
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    window.location.href = `/public/carrito.php`;
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            })
+            .catch(error => {
+                alert('Error en la red. Por favor, inténtelo de nuevo.');
+            });
+    } else {
+        const carrito = JSON.parse(localStorage.getItem('carrito')) || {};
+        carrito[productId] = (carrito[productId] || 0) + quantity;
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+
+        const expirationTime = Date.now() + 3600000; // 1 hora
+        localStorage.setItem('cart_expiration', expirationTime);
+
+        window.location.href = `/public/carrito.php`;
+    }
+}
+
+function updateCartCounter() {
+    const cartCounterElement = document.getElementById('cart-counter');
+
+    fetch('/src/cart/getCartCounter.php')
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                cartCounterElement.textContent = data.totalQuantity;
             } else {
-                const carrito = JSON.parse(localStorage.getItem('carrito')) || {};
-                carrito[productId] = (carrito[productId] || 0) + quantity;
-                localStorage.setItem('carrito', JSON.stringify(carrito));
-
-                const expirationTime = Date.now() + 3600000; // 1 hora
-                localStorage.setItem('cart_expiration', expirationTime);
-
-                updateCartCounter();
-                alert('Producto agregado al carrito local.');
+                handleLocalStorageCart(cartCounterElement);
             }
-        }
+        })
+        .catch(() => {
+            handleLocalStorageCart(cartCounterElement);
+        });
+}
 
-        function updateCartCounter() {
-            const cartCounterElement = document.getElementById('cart-counter');
+function handleLocalStorageCart(cartCounterElement) {
+    if (isCartExpired()) {
+        clearExpiredCart();
+    }
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || {};
+    const totalQuantity = Object.values(carrito).reduce((acc, quantity) => acc + quantity, 0);
+    cartCounterElement.textContent = totalQuantity;
+}
 
-            fetch('/src/cart/getCartCounter.php')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        cartCounterElement.textContent = data.totalQuantity;
-                    } else {
-                        handleLocalStorageCart(cartCounterElement);
-                    }
-                })
-                .catch(() => {
-                    handleLocalStorageCart(cartCounterElement);
-                });
-        }
+function getCartExpiration() {
+    return parseInt(localStorage.getItem('cart_expiration'));
+}
 
-        function handleLocalStorageCart(cartCounterElement) {
-            if (isCartExpired()) {
-                clearExpiredCart();
-            }
-            const carrito = JSON.parse(localStorage.getItem('carrito')) || {};
-            const totalQuantity = Object.values(carrito).reduce((acc, quantity) => acc + quantity, 0);
-            cartCounterElement.textContent = totalQuantity;
-        }
+function isCartExpired() {
+    const expirationTime = getCartExpiration();
+    return expirationTime && Date.now() > expirationTime;
+}
 
-        function getCartExpiration() {
-            return parseInt(localStorage.getItem('cart_expiration'));
-        }
+function clearExpiredCart() {
+    localStorage.removeItem('carrito');
+    localStorage.removeItem('cart_expiration');
+}
 
-        function isCartExpired() {
-            const expirationTime = getCartExpiration();
-            return expirationTime && Date.now() > expirationTime;
-        }
-
-        function clearExpiredCart() {
-            localStorage.removeItem('carrito');
-            localStorage.removeItem('cart_expiration');
-        }
-
-        function setCategoryInLocalStorage(category, idCategoria) {
-            const categoryData = {
-                category,
-                idCategoria
-            };
-            localStorage.setItem('selectedCategory', JSON.stringify(categoryData));
-        }
+function setCategoryInLocalStorage(category, idCategoria) {
+    const categoryData = {
+        category,
+        idCategoria
+    };
+    localStorage.setItem('selectedCategory', JSON.stringify(categoryData));
+}
 
         document.getElementById('language-toggle').addEventListener('click', function() {
             const languageMap = {

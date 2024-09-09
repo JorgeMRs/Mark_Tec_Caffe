@@ -1,0 +1,109 @@
+footer {
+    background-color: #DAA520;
+    color: #1B0D0B;
+    text-align: center;
+    width: 100%;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    margin-top: auto; /* Empuja el footer al final del contenedor */
+}
+
+footer p {
+    margin-top: 16px;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-section {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.footer-section h3 {
+    font-family: 'Poppins';
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.footer-section p,
+.footer-section ul {
+    font-family: 'Poppins';
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+    color: #1B0D0B;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+    color: #333;
+}
+
+.socials {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.socials a {
+    color: #1B0D0B;
+    margin: 0 10px;
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+
+.socials a:hover {
+    color: #333;
+}
+
+.footer-bottom {
+    background-color: #1B0D0B;
+    padding: 20px 0;
+    width: 100%;
+    font-family: 'Poppins';
+    font-size: 16px;
+    font-weight: 400;
+    color: #FFF;
+}
+
+@media (min-width: 768px) {
+    .footer-content {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+    }
+
+    .footer-section {
+        flex: 1;
+        padding: 0 20px;
+        position: relative;
+    }
+
+    /* Alinea horizontalmente el h3 de "Café Sabrosos" y "Contáctanos" */
+    .footer-section.about h3 {
+        margin-top: 24px; /* Mantiene el margen superior original */
+    }
+
+    .footer-section.contact h3 {
+        margin-top: 0; /* Ajusta el margen superior para que esté más abajo */
+    }
+}

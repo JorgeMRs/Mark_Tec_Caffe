@@ -1,8 +1,6 @@
 <?php
 session_start();
 require '../src/db/db_connect.php';
-require '../src/uploads/avatarUpload.php';
-require '../src/uploads/avatarDelete.php';
 require '../src/account/accountDelete.php';
 
 // Verificar si el usuario está autenticado
@@ -27,30 +25,16 @@ $avatar = '';
 try {
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        
-          // Procesar eliminación de cuenta
-        if (isset($_POST['deleteAccount']) && $_POST['deleteAccount'] === 'true') {
+
+        // Procesar eliminación de cuenta
+        if (isset($_POST['eliminarCuenta']) && $_POST['eliminarCuenta'] === 'verdadero') {
             $deleteAccountMessage = deleteAccount($user_id); // Llamar a la función
             if ($deleteAccountMessage) {
                 $errorMessage = $deleteAccountMessage;
-            }
-        }
-        // Procesar subida del avatar
-        if (isset($_FILES['avatar'])) {
-            $avatarUploadMessage = uploadAvatar($user_id, $_FILES['avatar'], $conn);
-            if (strpos($avatarUploadMessage, 'Error') !== false) {
-                $errorMessage = $avatarUploadMessage;
             } else {
-                $successMessage = $avatarUploadMessage;
-            }
-        }
-        // Procesar eliminación del avatar
-        if (isset($_POST['deleteAvatar']) && $_POST['deleteAvatar'] === 'true') {
-            $deleteAvatarMessage = deleteAvatar($user_id, $conn);
-            if (str_contains($deleteAvatarMessage, 'Error')) {
-                $errorMessage = $deleteAvatarMessage;
-            } else {
-                $successMessage = $deleteAvatarMessage;
+                // Redirigir después de eliminar la cuenta
+                header('Location: /index.php');
+                exit();
             }
         }
         // Obtener datos del formulario
@@ -149,59 +133,39 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Configuración de Cuenta</title>
-    <link rel="stylesheet" href="../public/assets/css/cuenta.css">
+    <link rel="stylesheet" href="assets/css/cuenta.css">
+    <link rel="stylesheet" href="assets/css/nav.css">
+    <link rel="stylesheet" href="assets/css/footer.css">
+    <link rel="stylesheet" href="assets/css/modal.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/public/assets/img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/public/assets/img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/public/assets/img/icons/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/public/assets/img/icons/favicon-64x64.png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
 </head>
 
 <body>
     <header>
-        <nav>
-            <div class="logo">
-                <a href="/" class="logo-link">
-                    <img src="/public/assets/img/logo-removebg-preview.png" alt="Logo" class="logo-image" />
-                    <h1>Café Sabrosos</h1>
-                </a>
-            </div>
-            <ul class="nav-links">
-                <li><a href="local.pp">Locales</a></li>
-                <li><a href="tienda.php">Productos</a></li>
-                <li><a href="#">Ofertas</a></li>
-                <li><a href="#">Reservas</a></li>
-                <li><a href="contactos.html">Contacto</a></li>
-                <li>
-                    <a href="/public/cuenta.php"><img src="/public/assets/img/image.png" alt="Usuario"
-                            class="user-icon" /></a>
-                </li>
-                <div class="cart">
-                    <a href="carrito.html">
-                        <img src="/public/assets/img/cart.png" alt="Carrito" />
-                        <span id="cart-counter" class="cart-counter">0</span>
-                    </a>
-                </div>
-            </ul>
-        </nav>
+        <?php include 'templates/nav-blur.php'; ?>
     </header>
     <main>
         <section class="profile-container">
             <h1>Configuración de Cuenta</h1>
             <form action="cuenta.php" method="POST" enctype="multipart/form-data">
                 <div class="profile-info">
-                    <!-- Sección para el avatar -->
                     <div class="avatar-section">
                         <label for="avatar" class="avatar-label">Foto de Perfil:</label>
                         <div class="avatar-preview">
                             <img src="<?php echo isset($avatar) ? '/public/assets/img/avatars/' . htmlspecialchars($avatar) . '?t=' . time() : '/public/assets/img/user-circle-svgrepo-com.svg'; ?>" alt="Avatar" class="avatar-image">
                         </div>
                         <input type="file" name="avatar" id="avatar" accept="image/*">
-                        <?php if (!empty($avatar)): ?>
-                            <!-- Formulario para eliminar el avatar, mostrado solo si hay avatar -->
-                            <form action="cuenta.php" method="POST" style="display:inline;">
-                                <input type="hidden" name="deleteAvatar" value="true">
-                                <button type="submit" class="delete-avatar-btn">Eliminar Avatar</button>
-                            </form>
-                        <?php endif; ?>
+                        <div class="error-avatar" style="display: none;"></div>
+                        <div class="success-avatar" style="display: none;"></div>
+                        <button type="button" id="deleteAvatarBtn" class="delete-avatar-btn" style="display: <?php echo !empty($avatar) ? 'block' : 'none'; ?>;">Eliminar Avatar</button>
                     </div>
                     <!-- Resto del formulario... -->
                     <div class="name-fields">
@@ -209,12 +173,11 @@ try {
                         <input type="text" name="apellido" placeholder="Apellido:" maxlength="50" required value="<?php echo htmlspecialchars($apellido); ?>">
                     </div>
                     <div class="input-container">
-                        <i class="fa-solid fa-pen-to-square"></i>
                         <input type="email" name="correo" id="correo" placeholder="Correo:" value="<?php echo htmlspecialchars($correo); ?>">
                     </div>
                     <div class="input-container">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                        <input type="password" name="contraseña" id="password" placeholder="Contraseña:" maxlength="64" required>
+                        <a href="cambiarContrasena.php"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <input type="password" name="contraseña" id="password" placeholder="Contraseña" maxlength="64">
                     </div>
                     <input type="tel" name="telefono" id="telefono" placeholder="Teléfono:" maxlength="9" value="<?php echo htmlspecialchars($telefono); ?>">
                     <input type="date" name="fechaNacimiento" id="cumpleaños"
@@ -232,96 +195,318 @@ try {
                 </form>
             </div>
             <?php if ($errorMessage): ?>
-                <div class="error-message"><?php echo htmlspecialchars($errorMessage); ?></div>
+                <div id="errorMessage" class="error-message"><?php echo htmlspecialchars($errorMessage); ?></div>
             <?php endif; ?>
             <?php if ($successMessage): ?>
-                <div class="success-message"><?php echo htmlspecialchars($successMessage); ?></div>
+                <div id="successMessage" class="success-message"><?php echo htmlspecialchars($successMessage); ?></div>
             <?php endif; ?>
         </section>
     </main>
     <style>
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
+.cropper-modal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 1 !important;
+    background: transparent;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Asegúrate de que esté encima de otros elementos */
+}
 
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 400px;
-            text-align: center;
-            border-radius: 10px;
-        }
+/* Contenido del Modal */
+.cropper-modal-content {
+    background: #fff;
+    padding: 20px; /* Ajustado para mayor espacio */
+    border-radius: 8px;
+    position: relative;
+    max-width: 90%; /* Ajustar según necesidad */
+    max-height: 90vh; /* Asegurarse de que el contenido no sobrepase la pantalla */
+    overflow: auto; /* Permite el scroll si el contenido es demasiado grande */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
-        .modal-content h2{
-            color: #b8860b;
-        }
-        .modal-buttons {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 20px;
-        }
+/* Botón de Cierre del Modal */
+.cropper-close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #f1f1f1;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    z-index: 10000;
+}
 
-        .modal-buttons button {
+/* Imagen dentro del Modal */
+.cropper-image {
+    max-width: 100%;
+    max-height: 60vh; /* Ajustar la altura de la imagen para que no sobrepase el contenedor */
+    display: block;
+    margin: 0 auto;
+}
+
+/* Contenedor de Botones */
+.cropper-buttons {
+    display: flex;
+    justify-content: center; /* Centra los botones horizontalmente */
+    margin-top: 10px;
+    gap: 10px; /* Añade un espacio entre los botones */
+}
+
+/* Botones dentro del Modal */
+.cropper-button {
     padding: 10px 20px;
     border: none;
-    text-wrap: nowrap;
+    border-radius: 4px;
     cursor: pointer;
-    border-radius: 5px;
+    margin: 5px;
 }
 
-        #confirmDeleteBtn {
-            background-color: #e74c3c;
-            color: white;
-        }
+/* Botón para Recortar */
+.cropper-crop-button {
+    background-color: #DAA520;
+    color: white;
+}
 
-        #cancelDeleteBtn {
-            background-color: #b8860b;
-            color: white;
-        }
-        form#deleteAccountForm {
-    margin-right: 1vh;
-    display: flex;
-    justify-content: space-between;
+/* Botón para Cancelar */
+.cropper-cancel-button {
+    background-color: #8B4513;
+    color: white;
+}
+.cropper-crop-button:hover {
+background-color: #DAA520;
 }
     </style>
-    <!-- Modal de confirmación -->
-    <div id="deleteAccountModal" class="modal">
-    <div class="modal-content">
-        <h2>¿Estás seguro que deseas eliminar tu cuenta?</h2>
-        <p>Esta acción no se puede deshacer.</p>
-        <div class="modal-buttons">
-            <form id="deleteAccountForm" method="POST">
-                <input type="hidden" name="deleteAccount" value="true">
-                <button type="button" id="confirmDeleteBtn">Sí, eliminar cuenta</button>
-            </form>
-            <button type="button" id="cancelDeleteBtn">Cancelar</button>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const avatarInput = document.getElementById('avatar');
+    const avatarImage = document.querySelector('.avatar-image');
+    const successAvatarDiv = document.querySelector('.success-avatar');
+    const errorAvatarDiv = document.querySelector('.error-avatar');
+    const deleteAvatarBtn = document.getElementById('deleteAvatarBtn');
+    const cropperModal = document.getElementById('cropperModal');
+    const cropperImage = document.getElementById('cropperImage');
+    const cropImageBtn = document.getElementById('cropImageBtn');
+    const cancelCropBtn = document.getElementById('cancelCropBtn');
+    const closeCropperModal = document.querySelector('.cropper-close-button'); // Actualizado para usar la clase
+    let cropper;
+
+    function clearGeneralMessages() {
+        if (errorAvatarDiv) {
+            errorAvatarDiv.style.display = 'none';
+        }
+        if (successAvatarDiv) {
+            successAvatarDiv.style.display = 'none';
+        }
+    }
+
+    if (avatarInput) {
+        avatarInput.addEventListener('change', function(event) {
+            clearGeneralMessages();
+            const file = event.target.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    cropperImage.src = e.target.result;
+                    cropperModal.style.display = 'flex';
+
+                    if (cropper) {
+                        cropper.destroy();
+                    }
+
+                    cropper = new Cropper(cropperImage, {
+                        aspectRatio: 1, // Puedes ajustar la relación de aspecto
+                        viewMode: 1
+                    });
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+
+    cropImageBtn.addEventListener('click', function() {
+        const canvas = cropper.getCroppedCanvas();
+        canvas.toBlob(function(blob) {
+            const formData = new FormData();
+            formData.append('avatar', blob, 'avatar.png');
+
+            fetch('/src/uploads/avatarUpload.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    avatarImage.src = '/public/assets/img/avatars/' + encodeURIComponent(data.avatar) + '?t=' + new Date().getTime();
+                    successAvatarDiv.textContent = data.message;
+                    successAvatarDiv.style.display = 'block';
+                    errorAvatarDiv.style.display = 'none';
+                    deleteAvatarBtn.style.display = 'block';
+                    cropperModal.style.display = 'none';
+                    avatarInput.value = '';
+                } else {
+                    errorAvatarDiv.textContent = data.message;
+                    errorAvatarDiv.style.display = 'block';
+                    successAvatarDiv.style.display = 'none';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                errorAvatarDiv.textContent = 'Error al subir el avatar. Por favor, intenta de nuevo.';
+                errorAvatarDiv.style.display = 'block';
+                successAvatarDiv.style.display = 'none';
+            });
+        }, 'image/png');
+    });
+
+    cancelCropBtn.addEventListener('click', function() {
+        cropperModal.style.display = 'none';
+        avatarInput.value = ''; // Resetea el campo de archivo
+    });
+
+    closeCropperModal.addEventListener('click', function() {
+        cropperModal.style.display = 'none';
+        avatarInput.value = ''; // Resetea el campo de archivo
+    });
+
+    if (deleteAvatarBtn) {
+        deleteAvatarBtn.addEventListener('click', function(event) {
+            event.preventDefault();
+            clearGeneralMessages();
+
+            if (confirm('¿Estás seguro de que deseas eliminar tu avatar?')) {
+                fetch('/src/uploads/avatarDelete.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ action: 'deleteAvatar' })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        avatarImage.src = '/public/assets/img/user-circle-svgrepo-com.svg';
+                        deleteAvatarBtn.style.display = 'none';
+                        successAvatarDiv.textContent = data.message;
+                        successAvatarDiv.style.display = 'block';
+                        errorAvatarDiv.style.display = 'none';
+                        avatarInput.value = '';
+                    } else {
+                        errorAvatarDiv.textContent = data.message;
+                        errorAvatarDiv.style.display = 'block';
+                        successAvatarDiv.style.display = 'none';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    errorAvatarDiv.textContent = 'Error al eliminar el avatar. Por favor, intenta de nuevo.';
+                    errorAvatarDiv.style.display = 'block';
+                    successAvatarDiv.style.display = 'none';
+                });
+            }
+        });
+    }
+});
+
+    </script>
+    <!-- Modal para Cropper.js -->
+    <div id="cropperModal" class="cropper-modal">
+    <div class="cropper-modal-content">
+        <button type="button" class="cropper-close-button">&times;</button>
+        <img id="cropperImage" class="cropper-image" src="" alt="Imagen para Recortar">
+        <div class="cropper-buttons">
+            <button type="button" id="cropImageBtn" class="cropper-crop-button">Recortar y Subir</button>
+            <button type="button" id="cancelCropBtn" class="cropper-cancel-button">Cancelar</button>
         </div>
     </div>
 </div>
+    <!-- First Modal: Confirm Deletion -->
+    <div id="deleteAccountModal" class="modal">
+        <div class="modal-content">
+            <h2>¿Estás seguro de que deseas eliminar tu cuenta?</h2>
+            <p>Esta acción no se puede deshacer.</p>
+            <p><a href="politicas-de-eliminacion-de-cuenta.html" target="_blank">Haz clic aquí para conocer las políticas de eliminación de datos.</a></p>
+            <div class="modal-buttons">
+                <form id="deleteAccountForm" method="POST">
+                    <input type="hidden" name="eliminarCuenta" value="verdadero">
+                    <button type="button" id="confirmDeleteBtn">Sí, eliminar cuenta</button>
+                </form>
+                <button type="button" id="cancelDeleteBtn">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Second Modal: Code Verification -->
+    <div id="codeVerificationModal" class="modal">
+        <div class="modal-content">
+            <button type="button" id="backToDeleteModalBtn" class="back-button">
+                &larr; Regresar
+            </button>
+            <h2>Verificación de Código</h2>
+            <p>Ingresa el código de verificación para proceder con la eliminación:</p>
+            <p id="generatedCode"></p>
+            <input type="text" id="userInputCode" placeholder="Ingresa el código aquí">
+            <div class="modal-buttons">
+                <button type="button" id="verifyCodeBtn">Verificar Código</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-    document.getElementById('deleteAccountBtn').onclick = function() {
-        document.getElementById('deleteAccountModal').style.display = 'block';
-    };
+        // Handle the first modal
+        document.getElementById('deleteAccountBtn').onclick = function() {
+            document.getElementById('deleteAccountModal').style.display = 'block';
+        };
 
-    document.getElementById('cancelDeleteBtn').onclick = function() {
-        document.getElementById('deleteAccountModal').style.display = 'none';
-    };
+        document.getElementById('cancelDeleteBtn').onclick = function() {
+            document.getElementById('deleteAccountModal').style.display = 'none';
+        };
 
-    document.getElementById('confirmDeleteBtn').onclick = function() {
-        // Envía el formulario de eliminación de cuenta
-        document.getElementById('deleteAccountForm').submit();
-    };
+        // Random code generation
+        function generateRandomCode() {
+            return Math.floor(100000 + Math.random() * 900000); // Generates a 6-digit random number
+        }
+
+        // Handle the second modal
+        document.getElementById('confirmDeleteBtn').onclick = function() {
+            // Close the first modal
+            document.getElementById('deleteAccountModal').style.display = 'none';
+
+            // Generate and display the random code in the second modal
+            var randomCode = generateRandomCode();
+            document.getElementById('generatedCode').textContent = 'Código: ' + randomCode;
+
+            // Show the second modal
+            document.getElementById('codeVerificationModal').style.display = 'block';
+
+            // Verify the code
+            document.getElementById('verifyCodeBtn').onclick = function() {
+                var userCode = document.getElementById('userInputCode').value;
+                if (userCode == randomCode) {
+                    // Proceed with account deletion
+                    document.getElementById('deleteAccountForm').submit();
+                } else {
+                    alert('Código incorrecto. Inténtalo de nuevo.');
+                }
+            };
+        };
+
+        document.getElementById('backToDeleteModalBtn').onclick = function() {
+            document.getElementById('codeVerificationModal').style.display = 'none';
+            document.getElementById('deleteAccountModal').style.display = 'block';
+        };
     </script>
     <footer>
         <div class="footer-content">
@@ -362,5 +547,6 @@ try {
         </div>
     </footer>
 </body>
+<script src="/public/assets/js/updateCartCounter.js"></script>
 
 </html>

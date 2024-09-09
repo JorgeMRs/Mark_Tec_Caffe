@@ -14,8 +14,10 @@ $isLoggedIn = isset($_SESSION['user_id']);
     <link rel="icon" type="image/png" sizes="48x48" href="/public/assets/img/icons/favicon-48x48.png">
     <link rel="icon" type="image/png" sizes="48x48" href="/public/assets/img/icons/favicon-64x64.png">
     <link rel="icon" type="image/x-icon" href="/public/assets/img/icons/favicon.ico">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
     <link rel="stylesheet" href="/public/assets/css/style.css">
+    <link rel="stylesheet" href="/public/assets/css/nav-blur.css">
     <style>
         .overlay {
             display: none;
@@ -126,6 +128,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
             font-size: 18px;
             color: #666;
         }
+
         .modal-content button {
             background-color: #B9860A;
         }
@@ -165,6 +168,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
         </script>
     <?php endif; ?>
     <header>
+<<<<<<< HEAD
         <nav>
             <div class="logo">
                 <a href="/" class="logo-link">
@@ -191,6 +195,9 @@ $isLoggedIn = isset($_SESSION['user_id']);
                 </div>
             </ul>
         </nav>
+=======
+        <?php include 'public/templates/nav-blur.php' ?>
+>>>>>>> 96777874f5cf85b78a416b62717930bc9da0bb55
         <div class="carousel-content">
             <h1>RECIEN HECHO, TODOS LOS DIAS</h1>
             <p>Café recién preparado con granos seleccionados para ofrecerte una experiencia inigualable</p>
@@ -204,7 +211,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
                 <img src="/public/assets/img/kishore-v-tf7Y9kMhETg-unsplash.jpg" alt="Image 1">
             </div>
             <div class="carousel-item fade-out">
-                <img src="/public/assets/img/senya-mitin-PIy8Hrys8bQ-unsplash.jpg" alt="Image 2">
+                <img src="/public/assets/img/como-montar-cafeteria-.webp" alt="Image 2">
             </div>
             <div class="carousel-item fade-out">
                 <img src="/public/assets/img/hamza-nouasria-P2mIRmNIIPQ-unsplash.jpg" alt="Image 3">
@@ -248,8 +255,31 @@ $isLoggedIn = isset($_SESSION['user_id']);
                     }
                 }
             }
+            const toggleButton = document.querySelector('.toggle-button');
+            const navLinks = document.querySelector('.nav-links');
+            const dropdownLinks = document.querySelectorAll('.dropdown-link');
+
+            // Obtén la URL actual
+            const currentPage = window.location.pathname;
+
+            // Evento para mostrar/ocultar el menú de navegación
+            toggleButton.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+            });
+
+            // Evento para mostrar/ocultar el menú desplegable en móviles
+            dropdownLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Solo abre el dropdown si estás en tienda.php
+                    if (currentPage === '/public/tienda.php') {
+                        e.preventDefault();
+                        const dropdown = link.parentElement;
+                        dropdown.classList.toggle('active');
+                    }
+                });
+            });
         });
     </script>
 </body>
-
+<script src="/public/assets/js/updateCartCounter.js"></script>
 </html>

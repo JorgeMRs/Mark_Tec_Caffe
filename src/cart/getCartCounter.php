@@ -2,6 +2,8 @@
 session_start();
 include '../db/db_connect.php';
 
+// Obtener la cantidad del carrito del usuario autenticado
+
 try {
     // Verificar si el usuario está autenticado
     if (!isset($_SESSION['user_id'])) {
@@ -16,27 +18,21 @@ try {
     // Obtener conexión a la base de datos
     $conn = getDbConnection();
 
-    // Obtener el ID del carrito
-    $queryCarrito = $conn->prepare('SELECT idCarrito FROM carrito WHERE idCliente = ?');
-    $queryCarrito->bind_param('i', $idCliente);
-    $queryCarrito->execute();
-    $resultCarrito = $queryCarrito->get_result();
-    $carrito = $resultCarrito->fetch_assoc();
+    // Obtener la cantidad total de productos en el carrito en una sola consulta
+    $queryCantidad = $conn->prepare('
+        SELECT SUM(cd.cantidad) AS totalQuantity
+        FROM carrito c
+        LEFT JOIN carritodetalle cd ON c.idCarrito = cd.idCarrito
+        WHERE c.idCliente = ?
+    ');
+    $queryCantidad->bind_param('i', $idCliente);
+    $queryCantidad->execute();
+    $resultCantidad = $queryCantidad->get_result();
+    $cantidad = $resultCantidad->fetch_assoc();
 
-    if ($carrito) {
-        $idCarrito = $carrito['idCarrito'];
+    // Devolver la cantidad total o 0 si es nulo
+    echo json_encode(['status' => 'success', 'totalQuantity' => $cantidad['totalQuantity'] ?? 0]);
 
-        // Obtener la cantidad total de productos en el carrito
-        $queryCantidad = $conn->prepare('SELECT SUM(cantidad) AS totalQuantity FROM carritodetalle WHERE idCarrito = ?');
-        $queryCantidad->bind_param('i', $idCarrito);
-        $queryCantidad->execute();
-        $resultCantidad = $queryCantidad->get_result();
-        $cantidad = $resultCantidad->fetch_assoc();
-
-        echo json_encode(['status' => 'success', 'totalQuantity' => $cantidad['totalQuantity'] ?? 0]);
-    } else {
-        echo json_encode(['status' => 'success', 'totalQuantity' => 0]);
-    }
 } catch (Exception $e) {
     http_response_code(500);
     echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);

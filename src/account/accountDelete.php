@@ -1,4 +1,7 @@
 <?php
+
+// funcion para borrar cuenta y avatar del usuario
+
 function deleteAccount($user_id) {
     $conn = getDbConnection();
 

@@ -1,10 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 :root {
   --primary-color: #b8860b;
-  --secondary-color: #1e3a8a;
-  --background-color: #0f172a;
   --text-color: #e2e8f0;
   --accent-color: #b8860b;
 }
+
 
 body {
   font-family: "Poppins", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -12,148 +12,25 @@ body {
   padding: 0;
   background: var(--background-color);
   color: var(--text-color);
-  line-height: 1.6;
-  min-height: 100vh;
 }
 
-
-
-.user-icon {
-  width: 40px;
-  height: 40px;
-  margin: 0 5px;
-}
-
-nav {
-  display: flex;
-  align-items: center; /* Alinea verticalmente los elementos */
-  backdrop-filter: blur(10px);
-  justify-content: space-around; /* Distribuye los elementos en el espacio disponible */
-  padding: 1rem;
-  position: absolute;
-  width: 100%;
-  top: 0;
-  z-index: 1000;
-  background: rgba(0, 0, 0, 0.5); /* Fondo semitransparente negro */
-  transition: all 0.3s ease;
-}
-nav ul li a {
-  color: white;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s ease; /* Transición del color */
-  position: relative;
-}
-
-nav ul li a::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 2px; /* Altura de la línea */
-  bottom: -5px; /* Posición de la línea debajo del texto */
-  left: 0;
-  background-color: #b8860b; /* Color de la línea */
-  transform: scaleX(0); /* Inicialmente no visible */
-  transition: transform 0.3s ease; /* Transición de la línea */
-}
-
-nav ul li a:hover {
-  color: #b8860b; /* Cambia el color del texto al pasar el ratón */
-}
-
-nav ul li a:hover::after {
-  transform: scaleX(1); /* Muestra la línea al pasar el ratón */
-}
-.logo {
-  display: flex;
-  align-items: center; /* Alinea verticalmente al centro */
-  margin-left: 4vh;
-}
-.logo-link {
-  display: flex;
-  align-items: center;
-  text-decoration: none; /* Elimina el subrayado del enlace */
-}
-
-.logo img {
-  width: 70px; /* Ajusta el tamaño del logo según tus necesidades */
-  margin-right: 10px; /* Espacio entre el logo y el texto */
-}
-
-.logo-link h1 {
-  margin: 0;
-  font-size: 24px;
-  font-weight: bold;
-  color: white;
-  background: linear-gradient(45deg, #FFF, #b8860b);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.nav-links {
-  display: flex;
-  align-items: center; /* Alinea verticalmente los elementos de la lista */
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  margin-right: 3vh;
-}
-
-.nav-links li {
-  margin: 0 10px;
-}
-
-.nav-links a {
-  color: white;
-  text-decoration: none;
-  font-size: 16px;
-  transition: color 0.3s ease;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-}
-
-.nav-links a:hover {
-  color: #b8860b; /* Color dorado al pasar el cursor */
-}
-
-.cart {
-  position: relative;
-}
-
-.cart img {
-  width: 30px;
-  height: 30px;
-}
-
-.cart-counter {
-  position: absolute;
-  top: -5px;
-  right: -10px;
-  background-color: #8B4513; /* Marrón */
-  color: #ffffff; /* Blanco */
-  border-radius: 50%;
-  padding: 2px 6px;
-  font-size: 12px;
-}
 .hero {
-  background-image: url("/assets/img/hero-bg.jpg");
+  font-family: 'Poppins', sans-serif;
   background-size: cover;
   background-position: center;
-  height: 25vh;
+  height: 10vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
   padding: 2rem;
-  margin-top: 80px;
 }
 
-.hero h2 {
-  font-family: "Playfair Display", serif;
-  font-size: 4rem;
+.hero h1 {
+  font-size: 3rem;
   margin-bottom: 1rem;
-  color: var(--primary-color);
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  color: #DAA421;
 }
 
 .hero p {
@@ -164,7 +41,7 @@ nav ul li a:hover::after {
 }
 
 .mapa-world {
-  margin: 4rem auto;
+  margin: 0 auto;
   max-width: 1200px;
 }
 
@@ -192,13 +69,40 @@ nav ul li a:hover::after {
 }
 
 .pin-dot {
-  display: block;
-  width: 12px;
-  height: 12px;
+  width: 50px; /* Tamaño del círculo */
+  height: 50px; /* Tamaño del círculo */
   background-color: #1e3a8a;
   border-radius: 50%;
   box-shadow: 0 0 0 rgba(184, 134, 11, 0.4);
   animation: pulse 2s infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white; /* Color del texto de las iniciales */
+  font-weight: bold;
+  font-size: 16px; /* Tamaño de las iniciales */
+  transition: transform 0.5s ease;
+}
+
+.pin-dot:hover {
+  transform: scale(1.1);
+}
+
+/* Añadir las iniciales de cada país dentro del pin-dot */
+.pin.francia .pin-dot::before {
+  content: 'FR';
+}
+
+.pin.alemania .pin-dot::before {
+  content: 'DE';
+}
+
+.pin.portugal .pin-dot::before {
+  content: 'PT';
+}
+
+.pin.españa .pin-dot::before {
+  content: 'ES';
 }
 
 /* Inicialmente, las imágenes y la información están ocultas */
@@ -252,21 +156,6 @@ nav ul li a:hover::after {
   color: black;
   font-size: 0.9rem;
 }
-.pin.francia {
-  z-index: 10;
-}
-
-.pin.alemania {
-  z-index: 20;
-}
-
-.pin.portugal {
-  z-index: 30;
-}
-
-.pin.españa {
-  z-index: 40;
-}
 @keyframes pulse {
   0% {
     box-shadow: 0 0 0 0 rgb(255 0 0 / 95%);
@@ -278,11 +167,17 @@ nav ul li a:hover::after {
     box-shadow: 0 0 0 0 rgba(184, 134, 11, 0);
   }
 }
+.pin {
+  z-index: 10;
+}
 
+.pin-info {
+  z-index: 11; 
+}
 .pin::after {
   content: attr(data-country);
   position: absolute;
-  bottom: 20px;
+  bottom: 60px;
   left: 50%;
   transform: translateX(-50%);
   background-color: rgba(0, 0, 0, 0.7);
@@ -299,20 +194,20 @@ nav ul li a:hover::after {
 }
 
 .pin.francia {
-  left: 32.8%;
-  top: 54%;
+    left: 31.8%;
+    top: 51%;
 }
 .pin.alemania {
-  left: 47.8%;
-  top: 46%;
+  left: 45.8%;
+  top: 45%;
 }
 .pin.portugal {
-  left: 15.8%;
-  top: 71%;
+  left: 14.8%;
+  top: 69%;
 }
 .pin.españa {
-  left: 23.8%;
-  top: 68%;
+  left: 22.8%;
+  top: 66%;
 }
 .locations-grid {
   display: grid;
@@ -352,109 +247,6 @@ nav ul li a:hover::after {
   color: var(--text-color);
 }
 
-
-footer {
-  background-color: #1e3a8a;
-  color: #DAA421;
-  text-align: center;
-  width: 100%;
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-}
-footer p{
-  margin-top: 16px;
-}
-
-.footer-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-.footer-section {
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.footer-section h3 {
-  font-family: 'Poppins';
-  font-size: 24px;
-  font-weight: 600;
-  margin-bottom: 15px;
-}
-
-.footer-section p,
-.footer-section ul {
-  font-family: 'Poppins';
-  font-size: 16px;
-  font-weight: 400;
-}
-
-.footer-section ul {
-  list-style: none;
-  padding: 0;
-}
-
-.footer-section ul li {
-  margin-bottom: 10px;
-}
-
-.footer-section ul li a {
-  color: #daa421;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.footer-section ul li a:hover {
-  color: #1B0D0B;
-}
-.footer-section h3{
-  margin-top: 24px;
-}
-.socials {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-}
-
-.socials a {
-  color: #daa421;
-  margin: 0 10px;
-  font-size: 20px;
-  transition: color 0.3s ease;
-}
-
-.socials a:hover {
-  color: #1B0D0B;
-}
-
-.footer-bottom {
-  background-color: #1B0D0B;
-  /* Marrón oscuro */
-  padding: 20px 0;
-  width: 100%;
-  font-family: 'Poppins';
-  font-size: 16px;
-  font-weight: 400;
-  color: #FFF;
-}
-
-@media (min-width: 768px) {
-  .footer-content {
-      flex-direction: row;
-      justify-content: space-between;
-      text-align: left;
-  }
-
-  .footer-section {
-      flex: 1;
-      padding: 0 20px;
-  }
-
-  
-}
 @media (max-width: 768px) {
   .nav-links {
       display: block !important;
