@@ -16,7 +16,7 @@ if (!isset($_SESSION['user_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="pagar">
     <meta name="author" content="MarkTec">
-    <title>MarkShop</title>
+    <title>Cafe Sabrosos</title>
     <link rel="stylesheet" href="assets/css/pagar.css" media="screen and (min-width: 769px)">
     <link rel="stylesheet" href="assets/css/pagarmobile.css" media="screen and (max-width: 768px)">
     <link rel="icon" href="assets/img/icons/favicon-32x32.png">
@@ -54,7 +54,7 @@ if (!isset($_SESSION['user_id'])) {
                 <input type="checkbox" name="terminos" id="terminos">
                 <label for="terminos">Guardar esta información</label>
             </div>
-
+            <h2>Información de pedido</h2>
             <!-- Añadir campos para el tipo de pedido -->
             <div class="order-type">
                 <label>
