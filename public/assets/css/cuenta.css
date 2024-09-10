@@ -1,0 +1,502 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4; 
+    color: #333333; 
+    font-family: 'Montserrat', sans-serif;
+}
+
+.image-link {
+    display: block;
+    text-decoration: none; 
+}
+
+.image-container {
+    cursor: pointer; 
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+}
+
+/* Estilos del contenedor de perfil */
+.profile-container {
+    background: whitesmoke;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
+    width: 90%;
+    max-width: 600px; 
+    margin: 80px auto 100px;
+}
+
+.profile-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #8B4513;
+}
+
+.profile-info {
+    margin-bottom: 15px;
+}
+
+.profile-info .input-container {
+    position: relative;
+    margin-bottom: 15px;
+    padding-bottom: 5px; 
+}
+
+.profile-info .input-container i {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    color: #333333;
+}
+
+.profile-info input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-bottom: 1px solid #b8860b; 
+    background-color: transparent;
+    color: #8B4513;
+    box-sizing: border-box; 
+}
+
+.profile-info input::placeholder {
+    color: #8B4513;
+}
+
+
+.profile-info input:focus {
+    outline: none;
+    border-bottom: 2px solid #DAA520; /* Color dorado más brillante para el enfoque */
+}
+.profile-info .input-container::after {
+    content: "";
+    display: block;
+    height: 2px; /* Altura del borde */
+    background: #DAA520; /* Color del borde cuando está enfocado */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1; 
+}
+/* Estilos del formulario */
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button:hover {
+    background-color: #8B4513;
+    color: #ffffff;
+}
+
+.save-btn {
+    background-color: #DAA520;
+    color: #ffffff;
+}
+
+.save-btn:hover {
+    background-color: #8B4513;
+}
+
+.logout-btn {
+    background-color: #b8860b;
+    color: #ffffff;
+}
+
+.logout-btn:hover {
+    background-color: #8B4513;
+}
+
+.delete-btn {
+    background-color: #DAA520;
+    color: #ffffff;
+}
+
+.delete-btn:hover {
+    background-color: #8B4513;
+}
+
+/* Estilos para los botones de acción en el perfil */
+.action-buttons {
+    margin-top: 2vh;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.action-buttons form {
+    width: 48%;
+    margin: 0;
+}
+
+.action-buttons button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.action-buttons .logout-btn,
+.action-buttons .delete-btn {
+    background-color: #DAA520;
+    color: #ffffff;
+}
+
+.action-buttons .logout-btn:hover,
+.action-buttons .delete-btn:hover {
+    background-color: #8B4513;
+}
+
+/* Estilos del avatar */
+.avatar-section {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.avatar-label {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #8B4513;
+}
+
+.avatar-preview {
+    margin-bottom: 10px;
+}
+
+.avatar-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #b8860b;
+}
+
+input[type="file"] {
+    display: block;
+    margin: 0 auto;
+}
+
+/* Mensajes de éxito y error */
+.success-message {
+    display: block;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+    transition: opacity 0.6s ease;
+}
+
+.error-message {
+    display: block;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+    transition: opacity 0.6s ease;
+}
+
+/* Estilos para los campos de nombre y apellido */
+.name-fields {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.name-fields input[type="text"] {
+    width: 48%;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-bottom: 1px solid #b8860b;
+    background-color: transparent;
+    color: #8B4513;
+}
+
+.name-fields input[type="text"]::placeholder {
+    color: #8B4513;
+}
+
+.name-fields input[type="text"]:focus {
+    outline: none;
+    border-bottom: 2px solid #DAA520;
+}
+.success-avatar {
+    display: block;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+    transition: opacity 0.6s ease;
+}
+
+.error-avatar {
+    display: block;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+    transition: opacity 0.6s ease;
+}
+.delete-avatar-btn{
+    background-color: #DAA520;
+    color: #ffffff;
+}
+
+/* Modal para la subida de avatar */
+.cropper-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 1 !important;
+    background: transparent !important;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* Contenido del Modal */
+.cropper-modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    position: relative;
+    max-width: 90%;
+    max-height: 90vh;
+    overflow: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Botón de Cierre del Modal */
+.cropper-close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #f1f1f1;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    z-index: 10000;
+}
+
+/* Imagen dentro del Modal */
+.cropper-image {
+    max-width: 100%;
+    max-height: 60vh;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Contenedor de Botones */
+.cropper-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    gap: 10px;
+}
+
+.cropper-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.cropper-crop-button {
+    background-color: #DAA520;
+    color: white;
+}
+
+.cropper-cancel-button {
+    background-color: #8B4513;
+    color: white;
+}
+
+.cropper-crop-button:hover {
+    background-color: #DAA520;
+}
+
+
+ /* Modal de eliminar cuenta - cuenta */
+ .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.modal-content h2 {
+    color: #b8860b;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.modal-buttons button {
+    padding: 10px 20px;
+    border: none;
+    white-space: nowrap;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 195px;
+}
+
+#confirmDeleteBtn {
+    background-color: #e74c3c;
+    color: white;
+}
+
+#cancelDeleteBtn {
+    background-color: #b8860b;
+    color: white;
+}
+
+form#deleteAccountForm {
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal-content p a {
+    color: #b8860b;
+}
+
+.modal-content p a:hover {
+    color: #333;
+}
+
+@media (max-width: 768px) {
+    .modal-content {
+        margin: 50% auto;
+        width: 85%;
+    }
+
+    .modal-buttons {
+        flex-direction: column;
+    }
+
+    .modal-buttons button {
+        width: 100%;
+        max-width: none;
+        margin-top: 10px;
+    }
+
+    form#deleteAccountForm {
+        margin-right: 0;
+        display: flex;
+    }
+}
+
+.profile-container {
+    padding: 18px;
+}
+
+/* Segundo modal de confirmacion */
+#codeVerificationModal .modal-content {
+    background-color: #f9f9f9;
+}
+
+#codeVerificationModal input[type="text"] {
+    width: 80%;
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+#codeVerificationModal #verifyCodeBtn {
+    background-color: #b8860b;
+    color: white;
+}
+
+#codeVerificationModal #cancelCodeVerificationBtn {
+    background-color: #e74c3c;
+    color: white;
+}
+
+#generatedCode {
+    user-select: none;
+}
+
+.back-button {
+    border: none;
+    font-size: 18px;
+    color: #b8860b;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    margin-bottom: 10px;
+    text-decoration: underline;
+}
+
+.back-button:hover {
+    background-color: #f9f9f9;
+    color: #b8860b;
+}
+  
+
+
+  
