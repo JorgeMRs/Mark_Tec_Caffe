@@ -12,6 +12,12 @@
     ],
     "require": {
         "phpmailer/phpmailer": "^6.9",
-        "vlucas/phpdotenv": "^5.6"
+        "vlucas/phpdotenv": "^5.6",
+        "kreait/firebase-php": "*",
+      "ext-json": "*",
+      "ext-mysqli": "*",
+        "stichoza/google-translate-php": "^5.2",
+        "endroid/qr-code": "^5.0",
+        "stripe/stripe-php": "^15.8"
     }
 }

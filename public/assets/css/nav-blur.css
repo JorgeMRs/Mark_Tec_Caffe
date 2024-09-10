@@ -1,0 +1,500 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Estilos generales para el nav */
+nav {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.5);
+  padding: 1rem;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  box-sizing: border-box;
+}
+
+/* Estilos para la sección del logo */
+.logo {
+  display: flex;
+  align-items: center;
+  margin-left: 15vh;
+  font-family: "Poppins";
+  font-weight: 700;
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo img {
+  width: 70px;
+  margin-right: 10px;
+}
+
+.logo-link h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(45deg, #fff, #b8860b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Estilos para la sección de navegación e íconos */
+.nav-content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-grow: 1;
+  margin-right: 15vh;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  margin: 0 10px;
+}
+
+.nav-links a {
+  font-family: "Monterrat", sans-serif;
+  position: relative;
+  /* Asegura que el ::after esté posicionado respecto al enlace */
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s ease;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.nav-links a:hover {
+  color: #b8860b;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background-color: #b8860b;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.user-icon,
+.cart {
+  transition: transform 0.3s ease-in-out;
+}
+
+.user-icon:hover,
+.cart:hover {
+  transform: scale(1.1);
+}
+
+.nav-links a:hover::after {
+  transform: scaleX(1);
+}
+
+.nav-icons {
+  display: flex;
+  align-items: center;
+  margin-left: 5px;
+  /* Espacio entre nav-links y íconos */
+}
+
+.user-icon {
+  width: 40px;
+  height: 40px;
+  margin: 0 10px;
+}
+
+.cart {
+  position: relative;
+}
+
+.cart img {
+  width: 30px;
+  height: 30px;
+}
+
+/* Estilo del contador del carrito */
+.cart-counter {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background-color: #8b4513;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.cart:hover .cart-counter {
+  transform: scale(1.1);
+}
+
+/* Estilos para la previsualización del carrito */
+@keyframes expandVertical {
+  from {
+    max-height: 0; /* Comienza con altura cero */
+  }
+  to {
+    max-height: 350px; /* Ajusta este valor según la altura máxima deseada */
+  }
+}
+
+@keyframes expandVerticalOut {
+  from {
+    max-height: 350px; /* Altura máxima alcanzada durante la expansión */
+  }
+  to {
+    padding-top: 0;
+    max-height: 0; /* Vuelve a la altura cero */
+  }
+}
+
+.cart-preview {
+  position: fixed;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  max-height: 0; /* Inicialmente oculto con altura cero */
+  overflow-y: hidden; /* Oculta el contenido que no cabe en el contenedor */
+  padding: 0; /* Sin relleno inicial */
+  opacity: 1; /* Siempre visible */
+  transform-origin: top; /* Asegura que la expansión comience desde la parte superior */
+  transition: none; /* Sin transición de opacidad */
+  display: none; /* Oculto por defecto */
+}
+
+/* Personalización del scrollbar para navegadores basados en WebKit */
+.cart-preview::-webkit-scrollbar {
+  width: 8px; /* Ancho del scrollbar */
+}
+
+.cart-preview::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Color de fondo del track */
+}
+
+.cart-preview::-webkit-scrollbar-thumb {
+  background: #888; /* Color del thumb (parte movible del scrollbar) */
+  border-radius: 10px; /* Bordes redondeados del thumb */
+}
+
+.cart-preview::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Color del thumb al pasar el mouse sobre él */
+}
+
+.cart-preview.visible {
+  overflow-y: scroll; /* Habilita el scrollbar cuando sea visible */
+  display: block; /* Mostrar el preview cuando esté visible */
+  padding: 10px; /* Relleno final del contenedor */
+  animation: expandVertical 0.3s ease-in-out forwards; /* Expansión lenta */
+}
+
+.cart-preview.hide {
+  animation: expandVerticalOut 0.3s ease-in-out forwards; /* Cierre lento */
+  overflow-y: scroll;
+  /* Se utiliza JavaScript para ocultar el contenedor después de la animación */
+}
+
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #ccc; /* Línea separadora */
+  padding: 10px 0;
+}
+
+.cart-subtotal {
+  display: flex;
+  justify-content: space-between; /* Alinea el texto y el precio */
+  padding: 10px 0;
+  font-size: 14px;
+  font-weight:400;
+  margin-top: 10px;
+}
+.cart-subtotal .subtotal-text {
+  text-align: left; /* Alinea el texto a la izquierda */
+}
+
+.cart-subtotal .subtotal-price {
+  text-align: right; /* Alinea el precio a la derecha */
+}
+
+.cart-item img {
+  width: 90px;
+  height: 80px;
+}
+h4{
+  color: #DAA421;
+}
+.cart-item-details {
+  flex-grow: 1;
+  margin-left: 10px;
+}
+
+.view-cart-button {
+  display: block;
+  margin-top: 10px;
+  text-align: center;
+  background-color: #DAA421;
+  color: white;
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+/* Ajustes adicionales cuando haya muchos productos en el carrito */
+.cart-preview ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0; /* Eliminar márgenes para que el contenido ocupe más espacio */
+}
+
+.cart-item-details h4 {
+  font-size: 14px;
+  margin: 0;
+}
+
+.cart-item-details p {
+  font-size: 12px;
+  margin: 0;
+}
+
+.cart:hover .cart-counter {
+  transform: scale(1.1);
+}
+
+/* Estilos para el botón de toggle (menú hamburguesa) */
+.nav-toggle {
+  display: none;
+}
+
+.toggle-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  color: white;
+  margin-left: 10px;
+}
+
+/* Dropdown para versión móvil */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #ddd;
+  z-index: 1000;
+}
+
+.dropdown-menu a {
+  padding: 10px;
+  display: block;
+  text-decoration: none;
+  color: #000;
+}
+
+.dropdown.active .dropdown-menu {
+  display: block; /* Mostrar cuando la clase show está presente */
+}
+
+/* Ocultar elementos en versiones móviles y desktop */
+.mobile-only {
+  display: none;
+}
+
+.desktop-only {
+  display: block;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .nav-content {
+    flex-direction: row;
+    align-items: flex-start;
+    margin-right: 0vh;
+  }
+
+  .nav-toggle {
+    display: block;
+  }
+
+  .desktop-only {
+    display: none;
+  }
+
+  .mobile-only {
+    display: block;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    width: 100%;
+    display: none;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .nav-icons {
+    margin-left: 0;
+  }
+}
+@media (max-width: 768px) {
+  nav {
+    display: flex;
+    backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: space-around;
+    padding: 1rem;
+    width: 100%;
+    top: 0;
+    position: relative;
+    z-index: 1000;
+    box-sizing: border-box;
+  }
+  .header-content {
+    position: absolute;
+    top: 40%;
+    right: 0%;
+    transform: translateY(-50%);
+    text-align: center;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    margin-left: 0;
+  }
+  .logo-link h1 {
+    display: none;
+  }
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    position: absolute;
+    top: 95px;
+    left: 0;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 999;
+  }
+
+  .nav-links.active {
+    display: flex; /* Mostrar el menú cuando está activo */
+  }
+
+  .nav-links li {
+    margin: 15px 10px;
+  }
+
+  .nav-links .cart,
+  .nav-links .user-icon {
+    display: none; /* Ocultar carrito y usuario dentro del menú desplegable */
+  }
+
+  .nav-toggle {
+    display: block; /* Mostrar el botón de toggle en móviles */
+  }
+}
+
+/* Mobile styles for categories */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+
+  .nav-links.active {
+    display: block;
+  }
+
+  .dropdown-menu a {
+    padding: 15px;
+    font-size: 16px;
+  }
+}
+@media (max-width: 768px) {
+  .sidebar {
+    display: none; /* Oculta el sidebar en pantallas pequeñas */
+  }
+  h1 {
+    font-family: "Poppins";
+    font-weight: 700;
+    text-align: center;
+    font-size: 50px;
+    color: #1e1e1e;
+    margin-bottom: 20px;
+    margin: 0;
+    margin-left: 0vh;
+  }
+  /* Reorganizar categorías y productos en una sola columna */
+  .product-grid {
+    grid-template-columns: 1fr; /* Una sola columna */
+    gap: 10px; /* Reducir el espacio entre los elementos */
+  }
+
+  .product-item {
+    width: 100%; /* Asegura que los elementos ocupen todo el ancho */
+  }
+  .product-item h3 {
+    font-size: 24px; /* Ajustar el tamaño del texto para pantallas pequeñas */
+  }
+}
+
+/* Mostrar dropdown en pantallas móviles */
+@media (max-width: 768px) {
+  .mobile-only {
+    display: block; /* Mostrar en pantallas móviles */
+  }
+
+  .desktop-only {
+    display: none; /* Ocultar en pantallas móviles */
+  }
+
+  /* Ajustes adicionales para menú desplegable en móvil */
+  .dropdown-menu {
+    display: none; /* Oculto por defecto */
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+
+  .dropdown.open .dropdown-menu {
+    display: block; /* Mostrar menú desplegable al hacer clic */
+  }
+
+  .dropdown-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

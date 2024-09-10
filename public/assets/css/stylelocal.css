@@ -1,0 +1,259 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+:root {
+  --primary-color: #b8860b;
+  --text-color: #e2e8f0;
+  --accent-color: #b8860b;
+}
+
+
+body {
+  font-family: "Poppins", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: var(--background-color);
+  color: var(--text-color);
+}
+
+.hero {
+  font-family: 'Poppins', sans-serif;
+  background-size: cover;
+  background-position: center;
+  height: 10vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #DAA421;
+}
+
+.hero p {
+  font-size: 1.5rem;
+  max-width: 600px;
+  color: var(--text-color);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.mapa-world {
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.map-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  height: 150vh;
+  max-height: 1151px; /* También puedes limitar el alto máximo */
+}
+
+.map-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.pin {
+  position: absolute;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pin-dot {
+  width: 50px; /* Tamaño del círculo */
+  height: 50px; /* Tamaño del círculo */
+  background-color: #1e3a8a;
+  border-radius: 50%;
+  box-shadow: 0 0 0 rgba(184, 134, 11, 0.4);
+  animation: pulse 2s infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white; /* Color del texto de las iniciales */
+  font-weight: bold;
+  font-size: 16px; /* Tamaño de las iniciales */
+  transition: transform 0.5s ease;
+}
+
+.pin-dot:hover {
+  transform: scale(1.1);
+}
+
+/* Añadir las iniciales de cada país dentro del pin-dot */
+.pin.francia .pin-dot::before {
+  content: 'FR';
+}
+
+.pin.alemania .pin-dot::before {
+  content: 'DE';
+}
+
+.pin.portugal .pin-dot::before {
+  content: 'PT';
+}
+
+.pin.españa .pin-dot::before {
+  content: 'ES';
+}
+
+/* Inicialmente, las imágenes y la información están ocultas */
+.pin-image, .pin-info {
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  z-index: 10;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px); /* Initial position for animation */
+}
+
+/* Estilo de la imagen */
+.pin-image {
+  width: 320px !important;
+  height: 150px !important;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  bottom: -150px; /* Position below the pin */
+}
+
+/* Estilo del contenedor de información */
+.pin-info {
+  background-color: #fff;
+  width: 300px;
+  padding: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  bottom: -120px;
+}
+
+/* Mostrar imagen e información solo cuando el pin esté en hover */
+.pin:hover .pin-image, .pin:hover .pin-info {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0); /* Move to final position */
+}
+
+.pin-details {
+  padding: 10px;
+}
+
+.pin-details h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: var(--primary-color);
+}
+
+.pin-details p {
+  margin: 0;
+  color: #1e1e1e;
+  font-size: 0.9rem;
+}
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgb(255 0 0 / 95%);
+}
+  70% {
+    box-shadow: 0 0 0 10px rgba(184, 134, 11, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(184, 134, 11, 0);
+  }
+}
+.pin {
+  z-index: 10;
+}
+
+.pin-info {
+  z-index: 11; 
+}
+.pin::after {
+  content: attr(data-country);
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: var(--text-color);
+  padding: 5px 10px;
+  border-radius: 5px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  white-space: nowrap;
+}
+
+.pin.hover::after {
+  opacity: 1;
+}
+
+.pin.francia {
+    left: 31.8%;
+    top: 51%;
+}
+.pin.alemania {
+  left: 45.8%;
+  top: 45%;
+}
+.pin.portugal {
+  left: 14.8%;
+  top: 69%;
+}
+.pin.españa {
+  left: 22.8%;
+  top: 66%;
+}
+.locations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1350px;
+  margin: 35px auto;
+}
+.location-card {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.location-card:hover {
+  transform: translateY(-5px);
+}
+
+.location-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.location-card h3 {
+  font-family: "Playfair Display", serif;
+  color: var(--primary-color);
+  padding: 1rem;
+  margin: 0;
+}
+
+.location-card p {
+  padding: 0 1rem 1rem;
+  color: var(--text-color);
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+      display: block !important;
+      /* Alinea verticalmente los elementos de la lista */
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      margin-right: 3vh;
+  }
+}

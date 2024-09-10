@@ -1,143 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 /* Estilos generales */
-body, html {
+body {
+    display: flex;
+    flex-direction: column;
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
-    overflow-x: hidden;
-    color: white;
-    height: 100%;
+    color: #333;
+    min-height: 100vh;
+    color: #333333;
+    font-family: 'Montserrat', sans-serif;
 }
 
 header {
     position: relative;
     height: 100vh;
     overflow: hidden;
+    transition: all 0.3s ease;
+    
 }
 
-.user-icon {
-    width: 40px;
-    height: 40px;
-    margin: 0 5px;
-  }
-  nav {
-    display: flex;
-    align-items: center; /* Alinea verticalmente los elementos */
-    justify-content: space-between; /* Distribuye los elementos en el espacio disponible */
-    padding: 20px 50px;
-  }
-  
-  .logo {
-    display: flex;
-    align-items: center; /* Alinea verticalmente el logo y el texto */
-  }
-  
-  .logo img {
-    width: 70px;
-    height: 70px; /* Ajusta el tamaño del logo */
-    margin-right: 10px;
-  }
-  
-  .logo h1 {
-    margin: 0;
-    font-size: 24px;
-    font-weight: bold;
-    color: white;
-  }
-  
-  .nav-links {
-    display: flex;
-    align-items: center; /* Alinea verticalmente los elementos de la lista */
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .nav-links li {
-    margin: 0 10px;
-  }
-  
-  .nav-links a {
-    color: white;
-    text-decoration: none;
-    font-size: 16px;
-    transition: color 0.3s ease;
-  }
-  
-  .nav-links a:hover {
-    color: #b8860b;
-  }
-  
-  .user-icon {
-    width: 40px;
-    height: 40px;
-    margin: 0 5px;
-  }
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 50px;
-    position: absolute;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-    background: rgba(0, 0, 0, 0.5); /* Fondo semitransparente negro */
+@media (max-width: 768px) {
+    .main-content {
+        margin-top: 80px; /* Aumenta el margen para pantallas pequeñas */
+    }
 }
 
+/* Estilos para pantallas pequeñas */
 
-nav .logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: white;
-    width: 60%;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-nav ul {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    width: 50%;
-}
-
-nav ul li {
-    margin: 0 15px;
-}
-
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: 16px;
-    transition: color 0.3s ease;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-}
-
-nav ul li a:hover {
-    color: #b8860b; /* Color dorado al pasar el cursor */
-}
-.logo {
-    display: flex;
-    align-items: center; /* Alinea verticalmente al centro */
-}
-
-.logo img {
-    width: 70px; /* Ajusta el tamaño del logo según tus necesidades */
-    margin-right: 10px; /* Espacio entre el logo y el texto */
-}
-
-.logo h1 {
-    margin: 0; /* Elimina el margen por defecto */
-}
-
-
+/* Estilos para el contenido del carrusel */
 .carousel-content {
     position: relative;
     z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    margin-top: 10%;
     height: 100%;
     text-align: center;
     color: white;
@@ -148,6 +45,8 @@ nav ul li a:hover {
 .carousel-content h1 {
     font-size: 48px;
     margin-bottom: 20px;
+    font-family: 'Poppins';
+    font-weight: 500;
 }
 
 .carousel-content p {
@@ -170,6 +69,7 @@ nav ul li a:hover {
     border-color: #b8860b;
 }
 
+/* Estilos para el carrusel */
 .carousel {
     position: absolute;
     top: 0;
@@ -240,3 +140,121 @@ nav ul li a:hover {
 .carousel-indicators .indicator.active {
     background: rgba(255, 255, 255, 1);
 }
+/* Estilos para pantallas pequeñas */
+@media (max-width: 768px) {
+    .carousel-content h1 {
+            margin-top: 50%;
+            font-size: 35px;
+            margin-bottom: 20px;
+            font-family: 'Poppins';
+            font-weight: 500;  
+            color: #fff;
+    }
+    
+    /* Añade margen superior para evitar que el contenido choque con el nav */
+    .main-content {
+        margin-top: 80px; /* Ajusta según el tamaño del nav */
+    }
+}
+
+
+/* parte de abajo */
+.indicator {
+    width: 10px;
+    height: 10px;
+    background-color: #fff;
+    border-radius: 50%;
+}
+
+.indicator.active {
+    background-color: #b8860b;
+}
+
+.hero {
+    background-image: url('hero.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #b8860b;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.hero-content h2 {
+    margin: 0;
+    font-size: 36px;
+}
+
+.info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 40px 20px;
+    background-color: #e4e4e4;
+}
+
+.info-box {
+    border-radius: 40px;
+    width: calc(50% - 20px); /* Ajuste para dos columnas en pantallas pequeñas */
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.info-box h3 {
+    margin-top: 0;
+    font-size: 24px;
+    color: #b8860b;
+}
+
+.cta {
+    background-image: url('cta-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #b8860b;
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.cta-content h3 {
+    margin: 0;
+    font-size: 36px;
+}
+
+.cta-content button {
+    
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #b8860b;
+    border-radius: 33px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+.features {
+    border-radius: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 40px 20px;
+    background-color: #fff;
+}
+
+.feature {
+    border-radius: 40px;
+    width: calc(33.33% - 20px); /* Ajuste para tres columnas en pantallas pequeñas */
+    text-align: center;
+    padding: 20px;
+    background-color: #e4e4e4;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.feature h4 {
+    margin-top: 0;
+    font-size: 20px;
+    color: #b8860b;
+}
+

@@ -1,0 +1,238 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #DAA421;
+}
+
+.mesas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.mesa {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.mesa:hover {
+    transform: scale(1.05);
+}
+
+.ocupada {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.reservado {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.disponible {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.btn-reservar {
+    display: inline-block;
+    padding: 10px 15px;
+    margin-top: 10px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #DAA421;
+    border-radius: 5px;
+}
+
+.btn-reservar:hover {
+    background-color: #1B0C0A;
+}
+
+.mensaje-no-disponible {
+    position: absolute;
+    bottom: 10px;
+    width: calc(100% - 20px);
+    left: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+
+/* Estilos del modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    /* Fondo oscuro semitransparente */
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Contenido del modal */
+.modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 30px;
+    border: none;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    /* Sombra suave */
+    position: relative;
+    animation: fadeIn 0.4s ease-in-out;
+    /* Animación de entrada */
+}
+.modal-content h2{
+    color: #DAA421;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Botón de cerrar (X) */
+.close {
+    color: #888;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.close:hover {
+    color: #333;
+    /* Cambio de color al pasar el ratón */
+}
+
+/* Estilos del formulario */
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #1B0C0A;
+}
+.error-message {
+color: red;
+display: none; /* Ocultar por defecto */
+}
+input[type="date"],
+input[type="time"],
+select {
+    width: 100%;
+    padding: 10px 0px 10px 0px;
+    margin-bottom: 20px;
+    /* margin-right: 7px; */
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+input[type="date"]:focus,
+input[type="time"]:focus,
+select:focus {
+    outline: none;
+    border-color: #00aaff;
+    /* Color de borde al enfocar */
+    background-color: #fff;
+}
+
+/* Botón de enviar */
+.btn-reservar2 {
+    background-color: #DAA421;
+    color: #1B0C0A;
+    border: none;
+    padding: 12px 20px;
+    width: 100%;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    transition: 0.5s ease;
+}
+
+.btn-reservar2:hover {
+    background-color: #1B0C0A;
+    transition: 0.5s ease;
+    color: #DAA421;
+    /* Cambio de color al pasar el ratón */
+}
+
+
+
+/* Modal para aviso de sesion - reservas */
+.aviso-close {
+    color: #888;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.aviso-close:hover {
+    color: #333;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-content h2 {
+    color: #DAA421;
+}
