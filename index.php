@@ -204,12 +204,6 @@ $isLoggedIn = isset($_SESSION['user_id']);
         </div>
         <div class="info-box">
             <h3>Celebra tus fiestas con nosotros</h3>
-            <p>Organiza tus eventos y celebraciones con nosotros, garantizando un ambiente acogedor y sabores
-                irresistibles.</p>
-            <p>Disfruta de nuestro delicioso brunch dominical en un ambiente acogedor, con café fresco y una selección de platillos para empezar bien tu día.</p>
-        </div>
-        <div class="info-box">
-            <h3>Celebra tus fiestas con nosotros</h3>
             <p>Organiza tus eventos y celebraciones con nosotros, garantizando un ambiente acogedor y sabores irresistibles.</p>
         </div>
     </section>
