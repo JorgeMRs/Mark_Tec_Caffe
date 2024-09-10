@@ -22,9 +22,34 @@ try {
 
     $conn = getDbConnection();
 
-    // Actualizar la cantidad del producto en el carrito
-    $queryUpdate = $conn->prepare('UPDATE carritodetalle SET cantidad = ? WHERE idProducto = ? AND idCarrito = (SELECT idCarrito FROM carrito WHERE idCliente = ?)');
-    $queryUpdate->bind_param('iii', $nuevaCantidad, $idProducto, $idCliente);
+    // Obtener el id del carrito más reciente del cliente
+    $queryCarrito = $conn->prepare('
+        SELECT idCarrito 
+        FROM carrito 
+        WHERE idCliente = ? 
+        ORDER BY fechaCreacion DESC 
+        LIMIT 1
+    ');
+    $queryCarrito->bind_param('i', $idCliente);
+    $queryCarrito->execute();
+    $queryCarrito->bind_result($idCarrito);
+    $queryCarrito->fetch();
+    $queryCarrito->close();
+
+    if (!$idCarrito) {
+        http_response_code(404);
+        echo json_encode(['status' => 'error', 'message' => 'Carrito no encontrado.']);
+        exit;
+    }
+
+    // Actualizar la cantidad del producto en el carrito más reciente
+    $queryUpdate = $conn->prepare('
+        UPDATE carritodetalle 
+        SET cantidad = ? 
+        WHERE idProducto = ? 
+        AND idCarrito = ?
+    ');
+    $queryUpdate->bind_param('iii', $nuevaCantidad, $idProducto, $idCarrito);
     $queryUpdate->execute();
 
     if ($queryUpdate->affected_rows > 0) {

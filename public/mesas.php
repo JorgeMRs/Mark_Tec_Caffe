@@ -76,7 +76,7 @@ try {
             <form id="reservaForm" action="/src/reservas/reservar.php" method="post">
                 <input type="hidden" id="mesaId" name="mesa_id">
                 <input type="hidden" id="sucursalId" name="sucursal_id">
-
+                <body data-sucursal-id="<?php echo $sucursalId; ?>">
                 <label for="fechaReserva">Fecha:</label>
                 <input type="date" id="fechaReserva" name="fechaReserva" required>
 

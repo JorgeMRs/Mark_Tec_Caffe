@@ -19,7 +19,7 @@ $response = ['success' => false, 'message' => ''];
 
 try {
     // Directory where avatars are stored
-    $uploadDir = '/var/www/cafesabrosos/public/assets/img/avatars/';
+    $uploadDir = '../../public/assets/img/avatars/';
 
     // Query to get the current avatar name
     $sql = "SELECT avatar FROM cliente WHERE idCliente=?";

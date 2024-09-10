@@ -153,7 +153,7 @@ body {
 
 .pin-details p {
   margin: 0;
-  color: black;
+  color: #1e1e1e;
   font-size: 0.9rem;
 }
 @keyframes pulse {

@@ -44,18 +44,14 @@ document.addEventListener("DOMContentLoaded", function () {
             category.addEventListener('click', function() {
                 const categoryName = this.getAttribute('data-category');
                 const categoryId = this.getAttribute('data-category-id');
-    
-                // Guardar la categoría seleccionada en localStorage
+
                 localStorage.setItem('selectedCategory', JSON.stringify({ category: categoryName, idCategoria: categoryId }));
-    
-                // Ocultar categorías principales y mostrar los detalles
+
                 document.getElementById('main-category').style.display = 'none';
                 document.getElementById('category-details').style.display = 'block';
-    
-                // Cargar productos para la categoría seleccionada
+
                 loadProducts(categoryName, categoryId);
-    
-                // Establecer el fragmento de URL para el desplazamiento
+
                 window.location.hash = 'category-details';
                 scrollToCategoryDetails();
             });
@@ -126,7 +122,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById('sidebar').classList.add('sticky-sidebar');
             }
 
-                // Añadir eventos a las categorías del sidebar
                 addSidebarEvents();
             })
             .catch((error) => console.error("Error:", error));
@@ -135,29 +130,23 @@ document.addEventListener("DOMContentLoaded", function () {
     // Definir productItems
     const productItems = document.querySelectorAll(".product-item");
 
-    // Eventos para las categorías principales
     productItems.forEach((item) => {
         item.addEventListener("click", function () {
             const category = this.getAttribute("data-category");
             const idCategoria = this.getAttribute("data-category-id");
 
-            // Guardar la categoría seleccionada en localStorage
             localStorage.setItem('selectedCategory', JSON.stringify({ category, idCategoria }));
 
-            // Ocultar categorías principales y mostrar los detalles
             mainCategory.style.display = "none";
             categoryDetails.style.display = "block";
 
-            // Cargar productos para la categoría seleccionada
             loadProducts(category, idCategoria);
 
-            // Establecer el fragmento de URL para el desplazamiento
             window.location.hash = 'category-details';
             scrollToCategoryDetails();
         });
     });
 
-    // Función para añadir eventos a las categorías del sidebar
     function addSidebarEvents() {
         const categories = document.querySelectorAll(".sidebar .category-item");
 
@@ -166,24 +155,23 @@ document.addEventListener("DOMContentLoaded", function () {
                 const sidebarCategory = this.getAttribute("data-category");
                 const sidebarIdCategoria = this.getAttribute("data-category-id");
 
-                // Actualizar el estado visual
+
                 categories.forEach((item) => item.classList.remove("selected"));
                 this.classList.add("selected");
 
-                // Cargar productos para la categoría seleccionada desde el sidebar
                 loadProducts(sidebarCategory, sidebarIdCategoria);
 
-                // Guardar la categoría seleccionada en localStorage
+
                 localStorage.setItem('selectedCategory', JSON.stringify({ category: sidebarCategory, idCategoria: sidebarIdCategoria }));
 
-                // Establecer el fragmento de URL para el desplazamiento
+
                 window.location.hash = 'category-details';
                 scrollToCategoryDetails();
             });
         });
     }
 
-    // Inicializar eventos en las categorías del sidebar
+
     addSidebarEvents();
 
     // Recuperar la categoría guardada y mostrarla solo si la navegación proviene de productos.php

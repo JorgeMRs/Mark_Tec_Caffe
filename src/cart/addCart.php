@@ -16,6 +16,9 @@ try {
     $idProducto = $_POST['producto_id'] ?? null;
     $cantidad = $_POST['cantidad'] ?? null;
 
+    error_log("ID Producto: " . $idProducto);
+    error_log("Cantidad: " . $cantidad);
+
     if (!$idProducto || !$cantidad || !is_numeric($cantidad) || $cantidad <= 0) {
         http_response_code(400);
         echo json_encode(['status' => 'error', 'message' => 'Datos inválidos.']);
@@ -93,5 +96,3 @@ try {
 } finally {
     $conn->close();
 }
-
-?>

@@ -16,20 +16,17 @@ if (!isset($_SESSION['user_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="pagar">
     <meta name="author" content="MarkTec">
-    <title>MarkShop</title>
+    <title>Café Sabrososo - Realizar Pedido</title>
     <link rel="stylesheet" href="assets/css/pagar.css" media="screen and (min-width: 769px)">
     <link rel="stylesheet" href="assets/css/pagarmobile.css" media="screen and (max-width: 768px)">
     <link rel="icon" href="assets/img/icons/favicon-32x32.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
-<body class="body-local">
-    <header class="header-local">
-
-    </header>
+<body>
     <div class="form-container">
         <form method="post">
-            <h2>Información de pago</h2>
+         <h2>Información de pago</h2>
             <div class="payment-buttons">
                 <button type="button" class="paypal-button">
                     <i class="fab fa-paypal"></i>
@@ -54,7 +51,7 @@ if (!isset($_SESSION['user_id'])) {
                 <input type="checkbox" name="terminos" id="terminos">
                 <label for="terminos">Guardar esta información</label>
             </div>
-
+            <h2>Información de pedido</h2>
             <!-- Añadir campos para el tipo de pedido -->
             <div class="order-type">
                 <label>
@@ -66,7 +63,7 @@ if (!isset($_SESSION['user_id'])) {
                     Para llevar
                 </label>
             </div>
-
+                
             <!-- Campos para pedidos para llevar -->
             <div id="branch-container" style="display: none;">
                 <label for="branch">Sucursal:</label>
@@ -101,12 +98,12 @@ if (!isset($_SESSION['user_id'])) {
                 <select name="pickupTime" id="pickupTime" required>
                     <option value="" disabled selected>Selecciona una hora</option>
                     <?php
-                    $start = new DateTime('08:00');
-                    $end = new DateTime('20:00');
+                    $start = new DateTime('08:00:00'); // Hora de inicio en formato HH:MM:SS
+                    $end = new DateTime('20:00:00'); // Hora de fin en formato HH:MM:SS
                     $interval = new DateInterval('PT30M'); // Intervalo de 30 minutos
 
                     while ($start <= $end) {
-                        $time24 = $start->format('H:i'); // Formato de hora en 24 horas
+                        $time24 = $start->format('H:i:s'); // Formato de hora en 24 horas
                         $time12 = $start->format('g:i A'); // Formato de hora en 12 horas
                         echo "<option value=\"$time24\">$time12</option>";
                         $start->add($interval);
@@ -138,7 +135,7 @@ if (!isset($_SESSION['user_id'])) {
                 pickupTimeField.removeAttribute('required');
             }
         }
-        
+
         document.addEventListener('DOMContentLoaded', () => {
             toggleFields();
         });
@@ -149,6 +146,11 @@ if (!isset($_SESSION['user_id'])) {
             const form = event.target;
             const formData = new FormData(form);
             const responseDiv = document.getElementById('response-message');
+
+            // Mostrar los valores para depuración
+            for (const [key, value] of formData.entries()) {
+                console.log(`Campo: ${key}, Valor: ${value}`);
+            }
 
             try {
                 const response = await fetch('/src/cart/submitOrder.php', {

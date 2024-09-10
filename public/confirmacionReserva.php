@@ -1,12 +1,11 @@
 <?php
 require_once '../src/db/db_connect.php';
-require_once '../src/email/codigoReservaEmail.php'; // Ajusta la ruta según sea necesario
+require_once '../src/email/codigoReservaEmail.php';
 use Endroid\QrCode\Builder\Builder;
 use Endroid\QrCode\Writer\PngWriter;
 
 session_start();
 
-// Obtener el código de reserva de la URL
 $codigoReserva = isset($_GET['codigoReserva']) ? $_GET['codigoReserva'] : '';
 
 $response = array('success' => false, 'message' => '');
@@ -21,7 +20,6 @@ function actualizarCodigoReserva($conn, $codigoReserva): string
     // Crear un nuevo código de reserva
     $nuevoCodigoReserva = 'MESA' . substr(md5(uniqid(rand(), true)), 0, 6);
 
-    // Actualizar el código de reserva en la base de datos
     $sqlActualizarCodigo = "UPDATE reserva SET codigoReserva = ? WHERE codigoReserva = ?";
     $stmtActualizarCodigo = $conn->prepare($sqlActualizarCodigo);
     $stmtActualizarCodigo->bind_param("ss", $nuevoCodigoReserva, $codigoReserva);
@@ -31,7 +29,6 @@ function actualizarCodigoReserva($conn, $codigoReserva): string
 }
 
 try {
-    // Obtener la conexión a la base de datos
     $conn = getDbConnection();
 
     // Verificar si el código de reserva es válido
@@ -51,27 +48,26 @@ try {
 
    
     if (!empty($emailCliente)) {
-        // Actualizar el código de reserva en la base de datos y obtener el nuevo código
         $nuevoCodigoReserva = actualizarCodigoReserva($conn, $codigoReserva);
 
         // Generar el código QR basado en el nuevo código de reserva
         $qrResult = Builder::create()
-            ->writer(new PngWriter()) // Generar en formato PNG
-            ->data($nuevoCodigoReserva) // Información contenida en el QR (el nuevo código de reserva)
-            ->size(300) // Tamaño del código QR
-            ->margin(10) // Margen del código QR
+            ->writer(new PngWriter()) 
+            ->data($nuevoCodigoReserva) 
+            ->size(300) 
+            ->margin(10) 
             ->build();
 
         // Guardar la imagen del código QR en un archivo
         $qrFilePath = '../src/qrcodes/' . $nuevoCodigoReserva . '.png';
         $qrResult->saveToFile($qrFilePath);
 
-        // Enviar el correo electrónico
+
         if (sendReservationEmail($emailCliente, $codigoReserva, $nuevoCodigoReserva, $qrFilePath)) {
             $response['success'] = true;
             $response['message'] = 'Tu reserva ha sido confirmada. Revisa tu correo electrónico para ver el nuevo código de reserva que te hemos enviado.';
             if (file_exists($qrFilePath)) {
-                unlink($qrFilePath); // Elimina el archivo
+                unlink($qrFilePath); 
             }
         } else {
             $response['message'] = 'Error al enviar el correo. Por favor, intenta de nuevo más tarde.';

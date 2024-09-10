@@ -122,10 +122,8 @@ function updateQuantity(e) {
     const priceDiv = e.target.closest('.bg-background').querySelector('#precionu');
     priceDiv.textContent = `€${totalPrice.toFixed(2)}`;
 
-    // Actualizar el subtotal y el IVA
     updateSubtotalAndTax();
 
-    // Enviar la cantidad actualizada al servidor usando FormData
     const formData = new FormData();
     formData.append('producto_id', productId);
     formData.append('cantidad', newQuantity);
@@ -139,29 +137,14 @@ function updateQuantity(e) {
         if (data.status !== 'success') {
             console.error('Error updating quantity:', data.message);
         }
+        updateCartCounter();  // Actualizar el contador del carrito después de actualizar la cantidad
     })
     .catch(error => console.error('Error:', error));
-}
-function updateCartCounter() {
-    const cartCounterElement = document.getElementById('cart-counter');
-
-    fetch('/src/cart/getCartCounter.php')
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'success') {
-                cartCounterElement.textContent = data.totalQuantity;
-            } else {
-                handleLocalStorageCart(cartCounterElement);
-            }
-        })
-        .catch(() => {
-            handleLocalStorageCart(cartCounterElement);
-        });
 }
 
 function removeItem(e) {
     const productElement = e.target.closest('.bg-background');
-    const productId = productElement.dataset.productId; // Asegúrate de tener el ID del producto en el DOM
+    const productId = productElement.dataset.productId; 
 
     fetch(`/src/cart/removeFromCart.php`, {
         method: 'POST',
@@ -175,7 +158,7 @@ function removeItem(e) {
         if (data.success) {
             productElement.remove();
             updateSubtotalAndTax();
-            updateCartCounter();  
+            updateCartCounter();  // Actualizar el contador del carrito después de eliminar el producto
         } else {
             console.error('Error removing product:', data.message);
         }

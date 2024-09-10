@@ -9,25 +9,25 @@
             </p>
             <div class="socials">
                 <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://www.instagram.com/"><i class="fa-brands fa-instagram"></i></a>
                 <a href="#"><i class="fa-brands fa-twitter"></i></a>
             </div>
         </div>
         <div class="footer-section links">
             <h3>Enlaces Rápidos</h3>
             <ul>
-                <li><a href="/public/local.html">Locales</a></li>
-                <li><a href="#">Productos</a></li>
-                <li><a href="#">Ofertas</a></li>
-                <li><a href="#">Reservas</a></li>
-                <li><a href="/public/contactos.html">Contacto</a></li>
+                <li><a href="/public/local.php">Locales</a></li>
+                <li><a href="/public/tienda.php">Productos</a></li>
+                <li><a href="/public/">Ofertas</a></li>
+                <li><a href="/public/reservas.php">Reservas</a></li>
+                <li><a href="/public/contactos.php">Contacto</a></li>
             </ul>
         </div>
         <div class="footer-section contact">
             <h3>Contáctanos</h3>
             <ul>
-                <li><i class="fa-solid fa-location-dot"></i> 123 Calle Café, San José</li>
-                <li><i class="fa fa-phone"></i> +598 123 4567</li>
+                <li><i class="fa-solid fa-location-dot"></i> España, Madrid, Calle Gran Vía 45</li>
+                <li><i class="fa fa-phone"></i> +34 912 345 678</li>
                 <li><i class="fa fa-envelope"></i> info@cafesabrosos.com</li>
             </ul>
         </div>

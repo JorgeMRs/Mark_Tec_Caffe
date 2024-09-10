@@ -34,12 +34,12 @@ function uploadAvatar($user_id, $file, $conn): array
             throw new Exception('Tipo de archivo no permitido. Solo se permiten imágenes JPEG y PNG.');
         }
 
-        $tempDir = '/var/www/cafesabrosos/tmp/';
+        $tempDir = '../../tmp/';
         if (!is_dir($tempDir) && !mkdir($tempDir, 0777, true)) {
             throw new Exception('No se pudo crear el directorio temporal: ' . $tempDir);
         }
 
-        $uploadDir = '/var/www/cafesabrosos/public/assets/img/avatars/';
+        $uploadDir = '../../public/assets/img/avatars/';
         if (!is_dir($uploadDir)) {
             throw new Exception('Directorio de subida no encontrado o ruta incorrecta: ' . $uploadDir);
         }
