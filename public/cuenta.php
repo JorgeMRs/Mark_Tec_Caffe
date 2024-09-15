@@ -24,57 +24,56 @@ try {
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-        
-            // Obtener datos del formulario
-            $correo = $_POST['correo'] ?? '';
-            $nombre = $_POST['nombre'] ?? '';
-            $apellido = $_POST['apellido'] ?? '';
-            $telefono = $_POST['telefono'] ?? '';
-            $fechaNacimiento = $_POST['fechaNacimiento'] ?? '';
 
-            // Sanitizar y validar datos
-            $correo = filter_var($correo, FILTER_SANITIZE_EMAIL);
-            $nombre = htmlspecialchars($nombre, ENT_QUOTES, 'UTF-8');
-            $apellido = htmlspecialchars($apellido, ENT_QUOTES, 'UTF-8');
-            $telefono = preg_replace('/[^0-9+]/', '', $telefono);
-            $fechaNacimiento = htmlspecialchars($fechaNacimiento, ENT_QUOTES, 'UTF-8');
+        // Obtener datos del formulario
+        $correo = $_POST['correo'] ?? '';
+        $nombre = $_POST['nombre'] ?? '';
+        $apellido = $_POST['apellido'] ?? '';
+        $telefono = $_POST['telefono'] ?? '';
+        $fechaNacimiento = $_POST['fechaNacimiento'] ?? '';
 
-            // Verificar contraseña
-            $sqlCheckPassword = "SELECT contrasena FROM cliente WHERE idCliente=?";
-            if ($stmtCheckPassword = $conn->prepare($sqlCheckPassword)) {
-                $stmtCheckPassword->bind_param("i", $user_id);
+        // Sanitizar y validar datos
+        $correo = filter_var($correo, FILTER_SANITIZE_EMAIL);
+        $nombre = htmlspecialchars($nombre, ENT_QUOTES, 'UTF-8');
+        $apellido = htmlspecialchars($apellido, ENT_QUOTES, 'UTF-8');
+        $telefono = preg_replace('/[^0-9+]/', '', $telefono);
+        $fechaNacimiento = htmlspecialchars($fechaNacimiento, ENT_QUOTES, 'UTF-8');
 
-                if ($stmtCheckPassword->execute()) {
-                    $stmtCheckPassword->bind_result($hashedPassword);
-                    if ($stmtCheckPassword->fetch()) {
-                        $stmtCheckPassword->close();
+        // Verificar contraseña
+        $sqlCheckPassword = "SELECT contrasena FROM cliente WHERE idCliente=?";
+        if ($stmtCheckPassword = $conn->prepare($sqlCheckPassword)) {
+            $stmtCheckPassword->bind_param("i", $user_id);
 
-                        // Actualizar datos
-                        $sqlUpdate = "UPDATE cliente SET nombre=?, apellido=?, tel=?, fechaNacimiento=?, correo=? WHERE idCliente=?";
-                        if ($stmtUpdate = $conn->prepare($sqlUpdate)) {
-                            $stmtUpdate->bind_param("sssssi", $nombre, $apellido, $telefono, $fechaNacimiento, $correo, $user_id);
+            if ($stmtCheckPassword->execute()) {
+                $stmtCheckPassword->bind_result($hashedPassword);
+                if ($stmtCheckPassword->fetch()) {
+                    $stmtCheckPassword->close();
 
-                            if ($stmtUpdate->execute()) {
-                                $_SESSION['successMessage'] = 'Datos actualizados correctamente';
-                                header('Location: cuenta.php');
-                                exit();
-                            } else {
-                                $errorMessage = "Error actualizando los datos: " . $stmtUpdate->error;
-                            }
-                            $stmtUpdate->close();
+                    // Actualizar datos
+                    $sqlUpdate = "UPDATE cliente SET nombre=?, apellido=?, tel=?, fechaNacimiento=?, correo=? WHERE idCliente=?";
+                    if ($stmtUpdate = $conn->prepare($sqlUpdate)) {
+                        $stmtUpdate->bind_param("sssssi", $nombre, $apellido, $telefono, $fechaNacimiento, $correo, $user_id);
+
+                        if ($stmtUpdate->execute()) {
+                            $_SESSION['successMessage'] = 'Datos actualizados correctamente';
+                            header('Location: cuenta.php');
+                            exit();
                         } else {
-                            $errorMessage = "Error preparando la consulta de actualización: " . $conn->error;
+                            $errorMessage = "Error actualizando los datos: " . $stmtUpdate->error;
                         }
+                        $stmtUpdate->close();
                     } else {
-                        $errorMessage = "No se encontraron datos para el usuario especificado.";
+                        $errorMessage = "Error preparando la consulta de actualización: " . $conn->error;
                     }
                 } else {
-                    $errorMessage = "Error ejecutando la consulta: " . $stmtCheckPassword->error;
+                    $errorMessage = "No se encontraron datos para el usuario especificado.";
                 }
             } else {
-                $errorMessage = "Error preparando la consulta: " . $conn->error;
+                $errorMessage = "Error ejecutando la consulta: " . $stmtCheckPassword->error;
             }
-        
+        } else {
+            $errorMessage = "Error preparando la consulta: " . $conn->error;
+        }
     }
 
     // Recuperar la información del usuario
@@ -157,10 +156,10 @@ try {
                         <input type="email" name="correo" id="correo" placeholder="Correo:" value="<?php echo htmlspecialchars($correo); ?>">
                     </div>
                     <div class="input-container">
-                    <a href="cambiarContrasena.php"><i class="fa-solid fa-pen-to-square"></i></a>
-                        <input type="password" name="contraseña" id="password" placeholder="Contraseña" maxlength="64" value="<?php echo htmlspecialchars($contraseña); ?>" readonly>
-                    </div>                 
-                  
+                        <a href="cambiarContrasena.php"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <input type="password" name="contraseña" id="password" placeholder="Contraseña" maxlength="64" value="contraseña" readonly>
+                    </div>
+
                     <input type="tel" name="telefono" id="telefono" placeholder="Teléfono:" maxlength="9" value="<?php echo htmlspecialchars($telefono); ?>">
                     <input type="date" name="fechaNacimiento" id="cumpleaños"
                         <?php echo isset($fechaNacimiento) && $fechaNacimiento ? 'readonly' : ''; ?>
@@ -168,6 +167,7 @@ try {
                 </div>
                 <button type="submit" class="save-btn">Guardar Cambios</button>
             </form>
+
             <div class="action-buttons">
                 <form action="/src/db/logout.php" method="POST" class="logout-form">
                     <button type="submit" class="logout-btn">Cerrar Sesión</button>
@@ -176,6 +176,7 @@ try {
                     <button type="button" class="delete-btn" id="deleteAccountBtn">Eliminar Cuenta</button>
                 </form>
             </div>
+            <button type="button" id="viewPedidosBtn" class="view-pedidos-btn">Ver Mis Pedidos</button>
             <?php if ($errorMessage): ?>
                 <div id="errorMessage" class="error-message"><?php echo htmlspecialchars($errorMessage); ?></div>
             <?php endif; ?>
@@ -184,12 +185,105 @@ try {
             <?php endif; ?>
         </section>
     </main>
+    <div id="pedidosModal" class="modal">
+        <div class="modal-content2">
+            <span class="close">&times;</span>
+            <h2>Mis Pedidos</h2>
+            <div id="pedidosList">
+                <!-- Aquí se cargarán los pedidos mediante AJAX -->
+            </div>
+            <div id="pagination">
+                <!-- Controles de paginación -->
+            </div>
+        </div>
+    </div>
+    <div id="cancelConfirmationModal" class="modal">
+        <div class="modal-content2">
+            <span class="close cancel-close">&times;</span>
+            <h2>Cancelar Pedido</h2>
+            <p>¿Estás seguro de que deseas cancelar este pedido?</p>
+            <textarea id="cancelNotes" placeholder="Añadir notas adicionales (opcional)"></textarea>
+            <button id="confirmCancel" class="view-pedidos-btn">Confirmar Cancelación</button>
+            <button id="cancelCancel" class="view-pedidos-btn2">Volver Atrás</button>
+        </div>
+    </div>
+    <style>
+        #cancelConfirmationModal {
+            display: none;
+            /* Ocultar modal por defecto */
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #cancelConfirmationModal .modal-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            width: 80%;
+            max-width: 500px;
+            margin: auto;
+            position: relative;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        #cancelConfirmationModal h2 {
+            margin-top: 0;
+        }
+
+        #cancelConfirmationModal textarea {
+            width: 100%;
+            height: 100px;
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            resize: none;
+            box-sizing: border-box;
+        }
+
+        #cancelConfirmationModal button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 5px;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        #confirmCancel {
+            background-color: #e74c3c;
+            /* Dorado */
+        }
+
+        #cancelCancel {
+            background-color: #daa520;
+            /* Rojo */
+        }
+
+
+        #cancelConfirmationModal .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    </style>
     <style>
 
     </style>
-    <script>
-
-    </script>
     <!-- Modal para Cropper.js -->
     <div id="cropperModal" class="cropper-modal">
         <div class="cropper-modal-content">
@@ -273,4 +367,5 @@ try {
 </body>
 <script src="/public/assets/js/updateCartCounter.js"></script>
 <script src="/public/assets/js/cuenta.js"></script>
+
 </html>

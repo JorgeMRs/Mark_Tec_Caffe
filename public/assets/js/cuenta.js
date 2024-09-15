@@ -221,3 +221,206 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("deleteAccountModal").style.display = "block";
   };
 });
+
+
+
+let selectedPedidoId = null;
+
+// Función para mostrar el modal de confirmación de cancelación
+function showCancelConfirmationModal(pedidoId) {
+    selectedPedidoId = pedidoId;
+    document.getElementById('cancelConfirmationModal').style.display = 'flex';
+}
+
+// Función para cerrar el modal de confirmación de cancelación
+function closeCancelConfirmationModal() {
+    document.getElementById('cancelConfirmationModal').style.display = 'none';
+    selectedPedidoId = null;
+}
+
+// Función para confirmar la cancelación del pedido
+function confirmCancelPedido() {
+  if (selectedPedidoId) {
+      const notes = document.getElementById('cancelNotes').value;
+      fetch('/src/client/cancelOrder.php', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: new URLSearchParams({
+              idPedido: selectedPedidoId,
+              notas: notes,
+          }),
+      })
+      .then(response => response.json())
+      .then(data => {
+          if (data.success) {
+              alert('Pedido cancelado exitosamente.');
+              closeCancelConfirmationModal();
+              renderPedidos(); // Actualiza la lista de pedidos
+          } else {
+              alert('Error al cancelar el pedido: ' + data.message);
+          }
+      })
+      .catch(error => console.error('Error al cancelar el pedido:', error));
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Obtener referencias al modal de pedidos, botón de cancelar y nuevo modal
+    const pedidosModal = document.getElementById('pedidosModal');
+    const cancelConfirmationModal = document.getElementById('cancelConfirmationModal');
+    const pedidosBtn = document.getElementById('viewPedidosBtn');
+    const closeModal = document.querySelector('#pedidosModal .close');
+    const cancelModalClose = document.querySelector('#cancelConfirmationModal .cancel-close');
+    const confirmCancelBtn = document.getElementById('confirmCancel');
+    const cancelCancelBtn = document.getElementById('cancelCancel');
+    const cancelNotes = document.getElementById('cancelNotes');
+    let pedidosData = [];
+    let currentPage = 1;
+    const itemsPerPage = 2;
+
+    // Función para renderizar los pedidos en la página actual
+    function renderPedidos() {
+      const pedidosList = document.getElementById('pedidosList');
+      pedidosList.innerHTML = ''; // Limpiar la lista de pedidos
+  
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const endIndex = startIndex + itemsPerPage;
+      const paginatedPedidos = pedidosData.slice(startIndex, endIndex);
+  
+      if (paginatedPedidos.length > 0) {
+          paginatedPedidos.forEach(pedido => {
+              const pedidoItem = document.createElement('div');
+              pedidoItem.className = 'pedido-item';
+              
+              let productosHTML = '';
+              if (pedido.productos && pedido.productos.length > 0) {
+                  productosHTML = '<div class="productos">';
+                  pedido.productos.forEach(producto => {
+                      productosHTML += `
+                          <div class="producto">
+                              <div class="producto-name">${producto.nombre}</div>
+                              <div class="producto-price">$${producto.precio} x ${producto.cantidad}</div>
+                          </div>
+                      `;
+                  });
+                  productosHTML += '</div>';
+              } else {
+                  productosHTML = '<p>No hay productos para este pedido.</p>';
+              }
+  
+              pedidoItem.innerHTML = `
+                  <h3>Pedido #${pedido.idPedido}</h3>
+                  <p><strong>Fecha:</strong> ${pedido.fechaPedido}</p>
+                  <p><strong>Estado:</strong> ${pedido.estado}</p>
+                  <p><strong>Total:</strong> $${pedido.total}</p>
+                  ${pedido.fechaCancelacion ? `<p><strong>Fecha de Cancelación:</strong> ${pedido.fechaCancelacion}</p>` : ''}
+                  <div class="productos">${productosHTML}</div>
+                  ${pedido.estado === 'Pendiente' ? '<button class="view-pedidos-btn" onclick="showCancelConfirmationModal(' + pedido.idPedido + ')">Cancelar Pedido</button>' : ''}
+              `;
+              pedidosList.appendChild(pedidoItem);
+          });
+  
+          renderPaginationControls();
+      } else {
+          pedidosList.innerHTML = '<p>No tienes pedidos.</p>';
+      }
+  }
+
+    // Función para renderizar los controles de paginación
+    function renderPaginationControls() {
+        const pagination = document.getElementById('pagination');
+        const totalPages = Math.ceil(pedidosData.length / itemsPerPage);
+        
+        let paginationHtml = '';
+
+        if (currentPage > 1) {
+            paginationHtml += `<button class="pagination-btn" id="prevPage">Anterior</button>`;
+        } else {
+            paginationHtml += `<button class="pagination-btn disabled" id="prevPage" disabled>Anterior</button>`;
+        }
+
+        for (let i = 1; i <= totalPages; i++) {
+            paginationHtml += `<button class="pagination-btn ${i === currentPage ? 'disabled' : ''}" data-page="${i}">${i}</button>`;
+        }
+
+        if (currentPage < totalPages) {
+            paginationHtml += `<button class="pagination-btn" id="nextPage">Siguiente</button>`;
+        } else {
+            paginationHtml += `<button class="pagination-btn disabled" id="nextPage" disabled>Siguiente</button>`;
+        }
+
+        pagination.innerHTML = paginationHtml;
+
+        // Añadir eventos a los botones de paginación
+        document.getElementById('prevPage')?.addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderPedidos();
+            }
+        });
+
+        document.getElementById('nextPage')?.addEventListener('click', () => {
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderPedidos();
+            }
+        });
+
+        document.querySelectorAll('#pagination .pagination-btn[data-page]').forEach(button => {
+            button.addEventListener('click', () => {
+                currentPage = parseInt(button.getAttribute('data-page'));
+                renderPedidos();
+            });
+        });
+    }
+
+    // Función para abrir el modal y cargar los pedidos
+    function openPedidosModal() {
+        pedidosModal.style.display = 'flex';
+        // Cargar pedidos mediante AJAX
+        fetch('/src/client/getOrder.php')
+            .then(response => response.json())
+            .then(data => {
+                pedidosData = data;
+                currentPage = 1; // Reiniciar la página actual
+                renderPedidos();
+            })
+            .catch(error => console.error('Error cargando los pedidos:', error));
+    }
+
+    // Abrir el modal cuando se hace clic en el botón
+    if (pedidosBtn) {
+        pedidosBtn.addEventListener('click', openPedidosModal);
+    }
+
+    // Cerrar el modal de pedidos cuando se hace clic en el botón de cerrar
+    if (closeModal) {
+        closeModal.addEventListener('click', () => {
+            pedidosModal.style.display = 'none';
+        });
+    }
+
+    // Cerrar el modal de confirmación de cancelación cuando se hace clic en el botón de cerrar
+    if (cancelModalClose) {
+        cancelModalClose.addEventListener('click', closeCancelConfirmationModal);
+    }
+
+    // Cerrar el modal de confirmación de cancelación si se hace clic fuera del contenido del modal
+    window.addEventListener('click', (event) => {
+        if (event.target === cancelConfirmationModal) {
+            closeCancelConfirmationModal();
+        }
+    });
+
+    // Confirmar la cancelación del pedido
+    if (confirmCancelBtn) {
+        confirmCancelBtn.addEventListener('click', confirmCancelPedido);
+    }
+
+    // Volver atrás en el modal de confirmación de cancelación
+    if (cancelCancelBtn) {
+        cancelCancelBtn.addEventListener('click', closeCancelConfirmationModal);
+    }
+});

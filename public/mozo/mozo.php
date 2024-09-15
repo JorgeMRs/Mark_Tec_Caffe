@@ -60,7 +60,7 @@ $conn->close();
             <img class="icon" src="/public/assets/img/pedidos.svg" alt="Icono por defecto">
             Pedidos
         </a>
-        <a href="pagina_reservas.php" class="button">
+        <a href="crearReserva.php" class="button">
             <img class="icon" src="/public/assets/img/reservas.svg" alt="Icono por defecto">
             Reservas
         </a>

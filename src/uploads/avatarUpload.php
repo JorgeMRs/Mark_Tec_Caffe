@@ -24,7 +24,7 @@ function uploadAvatar($user_id, $file, $conn): array
             throw new Exception('Error en la subida del archivo.');
         }
         
-        $maxFileSize = 3 * 1024 * 1024; // 3 MB
+        $maxFileSize = 8 * 1024 * 1024; // 3 MB
         if ($file['size'] > $maxFileSize) {
             throw new Exception('El tamaño del archivo excede el límite permitido de 3 MB.');
         }

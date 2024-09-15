@@ -9,6 +9,8 @@ footer {
 
 footer p {
     margin-top: 16px;
+    color: white;
+    font-size: 16px;
 }
 
 .footer-content {
@@ -37,6 +39,7 @@ footer p {
     font-family: 'Poppins';
     font-size: 16px;
     font-weight: 400;
+    color: #1B0D0B;
 }
 
 .footer-section ul {

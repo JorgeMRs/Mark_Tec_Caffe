@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../log/nginx"
+		},
+		{
+			"path": "../../../etc/nginx"
+		}
+	],
+	"settings": {}
+}
