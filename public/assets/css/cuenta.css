@@ -1,22 +1,18 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4; /* Gris muy claro */
-    color: #333333; /* Gris oscuro */
+    background-color: #f4f4f4; 
+    color: #333333; 
     font-family: 'Montserrat', sans-serif;
 }
 
-/* Header Styles */
-
-
-
 .image-link {
     display: block;
-    text-decoration: none; /* Elimina el subrayado del enlace */
+    text-decoration: none; 
 }
 
 .image-container {
-    cursor: pointer; /* Cambia el cursor para indicar que es clickeable */
+    cursor: pointer; 
 }
 
 .image-container img {
@@ -31,8 +27,8 @@ body {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
     width: 90%;
-    max-width: 600px; /* Ajustado para un mejor tamaño en pantallas grandes */
-    margin: 80px auto 100px; /* Centrando y ajustando el margen superior para espacio con el header */
+    max-width: 600px; 
+    margin: 80px auto 100px;
 }
 
 .profile-container h1 {
@@ -48,7 +44,7 @@ body {
 .profile-info .input-container {
     position: relative;
     margin-bottom: 15px;
-    padding-bottom: 5px; /* Ajusta el espacio para el borde inferior */
+    padding-bottom: 5px; 
 }
 
 .profile-info .input-container i {
@@ -64,10 +60,10 @@ body {
     padding: 10px;
     font-size: 16px;
     border: none;
-    border-bottom: 1px solid #b8860b; /* Color dorado para el borde inferior */
+    border-bottom: 1px solid #b8860b; 
     background-color: transparent;
     color: #8B4513;
-    box-sizing: border-box; /* Asegura que el padding y el borde estén incluidos en el ancho total */
+    box-sizing: border-box; 
 }
 
 .profile-info input::placeholder {
@@ -88,7 +84,7 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    z-index: -1; /* Asegura que el borde esté detrás del contenido */
+    z-index: -1; 
 }
 /* Estilos del formulario */
 button {
@@ -279,3 +275,228 @@ input[type="file"] {
     background-color: #DAA520;
     color: #ffffff;
 }
+
+/* Modal para la subida de avatar */
+.cropper-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 1 !important;
+    background: transparent !important;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* Contenido del Modal */
+.cropper-modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    position: relative;
+    max-width: 90%;
+    max-height: 90vh;
+    overflow: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Botón de Cierre del Modal */
+.cropper-close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #f1f1f1;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    z-index: 10000;
+}
+
+/* Imagen dentro del Modal */
+.cropper-image {
+    max-width: 100%;
+    max-height: 60vh;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Contenedor de Botones */
+.cropper-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    gap: 10px;
+}
+
+.cropper-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.cropper-crop-button {
+    background-color: #DAA520;
+    color: white;
+}
+
+.cropper-cancel-button {
+    background-color: #8B4513;
+    color: white;
+}
+
+.cropper-crop-button:hover {
+    background-color: #DAA520;
+}
+
+
+ /* Modal de eliminar cuenta - cuenta */
+ .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.modal-content h2 {
+    color: #b8860b;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.modal-buttons button {
+    padding: 10px 20px;
+    border: none;
+    white-space: nowrap;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 195px;
+}
+
+#confirmDeleteBtn {
+    background-color: #e74c3c;
+    color: white;
+}
+
+#cancelDeleteBtn {
+    background-color: #b8860b;
+    color: white;
+}
+
+form#deleteAccountForm {
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal-content p a {
+    color: #b8860b;
+}
+
+.modal-content p a:hover {
+    color: #333;
+}
+
+@media (max-width: 768px) {
+    .modal-content {
+        margin: 50% auto;
+        width: 85%;
+    }
+
+    .modal-buttons {
+        flex-direction: column;
+    }
+
+    .modal-buttons button {
+        width: 100%;
+        max-width: none;
+        margin-top: 10px;
+    }
+
+    form#deleteAccountForm {
+        margin-right: 0;
+        display: flex;
+    }
+}
+
+.profile-container {
+    padding: 18px;
+}
+
+/* Segundo modal de confirmacion */
+#codeVerificationModal .modal-content {
+    background-color: #f9f9f9;
+}
+
+#codeVerificationModal input[type="text"] {
+    width: 80%;
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+#codeVerificationModal #verifyCodeBtn {
+    background-color: #b8860b;
+    color: white;
+}
+
+#codeVerificationModal #cancelCodeVerificationBtn {
+    background-color: #e74c3c;
+    color: white;
+}
+
+#generatedCode {
+    user-select: none;
+}
+
+.back-button {
+    border: none;
+    font-size: 18px;
+    color: #b8860b;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    margin-bottom: 10px;
+    text-decoration: underline;
+}
+
+.back-button:hover {
+    background-color: #f9f9f9;
+    color: #b8860b;
+}
+  
+
+
+  

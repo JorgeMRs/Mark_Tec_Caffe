@@ -1,4 +1,7 @@
 <?php
+
+use GPBMetadata\Google\Cloud\Location\Locations;
+
 require '../src/email/pedidoEmail.php';
 session_start();
 require '../src/db/db_connect.php';
@@ -19,18 +22,35 @@ $userId = $_SESSION['user_id'];
 $email = $_SESSION['user_email'];
 $orderId = intval($_GET['order_id']);
 
-$orderDetails = getOrderDetails($orderId);
 
-if (!$orderDetails) {
+$conn = getDbConnection();
+
+
+$stmt = $conn->prepare("SELECT numeroPedidoCliente FROM pedido WHERE idPedido = ? AND idCliente = ?");
+$stmt->bind_param("ii", $orderId, $userId);
+$stmt->execute();
+$stmt->bind_result($numeroPedidoCliente);
+$stmt->fetch();
+$stmt->close();
+
+if (!$numeroPedidoCliente) {
     header('Location: carrito.php');
     exit();
 }
 
-$numeroPedidoUsuario = $orderDetails['numeroPedidoUsuario'];
+// Verificar si el correo ya ha sido enviado
+if (isset($_SESSION['order_id_sent']) && $_SESSION['order_id_sent'] == $orderId) {
+    header('Location: /public/error/403.html');
+    exit();
+}
 
-
-// Llamada a la función para enviar el correo
+// Enviar el correo electrónico
 sendOrderConfirmationEmail($orderId, $email);
+
+// Marcar que el correo ha sido enviado
+$_SESSION['order_id_sent'] = $orderId;
+
+$conn->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -116,9 +136,11 @@ sendOrderConfirmationEmail($orderId, $email);
 <body>
     <div class="confirmation-container">
         <h2>¡Gracias por tu pedido!</h2>
-        <p>Tu pedido ha sido realizado con éxito. El ID de tu pedido es <strong><?php echo htmlspecialchars($numeroPedidoUsuario); ?></strong>.</p>
+        <p>Tu pedido ha sido realizado con éxito. El ID de tu pedido es <strong><?php echo htmlspecialchars($numeroPedidoCliente); ?></strong>.</p>
         <p>Recibirás un correo electrónico de confirmación con los detalles de tu pedido.</p>
         <a href="/">Volver a la página principal</a>
+        <br><br>
+        <a href="/public/opinion.php">¡No dudes en dejar tu opinión!</a>
     </div>
 </body>
 </html>

@@ -2,25 +2,15 @@
 include '../src/db/db_connect.php';
 require '../vendor/autoload.php'; // Asegúrate de incluir el autoloader de Composer
 
-use Stichoza\GoogleTranslate\GoogleTranslate;
-
 session_start();
-// Comprobar si se ha enviado una preferencia de idioma
-if (isset($_GET['lang'])) {
-    $lang = $_GET['lang'];
-    if (in_array($lang, ['es', 'en', 'fr', 'de', 'pt'])) {
-        $_SESSION['language'] = $lang;
-    }
-}
 
-// Obtener el idioma preferido de la sesión o usar español como predeterminado
-$language = isset($_SESSION['language']) ? $_SESSION['language'] : 'es';
 try {
     // Obtener conexión a la base de datos
     $conn = getDbConnection();
+    $conn->set_charset('utf8mb4'); // Asegúrate de que la conexión use el charset correcto
 
     // Obtener el ID del producto desde la URL
-    $id_producto = $_GET['id'];
+    $id_producto = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
     // Preparar y ejecutar la consulta SQL para obtener el producto
     $query = $conn->prepare('SELECT * FROM producto WHERE idProducto = ?');
@@ -29,7 +19,6 @@ try {
     $result = $query->get_result();
     $producto = $result->fetch_assoc();
 
-    // Verificar si se encontró el producto
     if (!$producto) {
         echo "Producto no encontrado.";
         exit;
@@ -43,50 +32,21 @@ try {
     $resultCategoria = $queryCategoria->get_result();
     $categoria = $resultCategoria->fetch_assoc();
 
-    // Crear instancia de GoogleTranslate
-    $tr = new GoogleTranslate();
-
-    // Obtener traducciones en español
-    $nombreProductoES = $producto['nombre'];
-    $descripcionProductoES = $producto['descripcion'];
-    $nombreCategoriaES = $categoria['nombre'];
-
-    // Obtener traducciones en inglés
-    $tr->setSource('es')->setTarget('en');
-    $nombreProductoEN = $tr->translate($producto['nombre']);
-    $descripcionProductoEN = $tr->translate($producto['descripcion']);
-    $nombreCategoriaEN = $tr->translate($categoria['nombre']);
-
-    // Obtener traducciones en francés
-    $tr->setSource('es')->setTarget('fr');
-    $nombreProductoFR = $tr->translate($producto['nombre']);
-    $descripcionProductoFR = $tr->translate($producto['descripcion']);
-    $nombreCategoriaFR = $tr->translate($categoria['nombre']);
-
-    // Obtener traducciones en alemán
-    $tr->setSource('es')->setTarget('de');
-    $nombreProductoDE = $tr->translate($producto['nombre']);
-    $descripcionProductoDE = $tr->translate($producto['descripcion']);
-    $nombreCategoriaDE = $tr->translate($categoria['nombre']);
-
-    // Obtener traducciones en portugués
-    $tr->setSource('es')->setTarget('pt');
-    $nombreProductoPT = $tr->translate($producto['nombre']);
-    $descripcionProductoPT = $tr->translate($producto['descripcion']);
-    $nombreCategoriaPT = $tr->translate($categoria['nombre']);
+    if (!$categoria) {
+        echo "Categoría no encontrada.";
+        exit;
+    }
 
     // Cerrar conexión a la base de datos
     $conn->close();
 } catch (Exception $e) {
-    // Manejo de errores de conexión
     http_response_code(500);
     echo "Error: " . $e->getMessage();
     exit;
 }
 ?>
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -100,54 +60,38 @@ try {
     <link rel="stylesheet" href="assets/css/productos.css">
     <link rel="stylesheet" href="assets/css/nav.css">
     <link rel="stylesheet" href="assets/css/footer.css">
-
 </head>
 
 <body>
     <header>
-        <?php include 'templates/nav.php' ?>
+        <?php include 'templates/nav.php'; ?>
     </header>
 
     <div class="container">
         <div class="grid">
             <div class="product-container">
                 <div class="back-link">
-                    <a href="tienda.php#main-category" class="text-primary" id="back-to-store" onclick="setCategoryInLocalStorage('<?= htmlspecialchars($categoria['nombre']) ?>', <?= (int)$producto['idCategoria'] ?>)">
+                    <a href="tienda.php#main-category" class="text-primary" id="back-to-store">
                         <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="m12 19-7-7 7-7"></path>
                             <path d="M19 12H5"></path>
                         </svg>
-                        <span data-lang="es">Regresar a la tienda</span>
-                        <span data-lang="en" style="display: none;">Back to Store</span>
-                        <span data-lang="fr" style="display: none;">Retour au magasin</span>
-                        <span data-lang="de" style="display: none;">Zurück zum Laden</span>
-                        <span data-lang="pt" style="display: none;">Voltar à loja</span>
+                        Regresar a la tienda
                     </a>
                 </div>
                 <div class="product-image-container">
+                    <input type="hidden" id="product-id" value="<?= htmlspecialchars($producto['idProducto']) ?>">
                     <img src="<?= htmlspecialchars($producto['imagen']) ?>" alt="<?= htmlspecialchars($producto['nombre']) ?>" class="product-image">
                 </div>
             </div>
             <div class="details-grid">
                 <div>
-                    <p class="product-category" data-lang="es"><?php echo $nombreCategoriaES; ?></p>
-                    <p class="product-category" data-lang="en" style="display:none;"><?php echo $nombreCategoriaEN; ?></p>
-                    <p class="product-category" data-lang="fr" style="display:none;"><?php echo $nombreCategoriaFR; ?></p>
-                    <p class="product-category" data-lang="de" style="display:none;"><?php echo $nombreCategoriaDE; ?></p>
-                    <p class="product-category" data-lang="pt" style="display:none;"><?php echo $nombreCategoriaPT; ?></p>
-                    <h1 class="product-title" data-lang="es"><?php echo $nombreProductoES; ?></h1>
-                    <h1 class="product-title" data-lang="en" style="display:none;"><?php echo $nombreProductoEN; ?></h1>
-                    <h1 class="product-title" data-lang="fr" style="display:none;"><?php echo $nombreProductoFR; ?></h1>
-                    <h1 class="product-title" data-lang="de" style="display:none;"><?php echo $nombreProductoDE; ?></h1>
-                    <h1 class="product-title" data-lang="pt" style="display:none;"><?php echo $nombreProductoPT; ?></h1>
-                    <p class="product-description" data-lang="es"><?php echo $descripcionProductoES; ?></p>
-                    <p class="product-description" data-lang="en" style="display:none;"><?php echo $descripcionProductoEN; ?></p>
-                    <p class="product-description" data-lang="fr" style="display:none;"><?php echo $descripcionProductoFR; ?></p>
-                    <p class="product-description" data-lang="de" style="display:none;"><?php echo $descripcionProductoDE; ?></p>
-                    <p class="product-description" data-lang="pt" style="display:none;"><?php echo $descripcionProductoPT; ?></p>
+                    <p class="product-category"><?= htmlspecialchars($categoria['nombre']) ?></p>
+                    <h1 class="product-title"><?= htmlspecialchars($producto['nombre']) ?></h1>
+                    <p class="product-description"><?= htmlspecialchars($producto['descripcion']) ?></p>
                 </div>
                 <div class="price-container">
-                    <div class="product-price">€<?php echo number_format($producto['precio'], 2); ?></div>
+                    <div class="product-price">€<?= number_format($producto['precio'], 2) ?></div>
                     <div class="quantity-control">
                         <button class="btn-outline">
                             <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -164,16 +108,8 @@ try {
                     </div>
                 </div>
                 <div class="action-buttons">
-                    <button class="btn-lg" data-lang="es">Agregar al Carrito</button>
-                    <button class="btn-lg btn-outline" data-lang="es">Comprar Ahora</button>
-                    <button class="btn-lg" data-lang="en" style="display:none;">Add to Cart</button>
-                    <button class="btn-lg btn-outline" data-lang="en" style="display:none;">Buy Now</button>
-                    <button class="btn-lg" data-lang="fr" style="display:none;">Ajouter au panier</button>
-                    <button class="btn-lg btn-outline" data-lang="fr" style="display:none;">Acheter maintenant</button>
-                    <button class="btn-lg" data-lang="de" style="display:none;">In den Warenkorb</button>
-                    <button class="btn-lg btn-outline" data-lang="de" style="display:none;">Jetzt kaufen</button>
-                    <button class="btn-lg" data-lang="pt" style="display:none;">Adicionar ao carrinho</button>
-                    <button class="btn-lg btn-outline" data-lang="pt" style="display:none;">Comprar Agora</button>
+                    <button class="btn-lg">Agregar al Carrito</button>
+                    <button class="btn-lg btn-outline">Comprar Ahora</button>
                 </div>
                 <div class="card">
                     <div class="header">
@@ -181,7 +117,7 @@ try {
                             <i class="fas fa-chevron-left icon"></i>
                             <span class="sr-only">Back</span>
                         </button>
-                        <h3 id="toggle-title">Metodos de Pagos</h3>
+                        <h3 id="toggle-title">Métodos de Pago</h3>
                     </div>
                     <div class="content">
                         <div class="buttons">
@@ -203,14 +139,13 @@ try {
                             <button class="payment-button">
                                 <i class="fa-brands fa-apple-pay icon"></i>
                             </button>
-                            <!-- Añade más íconos según sea necesario -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <?php include 'templates/footer.php';?>
+    <?php include 'templates/footer.php'; ?>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -218,251 +153,13 @@ try {
             const buttons = document.querySelector('.buttons');
 
             title.addEventListener('click', () => {
-                // Toggle rotation for the icon
                 const icon = document.querySelector('.back-button .icon');
                 icon.classList.toggle('rotate');
-
-                // Toggle the visibility of the buttons
                 buttons.classList.toggle('show');
             });
         });
     </script>
-    <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const quantityElement = document.querySelector('.quantity');
-    const maxQuantity = 10;  // Límite máximo de cantidad
-
-    function updateQuantity() {
-        return parseInt(quantityElement.textContent);
-    }
-
-    document.querySelector('.quantity-control .btn-outline:first-of-type').addEventListener('click', function() {
-        let quantity = updateQuantity();
-        if (quantity > 1) {
-            quantity -= 1;
-            quantityElement.textContent = quantity;
-        }
-    });
-
-    document.querySelector('.quantity-control .btn-outline:last-of-type').addEventListener('click', function() {
-        let quantity = updateQuantity();
-        if (quantity < maxQuantity) {
-            quantity += 1;
-            quantityElement.textContent = quantity;
-        }
-    });
-
-    document.querySelector('.action-buttons .btn-lg:first-of-type').addEventListener('click', function(e) {
-        e.preventDefault();
-        const productId = '<?= htmlspecialchars($id_producto) ?>';
-        const quantity = updateQuantity();
-        addToCart(productId, quantity);
-    });
-
-    document.querySelector('.action-buttons .btn-lg.btn-outline').addEventListener('click', function(e) {
-        e.preventDefault();
-        const productId = '<?= htmlspecialchars($id_producto) ?>';
-        const quantity = updateQuantity();
-        buyNow(productId, quantity);
-    });
-
-    updateCartCounter();
-});
-
-
-function addToCart(productId, quantity) {
-    if (<?php echo isset($_SESSION['user_id']) ? 'true' : 'false'; ?>) {
-        const url = '/src/cart/addCart.php';
-        const data = new URLSearchParams({
-            producto_id: productId,
-            cantidad: quantity
-        });
-
-        fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: data.toString()
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    updateCartCounter();
-                    resetQuantity();
-                    alert('Producto agregado al carrito.');
-                    // Emitir evento personalizado
-                    const event = new CustomEvent('cartUpdated');
-                    document.dispatchEvent(event);
-                } else {
-                    alert('Error: ' + data.message);
-                }
-            })
-            .catch(error => {
-                alert('Error en la red. Por favor, inténtelo de nuevo.');
-            });
-    } else {
-        const carrito = JSON.parse(localStorage.getItem('carrito')) || {};
-        carrito[productId] = (carrito[productId] || 0) + quantity;
-        localStorage.setItem('carrito', JSON.stringify(carrito));
-
-        const expirationTime = Date.now() + 3600000; // 1 hora
-        localStorage.setItem('cart_expiration', expirationTime);
-
-        updateCartCounter();
-        resetQuantity();
-        alert('Producto agregado al carrito local.');
-        // Emitir evento personalizado
-        const event = new CustomEvent('cartUpdated');
-        document.dispatchEvent(event);
-    }
-}
-
-function resetQuantity() {
-    const quantityElement = document.querySelector('.quantity');
-    quantityElement.textContent = '1';
-}
-
-function buyNow(productId, quantity) {
-    if (<?php echo isset($_SESSION['user_id']) ? 'true' : 'false'; ?>) {
-        const url = `/src/cart/addCart.php`;
-        const data = new URLSearchParams({
-            producto_id: productId,
-            cantidad: quantity
-        });
-
-        fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: data.toString()
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    window.location.href = `/public/carrito.php`;
-                } else {
-                    alert('Error: ' + data.message);
-                }
-            })
-            .catch(error => {
-                alert('Error en la red. Por favor, inténtelo de nuevo.');
-            });
-    } else {
-        const carrito = JSON.parse(localStorage.getItem('carrito')) || {};
-        carrito[productId] = (carrito[productId] || 0) + quantity;
-        localStorage.setItem('carrito', JSON.stringify(carrito));
-
-        const expirationTime = Date.now() + 3600000; // 1 hora
-        localStorage.setItem('cart_expiration', expirationTime);
-
-        window.location.href = `/public/carrito.php`;
-    }
-}
-
-function updateCartCounter() {
-    const cartCounterElement = document.getElementById('cart-counter');
-
-    fetch('/src/cart/getCartCounter.php')
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'success') {
-                cartCounterElement.textContent = data.totalQuantity;
-            } else {
-                handleLocalStorageCart(cartCounterElement);
-            }
-        })
-        .catch(() => {
-            handleLocalStorageCart(cartCounterElement);
-        });
-}
-
-function handleLocalStorageCart(cartCounterElement) {
-    if (isCartExpired()) {
-        clearExpiredCart();
-    }
-    const carrito = JSON.parse(localStorage.getItem('carrito')) || {};
-    const totalQuantity = Object.values(carrito).reduce((acc, quantity) => acc + quantity, 0);
-    cartCounterElement.textContent = totalQuantity;
-}
-
-function getCartExpiration() {
-    return parseInt(localStorage.getItem('cart_expiration'));
-}
-
-function isCartExpired() {
-    const expirationTime = getCartExpiration();
-    return expirationTime && Date.now() > expirationTime;
-}
-
-function clearExpiredCart() {
-    localStorage.removeItem('carrito');
-    localStorage.removeItem('cart_expiration');
-}
-
-function setCategoryInLocalStorage(category, idCategoria) {
-    const categoryData = {
-        category,
-        idCategoria
-    };
-    localStorage.setItem('selectedCategory', JSON.stringify(categoryData));
-}
-
-        document.getElementById('language-toggle').addEventListener('click', function() {
-            const languageMap = {
-                'ES': 'es',
-                'EN': 'en',
-                'FR': 'fr',
-                'DE': 'de',
-                'PT': 'pt'
-            };
-            const languageKeys = Object.keys(languageMap);
-
-            let currentLang = this.innerText;
-            let nextLangIndex = (languageKeys.indexOf(currentLang) + 1) % languageKeys.length;
-            let nextLang = languageKeys[nextLangIndex];
-            this.innerText = nextLang;
-
-            translateContent(languageMap[nextLang]);
-        });
-
-        function translateContent(lang) {
-            const languages = ['es', 'en', 'fr', 'de', 'pt'];
-            languages.forEach((language) => {
-                document.querySelectorAll(`[data-lang="${language}"]`).forEach(el => {
-                    el.style.display = language === lang ? 'block' : 'none';
-                });
-            });
-
-            const translations = {
-                'en': {
-                    addToCart: 'Add to Cart',
-                    backToStore: 'Back to Store'
-                },
-                'es': {
-                    addToCart: 'Agregar al carrito',
-                    backToStore: 'Regresar a la tienda'
-                },
-                'fr': {
-                    addToCart: 'Ajouter au panier',
-                    backToStore: 'Retour au magasin'
-                },
-                'de': {
-                    addToCart: 'In den Warenkorb',
-                    backToStore: 'Zurück zum Laden'
-                },
-                'pt': {
-                    addToCart: 'Adicionar ao carrinho',
-                    backToStore: 'Voltar à loja'
-                }
-            };
-
-            document.querySelector('.action-buttons .btn-lg:first-of-type').innerText = translations[lang].addToCart;
-            document.getElementById('back-to-store').querySelector('span').innerText = translations[lang].backToStore;
-        }
-    </script>
-    <script src="assets/js/productos.js"></script>
+    <script src="/public/assets/js/productos.js"></script>
 </body>
 
 </html>

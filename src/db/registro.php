@@ -14,17 +14,17 @@ $recaptchaSecret = $_ENV['recaptchaSecret'];
 $response = array();
 
 try {
-    // Crear conexión
+
     $conn = getDbConnection();
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $email = $_POST['email'] ?? '';
         $password = $_POST['password'] ?? '';
         $passwordConfirm = $_POST['passwordConfirm'] ?? '';
-        
-        
+
+
         $recaptchaResponse = $_POST['g-recaptcha-response'] ?? '';
-        
+
         // Verificar el token de reCAPTCHA
         $recaptchaVerifyUrl = 'https://www.google.com/recaptcha/api/siteverify';
         $recaptchaResponse = file_get_contents($recaptchaVerifyUrl . '?secret=' . $recaptchaSecret . '&response=' . $recaptchaResponse);
@@ -47,7 +47,7 @@ try {
             throw new Exception('Error en la verificación de reCAPTCHA. Inténtalo de nuevo.');
         }
 
-        // Verificar si el correo ya está registrado
+
         $sql = "SELECT COUNT(*) as count FROM cliente WHERE correo = ?";
         $stmt = $conn->prepare($sql);
         if ($stmt) {
@@ -66,10 +66,10 @@ try {
         // Encriptar contraseña
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-        // Generar un token de verificación
+
         $verificationToken = bin2hex(random_bytes(16)); // Genera un token de 32 caracteres en hexadecimal
 
-        // Insertar en la base de datos (sin activar la cuenta)
+
         $sql = "INSERT INTO cliente (correo, contrasena, estadoActivacion, tokenVerificacion) VALUES (?, ?, 0, ?)";
         $stmt = $conn->prepare($sql);
 
@@ -78,17 +78,16 @@ try {
 
             if ($stmt->execute()) {
                 // Enviar el correo de verificación
-                $verificationLink = "https://cafesabrosos.myvnc.com/public/registro.php?token=" . $verificationToken;
+                $verificationLink = "https://cafesabrosos.myvnc.com/public/registroExitoso.php?token=" . $verificationToken;
                 $emailSubject = "Verifica tu cuenta";
                 $emailBody = getVerificationEmailBody($verificationLink);
 
                 if (sendEmail($email, $emailSubject, $emailBody)) {
                     $response['status'] = 'success';
-                    $response['redirect'] = 'https://cafesabrosos.myvnc.com/index.php'; // Redirige al usuario a index.php
+                    $response['redirect'] = 'https://cafesabrosos.myvnc.com/';
                 } else {
                     throw new Exception('No se pudo enviar el correo de verificación.');
                 }
-
             } else {
                 throw new Exception('Error al insertar datos: ' . $stmt->error);
             }

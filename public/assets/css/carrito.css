@@ -114,7 +114,9 @@ div#cantidad {
 span#cantidadnum {
     padding: 10px;
 }
-
+span{
+    color: #1e1e1e;
+}
 .container {
     max-width: 1200px;
     margin: 50px auto 100px;
@@ -125,8 +127,12 @@ span#cantidadnum {
     display: flex;
     justify-content: space-between;
 }
+h2{
+    color:#1e1e1e
+}
 h1.text-2xl.font-bold.mb-6 {
     margin-left: 55px;
+    color: #1e1e1e;
 }
 .flex.items-center.justify-between.font-medium.text-lg {
     margin: 10px;
@@ -201,7 +207,7 @@ div#precionu {
 }
 
 .checkout-btn {
-    background-color: hsl(var(--primary));
+    background-color: #DAA520;
     color: hsl(var(--primary-foreground));
     border: none;
     padding: 10px 20px;

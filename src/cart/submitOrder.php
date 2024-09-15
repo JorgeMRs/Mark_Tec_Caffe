@@ -27,14 +27,18 @@ try {
         throw new Exception('Debe seleccionar una sucursal.');
     }
     
+    // Generar el código de verificación
+    $codigoVerificacion = 'PEDIDO' . str_pad(substr(md5(uniqid(rand(), true)), 0, 6), 6, '0', STR_PAD_LEFT);
+
     if ($orderType === 'Para llevar') {
+        // Validar que se haya especificado una hora y que esté en formato HH:MM
         if (empty($pickupTime)) {
-            throw new Exception('Debe especificar una hora de recogida para pedidos "Para llevar".');
+            throw new Exception('Debe especificar una hora de recogida válida para pedidos "Para llevar".');
         }
-        $codigoVerificacion = 'PEDIDO' . str_pad(substr(md5(uniqid(rand(), true)), 0, 6), 6, '0', STR_PAD_LEFT);
+        // La hora ya está en formato HH:MM:SS en el formulario, no es necesario convertir
+        error_log("Hora de recogida recibida: $pickupTime"); // Depurar valor
     } else {
         $pickupTime = null;
-        $codigoVerificacion = null;
     }
 
     $conn = getDbConnection();
@@ -70,19 +74,20 @@ try {
     $total = $subtotal + $tax;
 
     // Obtener el último número de pedido para este usuario
-    $stmt = $conn->prepare("SELECT COALESCE(MAX(numeroPedidoUsuario), 0) AS ultimoNumero FROM pedido WHERE idCliente = ?");
+    $stmt = $conn->prepare("SELECT COALESCE(MAX(numeroPedidoCliente), 0) AS ultimoNumero FROM pedido WHERE idCliente = ?");
     $stmt->bind_param("i", $userId);
     $stmt->execute();
     $stmt->bind_result($ultimoNumeroPedido);
     $stmt->fetch();
     $stmt->close();
 
-    $numeroPedidoUsuario = $ultimoNumeroPedido + 1;
+    $numeroPedidoCliente = $ultimoNumeroPedido + 1;
+    error_log("Hora de recogida antes de la inserción: $pickupTime");
 
     // Insertar el nuevo pedido con el número de pedido específico del usuario
-    $stmt = $conn->prepare("INSERT INTO pedido (idCliente, idCarrito, idSucursal, tipoPedido, notas, horaRecogida, metodoPago, total, codigoVerificacion, numeroPedidoUsuario) VALUES (?, ?, ?, ?, ?, ?, 'Tarjeta', ?, ?, ?)");
-    $stmt->bind_param("iiissdssi", $userId, $cartId, $branchId, $orderType, $orderNotes, $pickupTime, $total, $codigoVerificacion, $numeroPedidoUsuario);
-
+    $stmt = $conn->prepare("INSERT INTO pedido (idCliente, idCarrito, idSucursal, tipoPedido, notas, horaRecogida, metodoPago, total, codigoVerificacion, numeroPedidoCliente) VALUES (?, ?, ?, ?, ?, ?, 'Tarjeta', ?, ?, ?)");
+    $stmt->bind_param("iiisssdsi", $userId, $cartId, $branchId, $orderType, $orderNotes, $pickupTime, $total, $codigoVerificacion, $numeroPedidoCliente);
+    
     if (!$stmt->execute()) {
         throw new Exception('No se pudo realizar el pedido.');
     }
@@ -104,7 +109,7 @@ try {
     $conn->commit();
     $response['success'] = true;
     $response['orderId'] = $orderId;
-    $response['numeroPedidoUsuario'] = $numeroPedidoUsuario;
+    $response['numeroPedidoCliente'] = $numeroPedidoCliente;
     $response['codigoVerificacion'] = $codigoVerificacion;
 
 } catch (Exception $e) {

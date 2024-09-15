@@ -2,33 +2,32 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require '../vendor/autoload.php'; // Ajusta la ruta según sea necesario
+require '../vendor/autoload.php';
 
 function sendReservationEmail($to, $codigoReserva, $nuevoCodigoReserva, $qrFilePath): bool
 {
     $mail = new PHPMailer(true);
 
     try {
-        // Configuración del servidor
+        
         $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com'; // Servidores SMTP
+        $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
-        $mail->Username = $_ENV['SMTPEMAIL']; // Nombre de usuario SMTP
-        $mail->Password = $_ENV['SMTPPASS']; // Contraseña SMTP
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Cifrado TLS
-        $mail->Port = 587; // Puerto
+        $mail->Username = $_ENV['SMTPEMAIL'];
+        $mail->Password = $_ENV['SMTPPASS']; 
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; 
+        $mail->Port = 587; 
 
-        // Destinatarios
+     
         $mail->setFrom('no-reply@cafesabrosos.myvnc.com', 'Café Sabrosos');
-        $mail->addAddress($to); // Añadir destinatario
+        $mail->addAddress($to); 
 
-        // Contenido del correo
-        $mail->isHTML(true); // Formato HTML
+        
+        $mail->isHTML(true); 
         $mail->CharSet = 'UTF-8';
         $mail->Subject = 'Confirmación de Reserva - Café Sabrosos';
         $mail->Body    = getReservationEmailBody($codigoReserva, $nuevoCodigoReserva);
 
-        // Adjuntar el archivo del código QR
         if (file_exists($qrFilePath)) {
             $mail->addAttachment($qrFilePath); // Adjuntar el QR
         }
@@ -36,7 +35,6 @@ function sendReservationEmail($to, $codigoReserva, $nuevoCodigoReserva, $qrFileP
         $mail->send();
         return true;
     } catch (Exception $e) {
-        // Registrar error
         error_log('Error en el correo: ' . $mail->ErrorInfo);
         return false;
     }

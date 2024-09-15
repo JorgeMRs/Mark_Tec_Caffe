@@ -1,0 +1,169 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    color: #333;
+}
+
+select,
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+}
+
+select:hover,
+input[type="text"]:hover,
+input[type="number"]:hover {
+    border-color: #ccc;
+}
+
+select:focus,
+input[type="text"]:focus,
+input[type="number"]:focus {
+    border-color: #1B0C0A;
+    outline: none;
+}
+
+.button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #1B0C0A;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #74623c;
+}
+
+.product-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.product-row input[type="number"] {
+    margin-left: 10px;
+    width: 100px;
+}
+
+input[type="text"]::placeholder {
+    color: #aaa;
+}
+
+.product-quantity {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.product-quantity button {
+    background-color: #1B0C0A;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    padding: 5px 10px;
+    font-size: 18px;
+    transition: background-color 0.5s ease;
+}
+
+.product-quantity button:hover {
+    background-color: #74623c;
+}
+
+.product-quantity span {
+    display: inline-block;
+    width: 20px;
+    text-align: center;
+    font-size: 16px;
+    margin: 0 5px;
+}
+
+.product-quantity button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+#horaRecogidaContainer {
+    display: none;
+}
+
+input[type="checkbox" i] {
+    background-color: initial;
+    cursor: default;
+    appearance: auto;
+    box-sizing: border-box;
+    margin: 3px 3px 3px 4px;
+    padding: initial;
+    border: initial;
+}
+
+.header-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+    resize: none;
+}
+
+textarea::placeholder {
+    color: #aaa;
+}
+
+textarea:hover {
+    border-color: #ccc;
+}
+
+textarea:focus {
+    border-color: #1B0C0A;
+    outline: none;
+}

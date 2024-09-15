@@ -61,14 +61,20 @@ function sendOrderConfirmationEmail($orderId, $email): bool
         // Contenido
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';
-        $mail->Subject = 'Confirmación de tu Pedido #' . $orderDetails['numeroPedidoUsuario'];
+        $mail->Subject = 'Confirmación de tu Pedido #' . $orderDetails['numeroPedidoCliente'];
         
         // Obtener la URL pública del QR code
         $qrFileUrl = generateQrCode($orderDetails['codigoVerificacion']);
 
+        // Obtener el archivo QR code para adjuntar
+        $qrFilePath = str_replace('https://cafesabrosos.myvnc.com/src/qrcodes/', '/var/www/cafesabrosos/src/qrcodes/', $qrFileUrl);
+        
         // Generar el cuerpo del correo
         $mail->Body = getOrderEmailBody($orderDetails, $qrFileUrl);
 
+        // Adjuntar el archivo QR code
+        $mail->addAttachment($qrFilePath, 'codigo_qr.png');
+        
         $mail->send();
         return true;
     } catch (Exception $e) {
@@ -82,7 +88,7 @@ function getOrderDetails($orderId)
     try {
         $conn = getDbConnection();
 
-        // Obtener los productos del pedido y el numeroPedidoUsuario
+        // Obtener los productos del pedido y el numeroPedidoCliente
         $stmt = $conn->prepare("SELECT p.nombre, p.imagen, pd.cantidad, pd.precio, (pd.cantidad * pd.precio) as totalProducto
                                 FROM pedidodetalle pd 
                                 JOIN producto p ON pd.idProducto = p.idProducto 
@@ -104,18 +110,18 @@ function getOrderDetails($orderId)
 
         $stmt->close();
 
-        // Obtener el numeroPedidoUsuario, codigoVerificacion, tipoPedido y detalles de la sucursal
-        $stmt = $conn->prepare("SELECT numeroPedidoUsuario, codigoVerificacion, tipoPedido, s.nombre, s.direccion, s.pais, s.ciudad, s.tel 
+        // Obtener el numeroPedidoCliente, codigoVerificacion, tipoPedido y detalles de la sucursal
+        $stmt = $conn->prepare("SELECT numeroPedidoCliente, codigoVerificacion, tipoPedido, s.nombre, s.direccion, s.pais, s.ciudad, s.tel 
                                 FROM pedido p 
                                 LEFT JOIN sucursal s ON p.idSucursal = s.idSucursal
                                 WHERE p.idPedido = ?");
         $stmt->bind_param("i", $orderId);
         $stmt->execute();
-        $stmt->bind_result($numeroPedidoUsuario, $codigoVerificacion, $tipoPedido, $sucursalNombre, $sucursalDireccion, $sucursalPais, $sucursalCiudad, $sucursalTel);
+        $stmt->bind_result($numeroPedidoCliente, $codigoVerificacion, $tipoPedido, $sucursalNombre, $sucursalDireccion, $sucursalPais, $sucursalCiudad, $sucursalTel);
         $stmt->fetch();
         $stmt->close();
 
-        if (!$numeroPedidoUsuario) {
+        if (!$numeroPedidoCliente) {
             error_log("No se encontró el número de pedido de usuario para el pedido con ID $orderId.");
             throw new Exception('No se encontró el número de pedido para este pedido.');
         }
@@ -138,11 +144,10 @@ function getOrderDetails($orderId)
         $tax = $subtotal * $ivaRate;
         $total = $subtotal + $tax;
 
-        // Guardar el subtotal, total y numeroPedidoUsuario en el arreglo de detalles del pedido
         $orderDetails['subtotal'] = $subtotal;
         $orderDetails['tax'] = $tax;
         $orderDetails['total'] = $total;
-        $orderDetails['numeroPedidoUsuario'] = $numeroPedidoUsuario;
+        $orderDetails['numeroPedidoCliente'] = $numeroPedidoCliente;
         $orderDetails['codigoVerificacion'] = $codigoVerificacion;
         $orderDetails['tipoPedido'] = $tipoPedido;
         $orderDetails['sucursal'] = [
@@ -199,7 +204,7 @@ function getOrderEmailBody($orderDetails, $qrFileUrl): string
 
     // Agregar código de verificación solo para pedidos para llevar
     $codigoVerificacionHTML = '';
-    if ($orderDetails['tipoPedido'] === 'Para llevar') {
+    
         $codigoVerificacionHTML = "
             <p><strong>Código de Verificación:</strong> {$orderDetails['codigoVerificacion']}</p>
             <p style='text-align: center;'>
@@ -207,7 +212,7 @@ function getOrderEmailBody($orderDetails, $qrFileUrl): string
             </p>
             <p style='width: 700px;'><strong>Por favor, presenta el código de verificación o este código QR al mozo cuando llegues a la sucursal.</strong></p>
         ";
-    }
+    
 
     return "
     <html>
@@ -259,7 +264,7 @@ function getOrderEmailBody($orderDetails, $qrFileUrl): string
     <body>
         <div class='container'>
          $uniqueContent
-            <h1>Gracias por tu Pedido #{$orderDetails['numeroPedidoUsuario']}</h1>
+            <h1>Gracias por tu Pedido #{$orderDetails['numeroPedidoCliente']}</h1>
             <p>Tu pedido ha sido confirmado. Aquí están los detalles:</p>
             $sucursalInfo
             <table>

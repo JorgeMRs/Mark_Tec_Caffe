@@ -2,16 +2,16 @@ document.addEventListener("DOMContentLoaded", function () {
     const cartIcon = document.getElementById("cart-icon");
     const cartPreview = document.getElementById("cart-preview");
     const cartItems = document.getElementById("cart-items");
-    let cartData = null; // Variable para almacenar los datos del carrito
-    let isDataLoaded = false; // Bandera para verificar si los datos ya se cargaron
+    let cartData = null;
+    let isDataLoaded = false;
 
     async function fetchCartItems(userId) {
         try {
             const response = await fetch(`/src/cart/getCart.php?user_id=${userId}`);
             const data = await response.json();
-            cartData = data; // Almacenar datos en la variable
-            isDataLoaded = true; // Marcar los datos como cargados
-            renderCartItems(); // Mostrar los datos en el carrito
+            cartData = data; 
+            isDataLoaded = true; 
+            renderCartItems(); 
         } catch (error) {
             console.error("Error al obtener los productos del carrito:", error);
             cartItems.innerHTML = "<p>Error al cargar el carrito.</p>";
@@ -59,10 +59,10 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(data => {
                 const userId = data.loggedIn ? data.userId : null;
                 if (userId) {
-                    fetchCartItems(userId); // Actualizar los datos del carrito
+                    fetchCartItems(userId); 
                 } else {
                     console.log('Usuario no conectado. No se puede actualizar el carrito.');
-                    // Maneja el caso cuando el usuario no está conectado si es necesario
+                    
                 }
             })
             .catch(error => {
@@ -82,29 +82,29 @@ document.addEventListener("DOMContentLoaded", function () {
             cartIcon.addEventListener("mouseenter", debounce(function () {
                 if (userId) {
                     if (!isDataLoaded) {
-                        fetchCartItems(userId); // Cargar datos solo si no están cargados
+                        fetchCartItems(userId);
                     } else {
-                        renderCartItems(); // Mostrar los datos ya cargados
+                        renderCartItems();
                     }
                     cartPreview.classList.add("visible");
-                    cartPreview.classList.remove("hide"); // Asegúrate de eliminar la clase de ocultación
+                    cartPreview.classList.remove("hide");
                 } else {
                     cartItems.innerHTML = "<p>Por favor, inicia sesión para ver tu carrito.</p>";
                 }
             }, 100));
 
             cartIcon.addEventListener("mouseleave", function () {
-                cartPreview.classList.add("hide"); // Agregar clase para animación de cierre
+                cartPreview.classList.add("hide"); 
                 setTimeout(() => {
-                    cartPreview.classList.remove("visible"); // Remover clase de visibilidad después de la animación
-                }, 300); // Tiempo de espera igual al de la animación de cierre
+                    cartPreview.classList.remove("visible"); 
+                }, 300); 
             });
 
             cartPreview.addEventListener("mouseleave", function () {
-                cartPreview.classList.add("hide"); // Agregar clase para animación de cierre
+                cartPreview.classList.add("hide"); 
                 setTimeout(() => {
-                    cartPreview.classList.remove("visible"); // Remover clase de visibilidad después de la animación
-                }, 300); // Tiempo de espera igual al de la animación de cierre
+                    cartPreview.classList.remove("visible"); 
+                }, 300); 
             });
         });
 
@@ -115,4 +115,25 @@ document.addEventListener("DOMContentLoaded", function () {
             timeout = setTimeout(() => func.apply(this, args), wait);
         };
     }
+});
+
+function toggleLanguageMenu() {
+    const menu = document.getElementById('language-menu');
+    menu.classList.toggle('show');
+}
+function changeLanguage(lang) {
+    const url = new URL(window.location.href);
+    url.searchParams.set('lang', lang);
+    window.location.href = url.toString();
+}
+document.addEventListener('DOMContentLoaded', () => {
+const language = '<?= htmlspecialchars($language) ?>'; // Obtener el idioma actual de PHP
+
+document.querySelectorAll('[data-lang]').forEach(element => {
+    if (element.getAttribute('data-lang') === language) {
+        element.style.display = 'block';
+    } else {
+        element.style.display = 'none';
+    }
+});
 });

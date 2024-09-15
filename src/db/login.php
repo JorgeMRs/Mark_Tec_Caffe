@@ -82,7 +82,7 @@ try {
                             // Redirigir según el rol
                             if ($puesto === 'Mozo') {
                                 $response['success'] = true;
-                                $response['redirect'] = '../../public/mozo.php';
+                                $response['redirect'] = '../../public/mozo/mozo.php';
                             } else {
                                 $response['success'] = true;
                                 $response['redirect'] = '../../index.php';

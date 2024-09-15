@@ -12,7 +12,7 @@
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 </head>
 <header>
-  <?php include 'nav.html'?>
+  <?php include 'templates/nav.php'?>
 </header>
 
 <body>
@@ -100,7 +100,7 @@
         </div>
       </div>
     </div>
-    <?php include 'templates/footer.html' ?>
+    <?php include 'templates/footer.php' ?>
     <script>
       const swiper = new Swiper('.swiper-container', {
         loop: true,
