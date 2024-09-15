@@ -8,7 +8,7 @@ body {
 
 /* Estilos generales para el nav */
 nav {
-  position: relative;
+  position: absolute;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -26,8 +26,7 @@ nav {
   display: flex;
   align-items: center;
   margin-left: 15vh;
-  font-family: "Poppins";
-  font-weight: 700;
+
 }
 
 .logo-link {
@@ -49,6 +48,8 @@ nav {
   background: linear-gradient(45deg, #fff, #b8860b);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  font-family: "Poppins";
+  font-weight: 700;
 }
 
 /* Estilos para la sección de navegación e íconos */
@@ -497,4 +498,20 @@ h4{
     justify-content: space-between;
     align-items: center;
   }
+}
+
+
+.language-selector {
+  margin-left: 20px;
+  padding: 5px;
+  background-color: #fff;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.language-selector option {
+  background-color: #fff;
+  color: #333;
 }

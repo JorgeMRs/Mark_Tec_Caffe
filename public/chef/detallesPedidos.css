@@ -1,0 +1,324 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.container {
+    width: 90%;
+    margin: 20px auto;
+    max-width: 1200px;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+    color: #333;
+}
+
+p {
+    font-size: 16px;
+    margin: 10px 0;
+}
+.paper p {
+    font-size: 30px;
+    margin: 10px 0;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background-color: #DAA520;
+    color: white;
+}
+
+td {
+    font-size: 14px;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #DAA520;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+    border-color: transparent;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.button:hover {
+    background-color: #1B0D0B;
+}
+   :root {
+  --pink: #ecb2ba;
+  --pink-dark: #c6939a;
+  --tape-gray: #dbd8be;
+  --tape-edge-gray: #b7b49d;
+  --transparent: rgba(255, 255, 255, 0);
+}
+
+body {
+  background: #ebf4e9;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.pink {
+  --paper-color: var(--pink);
+  --paper-dark: var(--pink-dark);
+  --shadow-size: 1px;
+  --transparent: rgba(236, 178, 186, 0);
+}
+
+.blue {
+  --paper-color: #d5e0f9;
+  --paper-dark: #c2d0ea;
+  --shadow-size: 3px;
+  --transparent: rgba(213, 224, 249, 0);
+}
+
+.paper {
+  position: relative;
+  background: linear-gradient(
+      to bottom right,
+      var(--paper-dark),
+      20%,
+      var(--transparent)
+    ),
+    var(--paper-color);
+    min-width: 250px;
+    min-height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Caveat", cursive;
+  font-size: 2rem;
+  box-shadow: var(--shadow-size) var(--shadow-size) 2px var(--paper-dark);
+  margin: auto;
+  margin-top: 50px;
+}
+
+.paper::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+      var(--transparent),
+      50%,
+      var(--paper-dark),
+      51%,
+      var(--transparent)
+    ),
+    linear-gradient(
+      to right,
+      var(--transparent),
+      50%,
+      var(--paper-dark),
+      51%,
+      var(--transparent)
+    );
+}
+
+.tape-section {
+  position: absolute;
+  width: 100%;
+}
+
+.top-tape {
+  position: absolute;
+  height: 4vmin;
+  top: -5px;
+  width: 110%;
+  background-color: var(--tape-gray);
+  border-right: 1px dotted var(--tape-edge-gray);
+  border-left: 1px dotted var(--tape-edge-gray);
+  opacity: 0.5;
+}
+
+.tape-section:first-of-type {
+  top: 0;
+}
+
+.tape-section:last-of-type {
+  bottom: 0;
+}
+
+.tape-section::before,
+.tape-section::after {
+  content: "";
+  width: 10vmin;
+  height: 4vmin;
+  position: absolute;
+  background-color: var(--tape-gray);
+  opacity: 0.5;
+  border-right: 1px dotted var(--tape-edge-gray);
+  border-left: 1px dotted var(--tape-edge-gray);
+}
+
+.tape-section:last-of-type::after {
+  transform: rotate(-45deg);
+  right: -4vmin;
+  top: -3vmin;
+}
+
+.tape-section:first-of-type::before {
+  transform: rotate(-45deg);
+  left: -4vmin;
+}
+
+.tape-section:first-of-type::after {
+  transform: rotate(45deg);
+  right: -4vmin;
+  top: 0;
+}
+
+.tape-section:last-of-type::before {
+  transform: rotate(45deg);
+  left: -4vmin;
+  bottom: 0;
+}
+.quote-container {
+  margin-top: 20px;
+  position: relative;
+}
+.note {
+    color: #333;
+    position: relative;
+    width: fit-content;
+    min-width: 20%;
+    min-height: 300px;
+    margin: 0 auto;
+    padding: 10px;
+    font-family: Verdana;
+    font-size: 18px;
+    box-shadow: 0 10px 10px 2px rgba(0, 0, 0, 0.3);
+    margin-bottom: 100px;
+    text-align: center; /* Alinea el texto al centro */
+}
+.add,
+.clear {
+  display: inline-block;
+  background-color: #eae672;
+  border: 0px;
+  padding: 5px 10px;
+  font-size: 18px;
+  cursor: pointer;
+}
+.note .add:hover {
+  color: white;
+  background-color: green;
+}
+.note .clear:hover {
+  color: white;
+  background-color: #96342b;
+}
+.yellow {
+  background: #eae672;
+  -webkit-transform: rotate(2deg);
+  -moz-transform: rotate(2deg);
+  -o-transform: rotate(2deg);
+  -ms-transform: rotate(2deg);
+  transform: rotate(2deg);
+}
+.pin {
+  background-color: #aaa;
+  display: block;
+  height: 32px;
+  width: 2px;
+  position: absolute;
+  left: 50%;
+  top: -16px;
+  z-index: 1;
+}
+.pin:after {
+  background-color: #a31;
+  background-image: radial-gradient(
+    25% 25%,
+    circle,
+    hsla(0, 0%, 100%, 0.3),
+    hsla(0, 0%, 0%, 0.3)
+  );
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px hsla(0, 0%, 0%, 0.1),
+    inset 3px 3px 3px hsla(0, 0%, 100%, 0.2),
+    inset -3px -3px 3px hsla(0, 0%, 0%, 0.2),
+    23px 20px 3px hsla(0, 0%, 0%, 0.15);
+  content: "";
+  height: 12px;
+  left: -5px;
+  position: absolute;
+  top: -10px;
+  width: 12px;
+}
+.pin:before {
+  background-color: hsla(0, 0%, 0%, 0.1);
+  box-shadow: 0 0 0.25em hsla(0, 0%, 0%, 0.1);
+  content: "";
+  height: 24px;
+  width: 2px;
+  left: 0;
+  position: absolute;
+  top: 8px;
+  transform: rotate(57.5deg);
+  -moz-transform: rotate(57.5deg);
+  -webkit-transform: rotate(57.5deg);
+  -o-transform: rotate(57.5deg);
+  -ms-transform: rotate(57.5deg);
+  transform-origin: 50% 100%;
+  -moz-transform-origin: 50% 100%;
+  -webkit-transform-origin: 50% 100%;
+  -ms-transform-origin: 50% 100%;
+  -o-transform-origin: 50% 100%;
+}
+h4 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+#stuff {
+  width: fit-content;
+  margin: 0 auto;
+}
+.butons {
+  width: 45%;
+  margin: 20px auto 5px auto;
+}
+.done {
+  color: green;
+  text-decoration: line-through;
+}
+input[type="checkbox"] {
+  cursor: pointer;
+  margin: 2px;
+}

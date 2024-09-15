@@ -13,27 +13,27 @@ $show_icon = ($current_page === 'tienda.php') ? '<i class="fa fa-plus"></i>' : '
     <div class="logo">
         <a href="/" class="logo-link">
             <img src="<?php echo $logo_path; ?>" alt="Logo" class="logo-image" />
-            <h1>Café Sabrosos</h1>
+            <h1 data-translate="nav.logo">Café Sabrosos</h1>
         </a>
     </div>
     <div class="nav-content">
         <ul class="nav-links">
             <li class="dropdown mobile-only <?php echo $show_dropdown; ?>">
-                <a href="<?php echo $productos_link; ?>" class="dropdown-link"><?php echo $productos_text; ?> <?php echo $show_icon; ?></a>
+                <a href="<?php echo $productos_link; ?>" class="dropdown-link" data-translate="nav.productos"><?php echo $productos_text; ?> <?php echo $show_icon; ?></a>
                 <ul class="dropdown-menu" id="mobile-category-dropdown">
-                    <li><a href="#" data-category="Cafés Especiales" data-category-id="1">Cafés Especiales</a></li>
-                    <li><a href="#" data-category="Cafés con Leche" data-category-id="2">Cafés con Leche</a></li>
-                    <li><a href="#" data-category="Cafés Fríos" data-category-id="3">Cafés Fríos</a></li>
-                    <li><a href="#" data-category="Pasteles y Postres" data-category-id="4">Pasteles y Postres</a></li>
-                    <li><a href="#" data-category="Té" data-category-id="5">Té</a></li>
-                    <li><a href="#" data-category="Sandwich y Bocadillos" data-category-id="6">Sandwiches y Bocadillos</a></li>
+                    <li><a href="#" data-category="Cafés Especiales" data-category-id="1" data-translate="nav.categoria1">Cafés Especiales</a></li>
+                    <li><a href="#" data-category="Cafés con Leche" data-category-id="2" data-translate="nav.categoria2">Cafés con Leche</a></li>
+                    <li><a href="#" data-category="Cafés Fríos" data-category-id="3" data-translate="nav.categoria3">Cafés Fríos</a></li>
+                    <li><a href="#" data-category="Pasteles y Postres" data-category-id="4" data-translate="nav.categoria4">Pasteles y Postres</a></li>
+                    <li><a href="#" data-category="Té" data-category-id="5" data-translate="nav.categoria5">Té</a></li>
+                    <li><a href="#" data-category="Sandwich y Bocadillos" data-category-id="6" data-translate="nav.categoria6">Sandwiches y Bocadillos</a></li>
                 </ul>
             </li>
-            <li class="desktop-only"><a href="<?php echo $productos_link; ?>"><?php echo $productos_text; ?></a></li>
-            <li><a href="/public/local.php">Locales</a></li>
-            <li><a href="#">Ofertas</a></li>
-            <li><a href="/public/reservas.php">Reservas</a></li>
-            <li><a href="/public/contactos.php">Contacto</a></li>
+            <li class="desktop-only"><a href="<?php echo $productos_link; ?>" data-translate="nav.tienda"><?php echo $productos_text; ?></a></li>
+            <li><a href="/public/local.php" data-translate="nav.locales">Locales</a></li>
+            <li><a href="#" data-translate="nav.ofertas">Ofertas</a></li>
+            <li><a href="/public/reservas.php" data-translate="nav.reservas">Reservas</a></li>
+            <li><a href="/public/contactos.php" data-translate="nav.contacto">Contacto</a></li>
         </ul>
         <div class="nav-icons">
             <a href="/public/cuenta.php"><img src="/public/assets/img/image.png" alt="Usuario" class="user-icon" /></a>
@@ -43,11 +43,18 @@ $show_icon = ($current_page === 'tienda.php') ? '<i class="fa fa-plus"></i>' : '
                     <span id="cart-counter" class="cart-counter">0</span>
                 </a>
                 <div class="cart-preview" id="cart-preview">
-                    <!-- Los productos del carrito se llenarán dinámicamente aquí -->
                     <ul id="cart-items"></ul>
                     <a href="/public/carrito.php" class="view-cart-button">Ver carrito</a>
                 </div>
             </div>
+            <!-- Selector de idiomas -->
+            <select id="language-selector" class="language-selector">
+                <option value="es">Español</option>
+                <option value="en">English</option>
+                <option value="fr">Français</option>
+                <option value="pt">Português</option>
+                <option value="de">Deutsch</option>
+            </select>
         </div>
     </div>
     <div class="nav-toggle">

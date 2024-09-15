@@ -19,6 +19,57 @@
     <link rel="stylesheet" href="assets/css/footer.css">
 
 </head>
+<style>
+.loader {
+    width: 30px;
+    height: 30px; /* Asegura que tenga un tamaño fijo */
+    --b: 8px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    padding: 1px;
+    background: conic-gradient(#0000 10%, #1B0D0B) content-box;
+    -webkit-mask:
+        repeating-conic-gradient(#0000 0deg, #000 1deg 20deg, #0000 21deg 36deg),
+        radial-gradient(farthest-side, #0000 calc(100% - var(--b) - 1px), #000 calc(100% - var(--b)));
+    -webkit-mask-composite: destination-in;
+            mask-composite: intersect;
+    animation: l4 1s infinite steps(10);
+    display: none; /* Oculto inicialmente */
+}
+
+@keyframes l4 {
+    to {
+        transform: rotate(1turn);
+    }
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #DAA520;
+    color: white;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    min-width: 150px; /* Ancho mínimo para que no cambie */
+    height: 50px; /* Altura fija para evitar que cambie */
+    position: relative;
+}
+.btn:hover .loader {
+        background: conic-gradient(#0000 10%, #DAA520); /* Cambia el color del loader al hacer hover */
+    }
+.submit-text {
+    font-size: 16px;
+    margin-right: 10px; 
+}
+#response-message {
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: #333;
+        }
+</style>
 
 <body>
     <?php include 'templates/nav-blur.php' ?>
@@ -36,30 +87,32 @@
                     <input id="subject" type="text" name="subject" class="feedback-input" required /><br>
                     <label for="message">Comentario o mensaje</label>
                     <textarea id="message" name="message" class="feedback-input" required></textarea><br>
-                    <div id="loaderContainer" style="display: none;">Cargando...</div>
-                    <div id="message-container" style="display: none;">
-                        <span id="message-text"></span>
-                    </div>
-                    <input class="btn" type="submit" value="ENVIAR" />
+                    <div id="response-message"></div>
+                    <button class="btn" type="submit">
+                        <span class="submit-text">ENVIAR</span>
+                        <div class="loader" style="display: none;"></div>
+                    </button>
+
                 </form>
             </div>
         </div>
     </main>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function() {
             const form = document.querySelector('#contact-form');
-            const loaderContainer = document.querySelector('#loaderContainer');
-            const submitButton = document.querySelector('input[type="submit"]');
-            const modalBackground = document.querySelector('#message-container');
-            const modalMessage = document.querySelector('#message-text');
+            const loader = document.querySelector('.loader');
+            const submitText = document.querySelector('.submit-text');
+            const responseMessage = document.querySelector('#response-message');
 
             form.addEventListener('submit', function(event) {
                 event.preventDefault();
 
                 const formData = new FormData(this);
 
-                loaderContainer.style.display = 'block';
-                submitButton.style.display = 'none';
+                // Ocultar texto de envío y mostrar loader
+                submitText.style.display = 'none'; // Ocultar el texto
+                loader.style.display = 'block'; // Mostrar el loader
+                responseMessage.textContent = ''; // Limpiar mensaje de respuesta
 
                 fetch(this.action, {
                         method: 'POST',
@@ -67,23 +120,26 @@
                     })
                     .then(response => response.text())
                     .then(data => {
-                        loaderContainer.style.display = 'none';
-                        submitButton.style.display = 'block';
+                        // Mostrar texto de envío y ocultar loader
+                        loader.style.display = 'none';
+                        submitText.style.display = 'block'; // Mostrar de nuevo el texto
 
                         // Mostrar mensaje basado en la respuesta del servidor
                         if (data.includes('El mensaje se ha enviado correctamente.')) {
-                            modalMessage.textContent = 'Correo enviado correctamente';
+                            responseMessage.textContent = 'Correo enviado correctamente';
+                            responseMessage.style.color = 'green'; // Color de éxito
                         } else {
-                            modalMessage.textContent = 'Hubo un error al enviar el mensaje. Por favor, intenta de nuevo.';
+                            responseMessage.textContent = 'Hubo un error al enviar el mensaje. Por favor, intenta de nuevo.';
+                            responseMessage.style.color = 'red'; // Color de error
                         }
 
-                        modalBackground.style.display = 'flex';
                         form.reset();
                     })
                     .catch(error => {
-                        loaderContainer.style.display = 'none';
-                        submitButton.style.display = 'block';
-                        modalMessage.textContent = 'Hubo un error al enviar el mensaje. Por favor, intenta de nuevo.';
+                        loader.style.display = 'none';
+                        submitText.style.display = 'block'; // Mostrar de nuevo el texto
+                        responseMessage.textContent = 'Hubo un error al enviar el mensaje. Por favor, intenta de nuevo.';
+                        responseMessage.style.color = 'red'; // Color de error
                         console.error('Error:', error);
                     });
             });

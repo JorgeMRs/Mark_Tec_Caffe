@@ -114,7 +114,7 @@ $conn->close();
                     <?php endforeach; ?>
                 <?php endforeach; ?>
             </div>
-            <div id="productosSeleccionadosContainer" style="margin-top: 20px;">
+            <div id="productosSeleccionadosContainer" style="margin-top: 20px; margin-bottom: 20px;" >
                 No hay productos seleccionados.
             </div>
             <label for="tipoPedido">Tipo de Pedido</label>

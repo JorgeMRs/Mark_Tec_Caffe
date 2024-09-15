@@ -83,6 +83,9 @@ try {
                             if ($puesto === 'Mozo') {
                                 $response['success'] = true;
                                 $response['redirect'] = '../../public/mozo/mozo.php';
+                            } elseif ($puesto === 'Chef') {
+                                $response['success'] = true;
+                                $response['redirect'] = '../../public/chef/chef.php'; // Redirigir a chef.php
                             } else {
                                 $response['success'] = true;
                                 $response['redirect'] = '../../index.php';

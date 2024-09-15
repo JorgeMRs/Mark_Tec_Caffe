@@ -73,6 +73,32 @@ try {
     $tax = $subtotal * $ivaRate;
     $total = $subtotal + $tax;
 
+    // Actualizar o insertar el número de pedido para la sucursal seleccionada
+    $stmt = $conn->prepare("SELECT numeroPedido FROM numeropedidosucursal WHERE idSucursal = ?");
+    $stmt->bind_param("i", $branchId);
+    $stmt->execute();
+    $stmt->bind_result($numeroPedidoSucursal);
+    $stmt->fetch();
+    $stmt->close();
+
+    if ($numeroPedidoSucursal === null) {
+        // Si no existe, inicializamos en 1
+        $numeroPedidoSucursal = 1;
+        $stmt = $conn->prepare("INSERT INTO numeropedidosucursal (idSucursal, numeroPedido) VALUES (?, ?)");
+        $stmt->bind_param("ii", $branchId, $numeroPedidoSucursal);
+    } else {
+        // Si existe, incrementamos el número de pedido
+        $numeroPedidoSucursal++;
+        $stmt = $conn->prepare("UPDATE numeropedidosucursal SET numeroPedido = ? WHERE idSucursal = ?");
+        $stmt->bind_param("ii", $numeroPedidoSucursal, $branchId);
+    }
+
+    if (!$stmt->execute()) {
+        throw new Exception('No se pudo actualizar el número de pedido para la sucursal.');
+    }
+    $stmt->close();
+
+
     // Obtener el último número de pedido para este usuario
     $stmt = $conn->prepare("SELECT COALESCE(MAX(numeroPedidoCliente), 0) AS ultimoNumero FROM pedido WHERE idCliente = ?");
     $stmt->bind_param("i", $userId);
@@ -85,8 +111,8 @@ try {
     error_log("Hora de recogida antes de la inserción: $pickupTime");
 
     // Insertar el nuevo pedido con el número de pedido específico del usuario
-    $stmt = $conn->prepare("INSERT INTO pedido (idCliente, idCarrito, idSucursal, tipoPedido, notas, horaRecogida, metodoPago, total, codigoVerificacion, numeroPedidoCliente) VALUES (?, ?, ?, ?, ?, ?, 'Tarjeta', ?, ?, ?)");
-    $stmt->bind_param("iiisssdsi", $userId, $cartId, $branchId, $orderType, $orderNotes, $pickupTime, $total, $codigoVerificacion, $numeroPedidoCliente);
+    $stmt = $conn->prepare("INSERT INTO pedido (idCliente, idCarrito, idSucursal, tipoPedido, notas, horaRecogida, metodoPago, total, codigoVerificacion, numeroPedidoCliente, numeroPedidoSucursal) VALUES (?, ?, ?, ?, ?, ?, 'Tarjeta', ?, ?, ?, ?)");
+    $stmt->bind_param("iiisssdsii", $userId, $cartId, $branchId, $orderType, $orderNotes, $pickupTime, $total, $codigoVerificacion, $numeroPedidoCliente, $numeroPedidoSucursal);
     
     if (!$stmt->execute()) {
         throw new Exception('No se pudo realizar el pedido.');

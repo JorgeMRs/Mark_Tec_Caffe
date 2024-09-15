@@ -19,7 +19,7 @@ try {
     $employeeId = $_SESSION['employee_id'];
     $tipoPedido = $_POST['tipoPedido'] ?? '';
     $horaRecogida = $_POST['horaRecogida'] ?? null;
-    $numeroMesa = $_POST['numeroMesa'] ?? null;
+    $idMesa = $_POST['idMesa'] ?? null;  // Renombrado de numeroMesa a idMesa
     $notas = $_POST['notas'] ?? '';
     $total = 0.00;
 
@@ -48,35 +48,76 @@ try {
         exit;
     }
 
-    // Obtener idMesa si el pedido es para comer en el local
-    $idMesa = null;
+    // Verificar y obtener el idMesa si es necesario
     if ($tipoPedido === 'En el local') {
-        $sql = "SELECT idMesa FROM mesa WHERE numero = ? AND idSucursal = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param('ii', $numeroMesa, $idSucursal);
-        if (!$stmt->execute()) {
-            throw new Exception('Error al ejecutar la consulta para obtener idMesa.');
+        if (!$idMesa) {
+            $response['message'] = 'Número de mesa requerido para pedidos en el local.';
+            echo json_encode($response);
+            exit;
         }
-        $stmt->bind_result($idMesa);
-        $stmt->fetch();
+        // Validar que el idMesa es válido para la sucursal
+        $sql = "SELECT idMesa FROM mesa WHERE idMesa = ? AND idSucursal = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('ii', $idMesa, $idSucursal);
+        if (!$stmt->execute()) {
+            throw new Exception('Error al verificar idMesa.');
+        }
+        $stmt->store_result();
+        if ($stmt->num_rows === 0) {
+            $response['message'] = 'Número de mesa inválido para esta sucursal.';
+            echo json_encode($response);
+            exit;
+        }
         $stmt->close();
+    } else {
+        $idMesa = null; // No se requiere idMesa para pedidos para llevar
     }
 
-    if ($tipoPedido === 'En el local' && !$idMesa) {
-        $response['message'] = 'Mesa no encontrada para la sucursal.';
-        echo json_encode($response);
-        exit;
+    // Comenzar la transacción
+    $conn->begin_transaction();
+
+    // Obtener el siguiente número de pedido para la sucursal
+    $sql = "SELECT numeroPedido FROM numeropedidosucursal WHERE idSucursal = ? FOR UPDATE";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $idSucursal);
+    if (!$stmt->execute()) {
+        throw new Exception('Error al obtener el número de pedido de la sucursal.');
+    }
+    $stmt->bind_result($numeroPedidoSucursal);
+    $stmt->fetch();
+    $stmt->close();
+
+    if ($numeroPedidoSucursal === null) {
+        // Si no existe un registro para la sucursal, inicializar en 1
+        $numeroPedidoSucursal = 1;
+        $sql = "INSERT INTO numeropedidosucursal (idSucursal, numeroPedido) VALUES (?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('ii', $idSucursal, $numeroPedidoSucursal);
+        if (!$stmt->execute()) {
+            throw new Exception('Error al insertar el número de pedido inicial.');
+        }
+    } else {
+        // Incrementar el número de pedido
+        $numeroPedidoSucursal++;
+        $sql = "UPDATE numeropedidosucursal SET numeroPedido = ? WHERE idSucursal = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('ii', $numeroPedidoSucursal, $idSucursal);
+        if (!$stmt->execute()) {
+            throw new Exception('Error al actualizar el número de pedido.');
+        }
     }
 
     // Insertar el pedido en la tabla pedido
-    $sql = "INSERT INTO pedido (idEmpleado, idCliente, idCarrito, idMesa, idSucursal, estado, notas, horaRecogida, metodoPago, tipoPedido, total) 
-    VALUES (?, NULL, NULL, ?, ?, 'Pendiente', ?, ?, 'Efectivo', ?, ?)";
+    $sql = "INSERT INTO pedido (idEmpleado, idCliente, idCarrito, idMesa, idSucursal, estado, notas, horaRecogida, metodoPago, tipoPedido, total, numeroPedidoSucursal) 
+    VALUES (?, NULL, NULL, ?, ?, 'Pendiente', ?, ?, 'Efectivo', ?, ?, ?)";
+
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('iissssd', $employeeId, $idMesa, $idSucursal, $notas, $horaRecogida, $tipoPedido, $total);
+    $stmt->bind_param('iissssdi', $employeeId, $idMesa, $idSucursal, $notas, $horaRecogida, $tipoPedido, $total, $numeroPedidoSucursal);
+
     if (!$stmt->execute()) {
         throw new Exception('Error en la inserción del pedido.');
     }
-    $idPedido = $stmt->insert_id;
+    $idPedido = $stmt->insert_id; // Obtén el ID del pedido insertado
     $stmt->close();
 
     $subtotal = 0.00;
@@ -109,23 +150,26 @@ try {
         $stmt->close();
     }
 
+    // Calcula el total y actualiza el pedido
     $tax = $subtotal * $ivaRate;
     $total = $subtotal + $tax;
 
     // Actualizar el total del pedido
-    $sql = "UPDATE pedido SET total = ? WHERE idPedido = ?";
+    $sql = "UPDATE pedido SET total = ? WHERE idPedido = ? AND idSucursal = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('di', $total, $idPedido);
+    $stmt->bind_param('dii', $total, $idPedido, $idSucursal);
     if (!$stmt->execute()) {
         throw new Exception('Error al actualizar el total del pedido.');
     }
     $stmt->close();
 
+    $conn->commit();
     $conn->close();
 
     $response['success'] = true;
     $response['message'] = 'Pedido creado exitosamente.';
 } catch (Exception $e) {
+    $conn->rollback();
     $response['message'] = $e->getMessage();
 }
 

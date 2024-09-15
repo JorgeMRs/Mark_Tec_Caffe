@@ -14,22 +14,27 @@ document.addEventListener('DOMContentLoaded', function() {
     function openModal(mesaId, capacidad) {
         const sucursalId = document.body.getAttribute('data-sucursal-id');
         fetch('/src/db/checkSession.php')
-            .then(response => response.json())
-            .then(data => {
-                if (!data.loggedIn) {
-                    avisoModal.style.display = 'block';
-                    avisoClose.addEventListener('click', function() {
-                        avisoModal.style.display = 'none';
-                        window.location.href = '/public/login.html';
-                    });
-                    return;
-                }
+        .then(response => response.json())
+        .then(data => {
+            if (!data.loggedIn) {
+                avisoModal.style.display = 'block';
+                avisoClose.addEventListener('click', function() {
+                    avisoModal.style.display = 'none';
+                    window.location.href = '/public/login.html';
+                });
+                return;
+            }
+            
+            if (data.role === 'Mozo' || data.userId) {
                 capacidadMesa = capacidad;
                 document.getElementById('mesaId').value = mesaId;
                 document.getElementById('sucursalId').value = sucursalId;
                 fillCantidadPersonas(capacidad);
                 modal.style.display = 'block';
-            });
+            } else {
+                alert("Solo clientes o mozos pueden realizar reservas.");
+            }
+        });
     }
     function fillCantidadPersonas(max) {
         cantidadPersonasSelect.innerHTML = '';
