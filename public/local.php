@@ -288,7 +288,7 @@ $conn->close();
                 </div>
                 <!-- Local en Alemania -->
                 <div class="local-card">
-                    <div class="local-image" style="background-image: url('/public/assets/img/senya-mitin-PIy8Hrys8bQ-unsplash.jpg');">
+                    <div class="local-image" style="background-image: url('/public/assets/img/como-montar-cafeteria-.webp');">
                         <div class="label">Alemania</div>
                     </div>
                     <div class="local-info">

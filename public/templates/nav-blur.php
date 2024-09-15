@@ -31,7 +31,6 @@ $show_icon = ($current_page === 'tienda.php') ? '<i class="fa fa-plus"></i>' : '
             </li>
             <li class="desktop-only"><a href="<?php echo $productos_link; ?>" data-translate="nav.tienda"><?php echo $productos_text; ?></a></li>
             <li><a href="/public/local.php" data-translate="nav.locales">Locales</a></li>
-            <li><a href="#" data-translate="nav.ofertas">Ofertas</a></li>
             <li><a href="/public/reservas.php" data-translate="nav.reservas">Reservas</a></li>
             <li><a href="/public/contactos.php" data-translate="nav.contacto">Contacto</a></li>
         </ul>
