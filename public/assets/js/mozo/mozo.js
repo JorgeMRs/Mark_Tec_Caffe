@@ -77,16 +77,21 @@ document.addEventListener("DOMContentLoaded", function () {
     const cantidadInput = document.getElementById(`cantidad-${idProducto}`);
     let cantidad = parseInt(cantidadInput ? cantidadInput.textContent : 0, 10);
     if (isNaN(cantidad)) cantidad = 0;
-    if (
-      cantidadInput &&
-      document.querySelector(
-        `.product-row input[type="checkbox"][value="${idProducto}"]`
-      ).checked
-    ) {
-      cantidadInput.textContent = cantidad + 1;
-      actualizarCantidad(idProducto);
+
+    const checkbox = document.querySelector(`.product-row input[type="checkbox"][value="${idProducto}"]`);
+
+    // Si el checkbox no está seleccionado, seleccionarlo automáticamente
+    if (!checkbox.checked) {
+        checkbox.checked = true;
+        seleccionarProducto(idProducto); // Asegurarte de inicializar la cantidad en 1 si no está seleccionado
     }
-  }
+
+    // Ahora incrementar la cantidad si el checkbox está seleccionado
+    if (checkbox.checked) {
+        cantidadInput.textContent = cantidad + 1;
+        actualizarCantidad(idProducto);
+    }
+}
 
   function decrementarCantidad(idProducto) {
     const cantidadInput = document.getElementById(`cantidad-${idProducto}`);
@@ -169,7 +174,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const tipoPedido = document.getElementById("tipoPedido").value;
       formData.append("tipoPedido", tipoPedido);
 
-      if (tipoPedido === "Para Llevar") {
+      if (tipoPedido === "Para llevar") {
         const horaRecogida = document.getElementById("horaRecogida").value;
         formData.append("horaRecogida", horaRecogida);
       } else {
@@ -208,7 +213,7 @@ function toggleHoraRecogida() {
   );
   const numeroMesaSelect = document.getElementById("numeroMesa");
 
-  if (tipoPedido === "Para Llevar") {
+  if (tipoPedido === "Para llevar") {
     horaRecogidaContainer.style.display = "block";
     numeroMesaSelect.style.display = "none";
   } else {

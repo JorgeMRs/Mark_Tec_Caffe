@@ -112,272 +112,30 @@ function getEstadoColor($estado)
 
 <body>
     <style>
-        /* Estilos para el modal */
-        #detalleModal {
-            display: none;
-            /* Por defecto el modal está oculto */
-            position: fixed;
-            /* Fijo para que esté en la misma posición en toda la pantalla */
-            z-index: 1000;
-            /* Asegúrate de que el modal esté encima de otros elementos */
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            /* Añade scroll si el contenido es largo */
-            background-color: rgba(0, 0, 0, 0.5);
-            /* Fondo negro con opacidad */
-        }
 
-        /* Estilo del contenido del modal */
-        .modal-content {
-            background-color: #fff;
-            /* Fondo blanco */
-            margin: 15% auto;
-            /* Margen automático para centrar el modal */
-            padding: 20px;
-            /* Espaciado interior */
-            border: 1px solid #888;
-            /* Borde gris claro */
-            width: 80%;
-            /* Ancho del modal */
-            max-width: 600px;
-            /* Máximo ancho */
-            border-radius: 8px;
-            /* Bordes redondeados */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            /* Sombra para dar profundidad */
-        }
-
-        /* Estilo del botón de cerrar */
-        .close {
-            color: #aaa;
-            /* Color del texto del botón de cerrar */
-            float: right;
-            /* Alinear a la derecha */
-            font-size: 28px;
-            /* Tamaño de fuente */
-            font-weight: bold;
-            /* Negrita */
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            /* Color al pasar el ratón o enfocar */
-            text-decoration: none;
-            /* Quitar subrayado */
-            cursor: pointer;
-            /* Cambiar cursor a puntero */
-        }
-
-        /* Estilo de la lista dentro del modal */
-        .modal-content ul {
-            list-style-type: none;
-            /* Quitar viñetas */
-            padding: 0;
-            /* Quitar padding */
-            margin: 0;
-            /* Quitar margin */
-        }
-
-        .modal-content li {
-            padding: 8px 0;
-            /* Espaciado entre elementos de la lista */
-            border-bottom: 1px solid #ddd;
-            /* Línea divisoria */
-        }
-
-        .modal-content li span {
-            font-weight: bold;
-            /* Negrita para las etiquetas */
-            margin-right: 10px;
-            /* Espacio entre etiqueta y valor */
-        }
-
-        .modal-content li:last-child {
-            border-bottom: none;
-            /* Quitar línea divisoria en el último elemento */
-        }
-
-        /* Botón de cancelar pedido */
-        .cancel-order-button {
-            display: block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #e74c3c;
-            /* Rojo de advertencia */
-            color: #fff;
-            /* Texto blanco */
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            text-align: center;
-        }
-
-        .cancel-order-button:hover {
-            background-color: #c0392b;
-            /* Rojo oscuro */
-        }
-
-        /* Estilo para el botón de ver detalles */
-        .view-details-button {
-            background-color: #1B0C0A;
-            /* Color de fondo del botón */
-            color: white;
-            /* Color del texto */
-            border: none;
-            /* Sin borde */
-            border-radius: 4px;
-            /* Bordes redondeados */
-            padding: 10px 20px;
-            /* Espaciado interno del botón */
-            font-size: 16px;
-            /* Tamaño del texto */
-            cursor: pointer;
-            /* Cambia el cursor al pasar sobre el botón */
-            transition: background-color 0.3s ease;
-            /* Transición suave para el cambio de color */
-        }
-
-        /* Efecto al pasar el ratón sobre el botón */
-        .view-details-button:hover {
-            background-color: #74623c;
-            /* Color de fondo cuando el ratón pasa sobre el botón */
-        }
-        #productosDetalles ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
-#productosDetalles li {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 10px;
-    background-color: #f9f9f9;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-#productosDetalles li span {
-    font-weight: normal;
-    color: #333;
-}
-
-/* Estilo del nombre del producto */
-#productosDetalles li .product-name {
-    font-size: 18px;
-    font-weight: bold;
-}
-
-/* Estilo del precio y cantidad del producto */
-#productosDetalles li .product-price,
-#productosDetalles li .product-quantity {
-    font-size: 16px;
-}
-#confirmCancelModal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
-.modal-content {
-    background-color: #fff;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 600px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.close-confirm {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close-confirm:hover,
-.close-confirm:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-textarea {
-    width: 100%;
-    height: 100px;
-    margin-top: 10px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-.confirm-cancel-button,
-.cancel-cancel-button {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.confirm-cancel-button {
-    background-color: #e74c3c;
-    color: #fff;
-}
-
-.confirm-cancel-button:hover {
-    background-color: #c0392b;
-}
-
-.cancel-cancel-button {
-    background-color: #95a5a6;
-    color: #fff;
-}
-
-.cancel-cancel-button:hover {
-    background-color: #7f8c8d;
-}
     </style>
 
-<div id="detalleModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Detalles del Pedido</h2>
-        <ul id="pedidoDetalles"></ul>
-        <h3>Productos</h3>
-        <div id="productosDetalles"></div>
-        <button id="cancelOrderButton" class="cancel-order-button" style="display: none;">Cancelar Pedido</button>
+    <div id="detalleModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Detalles del Pedido</h2>
+            <ul id="pedidoDetalles"></ul>
+            <h3>Productos</h3>
+            <div id="productosDetalles"></div>
+            <button id="cancelOrderButton" class="cancel-order-button" style="display: none;">Cancelar Pedido</button>
+        </div>
     </div>
-</div>
 
-<div id="confirmCancelModal" class="modal">
-    <div class="modal-content">
-        <span class="close-confirm">&times;</span>
-        <h2>Confirmar Cancelación</h2>
-        <p>¿Estás seguro de que deseas cancelar este pedido?</p>
-        <textarea id="cancelNotes" placeholder="Escribe una nota de cancelación (opcional)"></textarea>
-        <button id="confirmCancelButton" class="confirm-cancel-button">Confirmar Cancelación</button>
-        <button id="cancelCancelButton" class="cancel-cancel-button">Cancelar</button>
+    <div id="confirmCancelModal" class="modal">
+        <div class="modal-content">
+            <span class="close-confirm">&times;</span>
+            <h2>Confirmar Cancelación</h2>
+            <p>¿Estás seguro de que deseas cancelar este pedido?</p>
+            <textarea id="cancelNotes" placeholder="Escribe una nota de cancelación (opcional)"></textarea>
+            <button id="confirmCancelButton" class="confirm-cancel-button">Confirmar Cancelación</button>
+            <button id="cancelCancelButton" class="cancel-cancel-button">Cancelar</button>
+        </div>
     </div>
-</div>
 
     <div class="container">
         <div class="header-buttons">
@@ -401,16 +159,16 @@ textarea {
             <tbody>
                 <?php foreach ($pedidos as $pedido): ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($pedido['numeroPedido']); ?></td> <!-- Mostrar el numeroPedidoSucursal -->
-                        <td style="background-color: <?php echo getEstadoColor($pedido['estado']); ?>;">
+                        <td data-label="Numero Pedido"><?php echo htmlspecialchars($pedido['numeroPedido']); ?></td>
+                        <td data-label="Estado" style="background-color: <?php echo getEstadoColor($pedido['estado']); ?>;">
                             <?php echo htmlspecialchars($pedido['estado']); ?>
                         </td>
-                        <td><?php echo htmlspecialchars($pedido['tipoPedido']); ?></td>
-                        <td><?php echo htmlspecialchars(number_format($pedido['total'], 2, ',', '.')); ?> €</td>
-                        <td><?php echo htmlspecialchars($pedido['horaRecogida']); ?></td>
-                        <td><?php echo htmlspecialchars($pedido['sucursal']); ?></td>
-                        <td><?php echo htmlspecialchars($pedido['numeroMesa']) ? htmlspecialchars($pedido['numeroMesa']) : 'N/A'; ?></td> <!-- Mostrar número de mesa o 'N/A' -->
-                        <td>
+                        <td data-label="Tipo de Pedido"><?php echo htmlspecialchars($pedido['tipoPedido']); ?></td>
+                        <td data-label="Total"><?php echo htmlspecialchars(number_format($pedido['total'], 2, ',', '.')); ?> €</td>
+                        <td data-label="Hora de Recogida"><?php echo htmlspecialchars($pedido['horaRecogida']); ?></td>
+                        <td data-label="Sucursal"><?php echo htmlspecialchars($pedido['sucursal']); ?></td>
+                        <td data-label="Número de Mesa"><?php echo htmlspecialchars($pedido['numeroMesa']) ? htmlspecialchars($pedido['numeroMesa']) : 'N/A'; ?></td>
+                        <td data-label="Acciones">
                             <button class="view-details-button" data-id="<?php echo htmlspecialchars($pedido['idPedido']); ?>">Ver Detalles</button>
                         </td>
                     </tr>
@@ -437,4 +195,5 @@ textarea {
     </div>
 </body>
 <script src="/public/assets/js/mozo/mozo.js"></script>
+
 </html>

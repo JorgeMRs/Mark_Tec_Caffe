@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400&family=Sacramento&display=swap');
 /* Estilos generales */
+*{
+    cursor: url('/public/assets/img/index/reshot-icon-coffee-jug-8LZCR6DAUS.svg') 16 16, auto; /* 16 16 especifica la posición del punto caliente del cursor */
+}
 body {
     display: flex;
     flex-direction: column;
@@ -30,18 +33,21 @@ header {
 
 /* Estilos para el contenido del carrusel */
 .carousel-content {
-    position: relative;
+    position: absolute; /* Cambia a absolute para centrar mejor */
+    top: 50%; /* Mueve el contenido al 50% de la altura del contenedor */
+    left: 50%; /* Mueve el contenido al 50% del ancho del contenedor */
+    transform: translate(-50%, -50%); /* Centra el contenido completamente */
     z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 20%;
-    height: 100%;
     text-align: center;
     color: white;
+    width: 90%;
     padding: 0 20px;
     text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
 }
+
 
 .carousel-content h1 {
     font-size: 48px;
@@ -143,20 +149,122 @@ header {
 .carousel-indicators .indicator.active {
     background: rgba(255, 255, 255, 1);
 }
-/* Estilos para pantallas pequeñas */
-@media (max-width: 768px) {
-    .carousel-content h1 {
-            margin-top: 50%;
-            font-size: 35px;
-            margin-bottom: 20px;
-            font-family: 'Poppins';
-            font-weight: 500;  
-            color: #fff;
+@media (min-width: 768px) and (max-width: 1024px) {
+    .carousel-content {
+        top: 50%; /* Centrado vertical */
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 0 40px; /* Aumentamos el padding para un mejor espacio */
+        width: 90%; /* Aseguramos que el contenido no esté comprimido */
+        max-width: 800px; /* Limitamos el ancho máximo para evitar textos muy largos */
     }
-    
-    /* Añade margen superior para evitar que el contenido choque con el nav */
-    .main-content {
-        margin-top: 80px; /* Ajusta según el tamaño del nav */
+
+    .carousel-content h1 {
+        font-size: 36px; /* Tamaño del título ajustado */
+        margin-bottom: 20px;
+    }
+
+    .carousel-content p {
+        font-size: 18px; /* Tamaño del texto ajustado */
+        margin-bottom: 25px;
+        line-height: 1.5; /* Aumentamos el interlineado para mejor legibilidad */
+    }
+
+    .buttons a {
+        font-size: 16px; /* Tamaño de los botones adecuado para tabletas */
+        padding: 10px 20px;
+        margin: 5px 10px; /* Espaciado lateral más grande */
+    }
+
+    .carousel img {
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+    }
+
+    .carousel-indicators {
+        bottom: 25px; /* Movemos los indicadores un poco más arriba */
+    }
+
+    .carousel-indicators .indicator {
+        width: 12px;
+        height: 12px;
+    }
+}
+/* Estilos para pantallas pequeñas (máximo ancho 768px) */
+@media (max-width: 768px) {
+    .carousel-content {
+        top: 50%; /* Centrado vertical */
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 0 15px;
+        width: 100%; /* Asegura que el contenido ocupe todo el ancho */
+    }
+
+    .carousel-content h1 {
+        font-size: 32px; /* Tamaño reducido del título */
+        margin-bottom: 15px;
+    }
+
+    .carousel-content p {
+        font-size: 16px; /* Tamaño reducido del texto */
+        margin-bottom: 20px;
+    }
+
+    .buttons a {
+        font-size: 14px; /* Botones más pequeños */
+        padding: 8px 15px;
+        margin: 5px;
+    }
+
+    .carousel img {
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+    }
+
+    .carousel-indicators {
+        bottom: 20px; /* Movemos los indicadores un poco más arriba */
+    }
+
+    .carousel-indicators .indicator {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+/* Estilos para pantallas extra pequeñas (máximo ancho 480px) */
+@media (max-width: 480px) {
+    .carousel-content {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 0 10px; /* Ajusta los márgenes internos */
+        width: 100%; /* Asegura que el contenido ocupe todo el ancho */
+    }
+
+    .carousel-content h1 {
+        font-size: 34px; /* Ajusta el tamaño del título */
+        margin-bottom: 10px;
+    }
+
+    .carousel-content p {
+        font-size: 14px; /* Texto más pequeño */
+        margin-bottom: 15px;
+    }
+
+    .buttons a {
+        font-size: 12px; /* Botones aún más pequeños */
+        padding: 7px 12px;
+    }
+
+    .carousel-indicators {
+        bottom: 15px; /* Movemos los indicadores aún más arriba */
+    }
+
+    .carousel-indicators .indicator {
+        width: 8px;
+        height: 8px;
     }
 }
 
@@ -259,19 +367,112 @@ header {
 
 }
 
+@media (max-width: 768px) {
+
+        .history .content {
+            margin-top: 0;
+            padding: 19px;
+            height: 311px;
+        }
+    .overlay-image {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 40%;
+        background-image: url(/public/assets/img/index/bar.png);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    .history_title {
+        font-size: 2.5rem; 
+    }
+    .history .content.active {
+        opacity: 1;
+        transform: translateY(5%);
+    }
+    .history_subtitle {
+        font-size: 2rem;
+    }
+
+    .content p {
+        font-size: 0.8rem;
+    }
+    .content p {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 300;
+        color: #676767;
+        margin-top: 25px;
+        line-height: 1.6;
+        text-align: left;
+        margin-bottom: 75px;
+    }
+    .history .content {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        /* position: relative; */
+        right: 10px;
+        width: 95%;
+        height: 200px;
+        background-color: transparent;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        /* justify-content: center; */
+        box-sizing: border-box;
+        top: 60%;
+    }
+    .history_title {
+        font-family: 'Sacramento', cursive;
+        margin: 0;
+        font-weight: 400;
+        color: #DAA520;
+        font-size: 2.6rem;
+        line-height: 1.2;
+    }
+    .history {
+        width: 100%;
+        height: 100vh;
+        background-image: url(/public/assets/img/index/bg_4.jpg);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: relative;
+    }
+    .history h1 {
+        font-family: "Poppins";
+        font-weight: 700;
+        text-align: center;
+        font-size: 50px;
+        color: #1e1e1e;
+        margin-bottom: 20px;
+        margin: 0;
+        margin-left: -25vh;
+        position: relative;
+        top: 0%;
+        line-height: 0.8;
+        /* padding-bottom: 22px; */
+    }
+}
+
+
+
 /* Data section style */
 .data {
     width: 100%;
-    height: 50vh;
+    min-height: 50vh; /* Ajustamos a la altura necesaria */
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #1B0D0B;
+    padding: 20px 0;
 }
 
 .features {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr); /* Tres columnas en pantallas grandes */
     gap: 20px;
     text-align: center;
     width: 80%;
@@ -348,6 +549,44 @@ svg {
     text-align: center;
     width: 70%;
 }
+
+/* Para pantallas pequeñas */
+@media (max-width: 768px) {
+    .features {
+        grid-template-columns: 1fr; 
+        gap: 40px; 
+        width: 100%; 
+    }
+
+    .feature-item {
+        width: 100%; 
+        padding: 20px;
+    }
+
+    svg {
+        width: 80px; 
+        height: 60px;
+    }
+
+    .icon-container {
+        width: 100px;
+        height: 100px;
+    }
+
+    .feature-item h3 {
+        font-size: 1rem; 
+    }
+
+    .feature-item p {
+        font-size: 0.9rem; 
+        width: 90%; 
+    }
+}
+
+
+
+
+
 
 
 /* Menu section style */
@@ -452,7 +691,7 @@ svg {
 }
 
 .menu-right img:nth-child(2) {
-    transform: translateY(40px) rotate(3deg);
+    transform: translateY(0px) rotate(3deg);
 }
 
 .menu-right img:nth-child(3) {
@@ -464,7 +703,7 @@ svg {
 }
 .menu-left {
     opacity: 0;
-    transform: translateY(20px); /* Desplazado ligeramente hacia abajo para la animación */
+    transform: translateY(20px); 
     transition: opacity 1s ease-out, transform 1s ease-out;
 }
 
@@ -472,7 +711,53 @@ svg {
     opacity: 1;
     transform: translateY(0);
 }
+@media (max-width: 768px) {
+    .menu {
+        height: auto; 
+    }
 
+    .menu-container {
+        flex-direction: column;
+        align-items: center; 
+    }
+
+    .menu-left {
+        align-items: center;
+        text-align: center;
+        margin-bottom: 20px; 
+    }
+
+    .menu-left button {
+        align-self: center;
+        margin-top: 20px; 
+    }
+
+    .menu-right {
+        grid-template-columns: repeat(2, 1fr); 
+        grid-template-rows: repeat(2, 1fr); 
+        width: 100%;
+        height: auto; 
+        gap: 10px; 
+    }
+
+    .menu-right img {
+        width: 100%; 
+        height: auto; 
+    }
+    .menu-left p {
+        font-family: 'Poppins', sans-serif;
+        font-size: 0.8rem;
+        color: #7b7b7b;
+        margin-top: 20px;
+        line-height: 1.6;
+        width: 100%;
+    }
+    .menu-container {
+        display: flex;
+        gap: 25px;
+        width: 80%;
+    }
+}
 
 /* data-2 style section */
 
@@ -607,33 +892,67 @@ svg {
 }
 
 .feature-item-2 {
-    /* Inicialmente, ocultamos los íconos */
     opacity: 0;
     transform: translateY(50px);
     animation: none;
 }
 
 .feature-item-2.animate {
-    /* Aplicamos la animación con un retraso */
+ 
     animation: slideUp2 0.6s forwards;
 }
 
 .feature-item-2:nth-child(1) {
-    animation-delay: 0.2s; /* Ajusta el retraso según sea necesario */
+    animation-delay: 0.2s; 
 }
 
 .feature-item-2:nth-child(2) {
-    animation-delay: 0.2s; /* Ajusta el retraso según sea necesario */
+    animation-delay: 0.2s; 
 }
 
 .feature-item-2:nth-child(3) {
-    animation-delay: 0.2s; /* Ajusta el retraso según sea necesario */
+    animation-delay: 0.2s; 
 }
 
 .feature-item-2:nth-child(4) {
-    animation-delay: 0.3s; /* Ajusta el retraso según sea necesario */
+    animation-delay: 0.3s; 
 }
 
+@media (max-width: 768px) {
+    .data-2 {
+        height: auto;
+        background-position: left -17em bottom 0px;
+        background-attachment:inherit;
+    }
+
+    .features-2 {
+        flex-direction: column; 
+    
+        justify-content: center; 
+        gap: 20px; 
+        width: 100%; 
+        padding: 20px; 
+    }
+
+    .feature-item-2 {
+        width: 100%; 
+        padding: 10px; 
+        box-sizing: border-box; 
+        text-align: center; 
+    }
+
+    .icon-container-2, .icon-container-s {
+        width: 80px; 
+        height: 80px; 
+    }
+
+    .features-2 svg {
+        width: 60px; 
+        height: 60px; 
+    }
+
+
+}
 /* mostSold section style */
 .mostSold {
     width: 100%;
@@ -749,9 +1068,9 @@ p {
     }
 }
 
-/* Estilo inicial para ocultar la animación */
+
 .text-container {
-    animation: none; /* Oculta la animación por defecto */
+    animation: none; 
     opacity: 0;
 }
 
@@ -760,13 +1079,48 @@ p {
     animation: slideUp3 0.8s ease-out forwards;
 }
 
+@media (max-width: 768px) {
+    .mostSold {
+        height: auto; 
+    }
+    .text-container h1 {
+        font-size: 32px;
+        color: #1e1e1e;
+        margin-bottom: 20px;
+        margin: 0;
+        margin-left: 0vh;
+    }
+    .text-container p {
+        font-size: 1.0rem;
+    }
+    .content-2 {
+        width: 100%; 
+    }
 
+    .text-container {
+        margin-bottom: 50px;
+        margin-top: 30px;
+    }
 
+    .products {
+        flex-direction: column; 
+        gap: 20px; 
+    }
 
-*{
-    cursor: url('/public/assets/img/index/reshot-icon-coffee-jug-8LZCR6DAUS.svg') 16 16, auto; /* 16 16 especifica la posición del punto caliente del cursor */
+    .product-item {
+        width: 100%; 
+        margin-bottom: 20px; 
+    }
+
+    .product-item img {
+        height: 240px;
+    }
+
+    .product-item button {
+        padding: 8px 25px; 
+        font-size: 0.9rem; 
+    }
 }
-
 
 
 

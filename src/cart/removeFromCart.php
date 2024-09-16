@@ -11,19 +11,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = json_decode(file_get_contents('php://input'), true);
         $product_id = $data['product_id']; // Asegúrate de que el nombre del campo es correcto
 
-        
-        $user_id = $_SESSION['user_id']; // ID del usuario desde la sesión
+        // ID del usuario desde la sesión
+        $user_id = $_SESSION['user_id'];
 
         // Obtener la conexión a la base de datos
         $conn = getDbConnection();
 
-        // Prepara la consulta para obtener el idCarrito del usuario
-        if ($stmt = $conn->prepare("SELECT idCarrito FROM carrito WHERE idCliente = ?")) {
+        // Prepara la consulta para obtener el idCarrito del cliente (único carrito)
+        if ($stmt = $conn->prepare("SELECT idCarrito FROM carrito WHERE idCliente = ? LIMIT 1")) {
             $stmt->bind_param("i", $user_id);
             $stmt->execute();
             $stmt->bind_result($cart_id);
             $stmt->fetch();
             $stmt->close();
+
+            error_log("Cart ID: " . $cart_id);
 
             // Prepara la consulta para eliminar el producto del carrito
             if ($stmt = $conn->prepare("DELETE FROM carritodetalle WHERE idCarrito = ? AND idProducto = ?")) {
@@ -38,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 $stmt->close();
             } else {
-                echo json_encode(['success' => false, 'message' => 'Error en la consulta']);
+                echo json_encode(['success' => false, 'message' => 'Error en la consulta para eliminar el producto']);
             }
         } else {
             echo json_encode(['success' => false, 'message' => 'Error al obtener el idCarrito']);
@@ -51,4 +53,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     echo json_encode(['success' => false, 'message' => 'Método no permitido']);
 }
-?>
