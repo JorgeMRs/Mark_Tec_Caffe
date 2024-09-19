@@ -31,6 +31,13 @@ document.addEventListener("DOMContentLoaded", function () {
           cropperImage.src = e.target.result;
           cropperModal.style.display = "flex";
 
+          cropperImage.onerror = function () {
+            cropperModal.style.display = "none"; // Ocultar el modal
+            errorAvatarDiv.textContent = "Error: No se pudo cargar la imagen. La imagen puede estar corrupta.";
+            errorAvatarDiv.style.display = "block";
+            avatarInput.value = ""; // Resetear el input
+          };
+
           if (cropper) {
             cropper.destroy();
           }
@@ -152,74 +159,75 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Handle the second modal for code verification
-  document.getElementById("confirmDeleteBtn").onclick = function () {
-    // Close the first modal
-    document.getElementById("deleteAccountModal").style.display = "none";
+// Handle the second modal for code verification
+document.getElementById("confirmDeleteBtn").onclick = function () {
+  // Close the first modal
+  document.getElementById("deleteAccountModal").style.display = "none";
 
-    // Generate and display the random code in the second modal
-    var randomCode = generateRandomCode();
-    document.getElementById("generatedCode").textContent =
-      "Código: " + randomCode;
+  // Generate and display the random code in the second modal
+  var randomCode = generateRandomCode();
+  document.getElementById("generatedCode").textContent =
+    "Código: " + randomCode;
 
-    // Show the second modal
-    document.getElementById("codeVerificationModal").style.display = "block";
+  // Show the second modal
+  document.getElementById("codeVerificationModal").style.display = "block";
 
-    // Verify the code
-    document.getElementById("verifyCodeBtn").onclick = function () {
+  // Verify the code
+  document.getElementById("verifyCodeBtn").onclick = function () {
       var userCode = document.getElementById("userInputCode").value;
       if (userCode == randomCode) {
-        // Fetch user ID
-        fetch("/src/db/checkSession.php")
-          .then((response) => response.json())
-          .then((sessionData) => {
-            if (sessionData.loggedIn) {
-              const userId = sessionData.userId;
-              // Proceed with account deletion
-              fetch("/src/account/accountDelete.php", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  action: "deleteAccount",
-                  user_id: userId,
-                }),
-              })
-                .then((response) => response.json())
-                .then((data) => {
-                  if (data.success) {
-                    // Redirige al usuario con parámetro en la URL
-                    window.location.href = "/?accountDeleted=true";
-                  } else {
-                    alert("Error al eliminar la cuenta: " + data.message);
-                  }
-                })
-                .catch((error) => {
-                  console.error("Error:", error);
-                  alert(
-                    "Error al eliminar la cuenta. Por favor, intenta de nuevo."
-                  );
-                });
-            } else {
-              alert(
-                "No se pudo verificar la sesión. Por favor, inicia sesión nuevamente."
-              );
-            }
-          })
-          .catch((error) => {
-            console.error("Error al verificar la sesión:", error);
-            alert("Error al verificar la sesión. Por favor, intenta de nuevo.");
-          });
+          // Fetch user ID
+          fetch("/src/db/checkSession.php")
+            .then((response) => response.json())
+            .then((sessionData) => {
+                if (sessionData.loggedIn) {
+                    const userId = sessionData.userId;
+                    // Proceed with account deactivation
+                    fetch("/src/account/accountDelete.php", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            action: "deactivateAccount",
+                            user_id: userId,
+                        }),
+                    })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        if (data.success) {
+                            // Redirect user with parameter in the URL
+                            window.location.href = "/?accountDeactivated=true";
+                        } else {
+                            alert("Error al desactivar la cuenta: " + data.message);
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Error:", error);
+                        alert(
+                            "Error al desactivar la cuenta. Por favor, intenta de nuevo."
+                        );
+                    });
+                } else {
+                    alert(
+                        "No se pudo verificar la sesión. Por favor, inicia sesión nuevamente."
+                    );
+                }
+            })
+            .catch((error) => {
+                console.error("Error al verificar la sesión:", error);
+                alert("Error al verificar la sesión. Por favor, intenta de nuevo.");
+            });
       } else {
-        alert("Código incorrecto. Inténtalo de nuevo.");
+          alert("Código incorrecto. Inténtalo de nuevo.");
       }
-    };
   };
+};
 
-  document.getElementById("backToDeleteModalBtn").onclick = function () {
-    document.getElementById("codeVerificationModal").style.display = "none";
-    document.getElementById("deleteAccountModal").style.display = "block";
-  };
+document.getElementById("backToDeleteModalBtn").onclick = function () {
+  document.getElementById("codeVerificationModal").style.display = "none";
+  document.getElementById("deleteAccountModal").style.display = "block";
+};
 });
 
 

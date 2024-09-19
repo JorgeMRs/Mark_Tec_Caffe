@@ -322,8 +322,12 @@ h4{
   color: #000;
 }
 
+.dropdown .dropdown-menu {
+  display: none;
+}
+
 .dropdown.active .dropdown-menu {
-  display: block; /* Mostrar cuando la clase show está presente */
+  display: block;
 }
 
 /* Ocultar elementos en versiones móviles y desktop */
@@ -504,14 +508,15 @@ h4{
 .language-selector {
   margin-left: 20px;
   padding: 5px;
-  background-color: #fff;
-  color: #333;
-  border: 1px solid #ccc;
+  background-color: transparent;
+  color: #ffffff;
+  border: 1px solid white;
   border-radius: 4px;
   cursor: pointer;
 }
 
 .language-selector option {
-  background-color: #fff;
-  color: #333;
+  background-color: #000000;
+  color: #ffffff;
+  
 }

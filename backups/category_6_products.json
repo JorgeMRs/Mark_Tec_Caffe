@@ -1,0 +1,72 @@
+[
+    {
+        "idProducto": 45,
+        "imagen": "\/public\/assets\/img\/productos\/Sandwich y Bocadillos\/sandwich-de-pollo.jpg",
+        "nombre": "Sandwich de Pollo",
+        "stock": 20,
+        "descripcion": "Sandwich de pollo con mayonesa, ofreciendo un sabor jugoso y cremoso con pollo fresco. Ideal para una comida r\u00e1pida y satisfactoria.",
+        "precio": "4.50",
+        "idCategoria": 6,
+        "estadoActivacion": 1
+    },
+    {
+        "idProducto": 46,
+        "imagen": "\/public\/assets\/img\/productos\/Sandwich y Bocadillos\/sandwich-de-jamon-y-queso.jpg",
+        "nombre": "Sandwich de Jam\u00f3n y Queso",
+        "stock": 25,
+        "descripcion": "Sandwich cl\u00e1sico de jam\u00f3n y queso, con una combinaci\u00f3n simple pero deliciosa de jam\u00f3n y queso en pan fresco.",
+        "precio": "4.00",
+        "idCategoria": 6,
+        "estadoActivacion": 1
+    },
+    {
+        "idProducto": 47,
+        "imagen": "\/public\/assets\/img\/productos\/Sandwich y Bocadillos\/bocadillo-de-atun.jpg",
+        "nombre": "Bocadillo de At\u00fan",
+        "stock": 30,
+        "descripcion": "Bocadillo de at\u00fan con lechuga, ofreciendo una mezcla fresca y ligera de at\u00fan con lechuga crujiente en pan.",
+        "precio": "4.25",
+        "idCategoria": 6,
+        "estadoActivacion": 1
+    },
+    {
+        "idProducto": 48,
+        "imagen": "\/public\/assets\/img\/productos\/Sandwich y Bocadillos\/sandwich-club.jpg",
+        "nombre": "Sandwich Club",
+        "stock": 35,
+        "descripcion": "S\u00e1ndwich con pavo, tocino, lechuga y tomate, creando una combinaci\u00f3n sabrosa y abundante con capas de ingredientes frescos.",
+        "precio": "4.75",
+        "idCategoria": 6,
+        "estadoActivacion": 1
+    },
+    {
+        "idProducto": 49,
+        "imagen": "\/public\/assets\/img\/productos\/Sandwich y Bocadillos\/bagel-con-salmon.jpg",
+        "nombre": "Bagel con Salm\u00f3n",
+        "stock": 15,
+        "descripcion": "Bagel con salm\u00f3n ahumado y queso crema, ofreciendo una combinaci\u00f3n lujosa de salm\u00f3n y queso en un pan bagel reci\u00e9n horneado.",
+        "precio": "5.00",
+        "idCategoria": 6,
+        "estadoActivacion": 1
+    },
+    {
+        "idProducto": 50,
+        "imagen": "\/public\/assets\/img\/productos\/Sandwich y Bocadillos\/wrap-de-pavo.jpg",
+        "nombre": "Wrap de Pavo",
+        "stock": 10,
+        "descripcion": "Wrap de pavo con aguacate, proporcionando una opci\u00f3n ligera y saludable con pavo tierno y aguacate cremoso envuelto en una tortilla.",
+        "precio": "4.50",
+        "idCategoria": 6,
+        "estadoActivacion": 1
+    },
+    {
+        "idProducto": 69,
+        "imagen": "\/public\/assets\/img\/productos\/Sandwich y Bocadillos\/wrap-de-pavo.jpg",
+        "nombre": "Wrap de Pavo",
+        "stock": 10,
+        "descripcion": "Wrap de pavo con aguacate, proporcionando una opci\u00f3n ligera y saludable con pavo tierno y aguacate cremoso envuelto en una tortilla.",
+        "precio": "4.50",
+        "idCategoria": 6,
+        "estadoActivacion": 1
+    }
+]

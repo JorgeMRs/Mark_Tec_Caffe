@@ -26,29 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     }
-    const toggleButton = document.querySelector('.toggle-button');
-    const navLinks = document.querySelector('.nav-links');
-    const dropdownLinks = document.querySelectorAll('.dropdown-link');
 
-    // Obtén la URL actual
-    const currentPage = window.location.pathname;
-
-    // Evento para mostrar/ocultar el menú de navegación
-    toggleButton.addEventListener('click', function() {
-        navLinks.classList.toggle('active');
-    });
-
-    // Evento para mostrar/ocultar el menú desplegable en móviles
-    dropdownLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            // Solo abre el dropdown si estás en tienda.php
-            if (currentPage === '/public/tienda.php') {
-                e.preventDefault();
-                const dropdown = link.parentElement;
-                dropdown.classList.toggle('active');
-            }
-        });
-    });
 });
 
 document.addEventListener('DOMContentLoaded', () => {

@@ -9,6 +9,8 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cafe Sabrosos - Productos</title>
     <link rel="stylesheet" href="assets/css/tienda.css" />
+    <link rel="stylesheet" href="assets/css/nav-blur.css">
+    <link rel="stylesheet" href="assets/css/footer.css">
     <link rel="icon" href="assets/img/logo-removebg-preview.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="assets/img/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/img/icons/favicon-32x32.png">
@@ -16,9 +18,7 @@ session_start();
     <link rel="icon" type="image/png" sizes="48x48" href="assets/img/icons/favicon-64x64.png">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
-    <link rel="stylesheet" href="assets/css/nav-blur.css">
 </head>
-
 <body>
     <header>
         <?php include 'templates/nav-blur.php' ?>
@@ -31,11 +31,9 @@ session_start();
             </div>
         </div>
     </header>
-
     <main>
         <div id="category-details" class="content-container"></div>
     </main>
-    
     <?php include 'templates/footer.php'; ?>
     <script src="/public/assets/js/tienda.js"></script>
     <script src="/public/assets/js/updateCartCounter.js"></script>

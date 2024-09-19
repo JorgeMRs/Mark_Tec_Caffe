@@ -3,8 +3,8 @@ session_start();
 
 // Verificar si el usuario está logueado
 if (!isset($_SESSION['user_id'])) {
-    // Redirigir al usuario a la página de inicio de sesión si no está autenticado
-    header('Location: login.php');
+    // Redirigir al usuario a la página de inicio de sesión con un parámetro para mostrar el modal
+    header('Location: /public/login.html?show_modal=true');
     exit();
 }
 ?>

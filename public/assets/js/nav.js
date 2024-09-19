@@ -117,23 +117,45 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-function toggleLanguageMenu() {
-    const menu = document.getElementById('language-menu');
-    menu.classList.toggle('show');
-}
-function changeLanguage(lang) {
-    const url = new URL(window.location.href);
-    url.searchParams.set('lang', lang);
-    window.location.href = url.toString();
-}
-document.addEventListener('DOMContentLoaded', () => {
-const language = '<?= htmlspecialchars($language) ?>'; // Obtener el idioma actual de PHP
-
-document.querySelectorAll('[data-lang]').forEach(element => {
-    if (element.getAttribute('data-lang') === language) {
-        element.style.display = 'block';
-    } else {
-        element.style.display = 'none';
+document.addEventListener('DOMContentLoaded', function() {
+    // Asegúrate de que el dropdown esté cerrado al cargar la página
+    if (dropdown.classList.contains('active')) {
+        dropdown.classList.remove('active');
     }
 });
+
+const toggleButton = document.querySelector('.toggle-button');
+const navLinks = document.querySelector('.nav-links');
+const dropdown = document.querySelector('.dropdown');
+const dropdownMenu = document.querySelector('#mobile-category-dropdown');
+const productosLink = document.querySelector('.dropdown-link');
+
+// Detectar si estás en un dispositivo móvil
+function isMobileDevice() {
+    return window.innerWidth <= 768; // Ajusta este valor según el ancho de tu diseño móvil
+}
+
+// Obtén la URL actual
+const currentPage = window.location.pathname;
+
+// Evento para mostrar/ocultar el menú de navegación
+toggleButton.addEventListener('click', function() {
+    navLinks.classList.toggle('active');
+    
+    // Asegúrate de que el dropdown esté cerrado cuando abras/cierres el menú de navegación en móviles
+    if (!navLinks.classList.contains('active')) {
+        // Si el menú se cierra, también cierra el dropdown
+        if (dropdown.classList.contains('active')) {
+            dropdown.classList.remove('active');
+        }
+    }
+});
+
+// Prevenir redirección y abrir el dropdown en tienda.php para móviles
+productosLink.addEventListener('click', function(e) {
+    if (currentPage === '/public/tienda.php' && isMobileDevice()) {
+        e.preventDefault();  // Prevenir redirección
+        dropdown.classList.toggle('active');  
+        dropdownMenu.classList.toggle('open');  
+    }
 });

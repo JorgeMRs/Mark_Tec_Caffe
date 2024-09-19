@@ -7,3 +7,5 @@ Mark_Tec_Caffe.code-workspace
 .idea
 cafesabrosos/cafesabrosos_backup.sql
 cafesabrosos/cafesabrosos.sql.bak
+dbBackup.sh
+dbImport.sh

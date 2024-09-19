@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "../../../etc/nginx"
+		},
+		{
+			"path": ".."
 		}
 	],
 	"settings": {}

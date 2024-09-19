@@ -32,6 +32,7 @@ footer p {
     font-size: 24px;
     font-weight: 600;
     margin-bottom: 15px;
+    color: #1B0D0B;
 }
 
 .footer-section p,
@@ -88,11 +89,44 @@ footer p {
     color: #FFF;
 }
 
+.footer-section.legal {
+    padding: 0 20px;
+}
+
+.footer-section.legal h3 {
+    font-family: 'Poppins';
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #1B0D0B;
+    text-align: center; /* Alinea el título al centro en pantallas pequeñas */
+}
+
+.footer-section.legal ul {
+    list-style: none;
+    padding: 0;
+    text-align: center; /* Alinea los enlaces al centro */
+}
+
+.footer-section.legal ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section.legal ul li a {
+    color: #1B0D0B;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-section.legal ul li a:hover {
+    color: #333;
+}
+
 @media (min-width: 768px) {
     .footer-content {
         flex-direction: row;
         justify-content: space-between;
-        text-align: left;
+        align-items: flex-start; /* Alinea verticalmente los títulos en la parte superior */
     }
 
     .footer-section {
@@ -101,12 +135,11 @@ footer p {
         position: relative;
     }
 
-    /* Alinea horizontalmente el h3 de "Café Sabrosos" y "Contáctanos" */
-    .footer-section.about h3 {
-        margin-top: 24px; /* Mantiene el margen superior original */
+    .footer-section.legal {
+        margin-left: 20px;
     }
 
-    .footer-section.contact h3 {
-        margin-top: 0; /* Ajusta el margen superior para que esté más abajo */
+    .footer-section.legal h3 {
+        margin-left: 0;
     }
 }

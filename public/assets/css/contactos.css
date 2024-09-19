@@ -8,21 +8,12 @@ body {
   background-position: center;
   font-family: 'Monterrat', sans-serif;
 }
-header {
-  position: relative;
-  overflow: hidden;
-}
 /* Estilos del contenido principal */
 main {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 20px;
-}
-.user-icon {
-  width: 40px;
-  height: 40px;
-  margin: 0 5px;
 }
 .wrapper {
   max-width: 600px;
@@ -83,26 +74,6 @@ main {
 /* Estilos responsivos */
 @media (max-width: 768px) {
 
-
-  .logo h1 {
-    font-size: 20px;
-  }
-
-  nav {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  nav ul {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
-
-  nav ul li {
-    margin-bottom: 10px;
-  }
-
   .wrapper {
     padding: 20px;
   }
@@ -120,13 +91,6 @@ main {
 }
 
 @media (max-width: 480px) {
-  .logo-image {
-    width: 50px;
-  }
-
-  .logo h1 {
-    font-size: 18px;
-  }
 
   .wrapper {
     padding: 15px;
@@ -145,4 +109,14 @@ main {
     height: 80px;
   }
 
+}
+
+/* Asegúrate de que el menú desplegable de categorías esté oculto inicialmente */
+#mobile-category-dropdown {
+  display: none;
+}
+
+/* Mostrar el menú desplegable de categorías cuando esté abierto */
+#mobile-category-dropdown.open {
+  display: block;
 }

@@ -78,6 +78,7 @@ try {
                             // Guardar datos del empleado en la sesión
                             $_SESSION['employee_id'] = $employee_id;
                             $_SESSION['role'] = $puesto;
+                            $_SESSION['employee_email'] = $correo;
 
                             // Redirigir según el rol
                             if ($puesto === 'Mozo') {

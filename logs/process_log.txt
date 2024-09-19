@@ -1,0 +1,14 @@
+[2024-09-17 15:04:07] Intentando copiar la imagen de la categoría desde: /var/www/cafesabrosos/public/assets/img/categorias/pastel-y-tortas.jpg hacia: /var/www/cafesabrosos/tmp/Pastel_y_Tortas/pastel-y-tortas.jpg
+[2024-09-17 15:04:07] Imagen de la categoría copiada exitosamente.
+[2024-09-17 15:04:07] Intentando copiar imagen del producto desde: /var/www/cafesabrosos/public/assets/img/productos/Pasteles y Postres/cheesecake.jpg hacia: /var/www/cafesabrosos/tmp/Pastel_y_Tortas/Productos/cheesecake.jpg
+[2024-09-17 15:04:07] Imagen del producto copiada exitosamente: cheesecake.jpg
+[2024-09-17 15:04:07] Intentando copiar imagen del producto desde: /var/www/cafesabrosos/public/assets/img/productos/Pasteles y Postres/brownie.jpg hacia: /var/www/cafesabrosos/tmp/Pastel_y_Tortas/Productos/brownie.jpg
+[2024-09-17 15:04:07] Imagen del producto copiada exitosamente: brownie.jpg
+[2024-09-17 15:04:07] Intentando copiar imagen del producto desde: /var/www/cafesabrosos/public/assets/img/productos/Pasteles y Postres/tarta-de-manzana.jpg hacia: /var/www/cafesabrosos/tmp/Pastel_y_Tortas/Productos/tarta-de-manzana.jpg
+[2024-09-17 15:04:07] Imagen del producto copiada exitosamente: tarta-de-manzana.jpg
+[2024-09-17 15:04:07] Intentando copiar imagen del producto desde: /var/www/cafesabrosos/public/assets/img/productos/Pasteles y Postres/muffin-de-arandano.jpg hacia: /var/www/cafesabrosos/tmp/Pastel_y_Tortas/Productos/muffin-de-arandano.jpg
+[2024-09-17 15:04:07] Imagen del producto copiada exitosamente: muffin-de-arandano.jpg
+[2024-09-17 15:04:07] Intentando copiar imagen del producto desde: /var/www/cafesabrosos/public/assets/img/productos/Pasteles y Postres/croissant.jpg hacia: /var/www/cafesabrosos/tmp/Pastel_y_Tortas/Productos/croissant.jpg
+[2024-09-17 15:04:07] Imagen del producto copiada exitosamente: croissant.jpg
+[2024-09-17 15:04:07] Intentando copiar imagen del producto desde: /var/www/cafesabrosos/public/assets/img/productos/Pasteles y Postres/macarons.jpg hacia: /var/www/cafesabrosos/tmp/Pastel_y_Tortas/Productos/macarons.jpg
+[2024-09-17 15:04:07] Imagen del producto copiada exitosamente: macarons.jpg

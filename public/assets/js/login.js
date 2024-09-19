@@ -23,6 +23,7 @@ document.querySelector('#registroForm').addEventListener('submit', function(even
     const password = document.querySelector('#registroForm input[name="password"]').value;
     const passwordConfirm = document.querySelector('#registroForm input[name="passwordConfirm"]').value;
     const recaptchaResponse = grecaptcha.getResponse(); // Obtener el token de reCAPTCHA
+    const termsChecked = document.querySelector('#registroForm input[name="terms"]').checked; 
 
     const errorContainer = document.querySelector('#registroForm #error-container2');
     errorContainer.textContent = ''; // Limpiar errores previos
@@ -50,6 +51,7 @@ document.querySelector('#registroForm').addEventListener('submit', function(even
 
         let formData = new FormData(this);
         formData.append('g-recaptcha-response', recaptchaResponse); // Añadir el token de reCAPTCHA
+        formData.append('terms', termsChecked ? '1' : '0'); // Añadir el valor del checkbox (1 si está marcado, 0 si no)
 
         fetch('/src/db/registro.php', {
             method: 'POST',
