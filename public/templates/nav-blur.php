@@ -29,7 +29,7 @@ $show_icon = ($current_page === 'tienda.php') ? '<i class="fa fa-plus"></i>' : '
                     <li><a href="#" data-category="Sandwich y Bocadillos" data-category-id="6" data-translate="nav.categoria6">Sandwiches y Bocadillos</a></li>
                 </ul>
             </li>
-            <li class="desktop-only"><a href="<?php echo $productos_link; ?>" data-translate="nav.tienda"><?php echo $productos_text; ?></a></li>
+            <li class="desktop-only"><a href="<?php echo $productos_link; ?>"> <?php echo $productos_text; ?></a></li>
             <li><a href="/public/local.php" data-translate="nav.locales">Locales</a></li>
             <li><a href="#">Ofertas</a></li>
             <li><a href="/public/reservas.php" data-translate="nav.reservas">Reservas</a></li>

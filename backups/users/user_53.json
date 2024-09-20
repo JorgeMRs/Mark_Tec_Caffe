@@ -1,0 +1,59 @@
+{
+    "cliente": {
+        "idCliente": 53,
+        "correo": "josesitovcf@gmail.com",
+        "contrasena": "$2y$10$ScpMzyovRECzhSLCXIC7Ceog.W2q78ygYMkF\/W9ODq.m5Mh.PGegC",
+        "nombre": "José",
+        "apellido": "Sanchez",
+        "tel": "099761830",
+        "fechaCreacion": "2024-09-10 01:56:20",
+        "fechaActualizacion": "2024-09-16 21:54:55",
+        "estadoActivacion": 1,
+        "tokenVerificacion": null,
+        "fechaNacimiento": "2024-09-05",
+        "avatar": "53_avatar.jpg"
+    },
+    "pedidos": [
+        {
+            "idPedido": 1,
+            "idEmpleado": null,
+            "idCliente": 53,
+            "idCarrito": 1,
+            "idMesa": null,
+            "idSucursal": 3,
+            "estado": "Pendiente",
+            "notas": "",
+            "horaRecogida": null,
+            "metodoPago": "Tarjeta",
+            "tipoPedido": "En el local",
+            "total": "4.20",
+            "fechaPedido": "2024-09-15 19:49:14",
+            "fechaModificacion": "2024-09-15 19:49:14",
+            "codigoVerificacion": "PEDIDOca49db",
+            "numeroPedidoCliente": 1,
+            "numeroPedidoSucursal": 1
+        },
+        {
+            "idPedido": 2,
+            "idEmpleado": null,
+            "idCliente": 53,
+            "idCarrito": 1,
+            "idMesa": null,
+            "idSucursal": 4,
+            "estado": "Pendiente",
+            "notas": "asd",
+            "horaRecogida": null,
+            "metodoPago": "Tarjeta",
+            "tipoPedido": "En el local",
+            "total": "3.00",
+            "fechaPedido": "2024-09-15 19:50:02",
+            "fechaModificacion": "2024-09-15 19:50:02",
+            "codigoVerificacion": "PEDIDOc1ef8d",
+            "numeroPedidoCliente": 2,
+            "numeroPedidoSucursal": 1
+        }
+    ],
+    "reservas": [],
+    "retroalimentacion": [],
+    "fechaDesactivacion": "2024-09-16 21:55:18"
+}

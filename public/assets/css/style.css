@@ -1,1238 +1,1219 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400&family=Sacramento&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&family=Sacramento&display=swap");
 /* Estilos generales */
-*{
-    cursor: url('/public/assets/img/index/reshot-icon-coffee-jug-8LZCR6DAUS.svg') 16 16, auto; /* 16 16 especifica la posición del punto caliente del cursor */
+* {
+  cursor: url("/public/assets/img/index/reshot-icon-coffee-jug-8LZCR6DAUS.svg")
+      16 16,
+    auto; /* 16 16 especifica la posición del punto caliente del cursor */
 }
 body {
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    padding: 0;
-    color: #333;
-    min-height: 100vh;
-    color: #333333;
-    font-family: 'Montserrat', sans-serif;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  color: #333;
+  min-height: 100vh;
+  color: #333333;
+  font-family: "Montserrat", sans-serif;
 }
 
 header {
-    position: relative;
-    height: 100vh;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  transition: all 0.3s ease;
 }
 
 @media (max-width: 768px) {
-    .main-content {
-        margin-top: 80px; /* Aumenta el margen para pantallas pequeñas */
-    }
+  .main-content {
+    margin-top: 80px; /* Aumenta el margen para pantallas pequeñas */
+  }
 }
 
 /* Estilos para pantallas pequeñas */
 
 /* Estilos para el contenido del carrusel */
 .carousel-content {
-    position: absolute; /* Cambia a absolute para centrar mejor */
-    top: 50%; /* Mueve el contenido al 50% de la altura del contenedor */
-    left: 50%; /* Mueve el contenido al 50% del ancho del contenedor */
-    transform: translate(-50%, -50%); /* Centra el contenido completamente */
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    color: white;
-    width: 90%;
-    padding: 0 20px;
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+  position: absolute; /* Cambia a absolute para centrar mejor */
+  top: 50%; /* Mueve el contenido al 50% de la altura del contenedor */
+  left: 50%; /* Mueve el contenido al 50% del ancho del contenedor */
+  transform: translate(-50%, -50%); /* Centra el contenido completamente */
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: white;
+  width: 90%;
+  padding: 0 20px;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
 }
 
-
 .carousel-content h1 {
-    font-size: 48px;
-    margin-bottom: 20px;
-    font-family: 'Poppins';
-    font-weight: 500;
-    color: white;
+  font-size: 48px;
+  margin-bottom: 20px;
+  font-family: "Poppins";
+  font-weight: 500;
+  color: white;
 }
 
 .carousel-content p {
-    font-size: 18px;
-    margin-bottom: 30px;
-    color: white;
+  font-size: 18px;
+  margin-bottom: 30px;
+  color: white;
 }
 
 .buttons a {
-    text-decoration: none;
-    color: white;
-    padding: 10px 20px;
-    border: 2px solid white;
-    margin: 0 10px;
-    transition: all 0.3s ease;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  text-decoration: none;
+  color: white;
+  padding: 10px 20px;
+  border: 2px solid white;
+  margin: 0 10px;
+  transition: all 0.3s ease;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .buttons a:hover {
-    background-color: #b8860b; /* Color dorado */
-    border-color: #b8860b;
+  background-color: #b8860b; /* Color dorado */
+  border-color: #b8860b;
 }
 
 /* Estilos para el carrusel */
 .carousel {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    z-index: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
 }
 
 .carousel-item {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    transition: opacity 2ms ease-in-out; /* Transición de opacidad */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 2ms ease-in-out; /* Transición de opacidad */
 }
 
 .carousel-item.active {
-    opacity: 1;
-    z-index: 1;
+  opacity: 1;
+  z-index: 1;
 }
 
 .carousel img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .transition-layer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: black;
-    opacity: 0;
-    transition: opacity 1s ease-in-out; /* Transición de opacidad */
-    z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0;
+  transition: opacity 1s ease-in-out; /* Transición de opacidad */
+  z-index: 2;
 }
 
 .transition-layer.show {
-    opacity: 1;
+  opacity: 1;
 }
 
 .carousel-indicators {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 10px;
-    z-index: 3;
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 3;
 }
 
 .carousel-indicators .indicator {
-    width: 12px;
-    height: 12px;
-    border: 2px solid #fff;
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background 0.3s;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #fff;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s;
 }
 
 .carousel-indicators .indicator.active {
-    background: rgba(255, 255, 255, 1);
+  background: rgba(255, 255, 255, 1);
 }
 @media (min-width: 768px) and (max-width: 1024px) {
-    .carousel-content {
-        top: 50%; /* Centrado vertical */
-        left: 50%;
-        transform: translate(-50%, -50%);
-        padding: 0 40px; /* Aumentamos el padding para un mejor espacio */
-        width: 90%; /* Aseguramos que el contenido no esté comprimido */
-        max-width: 800px; /* Limitamos el ancho máximo para evitar textos muy largos */
-    }
+  .carousel-content {
+    top: 50%; /* Centrado vertical */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0 40px; /* Aumentamos el padding para un mejor espacio */
+    width: 90%; /* Aseguramos que el contenido no esté comprimido */
+    max-width: 800px; /* Limitamos el ancho máximo para evitar textos muy largos */
+  }
 
-    .carousel-content h1 {
-        font-size: 36px; /* Tamaño del título ajustado */
-        margin-bottom: 20px;
-    }
+  .carousel-content h1 {
+    font-size: 36px; /* Tamaño del título ajustado */
+    margin-bottom: 20px;
+  }
 
-    .carousel-content p {
-        font-size: 18px; /* Tamaño del texto ajustado */
-        margin-bottom: 25px;
-        line-height: 1.5; /* Aumentamos el interlineado para mejor legibilidad */
-    }
+  .carousel-content p {
+    font-size: 18px; /* Tamaño del texto ajustado */
+    margin-bottom: 25px;
+    line-height: 1.5; /* Aumentamos el interlineado para mejor legibilidad */
+  }
 
-    .buttons a {
-        font-size: 16px; /* Tamaño de los botones adecuado para tabletas */
-        padding: 10px 20px;
-        margin: 5px 10px; /* Espaciado lateral más grande */
-    }
+  .buttons a {
+    font-size: 16px; /* Tamaño de los botones adecuado para tabletas */
+    padding: 10px 20px;
+    margin: 5px 10px; /* Espaciado lateral más grande */
+  }
 
-    .carousel img {
-        object-fit: cover;
-        height: 100%;
-        width: 100%;
-    }
+  .carousel img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+  }
 
-    .carousel-indicators {
-        bottom: 25px; /* Movemos los indicadores un poco más arriba */
-    }
+  .carousel-indicators {
+    bottom: 25px; /* Movemos los indicadores un poco más arriba */
+  }
 
-    .carousel-indicators .indicator {
-        width: 12px;
-        height: 12px;
-    }
+  .carousel-indicators .indicator {
+    width: 12px;
+    height: 12px;
+  }
 }
 /* Estilos para pantallas pequeñas (máximo ancho 768px) */
 @media (max-width: 768px) {
-    .carousel-content {
-        top: 50%; /* Centrado vertical */
-        left: 50%;
-        transform: translate(-50%, -50%);
-        padding: 0 15px;
-        width: 100%; /* Asegura que el contenido ocupe todo el ancho */
-    }
+  .carousel-content {
+    top: 50%; /* Centrado vertical */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0 15px;
+    width: 100%; /* Asegura que el contenido ocupe todo el ancho */
+  }
 
-    .carousel-content h1 {
-        font-size: 32px; /* Tamaño reducido del título */
-        margin-bottom: 15px;
-    }
+  .carousel-content h1 {
+    font-size: 32px; /* Tamaño reducido del título */
+    margin-bottom: 15px;
+  }
 
-    .carousel-content p {
-        font-size: 16px; /* Tamaño reducido del texto */
-        margin-bottom: 20px;
-    }
+  .carousel-content p {
+    font-size: 16px; /* Tamaño reducido del texto */
+    margin-bottom: 20px;
+  }
 
-    .buttons a {
-        font-size: 14px; /* Botones más pequeños */
-        padding: 8px 15px;
-        margin: 5px;
-    }
+  .buttons a {
+    font-size: 14px; /* Botones más pequeños */
+    padding: 8px 15px;
+    margin: 5px;
+  }
 
-    .carousel img {
-        object-fit: cover;
-        height: 100%;
-        width: 100%;
-    }
+  .carousel img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+  }
 
-    .carousel-indicators {
-        bottom: 20px; /* Movemos los indicadores un poco más arriba */
-    }
+  .carousel-indicators {
+    bottom: 20px; /* Movemos los indicadores un poco más arriba */
+  }
 
-    .carousel-indicators .indicator {
-        width: 10px;
-        height: 10px;
-    }
+  .carousel-indicators .indicator {
+    width: 10px;
+    height: 10px;
+  }
 }
 
 /* Estilos para pantallas extra pequeñas (máximo ancho 480px) */
 @media (max-width: 480px) {
-    .carousel-content {
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        padding: 0 10px; /* Ajusta los márgenes internos */
-        width: 100%; /* Asegura que el contenido ocupe todo el ancho */
-    }
+  .carousel-content {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0 10px; /* Ajusta los márgenes internos */
+    width: 100%; /* Asegura que el contenido ocupe todo el ancho */
+  }
 
-    .carousel-content h1 {
-        font-size: 34px; /* Ajusta el tamaño del título */
-        margin-bottom: 10px;
-    }
+  .carousel-content h1 {
+    font-size: 34px; /* Ajusta el tamaño del título */
+    margin-bottom: 10px;
+  }
 
-    .carousel-content p {
-        font-size: 14px; /* Texto más pequeño */
-        margin-bottom: 15px;
-    }
+  .carousel-content p {
+    font-size: 14px; /* Texto más pequeño */
+    margin-bottom: 15px;
+  }
 
-    .buttons a {
-        font-size: 12px; /* Botones aún más pequeños */
-        padding: 7px 12px;
-    }
+  .buttons a {
+    font-size: 12px; /* Botones aún más pequeños */
+    padding: 7px 12px;
+  }
 
-    .carousel-indicators {
-        bottom: 15px; /* Movemos los indicadores aún más arriba */
-    }
+  .carousel-indicators {
+    bottom: 15px; /* Movemos los indicadores aún más arriba */
+  }
 
-    .carousel-indicators .indicator {
-        width: 8px;
-        height: 8px;
-    }
+  .carousel-indicators .indicator {
+    width: 8px;
+    height: 8px;
+  }
 }
 
 /* History section style  */
 
-
 .history {
-    width: 100%;
-    height: 75vh;
-    background-image: url('/public/assets/img/index/bg_4.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    position: relative;
-    /* Esto es importante para que la imagen superpuesta se posicione correctamente */
+  width: 100%;
+  height: 75vh;
+  background-image: url("/public/assets/img/index/bg_4.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  /* Esto es importante para que la imagen superpuesta se posicione correctamente */
 }
 .history .content {
-    opacity: 0;
-    transform: translateY(20px); /* Desplazado ligeramente hacia abajo para la animación */
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-    position: absolute;
-    right: 150px;
-    width: 850px;
-    height: 405px;
-    background-color: rgba(0, 0, 0, 0.8);
-    padding: 35px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    box-sizing: border-box;
-    top: 50%;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  position: absolute;
+  width: 90%;
+  max-width: 850px; /* Asegura que el ancho máximo sea adecuado */
+  height: auto; /* Ajusta la altura según el contenido */
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 35px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center; /* Centra el texto dentro del contenedor */
 }
 
 .history .content.active {
-    opacity: 1;
-    transform: translateY(-50%) /* Vuelve a la posición centrada después de la animación */
+  opacity: 1;
+  transform: translateY(
+    -50%
+  ); /* Vuelve a la posición centrada después de la animación */
 }
 
 .overlay-image {
-    position: absolute;
-    left: 0;
-    /* Empieza desde la izquierda */
-    top: 0;
-    width: 50%;
-    /* Ocupa el 50% del ancho del contenedor */
-    height: 100%;
-    /* Ocupa toda la altura */
-    background-image: url('/public/assets/img/index/bar.png');
-    /* Reemplaza con la URL de la segunda imagen */
-    background-size: cover;
-    /* Asegura que la imagen cubra todo el contenedor */
-    background-position: center;
-    /* Centra la imagen */
-    background-repeat: no-repeat;
-    /* Evita que la imagen se repita */
+  position: absolute;
+  left: 0;
+  /* Empieza desde la izquierda */
+  top: 0;
+  width: 50%;
+  /* Ocupa el 50% del ancho del contenedor */
+  height: 100%;
+  /* Ocupa toda la altura */
+  background-image: url("/public/assets/img/index/bar.png");
+  /* Reemplaza con la URL de la segunda imagen */
+  background-size: cover;
+  /* Asegura que la imagen cubra todo el contenedor */
+  background-position: center;
+  /* Centra la imagen */
+  background-repeat: no-repeat;
+  /* Evita que la imagen se repita */
 }
 
 .content {
-    position: absolute;
-    right: 150px;
-    width: 850px;
-    height: 405px;
-    background-color: rgb(0 0 0 / 80%);
-    padding: 35px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    box-sizing: border-box;
-    top: 50%;
-    transform: translateY(-50%);
+  position: absolute;
+  right: 150px;
+  width: 850px;
+  height: 405px;
+  background-color: rgb(0 0 0 / 80%);
+  padding: 35px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
- .history_title {
-    font-family: 'Sacramento', cursive;
-    font-size: 3rem;
-    margin: 0;
-    font-weight: 400;
-    color: #DAA520;
-    font-size: 48px;
-    line-height: 1.2;
+.history_title {
+  font-family: "Sacramento", cursive;
+  font-size: 3rem;
+  margin: 0;
+  font-weight: 400;
+  color: #daa520;
+  font-size: 48px;
+  line-height: 1.2;
 }
-
+.content h1 {
+  text-align: left;
+  line-height: 0.8;
+}
 .history_subtitle {
-    font-weight: 500;
-    display: block;
-    font-family: 'Poppins', sans-serif;
-    font-size: 42px;
-    margin-top: 0px;
-    color: white;
+  font-weight: 500;
+  display: block;
+  font-family: "Poppins", sans-serif;
+  font-size: 42px;
+  margin-top: 0px;
+  color: white;
 }
 
 .content p {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 300;
-    color: #676767;
-    font-size: 1rem;
-    margin-top: 20px;
-    line-height: 1.6;
-    text-align: left;
-
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  color: #676767;
+  font-size: 1rem;
+  margin-top: 20px;
+  line-height: 1.6;
+  text-align: left;
 }
 
 @media (max-width: 768px) {
+  .history {
+    height: 100vh; /* Ajusta la altura para pantallas más pequeñas */
+  }
 
-        .history .content {
-            margin-top: 0;
-            padding: 19px;
-            height: 311px;
-        }
-    .overlay-image {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 40%;
-        background-image: url(/public/assets/img/index/bar.png);
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-    }
-    .history_title {
-        font-size: 2.5rem; 
-    }
-    .history .content.active {
-        opacity: 1;
-        transform: translateY(5%);
-    }
-    .history_subtitle {
-        font-size: 2rem;
-    }
+  .history .content {
+    padding: 20px;
+    width: 90%;
+    height: 60%;
+    text-align: left;
+  }
+  .history .content {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    position: absolute;
+    width: 100%;
+    max-width: 840px;
+    height: auto;
+    background-color: transparent;
+    padding: 20px;
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+    box-sizing: border-box;
+    top: 70%;
+    left: 0%;
+    transform: translateY(-50%);
+    text-align: left;
+  }
+  .overlay-image {
+    width: 100%;
+    height: 40%;
+  }
+  .history_title {
+    font-size: 2.5rem;
+  }
+  .content h1 {
+    font-family: "Poppins";
+    font-weight: 700;
+    text-align: left;
+    font-size: 50px;
+    color: #1e1e1e;
+    margin-bottom: 20px;
+    margin: 0;
+    margin-left: 0vh;
+    line-height: 0.4;
+  }
+  .history_subtitle {
+    font-weight: 500;
+    display: block;
+    font-family: "Poppins", sans-serif;
+    font-size: 42px;
+    margin-top: 0px;
+    color: white;
+    /* line-height: 0.5; */
+  }
 
-    .content p {
-        font-size: 0.8rem;
-    }
-    .content p {
-        font-family: 'Poppins', sans-serif;
-        font-weight: 300;
-        color: #676767;
-        margin-top: 25px;
-        line-height: 1.6;
-        text-align: left;
-        margin-bottom: 75px;
-    }
-    .history .content {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        /* position: relative; */
-        right: 10px;
-        width: 95%;
-        height: 200px;
-        background-color: transparent;
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        /* justify-content: center; */
-        box-sizing: border-box;
-        top: 60%;
-    }
-    .history_title {
-        font-family: 'Sacramento', cursive;
-        margin: 0;
-        font-weight: 400;
-        color: #DAA520;
-        font-size: 2.6rem;
-        line-height: 1.2;
-    }
-    .history {
-        width: 100%;
-        height: 100vh;
-        background-image: url(/public/assets/img/index/bg_4.jpg);
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        position: relative;
-    }
-    .history h1 {
-        font-family: "Poppins";
-        font-weight: 700;
-        text-align: center;
-        font-size: 50px;
-        color: #1e1e1e;
-        margin-bottom: 20px;
-        margin: 0;
-        margin-left: -25vh;
-        position: relative;
-        top: 0%;
-        line-height: 0.8;
-        /* padding-bottom: 22px; */
-    }
+  .history_subtitle {
+    font-size: 2rem;
+  }
+
+  .content p {
+    font-size: 14px;
+    margin-top: 15px;
+  }
+  .content p {
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    color: #676767;
+    margin-top: 20px;
+    line-height: 1.6;
+    text-align: left;
+  }
 }
-
-
 
 /* Data section style */
 .data {
-    width: 100%;
-    min-height: 50vh; /* Ajustamos a la altura necesaria */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #1B0D0B;
-    padding: 20px 0;
+  width: 100%;
+  min-height: 50vh; /* Ajustamos a la altura necesaria */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1b0d0b;
+  padding: 20px 0;
 }
 
 .features {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Tres columnas en pantallas grandes */
-    gap: 20px;
-    text-align: center;
-    width: 80%;
-    background: transparent;
+  display: grid;
+  grid-template-columns: repeat(
+    3,
+    1fr
+  ); /* Tres columnas en pantallas grandes */
+  gap: 20px;
+  text-align: center;
+  width: 80%;
+  background: transparent;
 }
 
 .feature-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    box-sizing: border-box;
-    opacity: 0; /* Inicialmente oculto */
-    transform: translateY(20px); /* Desplazado ligeramente hacia abajo para la animación */
-    transition: opacity 1.6s ease-out, transform 1.6s ease-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+  opacity: 0; /* Inicialmente oculto */
+  transform: translateY(
+    20px
+  ); /* Desplazado ligeramente hacia abajo para la animación */
+  transition: opacity 1.6s ease-out, transform 1.6s ease-out;
 }
 
 @keyframes slideUp {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Agregar un retraso para cada ítem */
 .feature-item:nth-child(1) {
-    animation-delay: 0.2s;
+  animation-delay: 0.2s;
 }
 
 .feature-item:nth-child(2) {
-    animation-delay: 0.4s;
+  animation-delay: 0.4s;
 }
 
 .feature-item:nth-child(3) {
-    animation-delay: 0.6s;
+  animation-delay: 0.6s;
 }
 .feature-item.animate {
-    animation: slideUp 1.6s ease-out forwards;
+  animation: slideUp 1.6s ease-out forwards;
 }
 
 svg {
-    width: 100px;
-    height: 80px;
+  width: 100px;
+  height: 80px;
 }
 
 .icon-container {
-    width: 120px;
-    height: 120px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 2px solid #DAA520;
-    margin-bottom: 15px;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #daa520;
+  margin-bottom: 15px;
 }
 
 .feature-item h3 {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 400;
-    margin: 10px 0;
-    font-size: 1.2rem;
-    color: #F2C960;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  margin: 10px 0;
+  font-size: 1.2rem;
+  color: #f2c960;
 }
 
 .feature-item p {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 300;
-    font-size: 1rem;
-    color: #BCBCBC;
-    text-align: center;
-    width: 70%;
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-size: 1rem;
+  color: #bcbcbc;
+  text-align: center;
+  width: 70%;
 }
 
 /* Para pantallas pequeñas */
 @media (max-width: 768px) {
-    .features {
-        grid-template-columns: 1fr; 
-        gap: 40px; 
-        width: 100%; 
-    }
+  .features {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    width: 100%;
+  }
 
-    .feature-item {
-        width: 100%; 
-        padding: 20px;
-    }
+  .feature-item {
+    width: 100%;
+    padding: 20px;
+  }
 
-    svg {
-        width: 80px; 
-        height: 60px;
-    }
+  svg {
+    width: 80px;
+    height: 60px;
+  }
 
-    .icon-container {
-        width: 100px;
-        height: 100px;
-    }
+  .icon-container {
+    width: 100px;
+    height: 100px;
+  }
 
-    .feature-item h3 {
-        font-size: 1rem; 
-    }
+  .feature-item h3 {
+    font-size: 1rem;
+  }
 
-    .feature-item p {
-        font-size: 0.9rem; 
-        width: 90%; 
-    }
+  .feature-item p {
+    font-size: 0.9rem;
+    width: 90%;
+  }
 }
-
-
-
-
-
-
 
 /* Menu section style */
 
 .menu {
-    width: 100%;
-    height: 75vh;
-    background-image: url('/public/assets/img/index/bg_4.jpg');
-    /* Reemplaza con la URL de tu imagen de fondo */
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 100%;
+  height: 75vh;
+  background-image: url("/public/assets/img/index/bg_4.jpg");
+  /* Reemplaza con la URL de tu imagen de fondo */
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .menu-container {
-    display: flex;
-    gap: 50px;
-    width: 80%;
+  display: flex;
+  gap: 50px;
+  width: 80%;
 }
 
 .menu-left {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-end;
-    /* Alinea el contenido a la derecha */
-    text-align: right;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  /* Alinea el contenido a la derecha */
+  text-align: right;
 }
 
-.menu_title{
-    font-family: 'Sacramento', cursive;
-    font-size: 3rem;
-    margin: 0;
-    color: #DAA520;
-    line-height: 0.4;
-    font-weight: 400;
+.menu_title {
+  font-family: "Sacramento", cursive;
+  font-size: 3rem;
+  margin: 0;
+  color: #daa520;
+  line-height: 0.4;
+  font-weight: 400;
 }
 
 .menu_subtitle {
-    display: block;
-    font-family: 'Poppins', sans-serif;
-    font-size: 2rem;
-    color: white;
-    font-weight: bold;
-    margin-top: 10px;
-    line-height: 0.5;
+  display: block;
+  font-family: "Poppins", sans-serif;
+  font-size: 2rem;
+  color: white;
+  font-weight: bold;
+  margin-top: 10px;
+  line-height: 0.5;
 }
 
 .menu-left p {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1rem;
-    color: #ddd;
-    margin-top: 20px;
-    line-height: 1.6;
-    width: 80%;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  color: #ddd;
+  margin-top: 20px;
+  line-height: 1.6;
+  width: 80%;
 }
 
 .menu-left button {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1rem;
-    color: #F2C960;
-    background-color: transparent;
-    border: 2px solid #F2C960;
-    padding: 20px 20px;
-    margin-top: 10px;
-    transition: background-color 0.3s, color 0.3s;
-    align-self: flex-end;
-    /* Alinear botón a la derecha */
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  color: #f2c960;
+  background-color: transparent;
+  border: 2px solid #f2c960;
+  padding: 20px 20px;
+  margin-top: 10px;
+  transition: background-color 0.3s, color 0.3s;
+  align-self: flex-end;
+  /* Alinear botón a la derecha */
 }
 
 .menu-left button:hover {
-    background-color: #F2C960;
-    color: #1A0C0B;
+  background-color: #f2c960;
+  color: #1a0c0b;
 }
 
 .menu-right {
-    margin-top: 20px;
-    flex: 1;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 28px;
-    height: 60vh;
+  margin-top: 20px;
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 28px;
+  height: 60vh;
 }
 
 .menu-right img {
-    width: 80%;
-    /* Aumentar el ancho de las imágenes */
-    height: auto;
-    object-fit: cover;
-    transition: transform 0.3s ease;
+  width: 80%;
+  /* Aumentar el ancho de las imágenes */
+  height: auto;
+  object-fit: cover;
+  transition: transform 0.3s ease;
 }
 
 /* Desordenado */
 .menu-right img:nth-child(1) {
-    transform: translateY(-10px) rotate(-2deg);
+  transform: translateY(-10px) rotate(-2deg);
 }
 
 .menu-right img:nth-child(2) {
-    transform: translateY(0px) rotate(3deg);
+  transform: translateY(0px) rotate(3deg);
 }
 
 .menu-right img:nth-child(3) {
-    transform: translateY(-20px) rotate(-3deg);
+  transform: translateY(-20px) rotate(-3deg);
 }
 
 .menu-right img:nth-child(4) {
-    transform: translateY(-35px) rotate(2deg);
+  transform: translateY(-35px) rotate(2deg);
 }
 .menu-left {
-    opacity: 0;
-    transform: translateY(20px); 
-    transition: opacity 1s ease-out, transform 1s ease-out;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
 }
 
 .menu-left.animate {
-    opacity: 1;
-    transform: translateY(0);
+  opacity: 1;
+  transform: translateY(0);
 }
 @media (max-width: 768px) {
-    .menu {
-        height: auto; 
-    }
+  .menu {
+    height: auto;
+  }
 
-    .menu-container {
-        flex-direction: column;
-        align-items: center; 
-    }
+  .menu-container {
+    flex-direction: column;
+    align-items: center;
+  }
 
-    .menu-left {
-        align-items: center;
-        text-align: center;
-        margin-bottom: 20px; 
-    }
+  .menu-left {
+    align-items: center;
+    text-align: center;
+    margin-bottom: 20px;
+  }
 
-    .menu-left button {
-        align-self: center;
-        margin-top: 20px; 
-    }
+  .menu-left button {
+    align-self: center;
+    margin-top: 20px;
+  }
 
-    .menu-right {
-        grid-template-columns: repeat(2, 1fr); 
-        grid-template-rows: repeat(2, 1fr); 
-        width: 100%;
-        height: auto; 
-        gap: 10px; 
-    }
+  .menu-right {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    width: 100%;
+    height: auto;
+    gap: 10px;
+  }
 
-    .menu-right img {
-        width: 100%; 
-        height: auto; 
-    }
-    .menu-left p {
-        font-family: 'Poppins', sans-serif;
-        font-size: 0.8rem;
-        color: #7b7b7b;
-        margin-top: 20px;
-        line-height: 1.6;
-        width: 100%;
-    }
-    .menu-container {
-        display: flex;
-        gap: 25px;
-        width: 80%;
-    }
+  .menu-right img {
+    width: 100%;
+    height: auto;
+  }
+  .menu-left p {
+    font-family: "Poppins", sans-serif;
+    font-size: 0.8rem;
+    color: #7b7b7b;
+    margin-top: 20px;
+    line-height: 1.6;
+    width: 100%;
+  }
+  .menu-container {
+    display: flex;
+    gap: 25px;
+    width: 80%;
+  }
 }
 
 /* data-2 style section */
 
 .data-2 {
-    width: 100%;
-    height: 50vh;
-    background-image: url('/public/assets/img/index/data-2-bg.jpg');
-    background-size: cover;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-position: center -250px; /* Mueve la imagen hacia arriba */
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 100%;
+  height: 50vh;
+  background-image: url("/public/assets/img/index/data-2-bg.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: center -250px; /* Mueve la imagen hacia arriba */
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .data-2::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    /* Cambia el valor de opacidad según sea necesario */
-    z-index: 1;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  /* Cambia el valor de opacidad según sea necesario */
+  z-index: 1;
 }
 
 .svg {
-    width: 64px;
-    height: 64px;
-    display: block;
+  width: 64px;
+  height: 64px;
+  display: block;
 }
 
 .features-2 {
-    z-index: 100;
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    width: 70%;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  width: 70%;
 }
 
 .feature-item-2 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
 }
 
 .icon-container-2 {
-    position: relative;
-    width: 120px;
-    height: 120px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 35px;
-    transition: background-color 0.5s ease;
+  position: relative;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 35px;
+  transition: background-color 0.5s ease;
 }
 .icon-container-s {
-    position: relative;
-    width: 120px;
-    height: 120px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 35px;
-    transition: background-color 0.5s ease;
+  position: relative;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 35px;
+  transition: background-color 0.5s ease;
 }
 
 .icon-border {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border: 2px solid #DAA520;
-    transition: transform 0.2s ease, border-radius 0.2s ease, background-color 0.2s ease;
-    transform-origin: center; /* Forma de cuadrado con bordes redondeados */
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #daa520;
+  transition: transform 0.2s ease, border-radius 0.2s ease,
+    background-color 0.2s ease;
+  transform-origin: center; /* Forma de cuadrado con bordes redondeados */
 }
 
 .icon-container-2:hover .icon-border {
-    background-color:#F2C960;
-    transform: rotate(45deg); /* Gira para parecer un rombo */
+  background-color: #f2c960;
+  transform: rotate(45deg); /* Gira para parecer un rombo */
 }
 .icon-container-s:hover .icon-border {
-    background-color:#F2C960;
-    transform: rotate(45deg); /* Gira para parecer un rombo */
+  background-color: #f2c960;
+  transform: rotate(45deg); /* Gira para parecer un rombo */
 }
 .features-2 svg {
-    position: relative;
-    width: 90px;
-    height: 80px;
-    fill: #DAA520;
-    transition: fill 0.2s ease; /* Agrega transición para el cambio de color */
+  position: relative;
+  width: 90px;
+  height: 80px;
+  fill: #daa520;
+  transition: fill 0.2s ease; /* Agrega transición para el cambio de color */
 }
-.icon-container-s svg{
-    fill: transparent !important;
-} 
+.icon-container-s svg {
+  fill: transparent !important;
+}
 .icon-container-2:hover svg {
-    fill: #4D2C1F; /* Cambia el color del icono a marrón oscuro */
+  fill: #4d2c1f; /* Cambia el color del icono a marrón oscuro */
 }
 .icon-container-s:hover svg {
-    fill: #4D2C1F !important; /* Cambia el color del icono a marrón oscuro */
+  fill: #4d2c1f !important; /* Cambia el color del icono a marrón oscuro */
 }
 .feature-item-2 h3 {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 400;
-    margin: 0 0;
-    font-size: 1.8rem;
-    color: #F2C960;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  margin: 0 0;
+  font-size: 1.8rem;
+  color: #f2c960;
 }
 
 .feature-item-2 p {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 300;
-    font-size: 1.0rem;
-    margin-top: 0;
-    color: white;
-    text-align: center;
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-size: 1rem;
+  margin-top: 0;
+  color: white;
+  text-align: center;
 }
 @keyframes slideUp2 {
-    0% {
-        opacity: 0;
-        transform: translateY(50px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .feature-item-2 {
-    opacity: 0;
-    transform: translateY(50px);
-    animation: none;
+  opacity: 0;
+  transform: translateY(50px);
+  animation: none;
 }
 
 .feature-item-2.animate {
- 
-    animation: slideUp2 0.6s forwards;
+  animation: slideUp2 0.6s forwards;
 }
 
 .feature-item-2:nth-child(1) {
-    animation-delay: 0.2s; 
+  animation-delay: 0.2s;
 }
 
 .feature-item-2:nth-child(2) {
-    animation-delay: 0.2s; 
+  animation-delay: 0.2s;
 }
 
 .feature-item-2:nth-child(3) {
-    animation-delay: 0.2s; 
+  animation-delay: 0.2s;
 }
 
 .feature-item-2:nth-child(4) {
-    animation-delay: 0.3s; 
+  animation-delay: 0.3s;
 }
 
 @media (max-width: 768px) {
-    .data-2 {
-        height: auto;
-        background-position: left -17em bottom 0px;
-        background-attachment:inherit;
-    }
+  .data-2 {
+    height: auto;
+    background-position: left -17em bottom 0px;
+    background-attachment: inherit;
+  }
 
-    .features-2 {
-        flex-direction: column; 
-    
-        justify-content: center; 
-        gap: 20px; 
-        width: 100%; 
-        padding: 20px; 
-    }
+  .features-2 {
+    flex-direction: column;
 
-    .feature-item-2 {
-        width: 100%; 
-        padding: 10px; 
-        box-sizing: border-box; 
-        text-align: center; 
-    }
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    padding: 20px;
+  }
 
-    .icon-container-2, .icon-container-s {
-        width: 80px; 
-        height: 80px; 
-    }
+  .feature-item-2 {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: center;
+  }
 
-    .features-2 svg {
-        width: 60px; 
-        height: 60px; 
-    }
+  .icon-container-2,
+  .icon-container-s {
+    width: 80px;
+    height: 80px;
+  }
 
-
+  .features-2 svg {
+    width: 60px;
+    height: 60px;
+  }
 }
 /* mostSold section style */
 .mostSold {
-    width: 100%;
-    height: 90vh;
-    background-image: url('/public/assets/img/index/bg_4.jpg');
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    text-align: center;
-    padding-bottom: 50px;
+  width: 100%;
+  height: 90vh;
+  background-image: url("/public/assets/img/index/bg_4.jpg");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  padding-bottom: 50px;
 }
 
 .mostSold .content-2 {
-    width: 80%;
-    max-width: 1200px;
-    position: relative;
-    padding-top: 0;
+  width: 80%;
+  max-width: 1200px;
+  position: relative;
+  padding-top: 0;
 }
 
 .text-container {
-    margin-bottom: 85px;
-    /* Ajusta el margen inferior para separar del contenido de productos */
+  margin-bottom: 85px;
+  /* Ajusta el margen inferior para separar del contenido de productos */
 }
 
 .sold_title {
-    font-family: 'Sacramento', cursive;
-    font-size: 3rem;
-    margin-bottom: 10px;
-    font-weight: 400;
-    color: #DAA520;
+  font-family: "Sacramento", cursive;
+  font-size: 3rem;
+  margin-bottom: 10px;
+  font-weight: 400;
+  color: #daa520;
 }
 
-.sold_subtitle{
-    font-size: 2rem;
-    margin-bottom: 30px;
-    font-weight: 700;
-    font-family: 'Poppins', sans-serif;
-    color: white;
+.sold_subtitle {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  font-weight: 700;
+  font-family: "Poppins", sans-serif;
+  color: white;
 }
 
 .text-container p {
-    margin: 10px auto;
-    font-size: 1.2rem;
-    max-width: 1000px;
-    color: #676767;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 300;
+  margin: 10px auto;
+  font-size: 1.2rem;
+  max-width: 1000px;
+  color: #676767;
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
 }
 
 .products {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
 .product-item {
-    flex: 1 1 calc(25% - 20px);
-    box-sizing: border-box;
-    border-radius: 10px;
-    padding: 10px;
+  flex: 1 1 calc(25% - 20px);
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding: 10px;
 }
 
 .product-item img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
 }
 
 .product-item h3 {
-    margin: 10px 0 5px;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 400;
-    color: white;
+  margin: 10px 0 5px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  color: white;
 }
 
 .product-item,
 p {
-    margin: 0 0 10px;
-    font-size: 14px;
-    font-weight: 300;
-    font-family: 'Poppins', sans-serif;
-    color: #818180;
+  margin: 0 0 10px;
+  font-size: 14px;
+  font-weight: 300;
+  font-family: "Poppins", sans-serif;
+  color: #818180;
 }
 
 .product-item button {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1rem;
-    color: #F2C960;
-    background-color: transparent;
-    border: 2px solid #F2C960;
-    padding: 10px 35px;
-    margin-top: 10px;
-    transition: background-color 0.3s, color 0.3s;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  color: #f2c960;
+  background-color: transparent;
+  border: 2px solid #f2c960;
+  padding: 10px 35px;
+  margin-top: 10px;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .product-item button:hover {
-    background-color: #F2C960;
-    color: #1A0C0B;
+  background-color: #f2c960;
+  color: #1a0c0b;
 }
 @keyframes slideUp3 {
-    from {
-        transform: translateY(50%);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
+  from {
+    transform: translateY(50%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
-
 .text-container {
-    animation: none; 
-    opacity: 0;
+  animation: none;
+  opacity: 0;
 }
 
 /* Clase para activar la animación */
 .text-container.visible {
-    animation: slideUp3 0.8s ease-out forwards;
+  animation: slideUp3 0.8s ease-out forwards;
 }
 
 @media (max-width: 768px) {
-    .mostSold {
-        height: auto; 
-    }
-    .text-container h1 {
-        font-size: 32px;
-        color: #1e1e1e;
-        margin-bottom: 20px;
-        margin: 0;
-        margin-left: 0vh;
-    }
-    .text-container p {
-        font-size: 1.0rem;
-    }
-    .content-2 {
-        width: 100%; 
-    }
+  .mostSold {
+    height: auto;
+  }
+  .text-container h1 {
+    font-size: 32px;
+    color: #1e1e1e;
+    margin-bottom: 20px;
+    margin: 0;
+    margin-left: 0vh;
+  }
+  .text-container p {
+    font-size: 1rem;
+  }
+  .content-2 {
+    width: 100%;
+  }
 
-    .text-container {
-        margin-bottom: 50px;
-        margin-top: 30px;
-    }
+  .text-container {
+    margin-bottom: 50px;
+    margin-top: 30px;
+  }
 
-    .products {
-        flex-direction: column; 
-        gap: 20px; 
-    }
+  .products {
+    flex-direction: column;
+    gap: 20px;
+  }
 
-    .product-item {
-        width: 100%; 
-        margin-bottom: 20px; 
-    }
+  .product-item {
+    width: 100%;
+    margin-bottom: 20px;
+  }
 
-    .product-item img {
-        height: 240px;
-    }
+  .product-item img {
+    height: 240px;
+  }
 
-    .product-item button {
-        padding: 8px 25px; 
-        font-size: 0.9rem; 
-    }
+  .product-item button {
+    padding: 8px 25px;
+    font-size: 0.9rem;
+  }
 }
 
-
-
-
-
 .overlay {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
 }
 
 .modal {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    justify-content: center;
-    align-items: center;
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  justify-content: center;
+  align-items: center;
 }
 
 .modal-content {
-    background-color: #fff;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 500px;
-    position: relative;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px;
+  position: relative;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    font-size: 24px;
-    font-weight: bold;
-    color: #B9860A;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #b9860a;
 }
 
 .close-btn:hover {
-    color: #d95b1d;
+  color: #d95b1d;
 }
 
 h2 {
-    text-align: center;
-    color: #B9860A;
+  text-align: center;
+  color: #b9860a;
 }
 
 .modal p {
-    color: #333;
-    font-size: 16px;
-    line-height: 1.6;
+  color: #333;
+  font-size: 16px;
+  line-height: 1.6;
 }
 
 .modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 /* Estilo para el contenido del modal */
 .modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 500px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .modal-content button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    margin-top: 20px;
-    border-radius: 5px;
-    font-size: 16px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 20px;
+  border-radius: 5px;
+  font-size: 16px;
 }
 
-
 .modal-content h2 {
-    margin-bottom: 20px;
-    font-size: 24px;
-    color: #B9860A;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #b9860a;
 }
 
 .modal-content p {
-    font-size: 18px;
-    color: #666;
+  font-size: 18px;
+  color: #666;
 }
 
 .modal-content button {
-    background-color: #B9860A;
+  background-color: #b9860a;
 }

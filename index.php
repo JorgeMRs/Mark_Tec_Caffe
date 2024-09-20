@@ -1,6 +1,19 @@
 <?php
 session_start();
 $isLoggedIn = isset($_SESSION['user_id']);
+
+if (isset($_SESSION['role']) && isset($_SESSION['employee_id'])) {
+    // Redirige según el rol
+    if ($_SESSION['role'] === 'Mozo') {
+        header("Location: /public/mozo/mozo.php");
+        exit();
+    } elseif ($_SESSION['role'] === 'Chef') {
+        header("Location: /public/chef/chef.php");
+        exit();
+    }
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,26 +44,26 @@ $isLoggedIn = isset($_SESSION['user_id']);
             <p>Si no has recibido el correo, verifica tu carpeta de spam.</p>
         </div>
     </div>
-    <?php if (isset($_GET['accountDeleted']) && $_GET['accountDeleted'] == 'true'): ?>
-        <div class="modal" id="accountDeletedModal">
+    <?php if (isset($_GET['accountDeactivated']) && $_GET['accountDeactivated'] == 'true'): ?>
+        <div class="modal" id="accountDeactivatedModal">
             <div class="modal-content">
-                <h2>Cuenta eliminada</h2>
-                <p>Tu cuenta ha sido eliminada exitosamente.</p>
+                <h2>Cuenta desactivada</h2>
+                <p>Tu cuenta ha sido desactivada exitosamente.</p>
                 <button onclick="closeModalAccount()">Cerrar</button>
             </div>
         </div>
         <script>
             function closeModalAccount() {
-                document.getElementById('accountDeletedModal').style.display = 'none';
+                document.getElementById('accountDeactivatedModal').style.display = 'none';
 
-                // Actualiza la URL sin el parámetro 'accountDeleted'
+                // Actualiza la URL sin el parámetro 'accountDeactivated'
                 var url = new URL(window.location.href);
-                url.searchParams.delete('accountDeleted');
+                url.searchParams.delete('accountDeactivated');
                 window.history.replaceState({}, '', url);
             }
 
             // Mostrar el modal
-            document.getElementById('accountDeletedModal').style.display = 'block';
+            document.getElementById('accountDeactivatedModal').style.display = 'block';
         </script>
     <?php endif; ?>
     <header>
@@ -59,7 +72,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
             <h1 data-translate="header_title">RECIEN HECHO, TODOS LOS DIAS</h1>
             <p data-translate="header_subtitle">Café recién preparado con granos seleccionados para ofrecerte una experiencia inigualable</p>
             <div class="buttons">
-                <a href="#order" class="btn-order" data-translate="order_button">Ordenar Ahora</a>
+                <a href="#order" class="btn-order" data-translate="order_button">Reservar Ahora</a>
                 <a href="#menu" class="btn-menu" data-translate="menu_button">Ver Menú</a>
             </div>
         </div>

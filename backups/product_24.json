@@ -1,0 +1,10 @@
+{
+    "idProducto": 24,
+    "imagen": "\/public\/assets\/img\/productos\/Caf\u00e9s con Leche\/vien\u00e9s.jpg",
+    "nombre": "Caf\u00e9 Vien\u00e9s",
+    "stock": 15,
+    "descripcion": "Caf\u00e9 con crema batida, creando una bebida lujosa y suave con una capa generosa de crema.",
+    "precio": "4.50",
+    "idCategoria": 2,
+    "estadoActivacion": 1
+}

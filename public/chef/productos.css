@@ -206,3 +206,51 @@ textarea{
     resize: none;
     height: 15vh;
 }
+
+.hidden {
+    display: none;
+}
+
+.button-group {
+    display: flex;
+    margin-bottom: 20px;
+    justify-content: center;
+    gap: 15px;
+}
+
+.button-group button {
+    background-color: #45a049; /* Color de fondo */
+    color: white; /* Color del texto */
+    padding: 10px 15px; /* Espaciado interno */
+    text-decoration: none; /* Remover subrayado del texto */
+    border-radius: 5px; /* Bordes redondeados */
+    font-size: 16px; /* Tamaño de la fuente */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para darle un efecto flotante */
+    border-color: transparent;
+}
+.button-group button:hover {
+    background-color: #337236; /* Color de fondo */
+    cursor: pointer;
+}
+.desactivado {
+    text-decoration: line-through;
+    color: gray;
+}
+.back-button {
+position: fixed;
+top: 20px; /* Puedes ajustar la distancia desde la parte superior */
+left: 20px; /* Ajusta la distancia desde la izquierda */
+background-color: #45a049; /* Color de fondo */
+color: white; /* Color del texto */
+padding: 10px 15px; /* Espaciado interno */
+text-decoration: none; /* Remover subrayado del texto */
+border-radius: 5px; /* Bordes redondeados */
+font-size: 16px; /* Tamaño de la fuente */
+box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para darle un efecto flotante */
+z-index: 1000; /* Asegura que el botón se muestre encima de otros elementos */
+}
+
+.back-button:hover {
+background-color: #d9442b; /* Cambia el color de fondo al pasar el ratón */
+cursor: pointer; /* Cambia el cursor a un puntero */
+}

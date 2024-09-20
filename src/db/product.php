@@ -2,13 +2,13 @@
 include 'db_connect.php';
 
 try {
-    
     $conn = getDbConnection();
-
     $idCategoria = $_GET['idCategoria'];
 
-    // Preparar y ejecutar la consulta SQL
-    $sql = "SELECT idProducto, imagen, nombre, descripcion, precio FROM producto WHERE idCategoria = ?";
+    // Preparar y ejecutar la consulta SQL con la condición de activación
+    $sql = "SELECT idProducto, imagen, nombre, descripcion, precio 
+            FROM producto 
+            WHERE idCategoria = ? AND estadoActivacion = 1";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $idCategoria);
     $stmt->execute();

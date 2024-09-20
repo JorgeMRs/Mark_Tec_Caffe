@@ -31,6 +31,14 @@
                 <li><i class="fa fa-envelope"></i> <span data-translate="footer.email">info@cafesabrosos.com</span></li>
             </ul>
         </div>
+        <div class="footer-section legal">
+            <h3 data-translate="footer.legal">Legal</h3>
+            <ul>
+                <li><a href="/public/terminos-y-condiciones.php" data-translate="footer.terms">Términos y Condiciones</a></li>
+                <li><a href="/public/politicas-de-privacidad.php" data-translate="footer.privacy-policy">Política de Privacidad</a></li>
+                <li><a href="/public/politicas-de-eliminacion-de-cuenta.php" data-translate="footer.data-policy">Política de Eliminación de Datos</a></li>
+            </ul>
+        </div>
     </div>
     <div class="footer-bottom">
         <p data-translate="footer.footer-rights">© 2024 Café Sabrosos. Todos los derechos reservados.</p>

@@ -132,7 +132,7 @@ h1 {
   color: #1e1e1e;
   margin-bottom: 20px; /* Espacio debajo del título */
   margin: 0;
-  margin-left: 30vh;
+  margin-left: 250px;
 }
 
 /* Main Content Layout */
@@ -147,8 +147,7 @@ h1 {
     padding: 20px;
     background-color: #ffffff; /* Color de fondo del sidebar */
     border-radius: 8px; /* Bordes redondeados para un diseño más moderno */
-    height: auto; /* Altura dinámica basada en el contenido */
-    max-height: 80vh; /* Limita la altura máxima al 80% de la altura de la pantalla */ /* Habilita el scroll si el contenido excede la altura máxima */
+    height: auto; 
     top: 20px; /* El sidebar se pegará cuando alcance 20px desde la parte superior */
 }
 
@@ -231,6 +230,7 @@ h1 {
 .product-item {
   text-align: center;
   margin: 0 auto 20px; /* Centra cada item y agrega margen inferior */
+  height: 360px;
 }
 
 .image-container {
@@ -267,95 +267,4 @@ h1 {
   ); /* Efecto de elevación al pasar el cursor en la imagen */
 }
 /* Footer Styles */
-footer {
-  background-color: #daa520; /* Dorado */
-  color: #1b0d0b;
-  text-align: center;
-}
 
-.footer-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-.footer-section {
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.footer-section h3 {
-  font-family: "Poppins";
-  font-size: 24px;
-  font-weight: 600;
-  margin-bottom: 15px;
-}
-
-.footer-section p,
-.footer-section ul {
-  font-family: "Poppins";
-  font-size: 16px;
-  font-weight: 400;
-}
-
-.footer-section ul {
-  list-style: none;
-  padding: 0;
-}
-
-.footer-section ul li {
-  margin-bottom: 10px;
-}
-
-.footer-section ul li a {
-  color: #1b0d0b;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.footer-section ul li a:hover {
-  color: #333;
-}
-
-.socials {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-}
-
-.socials a {
-  color: #1b0d0b;
-  margin: 0 10px;
-  font-size: 20px;
-  transition: color 0.3s ease;
-}
-
-.socials a:hover {
-  color: #333;
-}
-
-.footer-bottom {
-  background-color: #1b0d0b; /* Marrón oscuro */
-  padding: 20px 0;
-  width: 100%;
-  font-family: "Poppins";
-  font-size: 16px;
-  font-weight: 400;
-  color: #fff;
-}
-
-@media (min-width: 768px) {
-  .footer-content {
-    flex-direction: row;
-    justify-content: space-between;
-    text-align: left;
-  }
-  .footer-section {
-    flex: 1;
-    padding: 0 20px;
-  }
-}
-/* Estilos para el menú responsive */

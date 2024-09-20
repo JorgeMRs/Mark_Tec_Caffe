@@ -322,8 +322,12 @@ h4{
   color: #000;
 }
 
+.dropdown .dropdown-menu {
+  display: none;
+}
+
 .dropdown.active .dropdown-menu {
-  display: block; /* Mostrar cuando la clase show está presente */
+  display: block;
 }
 
 /* Ocultar elementos en versiones móviles y desktop */

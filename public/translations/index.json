@@ -2,7 +2,7 @@
   "es": {
     "header_title": "RECIÉN HECHO, TODOS LOS DÍAS",
     "header_subtitle": "Café recién preparado con granos seleccionados para ofrecerte una experiencia inigualable",
-    "order_button": "Ordenar Ahora",
+    "order_button": "Reservar Ahora",
     "menu_button": "Ver Menú",
     "history_title": "Nuestra",
     "history_subtitle": "Historia",
@@ -59,6 +59,7 @@
     "feature1_description": "Enjoy the convenience of placing your order from your smartphone. Easy, quick, and with the quality we are known for.",
     "feature2_title": "INTERNATIONAL EXPANSION",
     "feature2_description": "Coming soon to Paris, Berlin, and Lisbon. We are bringing our tradition and warmth to new cities without losing our essence.",
+    "div2": "hello",
     "feature3_title": "QUALITY COFFEE",
     "feature3_description": "We select the best coffee beans to offer you a unique experience in every cup, always freshly ground and prepared with passion.",
     "menu_title": "Discover",

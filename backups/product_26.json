@@ -1,0 +1,10 @@
+{
+    "idProducto": 26,
+    "imagen": "\/public\/assets\/img\/productos\/Caf\u00e9s con Leche\/macchiato.jpg",
+    "nombre": "Caf\u00e9 Macchiato",
+    "stock": 5,
+    "descripcion": "Caf\u00e9 con una peque\u00f1a cantidad de leche, para aquellos que prefieren un caf\u00e9 fuerte con solo un toque de leche.",
+    "precio": "4.70",
+    "idCategoria": 2,
+    "estadoActivacion": 1
+}

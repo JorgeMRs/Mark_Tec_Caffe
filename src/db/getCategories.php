@@ -4,8 +4,7 @@ include 'db_connect.php';
 try {
     $conn = getDbConnection();
 
-    // Consulta para obtener las categorías, incluyendo la columna imagen
-    $sql = "SELECT idCategoria, nombre, imagen FROM categoria";
+    $sql = "SELECT idCategoria, nombre, imagen FROM categoria WHERE estadoActivacion = 1";
     $result = $conn->query($sql);
 
     $categorias = [];
@@ -13,7 +12,6 @@ try {
         $categorias[] = $row;
     }
     
-    // Devolver las categorías en formato JSON
     echo json_encode($categorias);
 
     $conn->close();

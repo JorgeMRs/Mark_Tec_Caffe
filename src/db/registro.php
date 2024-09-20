@@ -21,7 +21,10 @@ try {
         $email = $_POST['email'] ?? '';
         $password = $_POST['password'] ?? '';
         $passwordConfirm = $_POST['passwordConfirm'] ?? '';
-
+        
+        if (empty($_POST['terms']) || $_POST['terms'] !== '1') {
+            throw new Exception('Debes aceptar los Términos y Condiciones y la Política de Privacidad.');
+        }
 
         $recaptchaResponse = $_POST['g-recaptcha-response'] ?? '';
 
@@ -42,6 +45,7 @@ try {
         if (strlen($password) < 8) {
             throw new Exception('La contraseña debe tener al menos 8 caracteres.');
         }
+
 
         if (!$recaptchaResponseKeys['success']) {
             throw new Exception('Error en la verificación de reCAPTCHA. Inténtalo de nuevo.');

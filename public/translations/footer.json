@@ -14,8 +14,11 @@
         "contact-us": "Contáctanos",
         "address": "España, Madrid, Calle Gran Vía 45",
         "phone": "+34 912 345 678",
-        "email": "info@cafesabrosos.com",
-        "footer-rights": "© 2024 Café Sabrosos. Todos los derechos reservados."
+        "footer-rights": "© 2024 Café Sabrosos. Todos los derechos reservados.",
+        "legal": "Legal",
+        "terms": "Términos y Condiciones",
+        "privacy-policy": "Política de Privacidad",
+        "data-policy": "Política de Eliminación de Datos"
     },
     "en": {
         "footer-title": "Café Tasty",
@@ -32,8 +35,11 @@
         "contact-us": "Contact Us",
         "address": "Spain, Madrid, Gran Via 45",
         "phone": "+34 912 345 678",
-        "email": "info@cafetasty.com",
-        "footer-rights": "© 2024 Café Sabrosos. All rights reserved."
+        "footer-rights": "© 2024 Café Sabrosos. All rights reserved.",
+        "legal": "Legal",
+        "terms": "Terms and Conditions",
+        "privacy-policy": "Privacy Policy",
+        "data-policy": "Account Deletion Policy"
     },
     "fr": {
         "footer-title": "Café Délicieux",
@@ -50,8 +56,11 @@
         "contact-us": "Contactez-nous",
         "address": "Espagne, Madrid, Gran Via 45",
         "phone": "+34 912 345 678",
-        "email": "info@cafedelicieux.com",
-        "footer-rights": "© 2024 Café Sabrosos. Tous les droits réservés."
+        "footer-rights": "© 2024 Café Sabrosos. Tous les droits réservés.",
+        "legal": "Légal",
+        "terms": "Termes et Conditions",
+        "privacy-policy": "Politique de Confidentialité",
+        "data-policy": "Politique de Suppression de Compte"
     },
     "pt": {
         "footer-title": "Café Saboroso",
@@ -68,8 +77,11 @@
         "contact-us": "Contate-nos",
         "address": "Espanha, Madrid, Gran Via 45",
         "phone": "+34 912 345 678",
-        "email": "info@cafesaboroso.com",
-        "footer-rights": "© 2024 Café Sabrosos. Todos os direitos reservados."
+        "footer-rights": "© 2024 Café Sabrosos. Todos os direitos reservados.",
+        "legal": "Legal",
+        "terms": "Termos e Condições",
+        "privacy-policy": "Política de Privacidade",
+        "data-policy": "Política de Exclusão de Conta"
     },
     "de": {
         "footer-title": "Leckerer Kaffee",
@@ -86,7 +98,10 @@
         "contact-us": "Kontaktieren Sie uns",
         "address": "Spanien, Madrid, Gran Via 45",
         "phone": "+34 912 345 678",
-        "email": "info@leckererkaffee.com",
-        "footer-rights": "© 2024 Café Sabrosos. Alle Rechte vorbehalten."
+        "footer-rights": "© 2024 Café Sabrosos. Alle Rechte vorbehalten.",
+        "legal": "Rechtliches",
+        "terms": "Allgemeine Geschäftsbedingungen",
+        "privacy-policy": "Datenschutzrichtlinie",
+        "data-policy": "Kontolöschungsrichtlinie"
     }
 }
