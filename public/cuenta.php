@@ -164,10 +164,11 @@ try {
                     <input type="date" name="fechaNacimiento" id="cumpleaños"
                         <?php echo isset($fechaNacimiento) && $fechaNacimiento ? 'readonly' : ''; ?>
                         value="<?php echo htmlspecialchars($fechaNacimiento); ?>">
+                        <button type="button" id="viewPedidosBtn" class="view-pedidos-btn">Ver Mis Pedidos</button>
                 </div>
                 <button type="submit" class="save-btn">Guardar Cambios</button>
             </form>
-
+        
             <div class="action-buttons">
                 <form action="/src/db/logout.php" method="POST" class="logout-form">
                     <button type="submit" class="logout-btn">Cerrar Sesión</button>
@@ -176,7 +177,6 @@ try {
                     <button type="button" class="delete-btn" id="deleteAccountBtn">Eliminar Cuenta</button>
                 </form>
             </div>
-            <button type="button" id="viewPedidosBtn" class="view-pedidos-btn">Ver Mis Pedidos</button>
             <?php if ($errorMessage): ?>
                 <div id="errorMessage" class="error-message"><?php echo htmlspecialchars($errorMessage); ?></div>
             <?php endif; ?>

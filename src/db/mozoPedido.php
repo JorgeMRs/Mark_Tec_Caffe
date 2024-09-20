@@ -19,6 +19,15 @@ try {
     $employeeId = $_SESSION['employee_id'];
     $tipoPedido = $_POST['tipoPedido'] ?? '';
     $horaRecogida = $_POST['horaRecogida'] ?? null;
+    if ($tipoPedido === 'Para llevar' && $horaRecogida) {
+        // Validar que el formato sea HH:MM
+        if (!preg_match('/^(?:2[0-3]|[01][0-9]):[0-5][0-9]$/', $horaRecogida)) {
+            $response['message'] = 'Formato de hora de recogida inválido. Debe ser HH:MM.';
+            echo json_encode($response);
+            error_log($horaRecogida);
+            exit;
+        }
+    }
     $idMesa = $_POST['idMesa'] ?? null;  // Renombrado de numeroMesa a idMesa
     $notas = $_POST['notas'] ?? '';
     $total = 0.00;

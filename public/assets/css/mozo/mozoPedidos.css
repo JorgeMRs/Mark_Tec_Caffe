@@ -1,118 +1,454 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
 }
 
 .container {
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 h1 {
-    text-align: center;
-    color: #333;
+  text-align: center;
+  color: #333;
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    overflow-x: auto;
-    /* Permite desplazamiento horizontal en pantallas pequeñas */
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  overflow-x: auto;
+  /* Permite desplazamiento horizontal en pantallas pequeñas */
 }
 
 th,
 td {
-    border: 1px solid #ddd;
-    padding: 12px;
+  border: 1px solid #ddd;
+  padding: 12px;
 }
 
 th {
-    background-color: #1B0C0A;
-    color: #fff;
+  background-color: #1b0c0a;
+  color: #fff;
 }
 
 tr:nth-child(even) {
-    background-color: #f2f2f2;
+  background-color: #f2f2f2;
 }
 
 .button,
 .back-button,
 .new-order-button {
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 16px;
-    color: #fff;
-    background-color: #1B0C0A;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #1b0c0a;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
 }
 
 .button:hover,
 .back-button:hover,
 .new-order-button:hover {
-    background-color: #74623c;
+  background-color: #74623c;
 }
 
 .pagination {
-    text-align: center;
-    margin-top: 20px;
+  text-align: center;
+  margin-top: 20px;
 }
 
 .pagination a {
-    display: inline-block;
-    padding: 10px 15px;
-    margin: 0 5px;
-    border: 1px solid #ddd;
-    color: #333;
-    text-decoration: none;
-    border-radius: 5px;
+  display: inline-block;
+  padding: 10px 15px;
+  margin: 0 5px;
+  border: 1px solid #ddd;
+  color: #333;
+  text-decoration: none;
+  border-radius: 5px;
 }
 
 .pagination a.active {
-    background-color: #1B0C0A;
-    color: #fff;
+  background-color: #1b0c0a;
+  color: #fff;
 }
 
 /* Consultas de medios para dispositivos más pequeños */
 @media (max-width: 768px) {
-    
-    .container {
-        padding: 10px;
-    }
+  .container {
+    padding: 10px;
+  }
 
-    table {
-        font-size: 14px;
-    }
+  table {
+    font-size: 14px;
+  }
 
-    .button, .back-button, .new-order-button {
-        padding: 8px 16px;
-        font-size: 14px;
-    }
+  .button,
+  .back-button,
+  .new-order-button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
 }
 
 @media (max-width: 480px) {
-    table {
-        font-size: 12px;
-        overflow-x: auto;
-    }
+  table {
+    font-size: 12px;
+    overflow-x: auto;
+  }
 
-    th, td {
-        padding: 8px;
-    }
+  th,
+  td {
+    padding: 8px;
+  }
 
-    .button, .back-button, .new-order-button {
-        padding: 6px 12px;
-        font-size: 12px;
-    }
+  .button,
+  .back-button,
+  .new-order-button {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
 }
 
 .header-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+/* Estilos para el modal */
+#detalleModal {
+  display: none;
+  /* Por defecto el modal está oculto */
+  position: fixed;
+  /* Fijo para que esté en la misma posición en toda la pantalla */
+  z-index: 1000;
+  /* Asegúrate de que el modal esté encima de otros elementos */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  /* Añade scroll si el contenido es largo */
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Fondo negro con opacidad */
+}
+
+/* Estilo del contenido del modal */
+.modal-content {
+  background-color: #fff;
+  /* Fondo blanco */
+  margin: 15% auto;
+  /* Margen automático para centrar el modal */
+  padding: 20px;
+  /* Espaciado interior */
+  border: 1px solid #888;
+  /* Borde gris claro */
+  width: 80%;
+  /* Ancho del modal */
+  max-width: 600px;
+  /* Máximo ancho */
+  border-radius: 8px;
+  /* Bordes redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* Sombra para dar profundidad */
+}
+
+/* Estilo del botón de cerrar */
+.close {
+  color: #aaa;
+  /* Color del texto del botón de cerrar */
+  float: right;
+  /* Alinear a la derecha */
+  font-size: 28px;
+  /* Tamaño de fuente */
+  font-weight: bold;
+  /* Negrita */
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  /* Color al pasar el ratón o enfocar */
+  text-decoration: none;
+  /* Quitar subrayado */
+  cursor: pointer;
+  /* Cambiar cursor a puntero */
+}
+
+/* Estilo de la lista dentro del modal */
+.modal-content ul {
+  list-style-type: none;
+  /* Quitar viñetas */
+  padding: 0;
+  /* Quitar padding */
+  margin: 0;
+  /* Quitar margin */
+}
+
+.modal-content li {
+  padding: 8px 0;
+  /* Espaciado entre elementos de la lista */
+  border-bottom: 1px solid #ddd;
+  /* Línea divisoria */
+}
+
+.modal-content li span {
+  font-weight: bold;
+  /* Negrita para las etiquetas */
+  margin-right: 10px;
+  /* Espacio entre etiqueta y valor */
+}
+
+.modal-content li:last-child {
+  border-bottom: none;
+  /* Quitar línea divisoria en el último elemento */
+}
+
+/* Botón de cancelar pedido */
+.cancel-order-button {
+  display: block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #e74c3c;
+  /* Rojo de advertencia */
+  color: #fff;
+  /* Texto blanco */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.cancel-order-button:hover {
+  background-color: #c0392b;
+  /* Rojo oscuro */
+}
+
+/* Estilo para el botón de ver detalles */
+.view-details-button {
+  background-color: #1b0c0a;
+  /* Color de fondo del botón */
+  color: white;
+  /* Color del texto */
+  border: none;
+  /* Sin borde */
+  border-radius: 4px;
+  /* Bordes redondeados */
+  padding: 10px 20px;
+  /* Espaciado interno del botón */
+  font-size: 16px;
+  /* Tamaño del texto */
+  cursor: pointer;
+  /* Cambia el cursor al pasar sobre el botón */
+  transition: background-color 0.3s ease;
+  /* Transición suave para el cambio de color */
+}
+
+/* Efecto al pasar el ratón sobre el botón */
+.view-details-button:hover {
+  background-color: #74623c;
+  /* Color de fondo cuando el ratón pasa sobre el botón */
+}
+#productosDetalles ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#productosDetalles li {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#productosDetalles li span {
+  font-weight: normal;
+  color: #333;
+}
+
+/* Estilo del nombre del producto */
+#productosDetalles li .product-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Estilo del precio y cantidad del producto */
+#productosDetalles li .product-price,
+#productosDetalles li .product-quantity {
+  font-size: 16px;
+}
+#confirmCancelModal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 600px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.close-confirm {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close-confirm:hover,
+.close-confirm:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+textarea {
+  width: 100%;
+  height: 100px;
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.confirm-cancel-button,
+.cancel-cancel-button {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.confirm-cancel-button {
+  background-color: #e74c3c;
+  color: #fff;
+}
+
+.confirm-cancel-button:hover {
+  background-color: #c0392b;
+}
+
+.cancel-cancel-button {
+  background-color: #95a5a6;
+  color: #fff;
+}
+
+.cancel-cancel-button:hover {
+  background-color: #7f8c8d;
+}
+
+/* Para pantallas de 768px o menos */
+@media (max-width: 768px) {
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+  }
+
+  /* Esconder los encabezados de la tabla en pantallas pequeñas */
+  thead tr {
+    display: none;
+  }
+
+  tr {
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ddd;
+  }
+
+  td {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
+    padding: 10px;
+    border: none;
+    position: relative;
+    text-align: left;
+    flex-direction: row-reverse;
+  }
+
+  td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 10px;
+    font-weight: bold;
+  }
+}
+
+@media (max-width: 480px) {
+  .button,
+  .back-button,
+  .new-order-button,
+  .view-details-button {
+    text-align: center;
+    font-size: 14px;
+    padding: 8px 12px;
+    width: 100%;
+    margin-bottom: 10px; /* Separación entre botones en pantallas pequeñas */
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-content {
+    width: 95%;
+    margin: 10% auto;
+    padding: 15px;
+    font-size: 14px;
+  }
+
+  textarea {
+    height: 80px;
+  }
+
+  .confirm-cancel-button,
+  .cancel-cancel-button {
+    width: 100%;
+    font-size: 14px;
+  }
+}
+.header-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+@media (min-width: 768px) {
+  .header-buttons {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.container {
+  overflow-x: auto;
 }

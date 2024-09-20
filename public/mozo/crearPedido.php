@@ -120,13 +120,13 @@ $conn->close();
             <label for="tipoPedido">Tipo de Pedido</label>
             <select name="tipoPedido" id="tipoPedido" required onchange="toggleHoraRecogida()">
                 <option value="">Seleccione un tipo de pedido</option>
-                <option value="Para Llevar">Para Llevar</option>
+                <option value="Para llevar">Para llevar</option>
                 <option value="En el local">En el local</option>
             </select>
 
             <div id="horaRecogidaContainer">
-                <label for="horaRecogida">Hora de Recogida (solo si es para llevar)</label>
-                <input type="text" id="horaRecogida" name="horaRecogida" placeholder="Formato: HH:MM">
+            <label for="horaRecogida">Hora de Recogida (solo si es para llevar)</label>
+            <input type="time" id="horaRecogida" name="horaRecogida">
             </div>
 
             <label for="numeroMesa">Número de Mesa (solo para comer en el local)</label>

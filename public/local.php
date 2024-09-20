@@ -279,7 +279,7 @@ $conn->close();
                     </div>
                     <div class="local-info">
                         <h2 class="local-title">Café Sabrosos París</h2>
-                        <p class="local-address">Boulevard Saint-Germain 56, Paris, Francia</p>
+                        <p class="local-address">Blv. Saint-Germain 56, Paris, Francia</p>
                         <div class="local-hours">
                         <i class="fa-solid fa-clock" style="color: #1b0d0b; margin-right: 10px;"></i> <p>Lunes a Viernes: 7:00 - 19:00</p>
                         </div>
