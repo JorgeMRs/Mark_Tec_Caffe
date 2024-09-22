@@ -1,14 +1,12 @@
 <?php
-session_start();
 include '../db/db_connect.php';
+include '../auth/verifyToken.php';
+
+$response = checkToken();
+    
+$user_id = $response['idCliente']; 
 
 try {
-    // Verificar si el usuario está autenticado
-    if (!isset($_SESSION['user_id'])) {
-        http_response_code(403);
-        echo json_encode(['status' => 'error', 'message' => 'No autorizado.']);
-        exit;
-    }
 
     // Obtener datos del producto desde la solicitud POST
     $idProducto = $_POST['producto_id'] ?? null;
@@ -23,9 +21,6 @@ try {
         exit;
     }
 
-    // Obtener ID del cliente desde la sesión
-    $idCliente = $_SESSION['user_id'];
-
     // Obtener conexión a la base de datos
     $conn = getDbConnection();
 
@@ -34,7 +29,7 @@ try {
 
     // Verificar si el cliente ya tiene un carrito
     $queryCarrito = $conn->prepare('SELECT idCarrito FROM carrito WHERE idCliente = ? LIMIT 1');
-    $queryCarrito->bind_param('i', $idCliente);
+    $queryCarrito->bind_param('i', $user_id);
     $queryCarrito->execute();
     $resultCarrito = $queryCarrito->get_result();
     $carrito = $resultCarrito->fetch_assoc();
@@ -45,7 +40,7 @@ try {
     } else {
         // Si no existe carrito, crear uno nuevo
         $queryInsertCarrito = $conn->prepare('INSERT INTO carrito (idCliente, fechaCreacion) VALUES (?, NOW())');
-        $queryInsertCarrito->bind_param('i', $idCliente);
+        $queryInsertCarrito->bind_param('i', $user_id);
         $queryInsertCarrito->execute();
         $idCarrito = $conn->insert_id;
     }

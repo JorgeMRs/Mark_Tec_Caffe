@@ -1,0 +1,21 @@
+{
+    "cliente": {
+        "idCliente": 474,
+        "correo": "josesitovcf@gmail.com",
+        "contrasena": "$2y$10$HajNJ0nYYztEY3jdGiD0D.2nrxP\/F7t7hS0xhLjne63yOO6b22AOC",
+        "nombre": "José Luis Sanchez",
+        "apellido": null,
+        "tel": null,
+        "fechaCreacion": "2024-09-20 08:22:04",
+        "fechaActualizacion": "2024-09-20 08:22:04",
+        "estadoActivacion": 1,
+        "tokenVerificacion": null,
+        "fechaNacimiento": null,
+        "avatar": "avatar_474.jpg",
+        "uid": "caAt5SWrwxgPBBOyUeporyy3lPB3"
+    },
+    "pedidos": [],
+    "reservas": [],
+    "retroalimentacion": [],
+    "fechaDesactivacion": "2024-09-20 08:24:19"
+}

@@ -1,25 +1,21 @@
 <?php
-
 use GPBMetadata\Google\Cloud\Location\Locations;
-
 require '../src/email/pedidoEmail.php';
-session_start();
 require '../src/db/db_connect.php';
+require '../src/auth/verifyToken.php';
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
-// Verificar si el usuario está logueado
-if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
-    exit();
-}
+$response = checkToken();
 
-// Verificar si el ID del pedido se ha pasado en la URL
+$user_id = $response['idCliente']; 
+$email = $response['email'];
+
 if (!isset($_GET['order_id'])) {
     header('Location: carrito.php');
     exit();
 }
 
-$userId = $_SESSION['user_id'];
-$email = $_SESSION['user_email'];
 $orderId = intval($_GET['order_id']);
 
 
@@ -27,7 +23,7 @@ $conn = getDbConnection();
 
 
 $stmt = $conn->prepare("SELECT numeroPedidoCliente FROM pedido WHERE idPedido = ? AND idCliente = ?");
-$stmt->bind_param("ii", $orderId, $userId);
+$stmt->bind_param("ii", $orderId, $user_id);
 $stmt->execute();
 $stmt->bind_result($numeroPedidoCliente);
 $stmt->fetch();

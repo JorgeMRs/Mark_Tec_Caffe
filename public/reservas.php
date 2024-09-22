@@ -1,5 +1,10 @@
+<?php
+session_start();
+
+?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,9 +13,10 @@
     <link rel="stylesheet" href="assets/css/footer.css">
     <link rel="stylesheet" href="assets/css/reservas.css">
 </head>
+
 <body>
     <header>
-        <?php include 'templates/nav.php'?>
+        <?php include 'templates/nav.php' ?>
     </header>
 
 <div class="container">
@@ -68,4 +74,5 @@
         <?php include 'templates/footer.php'?>
         <script src="/public/assets/js/updateCartCounter.js"></script>
 </body>
+
 </html>

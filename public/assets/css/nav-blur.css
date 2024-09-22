@@ -8,7 +8,7 @@ body {
 
 /* Estilos generales para el nav */
 nav {
-  position: absolute;
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -227,6 +227,7 @@ nav {
   justify-content: space-between;
   border-bottom: 1px solid #ccc; /* Línea separadora */
   padding: 10px 0;
+  color: #1e1e1e;
 }
 
 .cart-subtotal {
@@ -236,6 +237,7 @@ nav {
   font-size: 14px;
   font-weight:400;
   margin-top: 10px;
+  color: #1e1e1e;
 }
 .cart-subtotal .subtotal-text {
   text-align: left; /* Alinea el texto a la izquierda */
@@ -255,6 +257,7 @@ h4{
 .cart-item-details {
   flex-grow: 1;
   margin-left: 10px;
+  color: #DAA421;
 }
 
 .view-cart-button {
@@ -283,6 +286,7 @@ h4{
 .cart-item-details p {
   font-size: 12px;
   margin: 0;
+  color: #1e1e1e !important;
 }
 
 .cart:hover .cart-counter {
@@ -519,4 +523,9 @@ h4{
   background-color: #000000;
   color: #ffffff;
   
+}
+.fa-heart2:before {
+  content: "\f004";
+  color: white;
+  font-size: 26px;
 }

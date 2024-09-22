@@ -101,6 +101,9 @@
       </div>
     </div>
     <?php include 'templates/footer.php' ?>
+    <?php if (!isset($_COOKIE['cookie_preference'])) {
+        include 'templates/cookies.php';
+    } ?>
     <script>
       const swiper = new Swiper('.swiper-container', {
         loop: true,

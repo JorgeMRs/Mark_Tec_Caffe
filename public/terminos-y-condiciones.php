@@ -52,7 +52,9 @@
 
         </section>
     </main>
-
+    <?php if (!isset($_COOKIE['cookie_preference'])) {
+        include 'templates/cookies.php';
+    } ?>
     <?php include 'templates/footer.php'; ?>
 </body>
 </html>

@@ -7,6 +7,7 @@ use Dotenv\Dotenv;
 
 $dotenv = Dotenv::createImmutable('../');
 $dotenv->load();
+
 try {
     // Obtener el ID de la sucursal desde la URL
     $sucursalId = isset($_GET['sucursal']) ? intval($_GET['sucursal']) : 0;
@@ -129,6 +130,9 @@ try {
         </div>
     </div>
     <?php include 'templates/footer.php' ?>
+    <?php if (!isset($_COOKIE['cookie_preference'])) {
+        include 'templates/cookies.php';
+    } ?>
 </body>
 <script src="/public/assets/js/updateCartCounter.js"></script>
 <script src="/public/assets/js/mesas.js"></script>

@@ -67,6 +67,9 @@ $conn->close();
         <a href="/src/db/logout.php" class="logout-button">
             Cerrar Sesión
         </a>
+        <button id="scanBtn">Escanear QR</button>
+        <video id="video" width="300" height="200" style="display: none;"></video>
+        <div id="response" style="margin-top: 20px;"></div>
     </div>
 </body>
 

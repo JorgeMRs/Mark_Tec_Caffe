@@ -18,6 +18,7 @@
       "ext-mysqli": "*",
         "stichoza/google-translate-php": "^5.2",
         "endroid/qr-code": "^5.0",
-        "stripe/stripe-php": "^15.8"
+        "stripe/stripe-php": "^15.8",
+        "firebase/php-jwt": "^6.10"
     }
 }

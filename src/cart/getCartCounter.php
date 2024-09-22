@@ -1,19 +1,13 @@
 <?php
-session_start();
 include '../db/db_connect.php';
+include '../auth/verifyToken.php';
 
-// Obtener la cantidad del carrito del usuario autenticado
+$response = checkToken();
+
+$user_id = $response['idCliente']; 
 
 try {
-    // Verificar si el usuario está autenticado
-    if (!isset($_SESSION['user_id'])) {
-        // No autorizado
-        echo json_encode(['status' => 'error', 'message' => 'No autorizado.']);
-        exit;
-    }
 
-    // Obtener ID del cliente desde la sesión
-    $idCliente = $_SESSION['user_id'];
 
     // Obtener conexión a la base de datos
     $conn = getDbConnection();
@@ -25,7 +19,7 @@ try {
         LEFT JOIN carritodetalle cd ON c.idCarrito = cd.idCarrito
         WHERE c.idCliente = ?
     ');
-    $queryCantidad->bind_param('i', $idCliente);
+    $queryCantidad->bind_param('i', $user_id);
     $queryCantidad->execute();
     $resultCantidad = $queryCantidad->get_result();
     $cantidad = $resultCantidad->fetch_assoc();

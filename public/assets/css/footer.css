@@ -1,10 +1,13 @@
+
+
+/* Footer siempre al final */
 footer {
     background-color: #DAA520;
     color: #1B0D0B;
     text-align: center;
     width: 100%;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-    margin-top: auto; /* Empuja el footer al final del contenedor */
+    margin-top: auto; /* Mantener el footer siempre al final */
 }
 
 footer p {
@@ -99,13 +102,13 @@ footer p {
     font-weight: 600;
     margin-bottom: 15px;
     color: #1B0D0B;
-    text-align: center; /* Alinea el título al centro en pantallas pequeñas */
+    text-align: center;
 }
 
 .footer-section.legal ul {
     list-style: none;
     padding: 0;
-    text-align: center; /* Alinea los enlaces al centro */
+    text-align: center;
 }
 
 .footer-section.legal ul li {
@@ -126,13 +129,12 @@ footer p {
     .footer-content {
         flex-direction: row;
         justify-content: space-between;
-        align-items: flex-start; /* Alinea verticalmente los títulos en la parte superior */
+        align-items: flex-start;
     }
 
     .footer-section {
         flex: 1;
         padding: 0 20px;
-        position: relative;
     }
 
     .footer-section.legal {

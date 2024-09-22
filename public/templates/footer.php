@@ -37,6 +37,7 @@
                 <li><a href="/public/terminos-y-condiciones.php" data-translate="footer.terms">Términos y Condiciones</a></li>
                 <li><a href="/public/politicas-de-privacidad.php" data-translate="footer.privacy-policy">Política de Privacidad</a></li>
                 <li><a href="/public/politicas-de-eliminacion-de-cuenta.php" data-translate="footer.data-policy">Política de Eliminación de Datos</a></li>
+                <li><a href="/public/preguntasFrecuentes.php" data-translate="footer.data-policy">Preguntas Frecuentes</a></li>
             </ul>
         </div>
     </div>

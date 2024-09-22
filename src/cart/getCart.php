@@ -1,9 +1,12 @@
 <?php
 require_once '../db/db_connect.php'; // Ajusta el path a tu conexión a la base de datos
+include '../auth/verifyToken.php';
 
 header('Content-Type: application/json');
 
-$user_id = $_GET['user_id'];
+$response = checkToken();
+    
+$user_id = $response['idCliente']; 
 
 try {
     $conn = getDbConnection();

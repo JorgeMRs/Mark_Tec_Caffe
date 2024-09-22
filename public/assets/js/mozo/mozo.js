@@ -1,3 +1,5 @@
+import QrScanner from './qr-scanner.min.js'; // if using plain es6 import
+
 document.addEventListener("DOMContentLoaded", function () {
   const productosSeleccionadosContainer = document.getElementById(
     "productosSeleccionadosContainer"
@@ -412,4 +414,125 @@ document.addEventListener("DOMContentLoaded", () => {
     const contraste = (r * 299 + g * 587 + b * 114) / 1000;
     return contraste > 128 ? "black" : "white";
   };
+
+
+  let qrScanner; 
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    const scanBtn = document.getElementById('scanBtn');
+  
+    function checkDevice() {
+        // Check if the screen width is less than or equal to 1024 pixels (tablet threshold)
+        if (window.innerWidth <= 1024) {
+            scanBtn.style.display = 'block'; // Show the button
+        } else {
+            scanBtn.style.display = 'none'; // Hide the button
+        }
+    }
+  
+    // Run on page load
+    checkDevice();
+  
+    // Optionally, check on window resize
+    window.addEventListener('resize', checkDevice);
+  });
+            document.getElementById('scanBtn').addEventListener('click', function() {
+                videoModal.style.display = 'flex'; // Mostrar el modal
+                qrScanner = new QrScanner(video, result => {
+                    console.log('Código QR detectado:', result);
+  
+                    // Enviar el código QR al servidor
+                    fetch('qr.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                qrData: result
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log("Respuesta del servidor:", data);
+                            if (data.status === 'success') {
+                                // Mostrar modal con detalles del pedido
+                                showDetailsModal(data.data, data.detalles, data.message);
+                                videoModal.style.display = 'none';
+                            } else {}
+                        })
+                        .catch(error => {
+                            console.error("Error al enviar los datos al servidor:", error);
+  
+                        });
+                });
+  
+                qrScanner.start().then(() => {
+                    console.log("Escáner iniciado correctamente");
+                }).catch(err => {
+                    videoModal.style.display = 'none'; // Ocultar el modal si hay error
+                    console.error("Error al iniciar el escáner:", err);
+                });
+            });
+            document.querySelector('.close-modal').addEventListener('click', function() {
+                if (qrScanner) {
+                    qrScanner.stop(); // Detener el escáner si está activo
+                }
+                videoModal.style.display = 'none'; // Ocultar el modal
+            });
+  
+            function getValueOrZero(value) {
+                return (value === null || value === undefined || value === "") ? 0 : value;
+            }
+            // Función para mostrar el modal de detalles del pedido
+            function showDetailsModal(data, detalles, message) {
+                const detalleModal = document.getElementById('detalleModal');
+                const pedidoDetalles = document.getElementById('pedidoDetalles');
+                const productosDetalles = document.getElementById('productosDetalles');
+                const responseDiv = document.getElementById('response');
+  
+                const total = parseFloat(data.total) || 0;
+                const estadoColor = getEstadoColor(data.estado);
+                const textoColor = getTextoColor(estadoColor);
+  
+                // Clear previous details
+                pedidoDetalles.innerHTML = '';
+                productosDetalles.innerHTML = '';
+  
+                // Add order information
+                pedidoDetalles.innerHTML = `
+    <li><span>ID Pedido:</span> ${data.idPedido}</li>
+    <li><span>Código de Pedido:</span> ${data.codigoVerificacion || "N/A"}</li>
+    <li><span>Número de Pedido en Sucursal:</span> ${data.numeroPedidoSucursal}</li>
+    <li><span>Número de Mesa:</span> ${data.numeroMesa || "N/A"}</li>
+    <li><span>Tipo de Pedido:</span> ${data.tipoPedido}</li>
+    <li><span>Total:</span> ${total.toFixed(2)} €</li>
+    <li><span>Hora de Recogida:</span> ${data.horaRecogida || "N/A"}</li>
+    <li><span>Sucursal:</span> ${data.nombreSucursal || "N/A"}</li>
+    <li><span>Notas:</span> ${data.notas || "N/A"}</li>
+    <li><span>Método de Pago:</span> ${data.metodoPago || "N/A"}</li>
+    <li><span>Fecha de Pedido:</span> ${new Date(data.fechaPedido).toLocaleString() || "N/A"}</li>
+    <li><span>Estado:</span> <span style="background-color:${estadoColor}; color: ${textoColor}; padding: 2px 4px; border-radius: 4px;">${data.estado}</span></li>
+  `;
+  
+                // If there are product details to display, do so
+                detalles.forEach(detalle => {
+                    const div = document.createElement('div');
+                    div.textContent = `Producto: ${detalle.nombreProducto}, Cantidad: ${detalle.cantidad}, Precio: ${detalle.precio}`;
+                    productosDetalles.appendChild(div);
+                });
+  
+                // Update the response div with the server message
+                const isSuccess = message.includes("válido");
+                responseDiv.innerHTML = "Respuesta del servidor: " + message;
+                responseDiv.style.color = isSuccess ? 'green' : 'red'; // Green for valid, red for invalid
+                detalleModal.style.display = 'block'; // Show the details modal
+            }
+            // Cerrar el modal al hacer clic en el botón de cerrar
+            document.querySelector('.close').addEventListener('click', function() {
+                detalleModal.style.display = 'none'; // Ocultar el modal
+            });
+
+
+
 });
+
