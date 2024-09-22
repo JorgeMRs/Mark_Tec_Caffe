@@ -8,6 +8,8 @@ $productos_text = ($current_page === 'tienda.php') ? 'Productos' : 'Tienda';
 $productos_link = ($current_page === 'tienda.php') ? '/public/tienda.php' : '/public/tienda.php';
 
 $show_icon = ($current_page === 'tienda.php') ? '<i class="fa fa-plus"></i>' : '';
+
+$isLoggedIn = isset($_COOKIE['user_token']);
 ?>
 <nav>
     <div class="logo">
@@ -25,6 +27,11 @@ $show_icon = ($current_page === 'tienda.php') ? '<i class="fa fa-plus"></i>' : '
             <li><a href="/public/contactos.php">Contacto</a></li>
         </ul>
         <div class="nav-icons">
+        <?php if ($isLoggedIn): ?>
+                <a href="/public/favoritos.php" class="favorite-icon">
+                    <i class="fas fa-heart2"></i>
+                </a>
+            <?php endif; ?>
             <a href="/public/cuenta.php"><img src="/public/assets/img/image.png" alt="Usuario" class="user-icon" /></a>
             <div class="cart" id="cart-icon">
                 <a href="/public/carrito.php">

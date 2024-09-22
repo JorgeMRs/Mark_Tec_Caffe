@@ -1,0 +1,307 @@
+{
+  "es": {
+    "title": "Política de Eliminación de Datos",
+    "sections": {
+      "section1": {
+        "heading": "1. ¿Qué sucede al eliminar tu cuenta?",
+        "description": "Al eliminar tu cuenta en Café Sabrosos:",
+        "list": [
+          "Perderás acceso a todos los datos asociados con tu cuenta.",
+          "Se eliminarán tus datos personales almacenados en tu perfil, incluyendo:",
+          [
+            "Historial de pedidos.",
+            "Reservas realizadas.",
+            "Retroalimentación proporcionada."
+          ]
+        ]
+      },
+      "section2": {
+        "heading": "2. Consecuencias de la eliminación",
+        "description": "Una vez que tu cuenta sea eliminada:",
+        "list": [
+          "No podrás recuperar la información que se haya perdido, incluyendo:",
+          [
+            "Historial de pedidos.",
+            "Detalles de reservas anteriores.",
+            "Comentarios y retroalimentación proporcionados."
+          ],
+          "El proceso es irreversible y no hay manera de deshacer la eliminación."
+        ]
+      },
+      "section3": {
+        "heading": "3. Política de datos",
+        "description": "De acuerdo con nuestra política de privacidad y en cumplimiento con el <a href=\"https://gdpr.eu/\" target=\"_blank\">Reglamento General de Protección de Datos (GDPR)</a>:",
+        "list": [
+          "Los datos eliminados serán borrados permanentemente de nuestra base de datos.",
+          "No serán accesibles para su recuperación en el futuro.",
+          "<strong>Podemos mantener registros de la eliminación por un periodo de tiempo limitado por razones legales.</strong>",
+          "Los registros de la eliminación se mantendrán por un periodo de <strong>6 meses</strong> a partir de la fecha de desactivación.",
+          "Esto se realiza en cumplimiento con las leyes locales y europeas sobre la conservación de datos para fines legales y de auditoría."
+        ]
+      },
+      "section4": {
+        "heading": "4. Procedimiento de Eliminación",
+        "description": "Para eliminar tu cuenta, sigue estos pasos:",
+        "list": [
+          "Accede a tu cuenta y dirígete a la sección de configuración.",
+          "Selecciona la opción para eliminar tu cuenta.",
+          "Confirma la acción introduciendo tu contraseña y aceptando los términos.",
+          "Recibirás un correo de confirmación con un enlace para completar el proceso."
+        ]
+      },
+      "section5": {
+        "heading": "5. Contacto y Soporte",
+        "description": "Si tienes preguntas sobre la eliminación de tu cuenta o necesitas asistencia, contáctanos:",
+        "list": [
+          "Correo electrónico: <a href=\"mailto:support@cafesabrosos.com\">support@cafesabrosos.com</a>",
+          "Teléfono: +34 912 345 678",
+          "Horario de atención: Lunes a Viernes, 9:00 - 18:00"
+        ]
+      }
+    }
+  },
+  "en": {
+    "title": "Data Deletion Policy",
+    "sections": {
+      "section1": {
+        "heading": "1. What happens when you delete your account?",
+        "description": "When you delete your account at Café Sabrosos:",
+        "list": [
+          "You will lose access to all data associated with your account.",
+          "Your personal data stored in your profile will be deleted, including:",
+          [
+            "Order history.",
+            "Reservations made.",
+            "Feedback provided."
+          ]
+        ]
+      },
+      "section2": {
+        "heading": "2. Consequences of deletion",
+        "description": "Once your account is deleted:",
+        "list": [
+          "You will not be able to recover any lost information, including:",
+          [
+            "Order history.",
+            "Details of previous reservations.",
+            "Comments and feedback provided."
+          ],
+          "The process is irreversible and there is no way to undo the deletion."
+        ]
+      },
+      "section3": {
+        "heading": "3. Data policy",
+        "description": "In accordance with our privacy policy and in compliance with the <a href=\"https://gdpr.eu/\" target=\"_blank\">General Data Protection Regulation (GDPR)</a>:",
+        "list": [
+          "Deleted data will be permanently erased from our database.",
+          "They will not be accessible for recovery in the future.",
+          "<strong>We may keep records of the deletion for a limited period for legal reasons.</strong>",
+          "Records of the deletion will be kept for a period of <strong>6 months</strong> from the deactivation date.",
+          "This is done in compliance with local and European laws regarding data retention for legal and auditing purposes."
+        ]
+      },
+      "section4": {
+        "heading": "4. Deletion Procedure",
+        "description": "To delete your account, follow these steps:",
+        "list": [
+          "Log in to your account and go to the settings section.",
+          "Select the option to delete your account.",
+          "Confirm the action by entering your password and accepting the terms.",
+          "You will receive a confirmation email with a link to complete the process."
+        ]
+      },
+      "section5": {
+        "heading": "5. Contact and Support",
+        "description": "If you have questions about deleting your account or need assistance, contact us:",
+        "list": [
+          "Email: <a href=\"mailto:support@cafesabrosos.com\">support@cafesabrosos.com</a>",
+          "Phone: +34 912 345 678",
+          "Business hours: Monday to Friday, 9:00 AM - 6:00 PM"
+        ]
+      }
+    }
+  },
+  "pt": {
+    "title": "Política de Exclusão de Dados",
+    "sections": {
+      "section1": {
+        "heading": "1. O que acontece ao excluir sua conta?",
+        "description": "Ao excluir sua conta no Café Sabrosos:",
+        "list": [
+          "Você perderá o acesso a todos os dados associados à sua conta.",
+          "Seus dados pessoais armazenados em seu perfil serão excluídos, incluindo:",
+          [
+            "Histórico de pedidos.",
+            "Reservas feitas.",
+            "Feedback fornecido."
+          ]
+        ]
+      },
+      "section2": {
+        "heading": "2. Consequências da exclusão",
+        "description": "Uma vez que sua conta seja excluída:",
+        "list": [
+          "Você não poderá recuperar as informações que foram perdidas, incluindo:",
+          [
+            "Histórico de pedidos.",
+            "Detalhes de reservas anteriores.",
+            "Comentários e feedback fornecidos."
+          ],
+          "O processo é irreversível e não há como desfazer a exclusão."
+        ]
+      },
+      "section3": {
+        "heading": "3. Política de dados",
+        "description": "De acordo com nossa política de privacidade e em conformidade com o <a href=\"https://gdpr.eu/\" target=\"_blank\">Regulamento Geral de Proteção de Dados (GDPR)</a>:",
+        "list": [
+          "Os dados excluídos serão apagados permanentemente de nosso banco de dados.",
+          "Eles não estarão acessíveis para recuperação no futuro.",
+          "<strong>Podemos manter registros da exclusão por um período limitado por razões legais.</strong>",
+          "Os registros da exclusão serão mantidos por um período de <strong>6 meses</strong> a partir da data de desativação.",
+          "Isso é realizado em conformidade com as leis locais e europeias sobre a retenção de dados para fins legais e de auditoria."
+        ]
+      },
+      "section4": {
+        "heading": "4. Procedimento de Exclusão",
+        "description": "Para excluir sua conta, siga estas etapas:",
+        "list": [
+          "Acesse sua conta e vá para a seção de configurações.",
+          "Selecione a opção para excluir sua conta.",
+          "Confirme a ação inserindo sua senha e aceitando os termos.",
+          "Você receberá um e-mail de confirmação com um link para concluir o processo."
+        ]
+      },
+      "section5": {
+        "heading": "5. Contato e Suporte",
+        "description": "Se você tiver perguntas sobre a exclusão de sua conta ou precisar de assistência, entre em contato:",
+        "list": [
+          "E-mail: <a href=\"mailto:support@cafesabrosos.com\">support@cafesabrosos.com</a>",
+          "Telefone: +34 912 345 678",
+          "Horário de atendimento: Segunda a Sexta, 9:00 - 18:00"
+        ]
+      }
+    }
+  },
+  "de": {
+    "title": "Datenlöschungsrichtlinie",
+    "sections": {
+      "section1": {
+        "heading": "1. Was passiert, wenn Sie Ihr Konto löschen?",
+        "description": "Wenn Sie Ihr Konto bei Café Sabrosos löschen:",
+        "list": [
+          "Sie verlieren den Zugang zu allen Daten, die mit Ihrem Konto verbunden sind.",
+          "Ihre persönlichen Daten, die in Ihrem Profil gespeichert sind, werden gelöscht, einschließlich:",
+          [
+            "Bestellhistorie.",
+            "Getätigte Reservierungen.",
+            "Feedback gegeben."
+          ]
+        ]
+      },
+      "section2": {
+        "heading": "2. Konsequenzen der Löschung",
+        "description": "Sobald Ihr Konto gelöscht ist:",
+        "list": [
+          "Sie können keine verlorenen Informationen wiederherstellen, einschließlich:",
+          [
+            "Bestellhistorie.",
+            "Details zu früheren Reservierungen.",
+            "Kommentare und gegebenes Feedback."
+          ],
+          "Der Prozess ist irreversibel und es gibt keine Möglichkeit, die Löschung rückgängig zu machen."
+        ]
+      },
+      "section3": {
+        "heading": "3. Datenrichtlinie",
+        "description": "Gemäß unserer Datenschutzrichtlinie und in Übereinstimmung mit der <a href=\"https://gdpr.eu/\" target=\"_blank\">Allgemeinen Datenschutzverordnung (GDPR)</a>:",
+        "list": [
+          "Gelöschte Daten werden dauerhaft aus unserer Datenbank gelöscht.",
+          "Sie werden in Zukunft nicht wiederherstellbar sein.",
+          "<strong>Wir können aus rechtlichen Gründen für einen begrenzten Zeitraum Aufzeichnungen über die Löschung führen.</strong>",
+          "Die Aufzeichnungen über die Löschung werden für einen Zeitraum von <strong>6 Monaten</strong> ab dem Datum der Deaktivierung aufbewahrt.",
+          "Dies geschieht in Übereinstimmung mit lokalen und europäischen Gesetzen zur Datenaufbewahrung für rechtliche und Prüfungszwecke."
+        ]
+      },
+      "section4": {
+        "heading": "4. Löschverfahren",
+        "description": "Um Ihr Konto zu löschen, befolgen Sie diese Schritte:",
+        "list": [
+          "Melden Sie sich bei Ihrem Konto an und gehen Sie zum Einstellungsbereich.",
+          "Wählen Sie die Option, um Ihr Konto zu löschen.",
+          "Bestätigen Sie die Aktion, indem Sie Ihr Passwort eingeben und die Bedingungen akzeptieren.",
+          "Sie erhalten eine Bestätigungs-E-Mail mit einem Link zum Abschluss des Prozesses."
+        ]
+      },
+      "section5": {
+        "heading": "5. Kontakt und Unterstützung",
+        "description": "Wenn Sie Fragen zur Löschung Ihres Kontos haben oder Unterstützung benötigen, kontaktieren Sie uns:",
+        "list": [
+          "E-Mail: <a href=\"mailto:support@cafesabrosos.com\">support@cafesabrosos.com</a>",
+          "Telefon: +34 912 345 678",
+          "Öffnungszeiten: Montag bis Freitag, 9:00 - 18:00"
+        ]
+      }
+    }
+  },
+  "fr": {
+    "title": "Politique de Suppression des Données",
+    "sections": {
+      "section1": {
+        "heading": "1. Que se passe-t-il lorsque vous supprimez votre compte?",
+        "description": "Lorsque vous supprimez votre compte au Café Sabrosos:",
+        "list": [
+          "Vous perdrez l'accès à toutes les données associées à votre compte.",
+          "Vos données personnelles stockées dans votre profil seront supprimées, y compris:",
+          [
+            "Historique des commandes.",
+            "Réservations effectuées.",
+            "Retours fournis."
+          ]
+        ]
+      },
+      "section2": {
+        "heading": "2. Conséquences de la suppression",
+        "description": "Une fois que votre compte est supprimé:",
+        "list": [
+          "Vous ne pourrez pas récupérer les informations perdues, y compris:",
+          [
+            "Historique des commandes.",
+            "Détails des réservations précédentes.",
+            "Commentaires et retours fournis."
+          ],
+          "Le processus est irréversible et il n'y a aucun moyen d'annuler la suppression."
+        ]
+      },
+      "section3": {
+        "heading": "3. Politique de données",
+        "description": "Conformément à notre politique de confidentialité et en conformité avec le <a href=\"https://gdpr.eu/\" target=\"_blank\">Règlement Général sur la Protection des Données (RGPD)</a>:",
+        "list": [
+          "Les données supprimées seront effacées définitivement de notre base de données.",
+          "Elles ne seront pas accessibles pour une récupération future.",
+          "<strong>Nous pouvons conserver des enregistrements de la suppression pendant une période limitée pour des raisons légales.</strong>",
+          "Les enregistrements de la suppression seront conservés pendant une période de <strong>6 mois</strong> à partir de la date de désactivation.",
+          "Cela se fait en conformité avec les lois locales et européennes concernant la conservation des données à des fins légales et d'audit."
+        ]
+      },
+      "section4": {
+        "heading": "4. Procédure de Suppression",
+        "description": "Pour supprimer votre compte, suivez ces étapes:",
+        "list": [
+          "Connectez-vous à votre compte et accédez à la section des paramètres.",
+          "Sélectionnez l'option pour supprimer votre compte.",
+          "Confirmez l'action en saisissant votre mot de passe et en acceptant les conditions.",
+          "Vous recevrez un e-mail de confirmation avec un lien pour compléter le processus."
+        ]
+      },
+      "section5": {
+        "heading": "5. Contact et Support",
+        "description": "Si vous avez des questions concernant la suppression de votre compte ou si vous avez besoin d'assistance, contactez-nous:",
+        "list": [
+          "E-mail: <a href=\"mailto:support@cafesabrosos.com\">support@cafesabrosos.com</a>",
+          "Téléphone: +34 912 345 678",
+          "Heures d'ouverture: Lundi à Vendredi, 9h00 - 18h00"
+        ]
+      }
+    }
+  }
+}

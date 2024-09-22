@@ -28,7 +28,7 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
   width: 90%;
   max-width: 600px;
-  margin: 80px auto 100px;
+  margin: 50px auto 100px;
 }
 
 .profile-container h1 {
@@ -648,4 +648,35 @@ form#deleteAccountForm {
 
 .view-pedidos-btn:hover {
   background-color: #8b4513;
+}
+
+.google-signin-container {
+  display: flex;
+  /* Usar flexbox para centrar */
+  justify-content: center;
+  /* Centrar horizontalmente */
+  margin-top: 50px !important;
+  /* Espacio superior */
+}
+
+svg {
+  width: 50px;
+  height: auto;
+  margin-right: 5px;
+}
+
+.google-signin-message {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px;
+  background-color: #ddd;
+  border-top: 5px solid;
+  border-image: linear-gradient(to right,
+          #DB4437 25%,
+          #F4B400 25%,
+          #F4B400 50%,
+          #0F9D58 50%,
+          #0F9D58 75%,
+          #4285F4 75%) 1;
+  border-radius: 5px;
 }

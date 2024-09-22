@@ -1,18 +1,15 @@
 <?php
-session_start();
 include '../db/db_connect.php';
+include '../auth/verifyToken.php';
+
+$response = checkToken();
+
+$user_id = $response['idCliente']; 
 
 try {
-    // Verificar si el usuario está autenticado
-    if (!isset($_SESSION['user_id'])) {
-        http_response_code(403);
-        echo json_encode(['status' => 'error', 'message' => 'No autorizado.']);
-        exit;
-    }
 
     $idProducto = $_POST['producto_id'] ?? null;
     $nuevaCantidad = $_POST['cantidad'] ?? null;
-    $idCliente = $_SESSION['user_id'];
 
     if (!$idProducto || !$nuevaCantidad || !is_numeric($nuevaCantidad) || $nuevaCantidad <= 0) {
         http_response_code(400);
@@ -30,7 +27,7 @@ try {
         ORDER BY fechaCreacion DESC 
         LIMIT 1
     ');
-    $queryCarrito->bind_param('i', $idCliente);
+    $queryCarrito->bind_param('i', $user_id);
     $queryCarrito->execute();
     $queryCarrito->bind_result($idCarrito);
     $queryCarrito->fetch();

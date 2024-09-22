@@ -1,8 +1,6 @@
 <?php
 include '../src/db/db_connect.php';
-require '../vendor/autoload.php'; // Asegúrate de incluir el autoloader de Composer
-
-session_start();
+require '../vendor/autoload.php';
 
 try {
     // Obtener conexión a la base de datos
@@ -82,6 +80,9 @@ try {
                 <div class="product-image-container">
                     <input type="hidden" id="product-id" value="<?= htmlspecialchars($producto['idProducto']) ?>">
                     <img src="<?= htmlspecialchars($producto['imagen']) ?>" alt="<?= htmlspecialchars($producto['nombre']) ?>" class="product-image">
+                    <button class="favorite-button" data-product-id="<?= htmlspecialchars($producto['idProducto']) ?>">
+                        <i class="fas fa-heart"></i>
+                    </button>
                 </div>
             </div>
             <div class="details-grid">
@@ -145,8 +146,145 @@ try {
             </div>
         </div>
     </div>
-    <?php include 'templates/footer.php'; ?>
+    <script>
+        function initializeFavoritesOnProductPage() {
+            const favoriteButton = document.querySelector('.favorite-button'); // Selecciona el botón de favorito en la página del producto
+            const productId = favoriteButton.dataset.productId; // Obtiene el ID del producto
 
+            // Obtener la lista de favoritos del localStorage o crear una nueva
+            let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+            // Verificar si el producto ya está en favoritos y marcar el botón como seleccionado
+            if (favorites.includes(productId)) {
+                favoriteButton.classList.add('selected'); // Marcar como favorito
+            }
+
+            // Agregar el event listener para manejar el click en el botón de favorito
+            favoriteButton.addEventListener('click', function() {
+                // Verificar si el usuario tiene una sesión activa
+                fetch('/src/db/checkSession.php')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.loggedIn) {
+                            // Si el usuario está autenticado, permite agregar/quitar de favoritos
+                            if (favoriteButton.classList.contains('selected')) {
+                                // Si ya está seleccionado, eliminar de favoritos
+                                favoriteButton.classList.remove('selected');
+                                favorites = favorites.filter(favId => favId !== productId); // Eliminar del array
+                                showNotification('Producto eliminado de favoritos'); // Mostrar notificación
+                            } else {
+                                // Si no está seleccionado, agregar a favoritos
+                                favoriteButton.classList.add('selected');
+                                favorites.push(productId); // Agregar al array
+                                showNotification('Producto añadido a favoritos'); // Mostrar notificación
+                            }
+
+                            // Actualizar el localStorage con la nueva lista de favoritos
+                            localStorage.setItem('favorites', JSON.stringify(favorites));
+                        } else {
+                            // Si no hay sesión activa, mostrar un mensaje de inicio de sesión
+                            showNotification('Por favor, inicia sesión para agregar productos a favoritos.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error verificando sesión:', error);
+                        showNotification('Hubo un problema al verificar la sesión. Inténtalo de nuevo más tarde.');
+                    });
+            });
+        }
+
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+
+            // Cambiar el mensaje de la notificación
+            notification.textContent = message;
+
+            // Mostrar la notificación con la animación desde el footer
+            notification.classList.remove('hidden');
+            notification.classList.add('show');
+
+            // Ocultar la notificación después de 5 segundos
+            setTimeout(() => {
+                notification.classList.remove('show');
+                notification.classList.add('hidden');
+            }, 5000); // 5 segundos
+        }
+
+        // Ejecutar la función cuando el DOM esté completamente cargado
+        document.addEventListener('DOMContentLoaded', initializeFavoritesOnProductPage);
+    </script>
+    <div id="notification" class="notification hidden">Producto añadido a favoritos</div>
+    <style>
+        .notification {
+            position: fixed;
+            bottom: -100px;
+            /* Fuera de la pantalla al inicio */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #daa520;
+            color: #1b0c0a;
+            padding: 25px 20px;
+            font-weight: 700;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            font-size: 1rem;
+            z-index: 1000;
+            opacity: 0;
+            transition: bottom 0.5s ease, opacity 0.5s ease;
+            white-space: nowrap;
+        }
+
+        /* Mostrar notificación */
+        .notification.show {
+            bottom: 20px;
+            /* La notificación se mueve hacia arriba cuando se muestra */
+            opacity: 1;
+        }
+
+        /* Ocultar notificación (se va hacia abajo) */
+        .notification.hidden {
+            bottom: -100px;
+            opacity: 0;
+        }
+
+        .favorite-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: red;
+            /* Color gris inicial */
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .favorite-button:hover {
+            color: #DAA520;
+            /* Cambiar a dorado en hover */
+            transform: scale(1.2);
+            /* Color dorado al hacer hover */
+        }
+
+        .product-image-container {
+            position: relative;
+            /* Necesario para que el botón se posicione respecto al contenedor */
+        }
+
+        .favorite-button .fas.fa-heart {
+            font-size: 2rem;
+            /* Ajusta el tamaño del corazón */
+        }
+
+        .favorite-button.selected {
+            color: #DAA520;
+            /* Color dorado */
+        }
+    </style>
+    <?php if (!isset($_COOKIE['cookie_preference'])) {
+        include 'templates/cookies.php';
+    } ?>
+    <?php include 'templates/footer.php'; ?>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const title = document.getElementById('toggle-title');

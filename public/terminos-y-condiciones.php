@@ -27,7 +27,7 @@
             <p>Estos Términos y Condiciones rigen tu uso de nuestra aplicación web para realizar pedidos en Café Sabrosos. Si no estás de acuerdo con alguna parte de estos términos, no debes utilizar nuestra aplicación web.</p>
             
             <h2>2. Registro de Cuenta</h2>
-            <p>Para utilizar ciertas funciones de nuestra aplicación web, es posible que necesites crear una cuenta. Eres responsable de mantener la confidencialidad de la información de tu cuenta y de todas las actividades que ocurran bajo tu cuenta.</p>
+            <p>Para utilizar ciertas funciones de nuestra aplicación web, es posible que necesites crear una cuenta. Eres responsable de mantener la confidencialidad de la información de tu cuenta y de todas las actividades que ocurran bajo tu cuenta. También puedes registrarte utilizando proveedores externos como Google. Al hacerlo, aceptas que recopilemos y usemos la información proporcionada por dicho proveedor, de acuerdo con nuestra Política de Privacidad.</p>
             
             <h2>3. Pedidos y Pagos</h2>
             <p>Al realizar un pedido, aceptas proporcionar información precisa sobre los artículos que deseas comprar y tus datos de contacto. Los pagos deben realizarse de acuerdo con los métodos de pago disponibles. Nos reservamos el derecho de cancelar cualquier pedido si sospechamos actividad fraudulenta.</p>
@@ -51,7 +51,9 @@
             <p>Si tienes alguna pregunta o inquietud acerca de estos Términos y Condiciones, por favor contáctanos en soporte@cafesabrosos.com.</p>
         </section>
     </main>
-
+    <?php if (!isset($_COOKIE['cookie_preference'])) {
+        include 'templates/cookies.php';
+    } ?>
     <?php include 'templates/footer.php'; ?>
 </body>
 </html>

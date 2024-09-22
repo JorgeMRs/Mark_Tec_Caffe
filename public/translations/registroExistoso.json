@@ -1,0 +1,43 @@
+{
+    "es": {
+      "register_confirmation": {
+        "title": "Confirmación de Registro",
+        "message": "¡Hola!<br><br>Gracias por registrarte en Café Sabrosos. Tu cuenta ha sido activada exitosamente. Ahora puedes iniciar sesión y disfrutar de todas las funcionalidades que ofrecemos.<br><br>Si tienes alguna pregunta o necesitas ayuda, no dudes en contactarnos.<br><br>¡Bienvenido a Café Sabrosos!",
+        "back_button": "Volver a Inicio",
+        "footer": "Todos los derechos reservados."
+      }
+    },
+    "en": {
+      "register_confirmation": {
+        "title": "Registration Confirmation",
+        "message": "Hello!<br><br>Thank you for registering at Café Sabrosos. Your account has been successfully activated. You can now log in and enjoy all the features we offer.<br><br>If you have any questions or need help, feel free to contact us.<br><br>Welcome to Café Sabrosos!",
+        "back_button": "Back to Home",
+        "footer": "All rights reserved."
+      }
+    },
+    "fr": {
+      "register_confirmation": {
+        "title": "Confirmation d'inscription",
+        "message": "Bonjour!<br><br>Merci de vous être inscrit chez Café Sabrosos. Votre compte a été activé avec succès. Vous pouvez maintenant vous connecter et profiter de toutes les fonctionnalités que nous offrons.<br><br>Si vous avez des questions ou avez besoin d'aide, n'hésitez pas à nous contacter.<br><br>Bienvenue chez Café Sabrosos !",
+        "back_button": "Retour à l'accueil",
+        "footer": "Tous droits réservés."
+      }
+    },
+    "pt": {
+      "register_confirmation": {
+        "title": "Confirmação de Registro",
+        "message": "Olá!<br><br>Obrigado por se registrar no Café Sabrosos. Sua conta foi ativada com sucesso. Agora você pode fazer login e aproveitar todos os recursos que oferecemos.<br><br>Se você tiver alguma dúvida ou precisar de ajuda, não hesite em nos contatar.<br><br>Bem-vindo ao Café Sabrosos!",
+        "back_button": "Voltar ao Início",
+        "footer": "Todos os direitos reservados."
+      }
+    },
+    "de": {
+      "register_confirmation": {
+        "title": "Registrierungsbestätigung",
+        "message": "Hallo!<br><br>Danke, dass Sie sich bei Café Sabrosos registriert haben. Ihr Konto wurde erfolgreich aktiviert. Sie können sich jetzt anmelden und alle Funktionen nutzen, die wir anbieten.<br><br>Wenn Sie Fragen haben oder Hilfe benötigen, kontaktieren Sie uns bitte.<br><br>Willkommen bei Café Sabrosos!",
+        "back_button": "Zurück zur Startseite",
+        "footer": "Alle Rechte vorbehalten."
+      }
+    }
+  }
+  

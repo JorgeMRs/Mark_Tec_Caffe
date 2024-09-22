@@ -183,6 +183,7 @@ nav {
   transform-origin: top; /* Asegura que la expansión comience desde la parte superior */
   transition: none; /* Sin transición de opacidad */
   display: none; /* Oculto por defecto */
+  z-index: 10000;
 }
 
 /* Personalización del scrollbar para navegadores basados en WebKit */
@@ -208,11 +209,13 @@ nav {
   display: block; /* Mostrar el preview cuando esté visible */
   padding: 10px; /* Relleno final del contenedor */
   animation: expandVertical 0.3s ease-in-out forwards; /* Expansión lenta */
+  z-index: 10000;
 }
 
 .cart-preview.hide {
   animation: expandVerticalOut 0.3s ease-in-out forwards; /* Cierre lento */
   overflow-y: scroll;
+  z-index: 10000;
   /* Se utiliza JavaScript para ocultar el contenedor después de la animación */
 }
 .cart-item {
@@ -220,6 +223,8 @@ nav {
   justify-content: space-between;
   border-bottom: 1px solid #ccc; /* Línea separadora */
   padding: 10px 0;
+  color: #1e1e1e;
+  z-index: 10000;
 }
 
 .cart-subtotal {
@@ -229,6 +234,8 @@ nav {
   font-size: 14px;
   font-weight:400;
   margin-top: 10px;
+  color: #1e1e1e;
+  z-index: 10000;
 }
 .cart-subtotal .subtotal-text {
   text-align: left; /* Alinea el texto a la izquierda */
@@ -449,6 +456,11 @@ h4{
     justify-content: space-between;
     align-items: center;
   }
+}
+.fa-heart2:before {
+  content: "\f004";
+  color: white;
+  font-size: 26px;
 }
 
 

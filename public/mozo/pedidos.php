@@ -108,6 +108,7 @@ function getEstadoColor($estado)
     <link rel="icon" type="image/png" sizes="48x48" href="/public/assets/img/icons/favicon-64x64.png">
     <link rel="icon" type="image/x-icon" href="/public/assets/img/icons/favicon.ico">
     <link rel="stylesheet" href="/public/assets/css/mozo/mozoPedidos.css">
+
 </head>
 
 <body>
@@ -122,6 +123,7 @@ function getEstadoColor($estado)
             <ul id="pedidoDetalles"></ul>
             <h3>Productos</h3>
             <div id="productosDetalles"></div>
+            <div id="response" class="response-div"></div>
             <button id="cancelOrderButton" class="cancel-order-button" style="display: none;">Cancelar Pedido</button>
         </div>
     </div>
@@ -141,6 +143,13 @@ function getEstadoColor($estado)
         <div class="header-buttons">
             <a href="mozo.php" class="back-button" onclick="window.history.back();">Volver a la Página Principal</a>
             <a href="crearPedido.php" class="new-order-button">Crear Nuevo Pedido</a>
+            <button id="scanBtn" class="scan-button">Escanear QR</button> <!-- Botón para escanear el QR -->
+        </div>
+        <div id="videoModal" class="video-modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <video id="video" width="100%" height="100%" autoplay></video>
+            </div>
         </div>
         <h1>Pedidos Activos</h1>
         <table>
@@ -194,6 +203,6 @@ function getEstadoColor($estado)
         </div>
     </div>
 </body>
-<script src="/public/assets/js/mozo/mozo.js"></script>
+<script type="module" src="/public/assets/js/mozo/mozo.js"></script>
 
 </html>

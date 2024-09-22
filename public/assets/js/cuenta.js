@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const formData = new FormData();
       formData.append("avatar", blob, "avatar.png");
 
-      fetch("/src/uploads/avatarUpload.php", {
+      fetch("/src/client/avatarUpload.php", {
         method: "POST",
         body: formData,
       })
@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", function () {
       limpiarMensajes();
 
       if (confirm("¿Estás seguro de que deseas eliminar tu avatar?")) {
-        fetch("/src/uploads/avatarDelete.php", {
+        fetch("/src/client/avatarDelete.php", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -183,7 +183,7 @@ document.getElementById("confirmDeleteBtn").onclick = function () {
                 if (sessionData.loggedIn) {
                     const userId = sessionData.userId;
                     // Proceed with account deactivation
-                    fetch("/src/account/accountDelete.php", {
+                    fetch("/src/client/account/accountDelete.php", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",

@@ -1,20 +1,20 @@
 <?php
-session_start();
 include '../db/db_connect.php'; // Asegúrate de incluir tu archivo de conexión a la base de datos
+include '../auth/verifyToken.php';
 
 header('Content-Type: application/json');
 
-// Verifica si la solicitud es POST
+$response = checkToken();
+
+$user_id = $response['idCliente']; 
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         // Obtén los datos de la solicitud
         $data = json_decode(file_get_contents('php://input'), true);
-        $product_id = $data['product_id']; // Asegúrate de que el nombre del campo es correcto
+        $product_id = $data['product_id']; 
 
-        // ID del usuario desde la sesión
-        $user_id = $_SESSION['user_id'];
 
-        // Obtener la conexión a la base de datos
         $conn = getDbConnection();
 
         // Prepara la consulta para obtener el idCarrito del cliente (único carrito)

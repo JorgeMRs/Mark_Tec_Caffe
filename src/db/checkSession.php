@@ -1,13 +1,15 @@
 <?php
-session_start();
+require '../../vendor/autoload.php'; // Asegúrate de que la ruta sea correcta
+require '../auth/verifyToken.php'; // Ruta al archivo que contiene la función verifyToken
+
 header('Content-Type: application/json');
 
-// Verificar si el usuario está conectado como cliente o mozo
-$isLoggedIn = isset($_SESSION['user_id']) || (isset($_SESSION['employee_id']) && $_SESSION['role'] === 'Mozo');
+$response = verifyToken();
 
 echo json_encode([
-    'loggedIn' => $isLoggedIn,
-    'userId' => isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null,
-    'employeeId' => isset($_SESSION['employee_id']) ? $_SESSION['employee_id'] : null,
-    'role' => isset($_SESSION['role']) ? $_SESSION['role'] : null
+    'loggedIn' => $response['success'], // Indica si el usuario está conectado
+    'userId' => $response['success'] ? $response['idCliente'] : null, // idCliente si está conectado
+    'employeeId' => $response['success'] && $response['role'] === 'employee' ? $response['idEmpleado'] : null, // idEmpleado si es un empleado
+    'role' => $response['success'] ? $response['role'] : null // Rol si está conectado
 ]);
+?>

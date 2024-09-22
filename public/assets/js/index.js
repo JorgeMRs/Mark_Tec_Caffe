@@ -273,3 +273,32 @@ document.addEventListener('DOMContentLoaded', function() {
     // Carga las traducciones al cargar la página
     loadTranslations(savedLanguage);
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    function getURLParameter(name) {
+        const params = new URLSearchParams(window.location.search);
+        return params.get(name);
+    }
+    
+    // Comprobar si el parámetro 'registered' está presente
+    const registered = getURLParameter('registered');
+    
+    const modal = document.getElementById("googleRegistrationModal");
+    if (registered === 'true') {
+        modal.style.display = "flex"; // Mostrar el modal si se ha registrado
+    }
+    
+    // Cerrar el modal
+    const closeButton = document.querySelector(".google-modal .close");
+    closeButton.onclick = function() {
+        window.history.replaceState({}, document.title, window.location.pathname); // Remover el parámetro de la URL
+        modal.style.display = "none"; // Cerrar el modal
+    };
+    
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            window.history.replaceState({}, document.title, window.location.pathname);
+            modal.style.display = "none";
+        }
+    };
+});
