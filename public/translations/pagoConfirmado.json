@@ -1,0 +1,48 @@
+{
+    "es": {
+      "order_confirmation": {
+        "title": "¡Gracias por tu pedido!",
+        "success_message": "Tu pedido ha sido realizado con éxito. El ID de tu pedido es <strong><?php echo htmlspecialchars($numeroPedidoCliente); ?></strong>.",
+        "email_confirmation": "Recibirás un correo electrónico de confirmación con los detalles de tu pedido.",
+        "back_button": "Volver a la página principal",
+        "leave_review": "¡No dudes en dejar tu opinión!"
+      }
+    },
+    "en": {
+      "order_confirmation": {
+        "title": "Thank you for your order!",
+        "success_message": "Your order has been successfully placed. Your order ID is <strong><?php echo htmlspecialchars($numeroPedidoCliente); ?></strong>.",
+        "email_confirmation": "You will receive a confirmation email with the details of your order.",
+        "back_button": "Back to main page",
+        "leave_review": "Feel free to leave your review!"
+      }
+    },
+    "fr": {
+      "order_confirmation": {
+        "title": "Merci pour votre commande!",
+        "success_message": "Votre commande a été passée avec succès. L'ID de votre commande est <strong><?php echo htmlspecialchars($numeroPedidoCliente); ?></strong>.",
+        "email_confirmation": "Vous recevrez un email de confirmation avec les détails de votre commande.",
+        "back_button": "Retour à la page principale",
+        "leave_review": "N'hésitez pas à laisser votre avis!"
+      }
+    },
+    "pt": {
+      "order_confirmation": {
+        "title": "Obrigado pelo seu pedido!",
+        "success_message": "Seu pedido foi realizado com sucesso. O ID do seu pedido é <strong><?php echo htmlspecialchars($numeroPedidoCliente); ?></strong>.",
+        "email_confirmation": "Você receberá um e-mail de confirmação com os detalhes do seu pedido.",
+        "back_button": "Voltar à página principal",
+        "leave_review": "Não hesite em deixar sua opinião!"
+      }
+    },
+    "de": {
+      "order_confirmation": {
+        "title": "Vielen Dank für Ihre Bestellung!",
+        "success_message": "Ihre Bestellung wurde erfolgreich aufgegeben. Ihre Bestellnummer lautet <strong><?php echo htmlspecialchars($numeroPedidoCliente); ?></strong>.",
+        "email_confirmation": "Sie erhalten eine Bestätigungs-E-Mail mit den Details Ihrer Bestellung.",
+        "back_button": "Zurück zur Hauptseite",
+        "leave_review": "Hinterlassen Sie gerne Ihre Meinung!"
+      }
+    }
+  }
+  

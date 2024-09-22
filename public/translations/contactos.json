@@ -1,0 +1,58 @@
+{
+    "es": {
+      "contact": {
+        "title": "¡Ponete en contacto con nosotros!",
+        "name_label": "Nombre",
+        "email_label": "Email",
+        "subject_label": "Asunto",
+        "message_label": "Comentario o mensaje",
+        "response_message": "",
+        "submit_button": "ENVIAR"
+      }
+    },
+    "en": {
+      "contact": {
+        "title": "Get in touch with us!",
+        "name_label": "Name",
+        "email_label": "Email",
+        "subject_label": "Subject",
+        "message_label": "Comment or message",
+        "response_message": "",
+        "submit_button": "SEND"
+      }
+    },
+    "fr": {
+      "contact": {
+        "title": "Contactez-nous !",
+        "name_label": "Nom",
+        "email_label": "Email",
+        "subject_label": "Objet",
+        "message_label": "Commentaire ou message",
+        "response_message": "",
+        "submit_button": "ENVOYER"
+      }
+    },
+    "pt": {
+      "contact": {
+        "title": "Entre em contato conosco!",
+        "name_label": "Nome",
+        "email_label": "Email",
+        "subject_label": "Assunto",
+        "message_label": "Comentário ou mensagem",
+        "response_message": "",
+        "submit_button": "ENVIAR"
+      }
+    },
+    "de": {
+      "contact": {
+        "title": "Nehmen Sie Kontakt mit uns auf!",
+        "name_label": "Name",
+        "email_label": "E-Mail",
+        "subject_label": "Betreff",
+        "message_label": "Kommentar oder Nachricht",
+        "response_message": "",
+        "submit_button": "SENDEN"
+      }
+    }
+  }
+  

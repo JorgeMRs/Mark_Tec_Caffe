@@ -18,7 +18,7 @@
 <body>
   <div class="container rounded">
     <div class="feedback-container">
-      <h2>TÚ OPINIÓN IMPORTA</h2>
+    <h2 data-translate="feedback.title">TÚ OPINIÓN IMPORTA</h2>
       <div class="star-rating">
         <i class="fas fa-star" data-value="1"></i>
         <i class="fas fa-star" data-value="2"></i>

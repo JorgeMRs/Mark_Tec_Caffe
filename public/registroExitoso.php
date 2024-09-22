@@ -61,18 +61,19 @@ if ($token) {
 </head>
 <body>
     <div class="header">
-        <h1>Confirmación de Registro</h1>
-    </div>
-    <div class="container">
-        <h1><?php echo htmlspecialchars($message); ?></h1>
-        <p>¡Hola!<br><br>
-        Gracias por registrarte en Café Sabrosos. Tu cuenta ha sido activada exitosamente. Ahora puedes iniciar sesión y disfrutar de todas las funcionalidades que ofrecemos.<br><br>
-        Si tienes alguna pregunta o necesitas ayuda, no dudes en contactarnos.<br><br>
-        ¡Bienvenido a Café Sabrosos!</p>
-        <a href="/" class="btn-back">Volver a Inicio</a>
-    </div>
-    <div class="footer">
-        <p>&copy; 2024 Café Sabrosos. Todos los derechos reservados.</p>
+    <h1 data-translate="register_confirmation.title">Confirmación de Registro</h1>
+<div class="container">
+    <h1><?php echo htmlspecialchars($message); ?></h1>
+    <p data-translate="register_confirmation.message">¡Hola!<br><br>
+    Gracias por registrarte en Café Sabrosos. Tu cuenta ha sido activada exitosamente. Ahora puedes iniciar sesión y disfrutar de todas las funcionalidades que ofrecemos.<br><br>
+    Si tienes alguna pregunta o necesitas ayuda, no dudes en contactarnos.<br><br>
+    ¡Bienvenido a Café Sabrosos!</p>
+    <a href="/" class="btn-back" data-translate="register_confirmation.back_button">Volver a Inicio</a>
+</div>
+<div class="footer">
+    <p>&copy; 2024 Café Sabrosos. <span data-translate="register_confirmation.footer">Todos los derechos reservados.</span></p>
+</div>
+
     </div>
 </body>
 </html>

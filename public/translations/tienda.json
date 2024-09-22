@@ -1,0 +1,33 @@
+{
+    "es": {
+      "topSubtitle": "Café Sabrosos",
+      "subtitle": "Siempre el mejor café",
+      "menuButton": "Menú",
+      "reservationsButton": "Reservas"
+    },
+    "fr": {
+      "topSubtitle": "Café Sabrosos",
+      "subtitle": "Toujours le meilleur café",
+      "menuButton": "Menu",
+      "reservationsButton": "Réservations"
+    },
+    "pt": {
+      "topSubtitle": "Café Sabrosos",
+      "subtitle": "Sempre o melhor café",
+      "menuButton": "Cardápio",
+      "reservationsButton": "Reservas"
+    },
+    "en": {
+      "topSubtitle": "Café Sabrosos",
+      "subtitle": "Always the best coffee",
+      "menuButton": "Menu",
+      "reservationsButton": "Reservations"
+    },
+    "de": {
+      "topSubtitle": "Café Sabrosos",
+      "subtitle": "Immer der beste Kaffee",
+      "menuButton": "Menü",
+      "reservationsButton": "Reservierungen"
+    }
+  }
+  

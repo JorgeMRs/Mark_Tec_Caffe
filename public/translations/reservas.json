@@ -1,0 +1,188 @@
+{
+    "es": {
+      "title": "Reserva tu Mesa en Café Sabrosos",
+      "branches": [
+        {
+          "name": "Café Sabrosos Lisboa",
+          "address": "Rua de São Bento 123, Portugal",
+          "phone": "+351 213 456 789",
+          "capacity": "50 personas",
+          "reservation_link": "mesas.php?sucursal=1",
+          "button_text": "Hacer Reserva"
+        },
+        {
+          "name": "Café Sabrosos Madrid",
+          "address": "Calle Gran Vía 45, España",
+          "phone": "+34 912 345 678",
+          "capacity": "70 personas",
+          "reservation_link": "mesas.php?sucursal=2",
+          "button_text": "Hacer Reserva"
+        },
+        {
+          "name": "Café Sabrosos Berlín",
+          "address": "Kurfürstendamm 100, Alemania",
+          "phone": "+49 30 12345678",
+          "capacity": "80 personas",
+          "reservation_link": "mesas.php?sucursal=3",
+          "button_text": "Hacer Reserva"
+        },
+        {
+          "name": "Café Sabrosos París",
+          "address": "Boulevard Saint-Germain 56, Francia",
+          "phone": "+33 1 2345 6789",
+          "capacity": "60 personas",
+          "reservation_link": "mesas.php?sucursal=4",
+          "button_text": "Hacer Reserva"
+        }
+      ]
+    },
+    "en": {
+      "title": "Book Your Table at Café Sabrosos",
+      "branches": [
+        {
+          "name": "Café Sabrosos Lisbon",
+          "address": "Rua de São Bento 123, Portugal",
+          "phone": "+351 213 456 789",
+          "capacity": "50 people",
+          "reservation_link": "mesas.php?sucursal=1",
+          "button_text": "Make a Reservation"
+        },
+        {
+          "name": "Café Sabrosos Madrid",
+          "address": "Calle Gran Vía 45, Spain",
+          "phone": "+34 912 345 678",
+          "capacity": "70 people",
+          "reservation_link": "mesas.php?sucursal=2",
+          "button_text": "Make a Reservation"
+        },
+        {
+          "name": "Café Sabrosos Berlin",
+          "address": "Kurfürstendamm 100, Germany",
+          "phone": "+49 30 12345678",
+          "capacity": "80 people",
+          "reservation_link": "mesas.php?sucursal=3",
+          "button_text": "Make a Reservation"
+        },
+        {
+          "name": "Café Sabrosos Paris",
+          "address": "Boulevard Saint-Germain 56, France",
+          "phone": "+33 1 2345 6789",
+          "capacity": "60 people",
+          "reservation_link": "mesas.php?sucursal=4",
+          "button_text": "Make a Reservation"
+        }
+      ]
+    },
+    "fr": {
+      "title": "Réservez votre table au Café Sabrosos",
+      "branches": [
+        {
+          "name": "Café Sabrosos Lisbonne",
+          "address": "Rua de São Bento 123, Portugal",
+          "phone": "+351 213 456 789",
+          "capacity": "50 personnes",
+          "reservation_link": "mesas.php?sucursal=1",
+          "button_text": "Faire une Réservation"
+        },
+        {
+          "name": "Café Sabrosos Madrid",
+          "address": "Calle Gran Vía 45, Espagne",
+          "phone": "+34 912 345 678",
+          "capacity": "70 personnes",
+          "reservation_link": "mesas.php?sucursal=2",
+          "button_text": "Faire une Réservation"
+        },
+        {
+          "name": "Café Sabrosos Berlin",
+          "address": "Kurfürstendamm 100, Allemagne",
+          "phone": "+49 30 12345678",
+          "capacity": "80 personnes",
+          "reservation_link": "mesas.php?sucursal=3",
+          "button_text": "Faire une Réservation"
+        },
+        {
+          "name": "Café Sabrosos Paris",
+          "address": "Boulevard Saint-Germain 56, France",
+          "phone": "+33 1 2345 6789",
+          "capacity": "60 personnes",
+          "reservation_link": "mesas.php?sucursal=4",
+          "button_text": "Faire une Réservation"
+        }
+      ]
+    },
+    "pt": {
+      "title": "Reserve sua Mesa no Café Sabrosos",
+      "branches": [
+        {
+          "name": "Café Sabrosos Lisboa",
+          "address": "Rua de São Bento 123, Portugal",
+          "phone": "+351 213 456 789",
+          "capacity": "50 pessoas",
+          "reservation_link": "mesas.php?sucursal=1",
+          "button_text": "Fazer Reserva"
+        },
+        {
+          "name": "Café Sabrosos Madrid",
+          "address": "Calle Gran Vía 45, Espanha",
+          "phone": "+34 912 345 678",
+          "capacity": "70 pessoas",
+          "reservation_link": "mesas.php?sucursal=2",
+          "button_text": "Fazer Reserva"
+        },
+        {
+          "name": "Café Sabrosos Berlim",
+          "address": "Kurfürstendamm 100, Alemanha",
+          "phone": "+49 30 12345678",
+          "capacity": "80 pessoas",
+          "reservation_link": "mesas.php?sucursal=3",
+          "button_text": "Fazer Reserva"
+        },
+        {
+          "name": "Café Sabrosos Paris",
+          "address": "Boulevard Saint-Germain 56, França",
+          "phone": "+33 1 2345 6789",
+          "capacity": "60 pessoas",
+          "reservation_link": "mesas.php?sucursal=4",
+          "button_text": "Fazer Reserva"
+        }
+      ]
+    },
+    "de": {
+      "title": "Reservieren Sie Ihren Tisch im Café Sabrosos",
+      "branches": [
+        {
+          "name": "Café Sabrosos Lissabon",
+          "address": "Rua de São Bento 123, Portugal",
+          "phone": "+351 213 456 789",
+          "capacity": "50 Personen",
+          "reservation_link": "mesas.php?sucursal=1",
+          "button_text": "Reservierung Machen"
+        },
+        {
+          "name": "Café Sabrosos Madrid",
+          "address": "Calle Gran Vía 45, Spanien",
+          "phone": "+34 912 345 678",
+          "capacity": "70 Personen",
+          "reservation_link": "mesas.php?sucursal=2",
+          "button_text": "Reservierung Machen"
+        },
+        {
+          "name": "Café Sabrosos Berlin",
+          "address": "Kurfürstendamm 100, Deutschland",
+          "phone": "+49 30 12345678",
+          "capacity": "80 Personen",
+          "reservation_link": "mesas.php?sucursal=3",
+          "button_text": "Reservierung Machen"
+        },
+        {
+          "name": "Café Sabrosos Paris",
+          "address": "Boulevard Saint-Germain 56, Frankreich",
+          "phone": "+33 1 2345 6789",
+          "capacity": "60 Personen",
+          "reservation_link": "mesas.php?sucursal=4",
+          "button_text": "Reservierung Machen"
+        }
+      ]
+    }
+  }
+  

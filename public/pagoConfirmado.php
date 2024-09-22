@@ -135,12 +135,13 @@ $conn->close();
 
 <body>
     <div class="confirmation-container">
-        <h2>¡Gracias por tu pedido!</h2>
-        <p>Tu pedido ha sido realizado con éxito. El ID de tu pedido es <strong><?php echo htmlspecialchars($numeroPedidoCliente); ?></strong>.</p>
-        <p>Recibirás un correo electrónico de confirmación con los detalles de tu pedido.</p>
-        <a href="/">Volver a la página principal</a>
-        <br><br>
-        <a href="/public/opinion.php">¡No dudes en dejar tu opinión!</a>
+    <h2 data-translate="order_confirmation.title">¡Gracias por tu pedido!</h2>
+<p data-translate="order_confirmation.success_message">Tu pedido ha sido realizado con éxito. El ID de tu pedido es <strong><?php echo htmlspecialchars($numeroPedidoCliente); ?></strong>.</p>
+<p data-translate="order_confirmation.email_confirmation">Recibirás un correo electrónico de confirmación con los detalles de tu pedido.</p>
+<a href="/" data-translate="order_confirmation.back_button">Volver a la página principal</a>
+<br><br>
+<a href="/public/opinion.php" data-translate="order_confirmation.leave_review">¡No dudes en dejar tu opinión!</a>
+
     </div>
 </body>
 </html>

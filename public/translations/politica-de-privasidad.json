@@ -1,0 +1,168 @@
+{
+    "es": {
+      "title": "Política de Privacidad",
+      "sections": {
+        "section1": {
+          "heading": "1. Información que Recopilamos",
+          "content": "Recopilamos información personal que nos proporcionas directamente, como tu nombre, dirección de correo electrónico y detalles de contacto. También podemos recopilar información sobre tu actividad en nuestra aplicación web para mejorar nuestros servicios."
+        },
+        "section2": {
+          "heading": "2. Uso de la Información",
+          "content": "Utilizamos la información que recopilamos para procesar tus pedidos, mejorar nuestros servicios y comunicarnos contigo. También podemos usar tus datos para enviarte actualizaciones y promociones relacionadas con Café Sabrosos."
+        },
+        "section3": {
+          "heading": "3. Compartición de Información",
+          "content": "No compartimos tu información personal con terceros, excepto cuando sea necesario para procesar tus pedidos o cumplir con las leyes aplicables. Podemos compartir tu información con proveedores de servicios que trabajan en nuestro nombre bajo estrictos acuerdos de confidencialidad."
+        },
+        "section4": {
+          "heading": "4. Seguridad de la Información",
+          "content": "Implementamos medidas de seguridad para proteger tu información personal contra el acceso no autorizado, la alteración, divulgación o destrucción. Sin embargo, ningún sistema es completamente seguro, y no podemos garantizar la seguridad absoluta de tus datos."
+        },
+        "section5": {
+          "heading": "5. Tus Derechos",
+          "content": "Tienes derecho a acceder, corregir o eliminar tu información personal que tenemos sobre ti. Si deseas ejercer estos derechos, por favor contáctanos utilizando la información de contacto proporcionada a continuación."
+        },
+        "section6": {
+          "heading": "6. Cambios en la Política",
+          "content": "Podemos actualizar esta Política de Privacidad de vez en cuando. Cualquier cambio se publicará en esta página, y tu uso continuo de nuestra aplicación web constituye aceptación de la política actualizada."
+        },
+        "section7": {
+          "heading": "7. Información de Contacto",
+          "content": "Si tienes alguna pregunta o inquietud sobre nuestra Política de Privacidad, por favor contáctanos en soporte@cafesabrosos.com."
+        }
+      }
+    },
+    "fr": {
+      "title": "Politique de Confidentialité",
+      "sections": {
+        "section1": {
+          "heading": "1. Informations que Nous Collectons",
+          "content": "Nous collectons des informations personnelles que vous nous fournissez directement, comme votre nom, votre adresse e-mail et vos coordonnées. Nous pouvons également collecter des informations sur votre activité sur notre application web pour améliorer nos services."
+        },
+        "section2": {
+          "heading": "2. Utilisation des Informations",
+          "content": "Nous utilisons les informations que nous collectons pour traiter vos commandes, améliorer nos services et communiquer avec vous. Nous pouvons également utiliser vos données pour vous envoyer des mises à jour et des promotions liées à Café Sabrosos."
+        },
+        "section3": {
+          "heading": "3. Partage des Informations",
+          "content": "Nous ne partageons pas vos informations personnelles avec des tiers, sauf si cela est nécessaire pour traiter vos commandes ou respecter les lois en vigueur. Nous pouvons partager vos informations avec des prestataires de services qui travaillent en notre nom sous des accords stricts de confidentialité."
+        },
+        "section4": {
+          "heading": "4. Sécurité des Informations",
+          "content": "Nous mettons en œuvre des mesures de sécurité pour protéger vos informations personnelles contre l'accès non autorisé, l'altération, la divulgation ou la destruction. Cependant, aucun système n'est complètement sécurisé, et nous ne pouvons garantir la sécurité absolue de vos données."
+        },
+        "section5": {
+          "heading": "5. Vos Droits",
+          "content": "Vous avez le droit d'accéder, de corriger ou de supprimer vos informations personnelles que nous détenons sur vous. Si vous souhaitez exercer ces droits, veuillez nous contacter en utilisant les informations de contact fournies ci-dessous."
+        },
+        "section6": {
+          "heading": "6. Modifications de la Politique",
+          "content": "Nous pouvons mettre à jour cette politique de confidentialité de temps à autre. Tout changement sera publié sur cette page, et votre utilisation continue de notre application web constitue l'acceptation de la politique mise à jour."
+        },
+        "section7": {
+          "heading": "7. Informations de Contact",
+          "content": "Si vous avez des questions ou des préoccupations concernant notre politique de confidentialité, veuillez nous contacter à l'adresse suivante: support@cafesabrosos.com."
+        }
+      }
+    },
+    "pt": {
+      "title": "Política de Privacidade",
+      "sections": {
+        "section1": {
+          "heading": "1. Informações que Coletamos",
+          "content": "Coletamos informações pessoais que você nos fornece diretamente, como seu nome, endereço de e-mail e detalhes de contato. Também podemos coletar informações sobre sua atividade em nosso aplicativo web para melhorar nossos serviços."
+        },
+        "section2": {
+          "heading": "2. Uso das Informações",
+          "content": "Usamos as informações que coletamos para processar seus pedidos, melhorar nossos serviços e nos comunicarmos com você. Também podemos usar seus dados para enviar atualizações e promoções relacionadas ao Café Sabrosos."
+        },
+        "section3": {
+          "heading": "3. Compartilhamento de Informações",
+          "content": "Não compartilhamos suas informações pessoais com terceiros, exceto quando necessário para processar seus pedidos ou cumprir com as leis aplicáveis. Podemos compartilhar suas informações com prestadores de serviços que trabalham em nosso nome sob estritos acordos de confidencialidade."
+        },
+        "section4": {
+          "heading": "4. Segurança das Informações",
+          "content": "Implementamos medidas de segurança para proteger suas informações pessoais contra acesso não autorizado, alteração, divulgação ou destruição. No entanto, nenhum sistema é completamente seguro e não podemos garantir a segurança absoluta dos seus dados."
+        },
+        "section5": {
+          "heading": "5. Seus Direitos",
+          "content": "Você tem o direito de acessar, corrigir ou excluir suas informações pessoais que temos sobre você. Se você deseja exercer esses direitos, entre em contato conosco usando as informações de contato fornecidas abaixo."
+        },
+        "section6": {
+          "heading": "6. Alterações à Política",
+          "content": "Podemos atualizar esta Política de Privacidade ocasionalmente. Quaisquer alterações serão publicadas nesta página e o uso contínuo do nosso aplicativo web constitui aceitação da política atualizada."
+        },
+        "section7": {
+          "heading": "7. Informações de Contato",
+          "content": "Se você tiver alguma dúvida ou preocupação sobre nossa Política de Privacidade, entre em contato conosco em suporte@cafesabrosos.com."
+        }
+      }
+    },
+    "en": {
+      "title": "Privacy Policy",
+      "sections": {
+        "section1": {
+          "heading": "1. Information We Collect",
+          "content": "We collect personal information that you provide to us directly, such as your name, email address, and contact details. We may also collect information about your activity on our web application to improve our services."
+        },
+        "section2": {
+          "heading": "2. Use of Information",
+          "content": "We use the information we collect to process your orders, improve our services, and communicate with you. We may also use your data to send you updates and promotions related to Café Sabrosos."
+        },
+        "section3": {
+          "heading": "3. Sharing of Information",
+          "content": "We do not share your personal information with third parties, except when necessary to process your orders or comply with applicable laws. We may share your information with service providers working on our behalf under strict confidentiality agreements."
+        },
+        "section4": {
+          "heading": "4. Information Security",
+          "content": "We implement security measures to protect your personal information from unauthorized access, alteration, disclosure, or destruction. However, no system is completely secure, and we cannot guarantee the absolute security of your data."
+        },
+        "section5": {
+          "heading": "5. Your Rights",
+          "content": "You have the right to access, correct, or delete your personal information that we hold about you. If you wish to exercise these rights, please contact us using the contact information provided below."
+        },
+        "section6": {
+          "heading": "6. Policy Changes",
+          "content": "We may update this Privacy Policy from time to time. Any changes will be posted on this page, and your continued use of our web application constitutes acceptance of the updated policy."
+        },
+        "section7": {
+          "heading": "7. Contact Information",
+          "content": "If you have any questions or concerns about our Privacy Policy, please contact us at support@cafesabrosos.com."
+        }
+      }
+    },
+    "de": {
+      "title": "Datenschutzrichtlinie",
+      "sections": {
+        "section1": {
+          "heading": "1. Informationen, die Wir Sammeln",
+          "content": "Wir sammeln persönliche Informationen, die Sie uns direkt zur Verfügung stellen, wie Ihren Namen, Ihre E-Mail-Adresse und Ihre Kontaktdaten. Wir können auch Informationen über Ihre Aktivitäten in unserer Webanwendung sammeln, um unsere Dienstleistungen zu verbessern."
+        },
+        "section2": {
+          "heading": "2. Verwendung der Informationen",
+          "content": "Wir verwenden die gesammelten Informationen, um Ihre Bestellungen zu bearbeiten, unsere Dienstleistungen zu verbessern und mit Ihnen zu kommunizieren. Wir können Ihre Daten auch verwenden, um Ihnen Updates und Werbeaktionen im Zusammenhang mit Café Sabrosos zu senden."
+        },
+        "section3": {
+          "heading": "3. Weitergabe von Informationen",
+          "content": "Wir geben Ihre persönlichen Informationen nicht an Dritte weiter, außer wenn dies zur Bearbeitung Ihrer Bestellungen oder zur Einhaltung geltender Gesetze erforderlich ist. Wir können Ihre Informationen mit Dienstleistern teilen, die in unserem Auftrag arbeiten und strengen Vertraulichkeitsvereinbarungen unterliegen."
+        },
+        "section4": {
+          "heading": "4. Informationssicherheit",
+          "content": "Wir setzen Sicherheitsmaßnahmen ein, um Ihre persönlichen Daten vor unbefugtem Zugriff, Änderung, Offenlegung oder Zerstörung zu schützen. Kein System ist jedoch vollständig sicher, und wir können die absolute Sicherheit Ihrer Daten nicht garantieren."
+        },
+        "section5": {
+          "heading": "5. Ihre Rechte",
+          "content": "Sie haben das Recht, auf Ihre persönlichen Daten zuzugreifen, sie zu korrigieren oder zu löschen. Wenn Sie diese Rechte ausüben möchten, kontaktieren Sie uns bitte über die unten angegebenen Kontaktdaten."
+        },
+        "section6": {
+          "heading": "6. Änderungen der Richtlinie",
+          "content": "Wir können diese Datenschutzrichtlinie von Zeit zu Zeit aktualisieren. Alle Änderungen werden auf dieser Seite veröffentlicht, und Ihre fortgesetzte Nutzung unserer Webanwendung stellt die Annahme der aktualisierten Richtlinie dar."
+        },
+        "section7": {
+          "heading": "7. Kontaktinformationen",
+          "content": "Wenn Sie Fragen oder Bedenken zu unserer Datenschutzrichtlinie haben, kontaktieren Sie uns bitte unter support@cafesabrosos.com."
+        }
+      }
+    }
+  }
+  

@@ -1,0 +1,133 @@
+{
+    "es": {
+      "local_francia": {
+        "title": "Café Sabrosos París",
+        "address": "Blv. Saint-Germain 56, Paris, Francia",
+        "hours": "Lunes a Viernes: 7:00 - 19:00",
+        "button": "Realizar reserva"
+      },
+      "local_alemania": {
+        "title": "Café Sabrosos Berlín",
+        "address": "Kurfürstendamm 100, Berlín, Alemania",
+        "hours": "Lunes a Sábado: 8:00 - 20:00",
+        "button": "Realizar reserva"
+      },
+      "local_portugal": {
+        "title": "Café Sabrosos Lisboa",
+        "address": "Rua de São Bento 123, Lisboa, Portugal",
+        "hours": "Lunes a Domingo: 7:00 - 22:00",
+        "button": "Realizar reserva"
+      },
+      "local_espana": {
+        "title": "Café Sabrosos Madrid",
+        "address": "Calle Gran Vía 45, Madrid, España",
+        "hours": "Lunes a Domingo: 7:00 - 22:00",
+        "button": "Realizar reserva"
+      }
+    },
+    "en": {
+      "local_francia": {
+        "title": "Café Sabrosos Paris",
+        "address": "Blv. Saint-Germain 56, Paris, France",
+        "hours": "Monday to Friday: 7:00 AM - 7:00 PM",
+        "button": "Make a reservation"
+      },
+      "local_alemania": {
+        "title": "Café Sabrosos Berlin",
+        "address": "Kurfürstendamm 100, Berlin, Germany",
+        "hours": "Monday to Saturday: 8:00 AM - 8:00 PM",
+        "button": "Make a reservation"
+      },
+      "local_portugal": {
+        "title": "Café Sabrosos Lisbon",
+        "address": "Rua de São Bento 123, Lisbon, Portugal",
+        "hours": "Monday to Sunday: 7:00 AM - 10:00 PM",
+        "button": "Make a reservation"
+      },
+      "local_espana": {
+        "title": "Café Sabrosos Madrid",
+        "address": "Calle Gran Vía 45, Madrid, Spain",
+        "hours": "Monday to Sunday: 7:00 AM - 10:00 PM",
+        "button": "Make a reservation"
+      }
+    },
+    "pt": {
+      "local_francia": {
+        "title": "Café Sabrosos Paris",
+        "address": "Blv. Saint-Germain 56, Paris, França",
+        "hours": "Segunda a Sexta: 7:00 - 19:00",
+        "button": "Fazer reserva"
+      },
+      "local_alemania": {
+        "title": "Café Sabrosos Berlim",
+        "address": "Kurfürstendamm 100, Berlim, Alemanha",
+        "hours": "Segunda a Sábado: 8:00 - 20:00",
+        "button": "Fazer reserva"
+      },
+      "local_portugal": {
+        "title": "Café Sabrosos Lisboa",
+        "address": "Rua de São Bento 123, Lisboa, Portugal",
+        "hours": "Segunda a Domingo: 7:00 - 22:00",
+        "button": "Fazer reserva"
+      },
+      "local_espana": {
+        "title": "Café Sabrosos Madrid",
+        "address": "Calle Gran Vía 45, Madrid, Espanha",
+        "hours": "Segunda a Domingo: 7:00 - 22:00",
+        "button": "Fazer reserva"
+      }
+    },
+    "de": {
+      "local_francia": {
+        "title": "Café Sabrosos Paris",
+        "address": "Blv. Saint-Germain 56, Paris, Frankreich",
+        "hours": "Montag bis Freitag: 7:00 - 19:00",
+        "button": "Reservierung vornehmen"
+      },
+      "local_alemania": {
+        "title": "Café Sabrosos Berlin",
+        "address": "Kurfürstendamm 100, Berlin, Deutschland",
+        "hours": "Montag bis Samstag: 8:00 - 20:00",
+        "button": "Reservierung vornehmen"
+      },
+      "local_portugal": {
+        "title": "Café Sabrosos Lissabon",
+        "address": "Rua de São Bento 123, Lissabon, Portugal",
+        "hours": "Montag bis Sonntag: 7:00 - 22:00",
+        "button": "Reservierung vornehmen"
+      },
+      "local_espana": {
+        "title": "Café Sabrosos Madrid",
+        "address": "Calle Gran Vía 45, Madrid, Spanien",
+        "hours": "Montag bis Sonntag: 7:00 - 22:00",
+        "button": "Reservierung vornehmen"
+      }
+    },
+    "fr": {
+      "local_francia": {
+        "title": "Café Sabrosos Paris",
+        "address": "Blv. Saint-Germain 56, Paris, France",
+        "hours": "Lundi à Vendredi: 7h00 - 19h00",
+        "button": "Faire une réservation"
+      },
+      "local_alemania": {
+        "title": "Café Sabrosos Berlin",
+        "address": "Kurfürstendamm 100, Berlin, Allemagne",
+        "hours": "Lundi à Samedi: 8h00 - 20h00",
+        "button": "Faire une réservation"
+      },
+      "local_portugal": {
+        "title": "Café Sabrosos Lisbonne",
+        "address": "Rua de São Bento 123, Lisbonne, Portugal",
+        "hours": "Lundi à Dimanche: 7h00 - 22h00",
+        "button": "Faire une réservation"
+      },
+      "local_espana": {
+        "title": "Café Sabrosos Madrid",
+        "address": "Calle Gran Vía 45, Madrid, Espagne",
+        "hours": "Lundi à Dimanche: 7h00 - 22h00",
+        "button": "Faire une réservation"
+      }
+    }
+  }
+  

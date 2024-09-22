@@ -23,11 +23,13 @@ session_start();
     <header>
         <?php include 'templates/nav-blur.php' ?>
         <div class="header-content">
-            <h2 class="top-subtitle">Café Sabrosos</h2>
-            <h2 class="subtitle">Siempre el mejor café</h2>
-            <div class="header-buttons">
-                <a href="/public/menu.html" class="btn">Menú</a>
-                <a href="/public/reservas.html" class="btn">Reservas</a>
+        <h2 class="top-subtitle" data-translate="topSubtitle">Café Sabrosos</h2>
+<h2 class="subtitle" data-translate="subtitle">Siempre el mejor café</h2>
+<div class="header-buttons">
+    <a href="/public/menu.html" class="btn" data-translate="menuButton">Menú</a>
+    <a href="/public/reservas.html" class="btn" data-translate="reservationsButton">Reservas</a>
+</div>
+
             </div>
         </div>
     </header>

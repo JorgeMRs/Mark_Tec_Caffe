@@ -26,7 +26,7 @@ if (!isset($_SESSION['user_id'])) {
 <body>
     <div class="form-container">
         <form method="post">
-         <h2>Información de pago</h2>
+         <h2>Payment Information</h2>
             <div class="payment-buttons">
                 <button type="button" class="paypal-button">
                     <i class="fab fa-paypal"></i>
@@ -39,36 +39,36 @@ if (!isset($_SESSION['user_id'])) {
                 </button>
             </div>
             <label class="tarjeta">
-                <input id="tarjeta" type="text" placeholder="Número de tarjeta:" maxlength="16" required>
+                <input id="tarjeta" type="text" placeholder="Card number:" maxlength="16" required>
                 <img id="card-logo" class="card-logo" src="" alt="Card Logo" style="display: none;">
             </label>
             <div class="flex-container">
                 <input id="cvv" type="text" placeholder="CVV:" maxlength="4" required>
                 <input type="month" name="fecha" required>
             </div>
-            <input type="text" placeholder="Nombre del titular:" required>
+            <input type="text" placeholder="Owner's name:" required>
             <div class="checkbox-container">
                 <input type="checkbox" name="terminos" id="terminos">
-                <label for="terminos">Guardar esta información</label>
+                <label for="terminos">Save this information</label>
             </div>
-            <h2>Información de pedido</h2>
+            <h2>Order Information</h2>
             <!-- Añadir campos para el tipo de pedido -->
             <div class="order-type">
                 <label>
                     <input type="radio" name="orderType" value="En el local" onclick="toggleFields()" checked>
-                    En el local
+                    At the premises
                 </label>
                 <label>
                     <input type="radio" name="orderType" value="Para llevar" onclick="toggleFields()">
-                    Para llevar
+                    To go
                 </label>
             </div>
                 
             <!-- Campos para pedidos para llevar -->
             <div id="branch-container" style="display: none;">
-                <label for="branch">Sucursal:</label>
+                <label for="branch">Branch:</label>
                 <select name="branch" id="branch">
-                    <option value="" disabled selected>Selecciona una sucursal</option>
+                    <option value="" disabled selected>Select a branch</option>
                     <?php
                     // Incluye el archivo de conexión a la base de datos
                     include '../src/db/db_connect.php'; // Ajusta la ruta según tu estructura de directorios
@@ -94,9 +94,9 @@ if (!isset($_SESSION['user_id'])) {
                 </select>
             </div>
             <div id="pickupTime-container" style="display: none;">
-                <label for="pickupTime">Hora de recogida:</label>
+                <label for="pickupTime">Pickup time:</label>
                 <select name="pickupTime" id="pickupTime" required>
-                    <option value="" disabled selected>Selecciona una hora</option>
+                    <option value="" disabled selected>Select a time</option>
                     <?php
                     $start = new DateTime('08:00:00'); // Hora de inicio en formato HH:MM:SS
                     $end = new DateTime('20:00:00'); // Hora de fin en formato HH:MM:SS
@@ -112,10 +112,10 @@ if (!isset($_SESSION['user_id'])) {
                 </select>
             </div>
 
-            <label for="orderNotes">Notas:</label>
+            <label for="orderNotes">Grades:</label>
             <textarea name="orderNotes" id="orderNotes" rows="4"></textarea>
             <div id="response-message"></div>
-            <input type="submit" value="Finalizar pago">
+            <input type="submit" value="Finish payment">
         </form>
     </div>
     <script>

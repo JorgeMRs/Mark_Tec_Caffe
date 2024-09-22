@@ -272,59 +272,70 @@ $conn->close();
         </style>
         <div class="container">
             <section class="locales-grid">
-                <!-- Local en Francia -->
-                <div class="local-card">
-                    <div class="local-image" style="background-image: url('/public/assets/img/hamza-nouasria-P2mIRmNIIPQ-unsplash.jpg');">
-                        <div class="label">Francia</div>
-                    </div>
-                    <div class="local-info">
-                        <h2 class="local-title">Café Sabrosos París</h2>
-                        <p class="local-address">Blv. Saint-Germain 56, Paris, Francia</p>
-                        <div class="local-hours">
-                        <i class="fa-solid fa-clock" style="color: #1b0d0b; margin-right: 10px;"></i> <p>Lunes a Viernes: 7:00 - 19:00</p>
-                        </div>
-                        <button class="btn-secondary">Realizar reserva</button>
-                    </div>
-                </div>
-                <!-- Local en Alemania -->
-                <div class="local-card">
-                    <div class="local-image" style="background-image: url('/public/assets/img/como-montar-cafeteria-.webp');">
-                        <div class="label">Alemania</div>
-                    </div>
-                    <div class="local-info">
-                        <h2 class="local-title">Café Sabrosos Berlin</h2>
-                        <p class="local-address">Kurfürstendamm 100, Berlin, Alemania</p>
-                        <div class="local-hours">
-                        <i class="fa-solid fa-clock" style="color: #1b0d0b; margin-right: 10px;"></i><p>Lunes a Sábado: 8:00 - 20:00</p>
-                        </div>
-                        <button class="btn-secondary">Realizar reserva</button>
-                    </div>
-                </div>
-                <!-- Local en Portugal -->
-                <div class="local-card">
-                    <div class="local-image" style="background-image: url('/public/assets/img/kishore-v-tf7Y9kMhETg-unsplash.jpg');">
-                        <div class="label">Portugal</div>
-                    </div>
-                    <div class="local-info">
-                        <h2 class="local-title">Café Sabrosos Lisboa</h2>
-                        <p class="local-address">Rua de São Bento 123, Lisboa, Portugal</p>
-                        <div class="local-hours">
-                        <i class="fa-solid fa-clock" style="color: #1b0d0b; margin-right: 10px;"></i><p>Lunes a Domingo: 7:00 - 22:00</p>
-                        </div>
-                        <button class="btn-secondary">Realizar reserva</button>
-                    </div>
-                </div>
-                <div class="local-card">
-                    <div class="local-image" style="background-image: url('/public/assets/img/madrid.jpg');">
-                        <div class="label">España</div>
-                    </div>
-                    <div class="local-info">
-                        <h2 class="local-title">Café Sabrosos Madrid</h2>
-                        <p class="local-address">Calle Gran Vía 45, Madrid, España</p>
-                        <div class="local-hours">
-                        <i class="fa-solid fa-clock" style="color: #1b0d0b; margin-right: 10px;"></i> <p>Lunes a Domingo: 7:00 - 22:00</p>
-                        </div>
-                        <button class="btn-secondary">Realizar reserva</button>
+              <!-- Local en Francia -->
+<div class="local-card" data-translate="local_francia">
+    <div class="local-image" style="background-image: url('/public/assets/img/hamza-nouasria-P2mIRmNIIPQ-unsplash.jpg');">
+        <div class="label">Francia</div>
+    </div>
+    <div class="local-info">
+        <h2 class="local-title">Café Sabrosos París</h2>
+        <p class="local-address">Blv. Saint-Germain 56, Paris, Francia</p>
+        <div class="local-hours">
+            <i class="fa-solid fa-clock" style="color: #1b0d0b; margin-right: 10px;"></i>
+            <p>Lunes a Viernes: 7:00 - 19:00</p>
+        </div>
+        <button class="btn-secondary">Realizar reserva</button>
+    </div>
+</div>
+
+<!-- Local en Alemania -->
+<div class="local-card" data-translate="local_alemania">
+    <div class="local-image" style="background-image: url('/public/assets/img/como-montar-cafeteria-.webp');">
+        <div class="label">Alemania</div>
+    </div>
+    <div class="local-info">
+        <h2 class="local-title">Café Sabrosos Berlín</h2>
+        <p class="local-address">Kurfürstendamm 100, Berlín, Alemania</p>
+        <div class="local-hours">
+            <i class="fa-solid fa-clock" style="color: #1b0d0b; margin-right: 10px;"></i>
+            <p>Lunes a Sábado: 8:00 - 20:00</p>
+        </div>
+        <button class="btn-secondary">Realizar reserva</button>
+    </div>
+</div>
+
+<!-- Local en Portugal -->
+<div class="local-card" data-translate="local_portugal">
+    <div class="local-image" style="background-image: url('/public/assets/img/kishore-v-tf7Y9kMhETg-unsplash.jpg');">
+        <div class="label">Portugal</div>
+    </div>
+    <div class="local-info">
+        <h2 class="local-title">Café Sabrosos Lisboa</h2>
+        <p class="local-address">Rua de São Bento 123, Lisboa, Portugal</p>
+        <div class="local-hours">
+            <i class="fa-solid fa-clock" style="color: #1b0d0b; margin-right: 10px;"></i>
+            <p>Lunes a Domingo: 7:00 - 22:00</p>
+        </div>
+        <button class="btn-secondary">Realizar reserva</button>
+    </div>
+</div>
+
+<!-- Local en España -->
+<div class="local-card" data-translate="local_espana">
+    <div class="local-image" style="background-image: url('/public/assets/img/madrid.jpg');">
+        <div class="label">España</div>
+    </div>
+    <div class="local-info">
+        <h2 class="local-title">Café Sabrosos Madrid</h2>
+        <p class="local-address">Calle Gran Vía 45, Madrid, España</p>
+        <div class="local-hours">
+            <i class="fa-solid fa-clock" style="color: #1b0d0b; margin-right: 10px;"></i>
+            <p>Lunes a Domingo: 7:00 - 22:00</p>
+        </div>
+        <button class="btn-secondary">Realizar reserva</button>
+    </div>
+</div>
+
                     </div>
                 </div>
             </section>
