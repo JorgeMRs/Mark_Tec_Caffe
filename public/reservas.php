@@ -29,7 +29,7 @@ session_start();
             <h3 data-translate="branches[0].name">Café Sabrosos Lisboa</h3>
             <p data-translate="branches[0].address">Dirección: Rua de São Bento 123, Portugal</p>
             <p data-translate="branches[0].phone">Teléfono: +351 213 456 789</p>
-            <p data-translate="branches[0].capacity">Capacidad: 50 personas</p>
+            <p data-translate="branches[0].capacity">Capacidad: 18 personas</p>
             <a href="mesas.php?sucursal=1" class="btn-reservar" data-translate="branches[0].button_text">Hacer Reserva</a>
         </div>
     </div>
@@ -41,7 +41,7 @@ session_start();
             <h3 data-translate="branches[1].name">Café Sabrosos Madrid</h3>
             <p data-translate="branches[1].address">Dirección: Calle Gran Vía 45, España</p>
             <p data-translate="branches[1].phone">Teléfono: +34 912 345 678</p>
-            <p data-translate="branches[1].capacity">Capacidad: 70 personas</p>
+            <p data-translate="branches[1].capacity">Capacidad: 18 personas</p>
             <a href="mesas.php?sucursal=2" class="btn-reservar" data-translate="branches[1].button_text">Hacer Reserva</a>
         </div>
     </div>
@@ -53,7 +53,7 @@ session_start();
             <h3 data-translate="branches[2].name">Café Sabrosos Berlín</h3>
             <p data-translate="branches[2].address">Dirección: Kurfürstendamm 100, Alemania</p>
             <p data-translate="branches[2].phone">Teléfono: +49 30 12345678</p>
-            <p data-translate="branches[2].capacity">Capacidad: 80 personas</p>
+            <p data-translate="branches[2].capacity">Capacidad: 18 personas</p>
             <a href="mesas.php?sucursal=3" class="btn-reservar" data-translate="branches[2].button_text">Hacer Reserva</a>
         </div>
     </div>
@@ -65,7 +65,7 @@ session_start();
             <h3 data-translate="branches[3].name">Café Sabrosos París</h3>
             <p data-translate="branches[3].address">Dirección: Boulevard Saint-Germain 56, Francia</p>
             <p data-translate="branches[3].phone">Teléfono: +33 1 2345 6789</p>
-            <p data-translate="branches[3].capacity">Capacidad: 60 personas</p>
+            <p data-translate="branches[3].capacity">Capacidad: 18 personas</p>
             <a href="mesas.php?sucursal=4" class="btn-reservar" data-translate="branches[3].button_text">Hacer Reserva</a>
         </div>
     </div>
