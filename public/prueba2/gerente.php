@@ -235,8 +235,29 @@
                 </div>
                 <div id="analisis">
                     <h3>Análisis de Ventas</h3>
-                    <div class="chart-container">
-                        <canvas id="ventasSemanales"></canvas>
+                    <div class="row">
+                        <div class="chart-container col-md-6 mb-4">
+                            <canvas id="ventasSemanales"></canvas>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <canvas id="productosMasVendidos"></canvas>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <canvas id="tendenciaVentas"></canvas>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <canvas id="distribucionVentas"></canvas>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <canvas id="satisfaccionClientes"></canvas>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <canvas id="rendimientoEmpleados"></canvas>
+                            </div>
+                        </div>
                     </div>
                 </div>
         </main>
@@ -279,7 +300,7 @@
                 })
                 .catch(error => console.error('Error al cargar datos:', error));
         }
-    
+
         function cargarDatosHistorial(url, elementId) {
             fetch(url)
                 .then(response => response.json())
@@ -353,31 +374,213 @@
             });
         }
 
+
+     
+
+        // Función para crear gráficos
         function crearGraficos() {
-            // Gráfico de barras: Ventas semanales
-            const ctxVentas = document.getElementById('ventasSemanales').getContext('2d');
-            new Chart(ctxVentas, {
-                type: 'bar',
-                data: {
-                    labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
-                    datasets: [{
-                        label: 'Ventas diarias',
-                        data: [300, 450, 320, 500, 480, 600, 580], // Datos de ejemplo
-                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'top',
+            // Gráfico de ventas semanales
+            fetch('/public/prueba2/obtener_ventas_semanales.php')
+                .then(response => response.json())
+                .then(data => {
+                    const labels = data.map(item => item.dia);
+                    const ventas = data.map(item => item.ventas);
+
+                    const ctxVentas = document.getElementById('ventasSemanales').getContext('2d');
+                    new Chart(ctxVentas, {
+                        type: 'bar',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Ventas diarias',
+                                data: ventas,
+                                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                            }]
                         },
-                        title: {
-                            display: true,
-                            text: 'Ventas Diarias de la Semana'
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Ventas Diarias de la Semana'
+                                }
+                            }
                         }
-                    }
-                }
+                    });
+                })
+                .catch(error => console.error('Error al obtener los datos:', error));
+
+            // Gráfico de productos más vendidos
+            fetch('/public/prueba2/obtener_productos_mas_vendidos.php')
+                .then(response => response.json())
+                .then(data => {
+                    const labels = data.map(item => item.producto);
+                    const cantidades = data.map(item => item.cantidad);
+
+                    const ctxProductos = document.getElementById('productosMasVendidos').getContext('2d');
+                    new Chart(ctxProductos, {
+                        type: 'bar',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Productos más vendidos',
+                                data: cantidades,
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.6)',
+                                    'rgba(54, 162, 235, 0.6)',
+                                    'rgba(255, 206, 86, 0.6)',
+                                    'rgba(75, 192, 192, 0.6)',
+                                    'rgba(153, 102, 255, 0.6)',
+                                    'rgba(255, 159, 64, 0.6)',
+                                ],
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Top 6 Productos Más Vendidos'
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(error => console.error('Error al obtener los datos:', error));
+
+            // Gráfico de tendencia de ventas
+            fetch('/public/prueba2/obtener_tendencia_ventas.php')
+                .then(response => response.json())
+                .then(data => {
+                    const labels = data.map(item => item.mes);
+                    const ventas = data.map(item => item.ventas);
+
+                    const ctxTendencia = document.getElementById('tendenciaVentas').getContext('2d');
+                    new Chart(ctxTendencia, {
+                        type: 'line',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Ventas mensuales',
+                                data: ventas,
+                                fill: false,
+                                borderColor: 'rgb(75, 192, 192)',
+                                tension: 0.1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Tendencia de Ventas Mensuales'
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(error => console.error('Error al obtener los datos:', error));
+
+            // Gráfico de distribución de ventas por categoría
+            fetch('/public/prueba2/obtener_distribucion_ventas.php')
+                .then(response => response.json())
+                .then(data => {
+                    const labels = data.map(item => item.categoria);
+                    const ventas = data.map(item => item.ventas);
+
+                    const ctxDistribucion = document.getElementById('distribucionVentas').getContext('2d');
+                    new Chart(ctxDistribucion, {
+                        type: 'pie',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                data: ventas,
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.8)',
+                                    'rgba(54, 162, 235, 0.8)',
+                                    'rgba(255, 206, 86, 0.8)',
+                                    'rgba(75, 192, 192, 0.8)',
+                                    'rgba(153, 102, 255, 0.8)',
+                                ],
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Distribución de Ventas por Categoría'
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(error => console.error('Error al obtener los datos:', error));
+
+
+            // Gráfico de barras horizontales: Ventas por empleado
+            fetch('/public/prueba2/obtener_rendimiento_empleados.php')
+                .then(response => response.json())
+                .then(data => {
+                    const labels = data.map(item => item.empleado);
+                    const ventas = data.map(item => item.ventas);
+
+                    const ctxRendimiento = document.getElementById('rendimientoEmpleados').getContext('2d');
+                    new Chart(ctxRendimiento, {
+                        type: 'bar',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Ventas',
+                                data: ventas,
+                                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            indexAxis: 'y',
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Ventas por Empleado'
+                                }
+                            },
+                            scales: {
+                                x: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(error => console.error('Error al obtener los datos:', error));
+
+            // Inicializar la aplicación
+            document.addEventListener('DOMContentLoaded', function () {
+                // Cargar los datos dinámicamente para cada tabla
+                cargarDatos('/public/prueba2/obtener_pedidos_activos.php', 'pedidosActivos');
+                cargarDatosHistorial('/public/prueba2/obtener_historial_pedidos.php', 'historialPedidos');
+                cargarDatosInve('/public/prueba2/obtener_inventario.php', 'inventarioItems');
+                cargarDatosPersonal('/public/prueba2/obtener_personal.php', 'personalItems');
+                manejarNavegacion(); // Asegúrate de que esta línea esté aquí
+                crearGraficos();
             });
         }
 
@@ -389,6 +592,7 @@
             cargarDatosInve('/public/prueba2/obtener_inventario.php', 'inventarioItems');
             cargarDatosPersonal('/public/prueba2/obtener_personal.php', 'personalItems');
             manejarNavegacion(); // Asegúrate de que esta línea esté aquí
+            crearGraficos();
         });
     </script>
 </body>
