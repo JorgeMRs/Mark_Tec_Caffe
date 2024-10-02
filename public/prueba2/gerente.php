@@ -181,7 +181,7 @@
                                 <th>Estado</th>
                             </tr>
                         </thead>
-                        <tbody id="pedidosActivos"></tbody>
+                        <tbody id="pedidosActivosmer"></tbody>
                     </table>
                 </div>
                 <div id="historial">
@@ -249,7 +249,7 @@
                 .then(data => {
                     const tbody = document.getElementById(elementId);
                     tbody.innerHTML = data.map(item => `
-                       <tr>
+                    <tr>
                         <td>${item.idPedido}</td>
                         <td>${item.fechaPedido}</td>
                         <td>${item.clienteNombre}</td>
@@ -262,24 +262,24 @@
                 .catch(error => console.error('Error al cargar datos:', error));
         }
 
+        // Función específica para cargar el inventario
         function cargarDatosInve(url, elementId) {
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
                     const tbody = document.getElementById(elementId);
                     tbody.innerHTML = data.map(item => `
-                        <tr>
+                       <tr>
                         <td>${item.id}</td>
                         <td>${item.item}</td>
                         <td>${item.quantity}</td>
                         <td>${item.price}</td>
-
                         </tr>
                     `).join('');
                 })
                 .catch(error => console.error('Error al cargar datos:', error));
         }
-
+    
         function cargarDatosHistorial(url, elementId) {
             fetch(url)
                 .then(response => response.json())
@@ -298,7 +298,6 @@
                 })
                 .catch(error => console.error('Error al cargar datos:', error));
         }
-
 
         function cargarDatosPersonal(url, elementId) {
             fetch(url)
@@ -331,10 +330,8 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             cargarResumen();
-             crearGraficos(); // Llamar a la función para crear la gráfica
+            crearGraficos(); // Llamar a la función para crear la gráfica
         });
-
-
 
         function manejarNavegacion() {
             const links = document.querySelectorAll('.sidebar a');
@@ -355,7 +352,6 @@
                 });
             });
         }
-
 
         function crearGraficos() {
             // Gráfico de barras: Ventas semanales
@@ -388,7 +384,7 @@
         // Inicializar la aplicación
         document.addEventListener('DOMContentLoaded', function () {
             // Cargar los datos dinámicamente para cada tabla
-            cargarDatos('/public/prueba2/obtener_pedidos_activos.php', 'pedidosActivos');
+            cargarDatos('/public/prueba2/obtener_pedidos_activos.php', 'pedidosActivosmer');
             cargarDatosHistorial('/public/prueba2/obtener_historial_pedidos.php', 'historialPedidos');
             cargarDatosInve('/public/prueba2/obtener_inventario.php', 'inventarioItems');
             cargarDatosPersonal('/public/prueba2/obtener_personal.php', 'personalItems');
