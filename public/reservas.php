@@ -9,21 +9,19 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reservas - Café Sabrosos</title>
-    <link rel="stylesheet" href="/public/assets/css/footer.css">
-    <link rel="stylesheet" href="/public/assets/css/nav-blur.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/nav.css">
+    <link rel="stylesheet" href="assets/css/footer.css">
     <link rel="stylesheet" href="assets/css/reservas.css">
 </head>
 
 <body>
     <header>
-        <?php include 'templates/nav-blur.php' ?>
+        <?php include 'templates/nav.php' ?>
     </header>
 
     <div class="container">
         <h1>Reserva tu Mesa en Café Sabrosos</h1>
         <div class="grid">
-            
             <!-- Sucursal 1 -->
             <div class="sucursal-card">
                 <img src="/public/assets/img/sucursales/lisboa.jpg" alt="Sucursal 1" class="sucursal-image">
@@ -76,11 +74,8 @@ session_start();
     <?php if (!isset($_COOKIE['cookie_preference'])) {
         include 'templates/cookies.php';
     } ?>
-    
-    <script src="/public/assets/js/carrito.js"></script>
+    <?php include 'templates/footer.php' ?>
     <script src="/public/assets/js/updateCartCounter.js"></script>
-    s
-    
 </body>
 
 </html>
