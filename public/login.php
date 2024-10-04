@@ -37,8 +37,18 @@ if (isset($_COOKIE['user_session'])) {
         </div>
         <span>O usa tu email para registrarte</span>
         <input type="email" name="email" placeholder="Email">
-        <input type="password" name="password" placeholder="Contraseña" required>
-        <input type="password" name="passwordConfirm" placeholder="Confirmar contraseña" required>
+        <div class="password-container">
+  <input type="password" name="password" id="password" placeholder="Contraseña" required>
+  <button type="button" class="toggle-password" data-target="password">
+    <i class="fas fa-eye"></i>
+  </button>
+</div>
+<div class="password-container">
+  <input type="password" name="passwordConfirm" id="passwordConfirm" placeholder="Confirmar contraseña" required>
+  <button type="button" class="toggle-password" data-target="passwordConfirm">
+    <i class="fas fa-eye"></i>
+  </button>
+</div>
         <div id="error-container2" class="error-message" style="color: red;"></div>
         <div>
           <input type="checkbox" id="terms" name="terms">
@@ -66,9 +76,14 @@ if (isset($_COOKIE['user_session'])) {
         </div>
         <span>O usa tu email</span>
         <input type="email" name="email" placeholder="Email">
-        <input type="password" name="password" placeholder="Contraseña">
+        <div class="password-container">
+  <input type="password" name="password" id="loginPassword" placeholder="Contraseña">
+  <button type="button" class="toggle-password" data-target="loginPassword">
+    <i class="fas fa-eye"></i>
+  </button>
+</div>
         <div id="error-container" class="error-message" style="color: red;"></div>
-        <a href="#">¿Olvidaste tu contraseña?</a>
+        <a href="/public/cambiarContrasena.php">¿Olvidaste tu contraseña?</a>
         <button class="btn-login">Iniciar sesión</button>
       </form>
     </div>
