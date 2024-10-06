@@ -71,8 +71,8 @@
             <h1 data-translate="header_title">RECIEN HECHO, TODOS LOS DIAS</h1>
             <p data-translate="header_subtitle">Café recién preparado con granos seleccionados para ofrecerte una experiencia inigualable</p>
             <div class="buttons">
-                <a href="#order" class="btn-order" data-translate="order_button">Reservar Ahora</a>
-                <a href="#menu" class="btn-menu" data-translate="menu_button">Ver Menú</a>
+                <a href="/public/reservas.php" class="btn-order" data-translate="order_button">Reservar Ahora</a>
+                <a href="/public/tienda.php" class="btn-menu" data-translate="menu_button">Ver Menú</a>
             </div>
         </div>
         <div class="carousel">

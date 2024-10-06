@@ -23,7 +23,7 @@ $isLoggedIn = isset($_COOKIE['user_token']);
             <li class="desktop-only"><a href="<?php echo $productos_link; ?>"><?php echo $productos_text; ?></a></li>
             <li><a href="/public/local.php">Locales</a></li>
             <li><a href="#">Ofertas</a></li>
-            <li><a href="/public/reservas.php">Reservas</a></li>
+           
             <li><a href="/public/contactos.php">Contacto</a></li>
         </ul>
         <div class="nav-icons">

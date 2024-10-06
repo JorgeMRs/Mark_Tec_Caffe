@@ -17,7 +17,9 @@ nav {
   z-index: 1000;
   box-sizing: border-box;
 }
-
+.nav-links.active{ 
+  background-color: #1B0C0A;
+}
 /* Estilos para la sección del logo */
 .logo {
   display: flex;
