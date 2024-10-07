@@ -8,7 +8,7 @@ body {
 
 /* Estilos generales para el nav */
 nav {
-  position: relative;
+  position: fixed;
   display: flex;
   justify-content: space-between;
   align-items: center;

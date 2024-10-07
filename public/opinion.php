@@ -1,16 +1,23 @@
 <!doctype html>
-<html>
+<?php 
 
-<head>
-  <meta charset='utf-8'>
-  <meta name='viewport' content='width=device-width, initial-scale=1'>
-  <title>Snippet - BBBootstrap</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="stylesheet" href="assets/css/opinion.css">
-  <link rel="stylesheet" href="assets/css/nav.css">
-  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-</head>
+$pageTitle = 'Café Sabrosos - Deja tu opinión';
+
+$customCSS = [
+    '/public/assets/css/opinion.css',
+    '/public/assets/css/nav.css',
+    '/public/assets/css/footer.css',
+    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css',
+    'https://unpkg.com/swiper/swiper-bundle.min.css'
+];
+$customJS = [
+  '/public/assets/js/languageSelect.js',
+  '/public/assets/js/updateCartCounter.js',
+  'https://unpkg.com/swiper/swiper-bundle.min.js'
+];
+include 'templates/head.php' ?>
+
+
 <header>
   <?php include 'templates/nav.php'?>
 </header>

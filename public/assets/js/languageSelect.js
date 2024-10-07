@@ -1,216 +1,862 @@
-// utility functions
-if(!Util) function Util () {};
+document.addEventListener("DOMContentLoaded", () => {
+  // Verifica si estás en la página de Términos y Condiciones
+  const isTermsPage =
+    window.location.pathname === "/public/terminos-y-condiciones.php";
 
-Util.addClass = function(el, className) {
-  var classList = className.split(' ');
-  el.classList.add(classList[0]);
-  if (classList.length > 1) Util.addClass(el, classList.slice(1).join(' '));
-};
+  if (!isTermsPage) return; // Sal del script si no estás en la página correcta
 
-Util.removeClass = function(el, className) {
-  var classList = className.split(' ');
-  el.classList.remove(classList[0]);
-  if (classList.length > 1) Util.removeClass(el, classList.slice(1).join(' '));
-};
+  const languageSelector = document.getElementById("language-selector");
 
-Util.toggleClass = function(el, className, bool) {
-  if(bool) Util.addClass(el, className);
-  else Util.removeClass(el, className);
-};
+  const elementsToTranslate = {
+    title: document.getElementById("terms-conditions-title"),
+    intro: document.getElementById("terms-conditions-intro"),
+    sections: {
+      section1: document.getElementById("terms-conditions-section-1"),
+      section2: document.getElementById("terms-conditions-section-2"),
+      section3: document.getElementById("terms-conditions-section-3"),
+      section4: document.getElementById("terms-conditions-section-4"),
+      section5: document.getElementById("terms-conditions-section-5"),
+      section6: document.getElementById("terms-conditions-section-6"),
+      section7: document.getElementById("terms-conditions-section-7"),
+      section8: document.getElementById("terms-conditions-section-8"),
+      section9: document.getElementById("terms-conditions-section-9"),
+    },
+    paragraphs: {
+      p1: document.getElementById("terms-conditions-paragraph-1"),
+      p2: document.getElementById("terms-conditions-paragraph-2"),
+      p3: document.getElementById("terms-conditions-paragraph-3"),
+      p4: document.getElementById("terms-conditions-paragraph-4"),
+      p5: document.getElementById("terms-conditions-paragraph-5"),
+      p6: document.getElementById("terms-conditions-paragraph-6"),
+      p7: document.getElementById("terms-conditions-paragraph-7"),
+      p8: document.getElementById("terms-conditions-paragraph-8"),
+      p9: document.getElementById("terms-conditions-paragraph-9"),
+    },
+  };
 
-Util.moveFocus = function (element) {
-  if( !element ) element = document.getElementsByTagName('body')[0];
-  element.focus();
-  if (document.activeElement !== element) {
-    element.setAttribute('tabindex','-1');
-    element.focus();
-  }
-};
+  const loadTranslations = async (lang) => {
+    if (lang === "es") {
+      // Si el idioma es español, retorna null
+      return null;
+    }
 
-Util.getIndexInArray = function(array, el) {
-  return Array.prototype.indexOf.call(array, el);
-};
+    const currentTime = Date.now();
+    const storedTranslations = localStorage.getItem(
+      `translationsTermsConditions_${lang}`
+    );
+    const translationData = storedTranslations
+      ? JSON.parse(storedTranslations)
+      : null;
+
+    // Verifica si las traducciones están almacenadas y si no ha pasado más de una hora
+    if (translationData && currentTime - translationData.timestamp < 3600000) {
+      return translationData.translations; // Retorna las traducciones almacenadas
+    }
+
+    // Si no hay traducciones almacenadas o ha pasado más de una hora, carga del servidor
+    try {
+      const response = await fetch(
+        "/public/translations/terminos-y-condiciones.json"
+      );
+      if (!response.ok) throw new Error("Error al cargar traducciones");
+
+      const data = await response.json();
+      const langTranslations = data[lang];
+
+      // Llama a la función para eliminar traducciones obsoletas
+      removeOldTranslations(lang, langTranslations.version);
+
+      // Actualiza el localStorage con nuevas traducciones y timestamp
+      const translationsToStore = {
+        version: langTranslations.version,
+        translations: langTranslations,
+        timestamp: currentTime, // Almacena el timestamp actual
+      };
+      localStorage.setItem(
+        `translationsTermsConditions_${lang}`,
+        JSON.stringify(translationsToStore)
+      );
+
+      return langTranslations;
+    } catch (error) {
+      console.error(error);
+      // Opcional: Maneja el error, quizás cargando traducciones por defecto
+    }
+  };
+
+  const removeOldTranslations = (lang, newVersion) => {
+    const storedTranslations = localStorage.getItem(
+      `translationsTermsConditions_${lang}`
+    );
+    if (!storedTranslations) return;
+
+    const parsedStoredTranslations = JSON.parse(storedTranslations);
+    if (parsedStoredTranslations.version !== newVersion) {
+      // Elimina traducciones obsoletas
+      localStorage.removeItem(`translationsTermsConditions_${lang}`);
+    }
+  };
+
+  const updateText = (translations) => {
+    elementsToTranslate.title.textContent = translations.terms_conditions_title;
+    elementsToTranslate.intro.textContent = translations.terms_conditions_intro;
+
+    elementsToTranslate.sections.section1.textContent =
+      translations.terms_conditions_section_1;
+    elementsToTranslate.sections.section2.textContent =
+      translations.terms_conditions_section_2;
+    elementsToTranslate.sections.section3.textContent =
+      translations.terms_conditions_section_3;
+    elementsToTranslate.sections.section4.textContent =
+      translations.terms_conditions_section_4;
+    elementsToTranslate.sections.section5.textContent =
+      translations.terms_conditions_section_5;
+    elementsToTranslate.sections.section6.textContent =
+      translations.terms_conditions_section_6;
+    elementsToTranslate.sections.section7.textContent =
+      translations.terms_conditions_section_7;
+    elementsToTranslate.sections.section8.textContent =
+      translations.terms_conditions_section_8;
+    elementsToTranslate.sections.section9.textContent =
+      translations.terms_conditions_section_9;
+
+    elementsToTranslate.paragraphs.p1.textContent =
+      translations.terms_conditions_paragraph_1;
+    elementsToTranslate.paragraphs.p2.textContent =
+      translations.terms_conditions_paragraph_2;
+    elementsToTranslate.paragraphs.p3.textContent =
+      translations.terms_conditions_paragraph_3;
+    elementsToTranslate.paragraphs.p4.textContent =
+      translations.terms_conditions_paragraph_4;
+    elementsToTranslate.paragraphs.p5.textContent =
+      translations.terms_conditions_paragraph_5;
+    elementsToTranslate.paragraphs.p6.textContent =
+      translations.terms_conditions_paragraph_6;
+    elementsToTranslate.paragraphs.p7.textContent =
+      translations.terms_conditions_paragraph_7;
+    elementsToTranslate.paragraphs.p8.textContent =
+      translations.terms_conditions_paragraph_8;
+    elementsToTranslate.paragraphs.p9.textContent =
+      translations.terms_conditions_paragraph_9;
+  };
+
+  const setLanguage = (lang) => {
+    languageSelector.value = lang;
+    loadTranslations(lang).then((translations) => {
+      if (translations) {
+        updateText(translations);
+      }
+    });
+    localStorage.setItem("selectedLanguage", lang);
+  };
+
+  languageSelector.addEventListener("change", (event) => {
+    const selectedLanguage = event.target.value;
+    if (selectedLanguage === "es") {
+      // Recarga la página si se selecciona español
+      window.location.reload();
+    } else {
+      setLanguage(selectedLanguage);
+    }
+  });
+
+  const savedLanguage = localStorage.getItem("selectedLanguage") || "es";
+  setLanguage(savedLanguage);
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const isTermsPage =
+    window.location.pathname ===
+    "/public/politicas-de-eliminacion-de-cuenta.php";
+
+  if (!isTermsPage) return; // Sal del script si no estás en la página correcta
+
+  const languageSelector = document.getElementById("language-selector");
+
+  const elementsToTranslate = {
+    title: document.getElementById("deletion-policy-title"),
+    sections: {
+      section1: document.getElementById("deletion-section-1"),
+      section2: document.getElementById("deletion-section-2"),
+      section3: document.getElementById("deletion-section-3"),
+      section4: document.getElementById("deletion-section-4"),
+      section5: document.getElementById("deletion-section-5"),
+    },
+    paragraphs: {
+      p1: document.getElementById("deletion-paragraph-1"),
+      p2: document.getElementById("deletion-paragraph-2"),
+      p3: document.getElementById("deletion-paragraph-3"),
+      p4: document.getElementById("deletion-paragraph-4"),
+      p5: document.getElementById("deletion-paragraph-5"),
+    },
+    listItems: {
+      li1: document.getElementById("deletion-list-item-1"),
+      li2: document.getElementById("deletion-list-item-2"),
+      li3: document.getElementById("deletion-list-item-3"),
+      li4: document.getElementById("deletion-list-item-4"),
+      li5: document.getElementById("deletion-list-item-5"),
+      li6: document.getElementById("deletion-list-item-6"),
+      li7: document.getElementById("deletion-list-item-7"),
+      li8: document.getElementById("deletion-list-item-8"),
+      li9: document.getElementById("deletion-list-item-9"),
+      li10: document.getElementById("deletion-list-item-10"),
+      li11: document.getElementById("deletion-list-item-11"),
+    },
+    subListItems: {
+      sub1: document.getElementById("deletion-sublist-item-1"),
+      sub2: document.getElementById("deletion-sublist-item-2"),
+      sub3: document.getElementById("deletion-sublist-item-3"),
+      sub4: document.getElementById("deletion-sublist-item-4"),
+      sub5: document.getElementById("deletion-sublist-item-5"),
+      sub6: document.getElementById("deletion-sublist-item-6"),
+    },
+    steps: {
+      step1: document.getElementById("deletion-step-1"),
+      step2: document.getElementById("deletion-step-2"),
+      step3: document.getElementById("deletion-step-3"),
+      step4: document.getElementById("deletion-step-4"),
+    },
+  };
+  const loadTranslations = async (lang) => {
+    if (lang === "es") {
+      // Si el idioma es español, retorna null
+      return null;
+    }
+
+    const currentTime = Date.now();
+    const storedTranslations = localStorage.getItem(
+      `translationsDeletionPolicy_${lang}`
+    );
+    const translationData = storedTranslations
+      ? JSON.parse(storedTranslations)
+      : null;
+
+    // Verifica si las traducciones están almacenadas y si no ha pasado más de una hora
+    if (translationData && currentTime - translationData.timestamp < 3600000) {
+      // 1 hora en milisegundos
+      return translationData.translations; // Retorna las traducciones almacenadas
+    }
+
+    // Si no hay traducciones almacenadas o ha pasado más de una hora, carga del servidor
+    try {
+      const response = await fetch(
+        "/public/translations/politicas-de-eliminacion-de-cuenta.json"
+      );
+      if (!response.ok) throw new Error("Error al cargar traducciones");
+
+      const data = await response.json();
+      const langTranslations = data[lang];
+
+      // Llama a la función para eliminar traducciones obsoletas
+      removeOldTranslations(lang, langTranslations.version);
+
+      // Actualiza el localStorage con nuevas traducciones y timestamp
+      const translationsToStore = {
+        version: langTranslations.version,
+        translations: langTranslations,
+        timestamp: currentTime, // Almacena el timestamp actual
+      };
+      localStorage.setItem(
+        `translationsDeletionPolicy_${lang}`,
+        JSON.stringify(translationsToStore)
+      );
+
+      return langTranslations;
+    } catch (error) {
+      console.error(error);
+      // Opcional: Maneja el error, quizás cargando traducciones por defecto
+    }
+  };
+
+  const removeOldTranslations = (lang, newVersion) => {
+    const storedTranslations = localStorage.getItem(
+      `translationsDeletionPolicy_${lang}`
+    );
+    if (!storedTranslations) return;
+
+    const parsedStoredTranslations = JSON.parse(storedTranslations);
+    if (parsedStoredTranslations.version !== newVersion) {
+      // Elimina traducciones obsoletas
+      localStorage.removeItem(`translationsDeletionPolicy_${lang}`);
+    }
+  };
+
+  const updateText = (translations) => {
+    elementsToTranslate.title.textContent = translations.deletion_policy_title;
+
+    elementsToTranslate.sections.section1.textContent =
+      translations.deletion_section_1;
+    elementsToTranslate.sections.section2.textContent =
+      translations.deletion_section_2;
+    elementsToTranslate.sections.section3.textContent =
+      translations.deletion_section_3;
+    elementsToTranslate.sections.section4.textContent =
+      translations.deletion_section_4;
+    elementsToTranslate.sections.section5.textContent =
+      translations.deletion_section_5;
+
+    elementsToTranslate.paragraphs.p1.textContent =
+      translations.deletion_paragraph_1;
+    elementsToTranslate.paragraphs.p2.textContent =
+      translations.deletion_paragraph_2;
+
+    // Usamos innerHTML para mantener formato
+    elementsToTranslate.paragraphs.p3.innerHTML =
+      translations.deletion_paragraph_3;
+
+    elementsToTranslate.paragraphs.p4.textContent =
+      translations.deletion_paragraph_4;
+    elementsToTranslate.paragraphs.p5.textContent =
+      translations.deletion_paragraph_5;
+
+    elementsToTranslate.listItems.li1.textContent =
+      translations.deletion_list_item_1;
+    elementsToTranslate.listItems.li2.textContent =
+      translations.deletion_list_item_2;
+    elementsToTranslate.listItems.li3.textContent =
+      translations.deletion_list_item_3;
+    elementsToTranslate.listItems.li4.textContent =
+      translations.deletion_list_item_4;
+
+    // Usamos innerHTML para los ítems con formato en negrita
+    elementsToTranslate.listItems.li5.innerHTML =
+      translations.deletion_list_item_5;
+    elementsToTranslate.listItems.li6.innerHTML =
+      translations.deletion_list_item_6;
+    elementsToTranslate.listItems.li7.innerHTML =
+      translations.deletion_list_item_7;
+    elementsToTranslate.listItems.li8.innerHTML =
+      translations.deletion_list_item_8;
+
+    elementsToTranslate.listItems.li9.textContent =
+      translations.deletion_list_item_9;
+    elementsToTranslate.listItems.li10.textContent =
+      translations.deletion_list_item_10;
+    elementsToTranslate.listItems.li11.textContent =
+      translations.deletion_list_item_11;
+
+    elementsToTranslate.subListItems.sub1.textContent =
+      translations.deletion_sublist_item_1;
+    elementsToTranslate.subListItems.sub2.textContent =
+      translations.deletion_sublist_item_2;
+    elementsToTranslate.subListItems.sub3.textContent =
+      translations.deletion_sublist_item_3;
+    elementsToTranslate.subListItems.sub4.textContent =
+      translations.deletion_sublist_item_4;
+    elementsToTranslate.subListItems.sub5.textContent =
+      translations.deletion_sublist_item_5;
+    elementsToTranslate.subListItems.sub6.textContent =
+      translations.deletion_sublist_item_6;
+
+    elementsToTranslate.steps.step1.textContent = translations.deletion_step_1;
+    elementsToTranslate.steps.step2.textContent = translations.deletion_step_2;
+    elementsToTranslate.steps.step3.textContent = translations.deletion_step_3;
+    elementsToTranslate.steps.step4.textContent = translations.deletion_step_4;
+  };
+  const setLanguage = (lang) => {
+    languageSelector.value = lang;
+    loadTranslations(lang).then((translations) => {
+      if (translations) {
+        updateText(translations);
+      }
+    });
+    localStorage.setItem("selectedLanguage", lang);
+  };
+
+  languageSelector.addEventListener("change", (event) => {
+    const selectedLanguage = event.target.value;
+    if (selectedLanguage === "es") {
+      // Recarga la página si se selecciona español
+      window.location.reload();
+    } else {
+      setLanguage(selectedLanguage);
+    }
+  });
+
+  const savedLanguage = localStorage.getItem("selectedLanguage") || "es";
+  setLanguage(savedLanguage);
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const isTermsPage =
+    window.location.pathname === "/public/politicas-de-privacidad.php";
+
+  if (!isTermsPage) return;
+
+  const languageSelector = document.getElementById("language-selector");
+
+  const elementsToTranslate = {
+    title: document.getElementById("privacy-policy-title"),
+    intro: document.getElementById("privacy-policy-intro"),
+    sections: {
+      info: document.getElementById("info-section"),
+      use: document.getElementById("use-section"),
+      cookies: document.getElementById("cookies-section"),
+      sharing: document.getElementById("sharing-section"),
+      security: document.getElementById("security-section"),
+      rights: document.getElementById("rights-section"),
+      changes: document.getElementById("changes-section"),
+      contact: document.getElementById("contact-section"),
+    },
+    paragraphs: {
+      p1: document.getElementById("paragraph-1"),
+      p2: document.getElementById("paragraph-2"),
+      p3: document.getElementById("paragraph-3"),
+      p4: document.getElementById("paragraph-4"),
+      p5: document.getElementById("paragraph-5"),
+      p6: document.getElementById("paragraph-6"),
+      p7: document.getElementById("paragraph-7"),
+      changesParagraph: document.getElementById("changes-paragraph"),
+      contactParagraph: document.getElementById("contact-paragraph"),
+    },
+  };
+
+  const loadTranslations = async (lang) => {
+    if (lang === "es") {
+      // Si el idioma es español, retorna null
+      return null;
+    }
+
+    const currentTime = Date.now();
+    const storedTranslations = localStorage.getItem(
+      `translationsPolicy_${lang}`
+    );
+    const translationData = storedTranslations
+      ? JSON.parse(storedTranslations)
+      : null;
+
+    if (translationData && currentTime - translationData.timestamp < 3600000) {
+      return translationData.translations; // Retorna las traducciones almacenadas
+    }
+
+    try {
+      const response = await fetch(
+        "/public/translations/politica-de-privacidad.json"
+      );
+      if (!response.ok) throw new Error("Error al cargar traducciones");
+
+      const data = await response.json();
+      const langTranslations = data[lang];
+
+      removeOldTranslations(lang, langTranslations.version);
+
+      const translationsToStore = {
+        version: langTranslations.version,
+        translations: langTranslations,
+        timestamp: currentTime,
+      };
+      localStorage.setItem(
+        `translationsPolicy_${lang}`,
+        JSON.stringify(translationsToStore)
+      );
+
+      return langTranslations;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const removeOldTranslations = (lang, newVersion) => {
+    const storedTranslations = localStorage.getItem(
+      `translationsPolicy_${lang}`
+    );
+    if (!storedTranslations) return;
+
+    const parsedStoredTranslations = JSON.parse(storedTranslations);
+    if (parsedStoredTranslations.version !== newVersion) {
+      localStorage.removeItem(`translationsPolicy_${lang}`);
+    }
+  };
+
+  const updateText = (translations) => {
+    elementsToTranslate.title.textContent = translations.privacy_policy_title;
+    elementsToTranslate.intro.textContent = translations.privacy_policy_intro;
+
+    elementsToTranslate.sections.info.textContent = translations.info_section;
+    elementsToTranslate.sections.use.textContent = translations.use_section;
+    elementsToTranslate.sections.cookies.textContent =
+      translations.cookies_section;
+    elementsToTranslate.sections.sharing.textContent =
+      translations.sharing_section;
+    elementsToTranslate.sections.security.textContent =
+      translations.security_section;
+    elementsToTranslate.sections.rights.textContent =
+      translations.rights_section;
+    elementsToTranslate.sections.changes.textContent =
+      translations.changes_section;
+    elementsToTranslate.sections.contact.textContent =
+      translations.contact_section;
+
+    elementsToTranslate.paragraphs.p1.textContent = translations.paragraph_1;
+    elementsToTranslate.paragraphs.p2.textContent = translations.paragraph_2;
+    elementsToTranslate.paragraphs.p3.textContent = translations.paragraph_3;
+    elementsToTranslate.paragraphs.p4.textContent = translations.paragraph_4;
+    elementsToTranslate.paragraphs.p5.textContent = translations.paragraph_5;
+    elementsToTranslate.paragraphs.p6.textContent = translations.paragraph_6;
+    elementsToTranslate.paragraphs.p7.textContent = translations.paragraph_7;
+    elementsToTranslate.paragraphs.changesParagraph.textContent =
+      translations.changes_paragraph;
+    elementsToTranslate.paragraphs.contactParagraph.textContent =
+      translations.contact_paragraph;
+  };
+
+  const setLanguage = (lang) => {
+    languageSelector.value = lang;
+    loadTranslations(lang).then((translations) => {
+      if (translations) {
+        updateText(translations);
+      }
+    });
+    localStorage.setItem("selectedLanguage", lang);
+  };
+
+  languageSelector.addEventListener("change", (event) => {
+    const selectedLanguage = event.target.value;
+    if (selectedLanguage === "es") {
+      // Recarga la página si se selecciona español
+      window.location.reload();
+    } else {
+      setLanguage(selectedLanguage);
+    }
+  });
+
+  const savedLanguage = localStorage.getItem("selectedLanguage") || "es";
+  setLanguage(savedLanguage);
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const languageSelector = document.getElementById("language-selector");
+
+  const elementsToTranslate = {
+    logo: document.getElementById("nav-logo"),
+    productos: document.getElementById("nav-productos"),
+    productosDesktop: document.getElementById("nav-productos-desktop"),
+    locales: document.getElementById("nav-locales"),
+    ofertas: document.getElementById("nav-ofertas"),
+    reservas: document.getElementById("nav-reservas"),
+    contacto: document.getElementById("nav-contacto"),
+    usuario: document.getElementById("nav-usuario"),
+  };
+
+  const loadTranslations = async (lang) => {
+    if (lang === "es") {
+      return null; // Si el idioma es español, retorna null
+    }
+
+    const currentTime = Date.now();
+    const storedTranslations = localStorage.getItem(`translationsNav_${lang}`);
+    const translationData = storedTranslations
+      ? JSON.parse(storedTranslations)
+      : null;
+
+    if (translationData && currentTime - translationData.timestamp < 3600000) {
+      return translationData.translations;
+    }
+
+    try {
+      const response = await fetch("/public/translations/nav.json");
+      if (!response.ok) throw new Error("Error al cargar traducciones");
+
+      const data = await response.json();
+      const langTranslations = data[lang];
+
+      removeOldTranslations(lang, langTranslations.version);
+
+      const translationsToStore = {
+        version: langTranslations.version,
+        translations: langTranslations,
+        timestamp: currentTime,
+      };
+      localStorage.setItem(
+        `translationsNav_${lang}`,
+        JSON.stringify(translationsToStore)
+      );
+
+      return langTranslations;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const removeOldTranslations = (lang, newVersion) => {
+    const storedTranslations = localStorage.getItem(`translationsNav_${lang}`);
+    if (!storedTranslations) return;
+
+    const parsedStoredTranslations = JSON.parse(storedTranslations);
+    if (parsedStoredTranslations.version !== newVersion) {
+      localStorage.removeItem(`translationsNav_${lang}`);
+    }
+  };
+
+  const updateText = (translations) => {
+    elementsToTranslate.logo.textContent = translations.logo;
+    elementsToTranslate.productos.textContent = translations.productos;
+    if (elementsToTranslate.productosDesktop) {
+      elementsToTranslate.productosDesktop.textContent = translations.productos;
+    }
+    elementsToTranslate.locales.textContent = translations.locales;
+    elementsToTranslate.ofertas.textContent = translations.ofertas;
+    elementsToTranslate.reservas.textContent = translations.reservas;
+    elementsToTranslate.contacto.textContent = translations.contacto;
+    elementsToTranslate.usuario.alt = translations.usuario;
+  };
+
+  const setLanguage = (lang) => {
+    languageSelector.value = lang;
+    loadTranslations(lang).then((translations) => {
+      if (translations) {
+        updateText(translations);
+      } else {
+        // Si el idioma es español, restablecer los textos por defecto
+        updateText({
+          logo: "Café Sabrosos",
+          productos: "Tienda",
+          locales: "Locales",
+          ofertas: "Ofertas",
+          reservas: "Reservas",
+          contacto: "Contacto",
+          favoritos: "Favoritos",
+          usuario: "Usuario",
+        });
+      }
+    });
+    localStorage.setItem("selectedLanguage", lang);
+  };
+
+  languageSelector.addEventListener("change", (event) => {
+    const selectedLanguage = event.target.value;
+    setLanguage(selectedLanguage);
+  });
+
+  const savedLanguage = localStorage.getItem("selectedLanguage") || "es";
+  setLanguage(savedLanguage);
+});
 
 
-// File#: _1_language-picker
-// Usage: codyhouse.co/license
-(function() {
-	var LanguagePicker = function(element) {
-		this.element = element;
-		this.select = this.element.getElementsByTagName('select')[0];
-		this.options = this.select.getElementsByTagName('option');
-		this.selectedOption = getSelectedOptionText(this);
-		this.pickerId = this.select.getAttribute('id');
-		this.trigger = false;
-		this.dropdown = false;
-		this.firstLanguage = false;
-		// dropdown arrow inside the button element
-		this.arrowSvgPath = '<svg viewBox="0 0 16 16"><polygon points="3,5 8,11 13,5 "></polygon></svg>';
-		this.globeSvgPath = '<svg viewBox="0 0 16 16"><path d="M8,0C3.6,0,0,3.6,0,8s3.6,8,8,8s8-3.6,8-8S12.4,0,8,0z M13.9,7H12c-0.1-1.5-0.4-2.9-0.8-4.1 C12.6,3.8,13.6,5.3,13.9,7z M8,14c-0.6,0-1.8-1.9-2-5H10C9.8,12.1,8.6,14,8,14z M6,7c0.2-3.1,1.3-5,2-5s1.8,1.9,2,5H6z M4.9,2.9 C4.4,4.1,4.1,5.5,4,7H2.1C2.4,5.3,3.4,3.8,4.9,2.9z M2.1,9H4c0.1,1.5,0.4,2.9,0.8,4.1C3.4,12.2,2.4,10.7,2.1,9z M11.1,13.1 c0.5-1.2,0.7-2.6,0.8-4.1h1.9C13.6,10.7,12.6,12.2,11.1,13.1z"></path></svg>';
 
-		initLanguagePicker(this);
-		initLanguagePickerEvents(this);
-	};
+document.addEventListener("DOMContentLoaded", () => {
+  const languageSelector = document.getElementById("language-selector");
 
-	function initLanguagePicker(picker) {
-		// create the HTML for the custom dropdown element
-		picker.element.insertAdjacentHTML('beforeend', initButtonPicker(picker) + initListPicker(picker));
-		
-		// save picker elements
-		picker.dropdown = picker.element.getElementsByClassName('language-picker__dropdown')[0];
-		picker.languages = picker.dropdown.getElementsByClassName('language-picker__item');
-		picker.firstLanguage = picker.languages[0];
-		picker.trigger = picker.element.getElementsByClassName('language-picker__button')[0];
-	};
+  const elementsToTranslate = {
+    title: document.getElementById("footer-title"),
+    intro: document.getElementById("footer-intro"),
+    quickLinks: document.getElementById("footer-quick-links"),
+    contactTitle: document.getElementById("footer-contact-title"),
+    legalTitle: document.getElementById("footer-legal-title"),
+    rights: document.getElementById("footer-rights"),
+    links: {
+      locales: document.getElementById("footer-locales"),
+      productos: document.getElementById("footer-productos"),
+      ofertas: document.getElementById("footer-ofertas"),
+      reservas: document.getElementById("footer-reservas"),
+      contacto: document.getElementById("footer-contacto"),
+    },
+    contactInfo: {
+      location: document.getElementById("footer-location"),
+      phone: document.getElementById("footer-phone"),
+      email: document.getElementById("footer-email"),
+    },
+    legalLinks: {
+      terms: document.getElementById("footer-terms"),
+      privacy: document.getElementById("footer-privacy"),
+      dataRemoval: document.getElementById("footer-data-removal"),
+    },
+  };
 
-	function initLanguagePickerEvents(picker) {
-		// make sure to add the icon class to the arrow dropdown inside the button element
-		var svgs = picker.trigger.getElementsByTagName('svg');
-		Util.addClass(svgs[0], 'li4-icon');
-		Util.addClass(svgs[1], 'li4-icon');
-		// language selection in dropdown
-		// ⚠️ Important: you need to modify this function in production
-		initLanguageSelection(picker);
+  const loadFooterTranslations = async (lang) => {
+    if (lang === "es") {
+      return null;
+    }
 
-		// click events
-		picker.trigger.addEventListener('click', function(){
-			toggleLanguagePicker(picker, false);
-		});
-		// keyboard navigation
-		picker.dropdown.addEventListener('keydown', function(event){
-			if(event.keyCode && event.keyCode == 38 || event.key && event.key.toLowerCase() == 'arrowup') {
-				keyboardNavigatePicker(picker, 'prev');
-			} else if(event.keyCode && event.keyCode == 40 || event.key && event.key.toLowerCase() == 'arrowdown') {
-				keyboardNavigatePicker(picker, 'next');
-			}
-		});
-	};
+    const currentTime = Date.now();
+    const storedTranslations = localStorage.getItem(`translationsFooter_${lang}`);
+    const translationData = storedTranslations ? JSON.parse(storedTranslations) : null;
 
-	function toggleLanguagePicker(picker, bool) {
-		var ariaExpanded;
-		if(bool) {
-			ariaExpanded = bool;
-		} else {
-			ariaExpanded = picker.trigger.getAttribute('aria-expanded') == 'true' ? 'false' : 'true';
-		}
-		picker.trigger.setAttribute('aria-expanded', ariaExpanded);
-		if(ariaExpanded == 'true') {
-			picker.firstLanguage.focus(); // fallback if transition is not supported
-			picker.dropdown.addEventListener('transitionend', function cb(){
-				picker.firstLanguage.focus();
-				picker.dropdown.removeEventListener('transitionend', cb);
-			});
-			// place dropdown
-			placeDropdown(picker);
-		}
-	};
+    if (translationData && currentTime - translationData.timestamp < 3600000) {
+      return translationData.translations;
+    }
 
-	function placeDropdown(picker) {
-		var triggerBoundingRect = picker.trigger.getBoundingClientRect();
-		Util.toggleClass(picker.dropdown, 'language-picker__dropdown--right', (window.innerWidth < triggerBoundingRect.left + picker.dropdown.offsetWidth));
-		Util.toggleClass(picker.dropdown, 'language-picker__dropdown--up', (window.innerHeight < triggerBoundingRect.bottom + picker.dropdown.offsetHeight));
-	};
+    try {
+      const response = await fetch("/public/translations/footer.json");
+      if (!response.ok) throw new Error("Error al cargar traducciones");
 
-	function checkLanguagePickerClick(picker, target) { // if user clicks outside the language picker -> close it
-		if( !picker.element.contains(target) ) toggleLanguagePicker(picker, 'false');
-	};
+      const data = await response.json();
+      const langTranslations = data[lang];
 
-	function moveFocusToPickerTrigger(picker) {
-		if(picker.trigger.getAttribute('aria-expanded') == 'false') return;
-		if(document.activeElement.closest('.language-picker__dropdown') == picker.dropdown) picker.trigger.focus();
-	};
+      const translationsToStore = {
+        version: langTranslations.version,
+        translations: langTranslations,
+        timestamp: currentTime,
+      };
+      localStorage.setItem(`translationsFooter_${lang}`, JSON.stringify(translationsToStore));
 
-	function initButtonPicker(picker) { // create the button element -> picker trigger
-		// check if we need to add custom classes to the button trigger
-		var customClasses = picker.element.getAttribute('data-trigger-class') ? ' '+picker.element.getAttribute('data-trigger-class') : '';
-	
-		var button = '<button class="language-picker__button'+customClasses+'" aria-label="'+picker.select.value+' '+picker.element.getElementsByTagName('label')[0].textContent+'" aria-expanded="false" aria-controls="'+picker.pickerId+'-dropdown">';
-		button = button + '<span aria-hidden="true" class="language-picker__label language-picker__flag language-picker__flag--'+picker.select.value+'">'+picker.globeSvgPath+'<em>'+picker.selectedOption+'</em>';
-		button = button +picker.arrowSvgPath+'</span>';
-		return button+'</button>';
-	};
+      return langTranslations;
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-	function initListPicker(picker) { // create language picker dropdown
-		var list = '<div class="language-picker__dropdown" aria-describedby="'+picker.pickerId+'-description" id="'+picker.pickerId+'-dropdown">';
-		list = list + '<p class="li4-sr-only" id="'+picker.pickerId+'-description">'+picker.element.getElementsByTagName('label')[0].textContent+'</p>';
-		list = list + '<ul class="language-picker__list" role="listbox">';
-		for(var i = 0; i < picker.options.length; i++) {
-			var selected = picker.options[i].selected ? ' aria-selected="true"' : '',
-				language = picker.options[i].getAttribute('lang');
-			list = list + '<li><a lang="'+language+'" hreflang="'+language+'" href="'+getLanguageUrl(picker.options[i])+'"'+selected+' role="option" data-value="'+picker.options[i].value+'" class="language-picker__item language-picker__flag language-picker__flag--'+picker.options[i].value+'"><span>'+picker.options[i].text+'</span></a></li>';
-		};
-		return list;
-	};
+  const updateFooterText = (translations) => {
+    elementsToTranslate.title.textContent = translations.footer_title;
+    elementsToTranslate.intro.textContent = translations.footer_intro;
+    elementsToTranslate.quickLinks.textContent = translations.footer_quick_links;
+    elementsToTranslate.contactTitle.textContent = translations.footer_contact_title;
+    elementsToTranslate.legalTitle.textContent = translations.footer_legal_title;
+    elementsToTranslate.rights.textContent = translations.footer_rights;
 
-	function getSelectedOptionText(picker) { // used to initialize the label of the picker trigger button
-		var label = '';
-		if('selectedIndex' in picker.select) {
-			label = picker.options[picker.select.selectedIndex].text;
-		} else {
-			label = picker.select.querySelector('option[selected]').text;
-		}
-		return label;
-	};
+    elementsToTranslate.links.locales.textContent = translations.footer_locales;
+    elementsToTranslate.links.productos.textContent = translations.footer_productos;
+    elementsToTranslate.links.ofertas.textContent = translations.footer_ofertas;
+    elementsToTranslate.links.reservas.textContent = translations.footer_reservas;
+    elementsToTranslate.links.contacto.textContent = translations.footer_contacto;
 
-	function getLanguageUrl(option) {
-		// ⚠️ Important: You should replace this return value with the real link to your website in the selected language
-		// option.value gives you the value of the language that you can use to create your real url (e.g, 'english' or 'italiano')
-		return '#';
-	};
+    elementsToTranslate.contactInfo.location.textContent = translations.footer_contact_location;
+    elementsToTranslate.contactInfo.phone.textContent = translations.footer_contact_phone;
+    elementsToTranslate.contactInfo.email.textContent = translations.footer_contact_email;
 
-	function initLanguageSelection(picker) {
-		picker.element.getElementsByClassName('language-picker__list')[0].addEventListener('click', function(event){
-			var language = event.target.closest('.language-picker__item');
-			if(!language) return;
-			
-			if(language.hasAttribute('aria-selected') && language.getAttribute('aria-selected') == 'true') {
-				// selecting the same language
-				event.preventDefault();
-				picker.trigger.setAttribute('aria-expanded', 'false'); // hide dropdown
-			} else { 
-				// ⚠️ Important: this 'else' code needs to be removed in production. 
-				// The user has to be redirected to the new url -> nothing to do here
-				event.preventDefault();
-				picker.element.getElementsByClassName('language-picker__list')[0].querySelector('[aria-selected="true"]').removeAttribute('aria-selected');
-				language.setAttribute('aria-selected', 'true');
-				picker.trigger.getElementsByClassName('language-picker__label')[0].setAttribute('class', 'language-picker__label language-picker__flag language-picker__flag--'+language.getAttribute('data-value'));
-				picker.trigger.getElementsByClassName('language-picker__label')[0].getElementsByTagName('em')[0].textContent = language.textContent;
-				picker.trigger.setAttribute('aria-expanded', 'false');
-			}
-		});
-	};
+    elementsToTranslate.legalLinks.terms.textContent = translations.footer_terms;
+    elementsToTranslate.legalLinks.privacy.textContent = translations.footer_privacy;
+    elementsToTranslate.legalLinks.dataRemoval.textContent = translations.footer_data_removal;
+  };
 
-	function keyboardNavigatePicker(picker, direction) {
-		var index = Util.getIndexInArray(picker.languages, document.activeElement);
-		index = (direction == 'next') ? index + 1 : index - 1;
-		if(index < 0) index = picker.languages.length - 1;
-		if(index >= picker.languages.length) index = 0;
-		Util.moveFocus(picker.languages[index]);
-	};
+  languageSelector.addEventListener("change", (event) => {
+    const selectedLanguage = event.target.value;
+    if (selectedLanguage !== "es") {
+      loadFooterTranslations(selectedLanguage).then(translations => {
+        if (translations) {
+          updateFooterText(translations);
+        }
+      });
+    }
+  });
 
-	//initialize the LanguagePicker objects
-	var languagePicker = document.getElementsByClassName('js-language-picker');
-	if( languagePicker.length > 0 ) {
-		var pickerArray = [];
-		for( var i = 0; i < languagePicker.length; i++) {
-			(function(i){pickerArray.push(new LanguagePicker(languagePicker[i]));})(i);
-		}
+  const savedLanguage = localStorage.getItem("selectedLanguage") || "es";
+  loadFooterTranslations(savedLanguage).then(translations => {
+    if (translations) {
+      updateFooterText(translations);
+    }
+  });
+});
 
-		// listen for key events
-		window.addEventListener('keyup', function(event){
-			if( event.keyCode && event.keyCode == 27 || event.key && event.key.toLowerCase() == 'escape' ) {
-				// close language picker on 'Esc'
-				pickerArray.forEach(function(element){
-					moveFocusToPickerTrigger(element); // if focus is within dropdown, move it to dropdown trigger
-					toggleLanguagePicker(element, 'false'); // close dropdown
-				});
-			} 
-		});
-		// close language picker when clicking outside it
-		window.addEventListener('click', function(event){
-			pickerArray.forEach(function(element){
-				checkLanguagePickerClick(element, event.target);
-			});
-		});
-	}
-}());
+document.addEventListener("DOMContentLoaded", () => {
+
+  const isTermsPage =
+  window.location.pathname ===
+  "/public/carrito.php";
+
+if (!isTermsPage) return; // Sal del script si no estás en la página correcta
+
+  const languageSelector = document.getElementById("language-selector");
+
+  const elementsToTranslate = {
+    cartTitle: document.getElementById("cart-title"),
+    backToStore: document.getElementById("back-to-store"),
+    productHeader: document.getElementById("product-header"),
+    priceHeader: document.getElementById("price-header"),
+    quantityHeader: document.getElementById("quantity-header"),
+    totalHeader: document.getElementById("total-header"),
+    actionsHeader: document.getElementById("actions-header"),
+    emptyCartText: document.getElementById("empty-cart-text"),
+    subtotalText: document.getElementById("subtotal-text"),
+    taxText: document.getElementById("tax-text"),
+    totalText: document.getElementById("total-text"),
+    checkoutButton: document.getElementById("checkout-button"),
+  };
+
+  const loadCartTranslations = async (lang) => {
+    if (lang === "es") {
+      return null; // Para español, no cargamos desde el servidor
+    }
+
+    const currentTime = Date.now();
+    const storedTranslations = localStorage.getItem(`translationsCart_${lang}`);
+    const translationData = storedTranslations ? JSON.parse(storedTranslations) : null;
+
+    if (translationData && currentTime - translationData.timestamp < 3600000) {
+      return translationData.translations;
+    }
+
+    try {
+      const response = await fetch("/public/translations/carrito.json");
+      if (!response.ok) throw new Error("Error al cargar traducciones");
+
+      const data = await response.json();
+      const langTranslations = data[lang];
+
+      removeOldTranslations(lang, langTranslations.version);
+
+      const translationsToStore = {
+        version: langTranslations.version,
+        translations: langTranslations,
+        timestamp: currentTime,
+      };
+      localStorage.setItem(`translationsCart_${lang}`, JSON.stringify(translationsToStore));
+
+      return langTranslations;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const removeOldTranslations = (lang, newVersion) => {
+    const storedTranslations = localStorage.getItem(`translationsCart_${lang}`);
+    if (!storedTranslations) return;
+
+    const parsedStoredTranslations = JSON.parse(storedTranslations);
+    if (parsedStoredTranslations.version !== newVersion) {
+      localStorage.removeItem(`translationsCart_${lang}`);
+    }
+  };
+
+  const updateCartText = (translations) => {
+    elementsToTranslate.cartTitle.textContent = translations.cart_title;
+    elementsToTranslate.backToStore.textContent = translations.back_to_store;
+    elementsToTranslate.productHeader.textContent = translations.product_header;
+    elementsToTranslate.priceHeader.textContent = translations.price_header;
+    elementsToTranslate.quantityHeader.textContent = translations.quantity_header;
+    elementsToTranslate.totalHeader.textContent = translations.total_header;
+    elementsToTranslate.actionsHeader.textContent = translations.actions_header;
+    elementsToTranslate.emptyCartText.textContent = translations.empty_cart_text;
+
+    // Actualiza solo los textos sin afectar los valores
+    elementsToTranslate.subtotalText.innerHTML = `${translations.subtotal_text} <span id="subtotal">$0.00</span>`;
+    elementsToTranslate.taxText.innerHTML = `${translations.tax_text} <span id="tax">$0.00</span>`;
+    elementsToTranslate.totalText.innerHTML = `${translations.total_header} <span id="total">$0.00</span>`;
+
+    elementsToTranslate.checkoutButton.textContent = translations.checkout_button;
+  };
+
+  languageSelector.addEventListener("change", (event) => {
+    const selectedLanguage = event.target.value;
+    if (selectedLanguage === "es") {
+      // Restablecer los textos al español
+      updateCartText({
+        cart_title: "Tu Carrito",
+        back_to_store: "Volver a la Tienda",
+        product_header: "Producto",
+        price_header: "Precio",
+        quantity_header: "Cantidad",
+        total_header: "Total",
+        actions_header: "Acciones",
+        empty_cart_text: "Tu carrito está vacío. ¡Vuelve a la tienda y agrega productos!",
+        subtotal_text: "Subtotal:",
+        tax_text: "Impuesto (20%):",
+        checkout_button: "Proceder con el pago"
+      });
+    } else {
+      loadCartTranslations(selectedLanguage).then(translations => {
+        if (translations) {
+          updateCartText(translations);
+        }
+      });
+    }
+  });
+
+  const savedLanguage = localStorage.getItem("selectedLanguage") || "es";
+  loadCartTranslations(savedLanguage).then(translations => {
+    if (translations) {
+      updateCartText(translations);
+    }
+  });
+});
+

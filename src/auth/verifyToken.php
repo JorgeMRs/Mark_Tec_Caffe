@@ -4,21 +4,22 @@ use Firebase\JWT\ExpiredException;
 use Firebase\JWT\Key;
 use Dotenv\Dotenv;
 
-$dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
-$dotenv->load();
+// Cargar el archivo de configuración
+$config = include __DIR__ . '/../config/config.php'; 
+include __DIR__ . '/../utils/encryptData.php';
 
-function verifyToken() {
+function verifyToken($secretKey, $encryptionKey) {
     $response = array('success' => false, 'message' => '');
 
     try {
         // Verificar el token de usuario
         if (isset($_COOKIE['user_token'])) {
             $jwt = $_COOKIE['user_token'];
-            $secretKey = $_ENV['JWT_SECRET'];
-
             $decoded = JWT::decode($jwt, new Key($secretKey, 'HS256'));
-            $idCliente = $decoded->idCliente;
-            $email = $decoded->email;
+
+            // Descifrar el idCliente y el email
+            $idCliente = decryptData($decoded->idCliente, $encryptionKey);
+            $email = decryptData($decoded->email, $encryptionKey);
 
             $response['success'] = true;
             $response['role'] = 'client'; // Indicar que es un cliente
@@ -30,21 +31,23 @@ function verifyToken() {
         // Verificar el token de empleado
         if (isset($_COOKIE['employee_token'])) {
             $jwt_employee = $_COOKIE['employee_token'];
-            $secretKey = $_ENV['JWT_SECRET']; // Asegúrate de usar la clave correcta
-
             $decoded = JWT::decode($jwt_employee, new Key($secretKey, 'HS256'));
-            $idEmpleado = $decoded->idEmpleado;
-            $rol = $decoded->rol;
+
+            // Descifrar el idEmpleado y el correo
+            $idEmpleado = decryptData($decoded->idEmpleado, $encryptionKey);
+            $rol = $decoded->rol; // El rol no estaba cifrado
+            $correo = decryptData($decoded->correo, $encryptionKey);
 
             $response['success'] = true;
             $response['role'] = 'employee'; // Indicar que es un empleado
             $response['idEmpleado'] = $idEmpleado;
-            $response['rol'] = $rol; // Agregar el rol a la respuesta
+            $response['rol'] = $rol; 
+            $response['correoEmpleado'] = $correo;
             return $response; 
         }
 
         $response['message'] = "Token no proporcionado.";
-        
+
     } catch (ExpiredException $e) {
         $response['message'] = "El token ha expirado.";
     } catch (Exception $e) {
@@ -55,9 +58,12 @@ function verifyToken() {
 }
 
 function checkToken() {
-    $tokenResponse = verifyToken();
+    global $config; 
+    $secretKey = $config['secretKey'];
+    $encryptionKey = $config['encryptionKey'];
+    
+    $tokenResponse = verifyToken($secretKey, $encryptionKey);
     if (!$tokenResponse['success']) {
-        // Redirigir al login
         header('Location: /public/login.php');
         exit();
     }

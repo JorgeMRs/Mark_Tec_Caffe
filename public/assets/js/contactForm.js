@@ -55,3 +55,49 @@ document.addEventListener('DOMContentLoaded', function () {
       });
   });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const languageSelector = document.getElementById('language-selector');
+    const elementsToTranslate = {
+        title: document.querySelector('.contact-title'),
+        nameLabel: document.querySelector('.contact-label[for="name"]'),
+        emailLabel: document.querySelector('.contact-label[for="email"]'),
+        subjectLabel: document.querySelector('.contact-label[for="subject"]'),
+        messageLabel: document.querySelector('.contact-label[for="message"]'),
+        submitButton: document.querySelector('.submit-text'),
+        responseMessage: document.querySelector('.contact-response')
+    };
+
+    const loadTranslations = async (lang) => {
+        const response = await fetch('/public/translations/contactos.json');
+        const translations = await response.json();
+        return translations[lang];
+    };
+
+    const updateText = (translations) => {
+        elementsToTranslate.title.textContent = translations.contact_title;
+        elementsToTranslate.nameLabel.textContent = translations.name_label;
+        elementsToTranslate.emailLabel.textContent = translations.email_label;
+        elementsToTranslate.subjectLabel.textContent = translations.subject_label;
+        elementsToTranslate.messageLabel.textContent = translations.message_label;
+        elementsToTranslate.submitButton.textContent = translations.submit_button;
+        elementsToTranslate.responseMessage.textContent = translations.response_message;
+    };
+
+    const setLanguage = (lang) => {
+        languageSelector.value = lang; // Actualiza el select
+        loadTranslations(lang).then(updateText);
+        localStorage.setItem('selectedLanguage', lang); // Guarda en localStorage
+    };
+
+    languageSelector.addEventListener('change', (event) => {
+        const selectedLang = event.target.value;
+        setLanguage(selectedLang);
+    });
+
+    // Cargar el idioma por defecto o el último seleccionado
+    const savedLanguage = localStorage.getItem('selectedLanguage') || 'es';
+    setLanguage(savedLanguage);
+});
+
+

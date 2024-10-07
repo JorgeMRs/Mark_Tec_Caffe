@@ -1,6 +1,9 @@
 <?php
-session_start();
 include '../db/db_connect.php';
+require '../../vendor/autoload.php';
+require '../auth/verifyToken.php';
+
+$response = checkToken();
 
 $conn = getDbConnection();
 if (!$conn) {

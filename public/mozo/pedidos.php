@@ -1,12 +1,12 @@
 <?php
-session_start();
-
-if (!isset($_SESSION['employee_id']) || $_SESSION['role'] !== 'Mozo') {
-    header('Location: /public/error/403.html');
-    exit();
-}
-
 include '../../src/db/db_connect.php';
+require '../../vendor/autoload.php';
+require '../../src/auth/verifyToken.php';
+
+$response = checkToken();
+
+$employee_id = $response['idEmpleado']; 
+$role = $response['rol'];
 
 $limit = 10; // Número de pedidos por página
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
@@ -17,8 +17,6 @@ if (!$conn) {
     die('Error de conexión a la base de datos: ' . $conn->connect_error);
 }
 
-// Obtener la sucursal del empleado
-$employee_id = $_SESSION['employee_id'];
 $querySucursal = "SELECT idSucursal FROM empleado WHERE idEmpleado = ?";
 $stmtSucursal = $conn->prepare($querySucursal);
 $stmtSucursal->bind_param('i', $employee_id);

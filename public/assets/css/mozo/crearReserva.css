@@ -1,285 +1,550 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
 }
-
-
 
 .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    max-width: 1280px;
-    margin: 20px auto;
-    padding: 20px;
-    overflow-y: auto; /* Scroll si hay muchas mesas */
-    box-sizing: border-box; /* Asegura que el padding no afecte al tamaño del contenedor */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 1280px;
+  margin: 20px auto;
+  padding: 20px;
+  overflow-y: auto; /* Scroll si hay muchas mesas */
+  box-sizing: border-box; /* Asegura que el padding no afecte al tamaño del contenedor */
 }
 
-
 h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #DAA421;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #daa421;
 }
 
 .mesas {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
 }
 
 .mesa {
-    border: 1px solid #ddd;
-    padding: 15px;
-    border-radius: 8px;
-    width: 200px;
-    text-align: center;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    position: relative;
-    transition: background-color 0.3s, transform 0.3s;
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 8px;
+  width: 200px;
+  text-align: center;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  position: relative;
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 .mesa:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 .ocupada {
-    background-color: #f8d7da;
-    color: #721c24;
+  background-color: #f8d7da;
+  color: #721c24;
 }
 
 .reservado {
-    background-color: #fff3cd;
-    color: #856404;
+  background-color: #fff3cd;
+  color: #856404;
 }
 
 .disponible {
-    background-color: #d4edda;
-    color: #155724;
+  background-color: #d4edda;
+  color: #155724;
+}
+.btn-cambiar-estado {
+  display: inline-block;
+  padding: 10px 15px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  text-decoration: none;
+  color: #fff;
+  background-color: #daa421;
+  border-radius: 5px;
+  border-color: transparent;
 }
 
+.btn-cambiar-estado:hover {
+  background-color: #1b0c0a;
+}
 .btn-reservar {
-    display: inline-block;
-    padding: 10px 15px;
-    margin-top: 10px;
-    text-decoration: none;
-    color: #fff;
-    background-color: #DAA421;
-    border-radius: 5px;
+  display: inline-block;
+  padding: 10px 15px;
+  margin-top: 10px;
+  text-decoration: none;
+  color: #fff;
+  background-color: #daa421;
+  border-radius: 5px;
 }
 
 .btn-reservar:hover {
-    background-color: #1B0C0A;
+  background-color: #1b0c0a;
+}
+.btn-cancelar-reserva {
+  display: inline-block;
+  position: relative;
+  padding: 10px 15px;
+  margin-top: 10px;
+  text-decoration: none;
+  color: #fff;
+  background-color: #daa421;
+  border-radius: 5px;
+  bottom: 20px;
+}
+.btn-cancelar-reserva:hover {
+  background-color: #1b0c0a;
 }
 
 .mensaje-no-disponible {
-    position: absolute;
-    bottom: 10px;
-    width: calc(100% - 20px);
-    left: 10px;
-    text-align: center;
-    font-weight: bold;
+  position: absolute;
+  bottom: 10px;
+  width: calc(100% - 20px);
+  left: 10px;
+  text-align: center;
+  font-weight: bold;
 }
 
+.mensaje-disponible {
+  position: absolute;
+  margin-top: 35px;
+  width: calc(100% - 20px);
+  left: 10px;
+  text-align: center;
+  font-weight: bold;
+}
 
 /* Estilos del modal */
 .modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    /* Fondo oscuro semitransparente */
-    transition: opacity 0.3s ease-in-out;
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  /* Fondo oscuro semitransparente */
+  transition: opacity 0.3s ease-in-out;
 }
 
 /* Contenido del modal */
 .modal-content {
-    background-color: white;
-    margin: 10% auto;
-    padding: 30px;
-    border: none;
-    width: 90%;
-    max-width: 500px;
-    border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-    /* Sombra suave */
-    position: relative;
-    animation: fadeIn 0.4s ease-in-out;
-    /* Animación de entrada */
+  background-color: white;
+  margin: 10% auto;
+  padding: 30px;
+  border: none;
+  width: 90%;
+  max-width: 500px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  /* Sombra suave */
+  position: relative;
+  animation: fadeIn 0.4s ease-in-out;
+  /* Animación de entrada */
 }
-.modal-content h2{
-    color: #DAA421;
+.modal-content h2 {
+  color: #daa421;
 }
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.9);
-    }
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
 
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 /* Botón de cerrar (X) */
 .close {
-    color: #888;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 24px;
-    cursor: pointer;
-    transition: color 0.2s ease;
+  color: #888;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 24px;
+  cursor: pointer;
+  transition: color 0.2s ease;
 }
 
 .close:hover {
-    color: #333;
-    /* Cambio de color al pasar el ratón */
+  color: #333;
+  /* Cambio de color al pasar el ratón */
 }
 
 /* Estilos del formulario */
 label {
-    display: block;
-    margin-bottom: 10px;
-    font-weight: 600;
-    font-size: 1rem;
-    color: #1B0C0A;
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #1b0c0a;
 }
 .error-message {
-color: red;
-display: none; /* Ocultar por defecto */
+  color: red;
+  display: none; /* Ocultar por defecto */
 }
 input[type="date"],
 input[type="time"],
 select {
-    width: 100%;
-    padding: 10px 0px 10px 0px;
-    margin-bottom: 20px;
-    /* margin-right: 7px; */
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    background-color: #f9f9f9;
-    font-size: 1rem;
-    transition: all 0.3s ease;
+  width: 100%;
+  padding: 10px 0px 10px 0px;
+  margin-bottom: 20px;
+  /* margin-right: 7px; */
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
+  font-size: 1rem;
+  transition: all 0.3s ease;
 }
 
 input[type="date"]:focus,
 input[type="time"]:focus,
 select:focus {
-    outline: none;
-    border-color: #00aaff;
-    /* Color de borde al enfocar */
-    background-color: #fff;
+  outline: none;
+  border-color: #00aaff;
+  /* Color de borde al enfocar */
+  background-color: #fff;
 }
 
 /* Botón de enviar */
 .btn-reservar2 {
-    background-color: #DAA421;
-    color: #1B0C0A;
-    border: none;
-    padding: 12px 20px;
-    width: 100%;
-    font-size: 1.2rem;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    transition: 0.5s ease;
+  background-color: #daa421;
+  color: #1b0c0a;
+  border: none;
+  padding: 12px 20px;
+  width: 100%;
+  font-size: 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  transition: 0.5s ease;
 }
 
 .btn-reservar2:hover {
-    background-color: #1B0C0A;
-    transition: 0.5s ease;
-    color: #DAA421;
-    /* Cambio de color al pasar el ratón */
+  background-color: #1b0c0a;
+  transition: 0.5s ease;
+  color: #daa421;
+  /* Cambio de color al pasar el ratón */
 }
-
-
 
 /* Modal para aviso de sesion - reservas */
 .aviso-close {
-    color: #888;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 24px;
-    cursor: pointer;
-    transition: color 0.2s ease;
+  color: #888;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 24px;
+  cursor: pointer;
+  transition: color 0.2s ease;
 }
 
 .aviso-close:hover {
-    color: #333;
+  color: #333;
 }
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .modal-content h2 {
-    color: #DAA421;
+  color: #daa421;
 }
 
 .header {
-    position: absolute;
-    top: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: absolute;
+  top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .logo {
-    width: 50px;
-    height: 50px;
-    margin-right: 10px;
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
 }
 
 .site-name {
-    font-size: 2em;
-    color: #3c2415;
-    font-weight: 700;
-    font-family: 'Poppins';
+  font-size: 2em;
+  color: #3c2415;
+  font-weight: 700;
+  font-family: "Poppins";
 }
 .back-button-container {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    /* Cambia el margen superior para alinear con la parte superior */
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  /* Cambia el margen superior para alinear con la parte superior */
 }
 
 .btn-volver {
-    background-color: #1B0C0A;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  background-color: #1b0c0a;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .btn-volver:hover {
-    background-color: #74623c;
+  background-color: #74623c;
+}
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: #00aaff; /* Color de borde al enfocar */
+  background-color: #fff; /* Cambia el fondo al enfocar */
+}
+
+.btn-detalles {
+  background-color: #daa421;
+  color: white;
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px 15px; /* Padding for top/bottom and left/right */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 14px; /* Font size */
+  transition: background-color 0.3s; /* Smooth background color transition */
+  margin-bottom: 25px;
+}
+
+.btn-detalles:hover {
+  background-color: #1b0c0a;
+  transition: 0.5s ease;
+  color: #daa421;
+}
+
+.btn-detalles:focus {
+  outline: none; /* Remove default outline */
+}
+
+.btn-detalles:active {
+  background-color: #004085; /* Even darker blue when clicked */
+}
+
+/* Estilos para el Modal de Cancelación */
+.modal-cancelacion {
+  display: none; /* Ocultar el modal por defecto */
+  position: fixed; /* Posicionamiento fijo */
+  z-index: 1000; /* Asegúrate de que el modal esté encima de otros elementos */
+  left: 0;
+  top: 0;
+  width: 100%; /* Ancho completo */
+  height: 100%; /* Alto completo */
+  background-color: rgba(0, 0, 0, 0.7); /* Fondo semi-transparente */
+}
+
+.modal-content-cancelacion {
+  background-color: #fff; /* Fondo blanco */
+  margin: 15% auto; /* Margen superior y automático para centrar */
+  padding: 20px; /* Espaciado interno */
+  border: 1px solid #888; /* Borde gris */
+  width: 30%; /* Ancho del modal */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+}
+
+.close-cancelacion {
+  color: #aaa; /* Color de la "X" de cerrar */
+  float: right; /* Alinear a la derecha */
+  font-size: 28px; /* Tamaño de fuente */
+  font-weight: bold; /* Negrita */
+  cursor: pointer; /* Cambiar el cursor al pasar por encima */
+}
+
+.close-cancelacion:hover,
+.close-cancelacion:focus {
+  color: black; /* Cambiar color al pasar el mouse */
+  text-decoration: none; /* Sin subrayado */
+  cursor: pointer; /* Cambiar el cursor al pasar por encima */
+}
+
+.label-notas {
+  display: block; /* Mostrar como bloque */
+  margin-bottom: 10px; /* Espaciado inferior */
+}
+
+.input-notas {
+  width: 100%; /* Ancho completo */
+  padding: 10px; /* Espaciado interno */
+  border: 1px solid #ccc; /* Borde gris claro */
+  border-radius: 4px; /* Bordes redondeados */
+  box-sizing: border-box; /* Incluir padding y borde en el ancho total */
+}
+
+.button-confirmar {
+  background-color: #daa421; /* Color de fondo verde */
+  color: white; /* Color de texto blanco */
+  padding: 10px 15px; /* Espaciado interno */
+  border: none; /* Sin borde */
+  border-radius: 4px; /* Bordes redondeados */
+  cursor: pointer; /* Cambiar el cursor al pasar por encima */
+  display: flex;
+  margin: 0 auto;
+}
+.confirmationTitle{
+    color: #daa421;
+}
+.button-confirmar:hover {
+  background-color: #1b0c0a; /* Color más oscuro al pasar el mouse */
+}
+
+/* Puedes agregar más estilos según sea necesario para tu diseño */
+
+.modal {
+  display: none;
+  /* Oculto por defecto */
+  position: fixed;
+  /* Mantiene el modal en la pantalla */
+  z-index: 1000;
+  /* Asegura que el modal esté por encima de otros elementos */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Habilita el scroll si es necesario */
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Fondo oscuro con transparencia */
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  /* 15% desde la parte superior y centrado */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  /* Ancho del modal */
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn-confirmar,
+.btn-cancelar {
+  padding: 10px 15px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.btn-finalizar-reserva {
+  display: inline-block;
+  /* Hace que el botón se comporte como un bloque en línea */
+  padding: 10px 20px;
+  /* Espaciado interno */
+  background-color: #ff5733;
+  /* Color de fondo (rojo anaranjado) */
+  color: white;
+  /* Color del texto */
+  border: none;
+  /* Sin borde */
+  border-radius: 5px;
+  /* Bordes redondeados */
+  font-size: 16px;
+  /* Tamaño de fuente */
+  cursor: pointer;
+  /* Cambia el cursor al pasar el ratón */
+  text-decoration: none;
+  /* Sin subrayado */
+  transition: background-color 0.3s ease;
+  /* Transición suave para el cambio de color */
+  margin-bottom: 35px;
+}
+
+.btn-finalizar-reserva:hover {
+  background-color: #c70039;
+  /* Color de fondo al pasar el ratón (rojo más oscuro) */
+}
+
+.btn-finalizar-reserva:active {
+  background-color: #900c3f;
+  /* Color de fondo al hacer clic (rojo muy oscuro) */
+}
+.modal-confirmacion {
+  display: none; /* Ocultar el modal por defecto */
+  position: fixed; /* Posicionamiento fijo */
+  z-index: 1000; /* Asegúrate de que el modal esté encima de otros elementos */
+  left: 0;
+  top: 0;
+  width: 100%; /* Ancho completo */
+  height: 100%; /* Alto completo */
+  background-color: rgba(0, 0, 0, 0.7); /* Fondo semi-transparente */
+}
+
+.modal-content-confirmacion {
+  background-color: #fff; /* Fondo blanco */
+  margin: 15% auto; /* Margen superior y automático para centrar */
+  padding: 20px; /* Espaciado interno */
+  border: 1px solid #888; /* Borde gris */
+  width: 30%; /* Ancho del modal */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+}
+
+.close-confirmacion {
+  color: #aaa; /* Color de la "X" de cerrar */
+  float: right; /* Alinear a la derecha */
+  font-size: 28px; /* Tamaño de fuente */
+  font-weight: bold; /* Negrita */
+  cursor: pointer; /* Cambiar el cursor al pasar por encima */
+}
+
+.button-ok {
+  background-color: #daa421; /* Color de fondo verde */
+  color: white; /* Color de texto blanco */
+  padding: 10px 15px; /* Espaciado interno */
+  border: none; /* Sin borde */
+  border-radius: 4px; /* Bordes redondeados */
+  cursor: pointer; /* Cambiar el cursor al pasar por encima */
 }

@@ -1,12 +1,13 @@
 <?php
-session_start();
+include '../../src/db/db_connect.php'; // Ajusta la ruta según tu estructura de directorios
+require '../../vendor/autoload.php';
+require '../../src/auth/verifyToken.php';
 
-if (!isset($_SESSION['employee_id']) || $_SESSION['role'] !== 'Chef') {
-    header('Location: /public/error/403.html');
-    exit();
-}
 
-include '../../src/db/db_connect.php';
+$response = checkToken();
+
+$employeeId = $response['idEmpleado']; 
+$role = $response['rol'];
 
 $conn = getDbConnection();
 if (!$conn) {

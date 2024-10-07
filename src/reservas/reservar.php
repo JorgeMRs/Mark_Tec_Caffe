@@ -1,13 +1,17 @@
 <?php
 require_once '../../vendor/autoload.php'; // Ajusta la ruta según la ubicación de tu archivo
 require_once '../db/db_connect.php'; // Incluir el archivo de conexión a la base de datos
+require '../auth/verifyToken.php';
+
+$response = checkToken();
+
+$user_id = $response['idCliente']; 
 
 use Dotenv\Dotenv;
 
 $dotenv = Dotenv::createImmutable('../../');
 $dotenv->load();
 
-session_start();
 
 function generarCodigoReservaUnico($conn) {
     do {
@@ -31,7 +35,6 @@ try {
     $mesaId = isset($_POST['mesa_id']) ? intval($_POST['mesa_id']) : 0;
     $sucursalId = isset($_POST['sucursal_id']) ? intval($_POST['sucursal_id']) : 0;
     $cantidadPersonas = isset($_POST['cantidadPersonas']) ? intval($_POST['cantidadPersonas']) : 0;
-    $userId = isset($_SESSION['user_id']) ? intval($_SESSION['user_id']) : 0;
 
     if ($mesaId <= 0 || $sucursalId <= 0 || $cantidadPersonas <= 0 || empty($fechaReserva) || empty($horaReserva)) {
         throw new Exception('Datos de reserva no válidos.');
@@ -74,7 +77,7 @@ try {
     $sqlReservar = "INSERT INTO reserva (idMesa, fechaReserva, estado, idCliente, cantidadPersonas, codigoReserva) 
                     VALUES (?, ?, 'reservado', ?, ?, ?)";
     $stmtReservar = $conn->prepare($sqlReservar);
-    $stmtReservar->bind_param("issis", $mesaId, $fechaHoraReserva, $userId, $cantidadPersonas, $codigoReserva);
+    $stmtReservar->bind_param("issis", $mesaId, $fechaHoraReserva, $user_id, $cantidadPersonas, $codigoReserva);
     $stmtReservar->execute();
 
     // Redirigir a la página de confirmación

@@ -3,7 +3,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 require '../../vendor/autoload.php';
-require '../client/verifyToken.php';
+require '../auth/verifyToken.php';
 checkToken();
 use Dotenv\Dotenv;
 

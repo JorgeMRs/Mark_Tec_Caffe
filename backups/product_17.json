@@ -1,0 +1,10 @@
+{
+    "idProducto": 17,
+    "imagen": "\/public\/assets\/img\/productos\/Caf\u00e9s Especiales\/mocha.jpg",
+    "nombre": "Caf\u00e9 Mocha",
+    "stock": 30,
+    "descripcion": "Caf\u00e9 con chocolate y leche, combinando el sabor intenso del caf\u00e9 con la dulzura del chocolate. Un placer para el paladar.",
+    "precio": "4.00",
+    "idCategoria": 1,
+    "estadoActivacion": 1
+}

@@ -1,0 +1,10 @@
+{
+    "idProducto": 20,
+    "imagen": "\/public\/assets\/img\/productos\/Caf\u00e9s Especiales\/flat-white.jpg",
+    "nombre": "Flat White",
+    "stock": 20,
+    "descripcion": "Caf\u00e9 con leche microespumada, proporcionando una bebida cremosa con una capa suave de espuma. Un cl\u00e1sico australiano.",
+    "precio": "3.90",
+    "idCategoria": 1,
+    "estadoActivacion": 1
+}

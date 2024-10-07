@@ -1,0 +1,72 @@
+{
+    "es": {
+        "version": "1.0",
+        "cart_title": "Tu Carrito",
+        "back_to_store": "Volver a la Tienda",
+        "product_header": "Producto",
+        "price_header": "Precio",
+        "quantity_header": "Cantidad",
+        "total_header": "Total",
+        "actions_header": "Acciones",
+        "empty_cart_text": "Tu carrito está vacío. ¡Vuelve a la tienda y agrega productos!",
+        "subtotal_text": "Subtotal:",
+        "tax_text": "Impuesto (20%):",
+        "checkout_button": "Proceder con el pago"
+    },
+    "en": {
+        "version": "1.0",
+        "cart_title": "Your Cart",
+        "back_to_store": "Back to Store",
+        "product_header": "Product",
+        "price_header": "Price",
+        "quantity_header": "Quantity",
+        "total_header": "Total",
+        "actions_header": "Actions",
+        "empty_cart_text": "Your cart is empty. Please go back to the store and add products!",
+        "subtotal_text": "Subtotal:",
+        "tax_text": "Tax (20%):",
+        "checkout_button": "Proceed to Checkout"
+    },
+    "fr": {
+        "version": "1.0",
+        "cart_title": "Votre Panier",
+        "back_to_store": "Retour au Magasin",
+        "product_header": "Produit",
+        "price_header": "Prix",
+        "quantity_header": "Quantité",
+        "total_header": "Total",
+        "actions_header": "Actions",
+        "empty_cart_text": "Votre panier est vide. Retournez au magasin et ajoutez des produits !",
+        "subtotal_text": "Sous-total :",
+        "tax_text": "Taxe (20 %) :",
+        "checkout_button": "Procéder au Paiement"
+    },
+    "pt": {
+        "version": "1.0",
+        "cart_title": "Seu Carrinho",
+        "back_to_store": "Voltar à Loja",
+        "product_header": "Produto",
+        "price_header": "Preço",
+        "quantity_header": "Quantidade",
+        "total_header": "Total",
+        "actions_header": "Ações",
+        "empty_cart_text": "Seu carrinho está vazio. Volte à loja e adicione produtos!",
+        "subtotal_text": "Subtotal:",
+        "tax_text": "Imposto (20%):",
+        "checkout_button": "Prosseguir para o Pagamento"
+    },
+    "de": {
+        "version": "1.0",
+        "cart_title": "Ihr Warenkorb",
+        "back_to_store": "Zurück zum Geschäft",
+        "product_header": "Produkt",
+        "price_header": "Preis",
+        "quantity_header": "Menge",
+        "total_header": "Gesamt",
+        "actions_header": "Aktionen",
+        "empty_cart_text": "Ihr Warenkorb ist leer. Gehen Sie zurück zum Geschäft und fügen Sie Produkte hinzu!",
+        "subtotal_text": "Zwischensumme:",
+        "tax_text": "Steuer (20 %):",
+        "checkout_button": "Zur Kasse"
+    }
+}

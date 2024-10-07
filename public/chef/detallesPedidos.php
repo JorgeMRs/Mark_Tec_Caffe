@@ -1,12 +1,13 @@
 <?php
-session_start();
+include '../../src/db/db_connect.php';
+require '../../vendor/autoload.php';
+require '../../src/auth/verifyToken.php';
 
-if (!isset($_SESSION['employee_id']) || $_SESSION['role'] !== 'Chef') {
-    header('Location: /public/error/403.html');
-    exit();
-}
 
-include '../../src/db/db_connect.php'; // Ajusta la ruta según tu estructura de directorios
+$response = checkToken();
+
+$employeeId = $response['idEmpleado'];
+$role = $response['rol'];
 
 // Obtener el ID del pedido de la URL
 $idPedido = isset($_GET['idPedido']) ? intval($_GET['idPedido']) : 0;
@@ -187,6 +188,61 @@ $stmtAnterior->close();
                 </div>
             </div>
         </div>
+        <!-- Modal de Completado -->
+        <div id="completadoModal" class="modal completado-modal" style="display:none;">
+            <div class="modal-content completado-modal-content">
+                <h2 class="completado-modal-title">Pedido Completado</h2>
+                <p class="completado-modal-message">El pedido ha sido completado con éxito.</p>
+                <div class="completado-modal-buttons">
+                    <button id="cerrarModal" class="completado-modal-close-button">Cerrar</button>
+                </div>
+            </div>
+        </div>
+        <style>
+            .completado-modal {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.7);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+                /* Asegúrate de que el modal esté por encima de otros elementos */
+            }
+
+            .completado-modal-content {
+                background-color: white;
+                padding: 20px;
+                border-radius: 5px;
+                text-align: center;
+            }
+
+            .completado-modal-title {
+                margin-bottom: 10px;
+            }
+
+            .completado-modal-buttons {
+                margin-top: 20px;
+            }
+
+            .completado-modal-close-button {
+                background-color: #4CAF50;
+                /* Cambia esto a tu color preferido */
+                color: white;
+                border: none;
+                padding: 10px 15px;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            .completado-modal-close-button:hover {
+                background-color: #45a049;
+                /* Cambia esto a tu color preferido */
+            }
+        </style>
         <style>
             #cancelacionModal {
                 position: fixed;
@@ -262,29 +318,6 @@ $stmtAnterior->close();
                 background-color: #5a6268;
             }
         </style>
-        <!-- Modal de completado -->
-
-        <style>
-            #completadoModal {
-                position: fixed;
-                left: 0;
-                top: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.5);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                z-index: 1000;
-            }
-
-            .modal-content {
-                background: #fff;
-                padding: 20px;
-                border-radius: 5px;
-                text-align: center;
-            }
-        </style>
         <script>
             document.getElementById('estadoForm').addEventListener('submit', function(event) {
                 event.preventDefault(); // Evita que el formulario se envíe de manera tradicional
@@ -303,9 +336,10 @@ $stmtAnterior->close();
                         method: 'POST',
                         body: formData
                     })
-                    .then(response => response.json()) // Asegúrate de que el servidor devuelve JSON
+                    .then(response => response.json())
                     .then(data => {
                         const respuestaDiv = document.getElementById('respuesta');
+                        console.log(respuestaDiv); // Esto debería mostrar el elemento o `null`
                         respuestaDiv.innerHTML = ''; // Limpia el contenido del div
                         respuestaDiv.style.color = '';
 
@@ -321,29 +355,27 @@ $stmtAnterior->close();
                                 document.getElementById('completadoModal').style.display = 'flex';
                                 setTimeout(() => {
                                     window.location.href = data.redirect;
-                                }, 2000); // Redirige después de 2 segundos para permitir que el mensaje se vea
-                            } else {
-                                if (data.redirect) {
-                                    setTimeout(() => {
-                                        window.location.href = data.redirect;
-                                    }, 2000); // Redirige después de 2 segundos para permitir que el mensaje se vea
-                                }
+                                }, 8000);
+                            } else if (data.redirect) {
+                                setTimeout(() => {
+                                    window.location.href = data.redirect;
+                                }, 8000);
                             }
 
                             // Actualiza el <select> con los nuevos estados permitidos
                             updateEstadosSelect(data.estadosPermitidos);
-
                         } else {
                             respuestaDiv.innerHTML = data.message; // Mensaje de error
                             respuestaDiv.style.color = 'red';
                         }
                     })
                     .catch(error => {
-                        console.error('Error:', error);
+                        console.error('Error en el fetch:', error);
                         const respuestaDiv = document.getElementById('respuesta');
                         respuestaDiv.innerHTML = 'Error al actualizar el estado.';
                         respuestaDiv.style.color = 'red';
                     });
+
             });
 
             document.getElementById('confirmarCancelacion').addEventListener('click', function() {
@@ -398,6 +430,10 @@ $stmtAnterior->close();
                     console.error('Error: estadosPermitidos no es un array.');
                 }
             }
+            document.querySelector('.completado-modal-close-button').addEventListener('click', function() {
+                document.getElementById('completadoModal').style.display = 'none';
+                window.location.href = 'cocina.php';
+            });
         </script>
         <a href="cocina.php" class="button" onclick="window.history.back()">Volver a Pedidos Activos</a>
 

@@ -4,7 +4,7 @@ require '../auth/verifyToken.php'; // Ruta al archivo que contiene la función v
 
 header('Content-Type: application/json');
 
-$response = verifyToken();
+$response = checkToken(); 
 
 echo json_encode([
     'loggedIn' => $response['success'], // Indica si el usuario está conectado

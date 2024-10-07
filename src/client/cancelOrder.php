@@ -1,30 +1,26 @@
 <?php
-session_start();
 require '../db/db_connect.php';
+require '../auth/verifyToken.php';
 header('Content-Type: application/json');
 
-if (!isset($_SESSION['user_id'])) {
-    echo json_encode([]);
-    exit();
-}
+$response = checkToken();
 
-$user_id = $_SESSION['user_id'];
+$user_id = $response['idCliente']; 
 $conn = getDbConnection();
 
 // Obtener los datos enviados por POST
 $idPedido = isset($_POST['idPedido']) ? intval($_POST['idPedido']) : 0;
 $notas = isset($_POST['notas']) ? trim($_POST['notas']) : '';
-$idCliente = isset($_SESSION['user_id']) ? intval($_SESSION['user_id']) : 0; // Suponiendo que el ID del cliente está en la sesión
 
 
-if ($idPedido && $idCliente) {
+if ($idPedido && $user_id) {
     // Iniciar la transacción
     $conn->begin_transaction();
 
     try {
         // Insertar la cancelación en la base de datos
         $stmt = $conn->prepare("INSERT INTO cancelacionpedido (idPedido, idCliente, notas, tipoCancelacion) VALUES (?, ?, ?, 'Cliente')");
-        $stmt->bind_param("iis", $idPedido, $idCliente, $notas);
+        $stmt->bind_param("iis", $idPedido, $user_id, $notas);
         $stmt->execute();
 
         // Actualizar el estado del pedido a 'Cancelado'

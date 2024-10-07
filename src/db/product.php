@@ -1,5 +1,8 @@
 <?php
 include 'db_connect.php';
+use Stichoza\GoogleTranslate\GoogleTranslate;
+
+$lang = $_GET['lang'] ?? 'es';
 
 try {
     $conn = getDbConnection();
@@ -16,6 +19,11 @@ try {
 
     $productos = [];
     while ($row = $result->fetch_assoc()) {
+        // Traducir nombre y descripción
+        if ($lang !== 'es') {
+            $row['nombre'] = GoogleTranslate::trans($row['nombre'], $lang, 'es');
+            $row['descripcion'] = GoogleTranslate::trans($row['descripcion'], $lang, 'es');
+        }
         $productos[] = $row;
     }
     

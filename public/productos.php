@@ -2,15 +2,17 @@
 include '../src/db/db_connect.php';
 require '../vendor/autoload.php';
 
+use Stichoza\GoogleTranslate\GoogleTranslate;
+
+$traducciones_estaticas = json_decode(file_get_contents('translations/productos.json'), true);
+$traducciones = []; // Inicializa la variable
+
 try {
     // Obtener conexión a la base de datos
     $conn = getDbConnection();
-    $conn->set_charset('utf8mb4'); // Asegúrate de que la conexión use el charset correcto
+    $conn->set_charset('utf8mb4');
 
-    // Obtener el ID del producto desde la URL
     $id_producto = isset($_GET['id']) ? (int)$_GET['id'] : 0;
-
-    // Preparar y ejecutar la consulta SQL para obtener el producto
     $query = $conn->prepare('SELECT * FROM producto WHERE idProducto = ?');
     $query->bind_param('i', $id_producto);
     $query->execute();
@@ -22,7 +24,6 @@ try {
         exit;
     }
 
-    // Obtener el nombre de la categoría
     $idCategoria = $producto['idCategoria'];
     $queryCategoria = $conn->prepare('SELECT nombre FROM categoria WHERE idCategoria = ?');
     $queryCategoria->bind_param('i', $idCategoria);
@@ -35,7 +36,22 @@ try {
         exit;
     }
 
-    // Cerrar conexión a la base de datos
+    // Idiomas disponibles
+    $idiomas = ['es', 'en', 'fr', 'pt', 'de'];
+    $idioma_por_defecto = 'es';
+
+    // Traducir nombre y descripción
+    foreach ($idiomas as $idioma) {
+        if (!isset($traducciones[$idioma])) {
+            $traducciones[$idioma] = [
+                'static' => $traducciones_estaticas[$idioma],
+                'nombre' => $idioma !== $idioma_por_defecto ? GoogleTranslate::trans($producto['nombre'], $idioma) : $producto['nombre'],
+                'descripcion' => $idioma !== $idioma_por_defecto ? GoogleTranslate::trans($producto['descripcion'], $idioma) : $producto['descripcion'],
+                'categoria' => $idioma !== $idioma_por_defecto ? GoogleTranslate::trans($categoria['nombre'], $idioma) : $categoria['nombre'],
+            ];
+        }
+    }
+
     $conn->close();
 } catch (Exception $e) {
     http_response_code(500);
@@ -43,22 +59,23 @@ try {
     exit;
 }
 ?>
-<!DOCTYPE html>
-<html lang="es">
 
-<head>
-    <meta charset="UTF-8">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="48x48" href="assets/img/icons/favicon-48x48.png">
-    <link rel="icon" type="image/png" sizes="48x48" href="assets/img/icons/favicon-64x64.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= htmlspecialchars('Café Sabrosos - ' . $producto['nombre']) ?></title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/productos.css">
-    <link rel="stylesheet" href="assets/css/nav.css">
-    <link rel="stylesheet" href="assets/css/footer.css">
-</head>
+<!DOCTYPE html>
+<?php 
+
+$pageTitle = 'Café Sabrosos - ' . $producto['nombre'];
+
+$customCSS = [
+    '/public/assets/css/productos.css',
+    '/public/assets/css/nav.css',
+    '/public/assets/css/footer.css',
+    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css'
+];
+$customJS = [
+    '/public/assets/js/languageSelect.js',
+    '/public/assets/js/updateCartCounter.js'
+  ];
+include 'templates/head.php' ?>
 
 <body>
     <header>
@@ -87,20 +104,20 @@ try {
             </div>
             <div class="details-grid">
                 <div>
-                    <p class="product-category"><?= htmlspecialchars($categoria['nombre']) ?></p>
-                    <h1 class="product-title"><?= htmlspecialchars($producto['nombre']) ?></h1>
-                    <p class="product-description"><?= htmlspecialchars($producto['descripcion']) ?></p>
+                    <p class="product-category" id="product-category"><?= htmlspecialchars($categoria['nombre']) ?></p>
+                    <h1 class="product-title" id="product-title"><?= htmlspecialchars($producto['nombre']) ?></h1>
+                    <p class="product-description" id="product-description"><?= htmlspecialchars($producto['descripcion']) ?></p>
                 </div>
                 <div class="price-container">
-                    <div class="product-price">€<?= number_format($producto['precio'], 2) ?></div>
+                    <div class="product-price" id="product-price">€<?= number_format($producto['precio'], 2) ?></div>
                     <div class="quantity-control">
-                        <button class="btn-outline">
+                        <button class="btn-outline" id="decrease-quantity">
                             <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M5 12h14"></path>
                             </svg>
                         </button>
                         <div class="quantity">1</div>
-                        <button class="btn-outline">
+                        <button class="btn-outline" id="increase-quantity">
                             <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M5 12h14"></path>
                                 <path d="M12 5v14"></path>
@@ -109,8 +126,8 @@ try {
                     </div>
                 </div>
                 <div class="action-buttons">
-                    <button class="btn-lg">Agregar al Carrito</button>
-                    <button class="btn-lg btn-outline">Comprar Ahora</button>
+                    <button class="btn-lg" id="add-to-cart"><?= htmlspecialchars('Agregar al Carrito') ?></button>
+                    <button class="btn-lg btn-outline" id="buy-now"><?= htmlspecialchars('Comprar Ahora') ?></button>
                 </div>
                 <div class="card">
                     <div class="header">
@@ -146,6 +163,42 @@ try {
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const languageSelector = document.getElementById('language-selector');
+            const savedLanguage = localStorage.getItem('selectedLanguage') || 'es';
+            languageSelector.value = savedLanguage;
+
+            // Definir las traducciones
+            const translations = <?= json_encode($traducciones) ?>;
+
+            function loadTranslations(language) {
+                const productTitle = document.querySelector('.product-title');
+                const productDescription = document.querySelector('.product-description');
+                const productCategory = document.querySelector('.product-category');
+
+                if (translations[language]) {
+                    productTitle.textContent = translations[language].nombre;
+                    productDescription.textContent = translations[language].descripcion;
+                    productCategory.textContent = translations[language].categoria;
+
+                    // Cargar traducciones estáticas
+                    document.getElementById('back-to-store').textContent = translations[language].static.volver_a_tienda;
+                    document.getElementById('add-to-cart').textContent = translations[language].static.agregar_al_carrito;
+                    document.getElementById('buy-now').textContent = translations[language].static.comprar_ahora;
+                    document.getElementById('toggle-title').textContent = translations[language].static.metodos_pago;
+                }
+            }
+
+            loadTranslations(savedLanguage);
+
+            languageSelector.addEventListener('change', function() {
+                const selectedLanguage = this.value;
+                localStorage.setItem('selectedLanguage', selectedLanguage);
+                loadTranslations(selectedLanguage);
+            });
+        });
+    </script>
     <script>
         function initializeFavoritesOnProductPage() {
             const favoriteButton = document.querySelector('.favorite-button'); // Selecciona el botón de favorito en la página del producto

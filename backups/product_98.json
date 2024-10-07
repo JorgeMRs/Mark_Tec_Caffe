@@ -1,0 +1,10 @@
+{
+    "idProducto": 98,
+    "imagen": "\/public\/assets\/img\/productos\/Caf\u00e9 Especiales\/GYEmzp8agAAWs5B.jpg",
+    "nombre": "Helado",
+    "stock": 23,
+    "descripcion": "Disfrut\u00e1 de un cl\u00e1sico que nunca falla con nuestro Helado de Vainilla",
+    "precio": "23.00",
+    "idCategoria": 1,
+    "estadoActivacion": 1
+}

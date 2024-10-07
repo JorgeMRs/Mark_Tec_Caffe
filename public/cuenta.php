@@ -5,7 +5,17 @@ require '../src/auth/verifyToken.php';
 
 $response = checkToken();
 
-$user_id = $response['idCliente']; 
+// Verificar si la respuesta fue exitosa antes de acceder a 'idCliente'
+if ($response['success']) {
+    $user_id = $response['idCliente'];
+    // Aquí puedes usar $user_id según sea necesario
+} else {
+    // Manejar el caso en que la verificación del token falló
+    echo $response['message']; // Muestra un mensaje de error
+    // O redirige a otra página
+    header('Location: /public/login.php');
+    exit();
+}
 
 $conn = getDbConnection();
 
@@ -26,15 +36,14 @@ try {
         $nombre = $_POST['nombre'] ?? '';
         $apellido = $_POST['apellido'] ?? '';
         $telefono = $_POST['telefono'] ?? '';
-        $fechaNacimiento = $_POST['fechaNacimiento'] ?? '';
+        $fechaNacimiento = $_POST['fechaNacimiento'] ?? ''; // Puede estar vacío
 
         // Sanitizar y validar datos
         $correo = filter_var($correo, FILTER_SANITIZE_EMAIL);
         $nombre = htmlspecialchars($nombre, ENT_QUOTES, 'UTF-8');
         $apellido = htmlspecialchars($apellido, ENT_QUOTES, 'UTF-8');
         $telefono = preg_replace('/[^0-9+]/', '', $telefono);
-        $fechaNacimiento = htmlspecialchars($fechaNacimiento, ENT_QUOTES, 'UTF-8');
-
+        
         // Verificar contraseña
         $sqlCheckPassword = "SELECT contrasena FROM cliente WHERE idCliente=?";
         if ($stmtCheckPassword = $conn->prepare($sqlCheckPassword)) {
@@ -45,10 +54,26 @@ try {
                 if ($stmtCheckPassword->fetch()) {
                     $stmtCheckPassword->close();
 
-                    // Actualizar datos
-                    $sqlUpdate = "UPDATE cliente SET nombre=?, apellido=?, tel=?, fechaNacimiento=?, correo=? WHERE idCliente=?";
+                    // Construir la consulta de actualización
+                    $sqlUpdate = "UPDATE cliente SET nombre=?, apellido=?, tel=?, correo=?"; // Base de la consulta
+                    $types = "ssss"; // Tipos de los parámetros
+                    $params = [$nombre, $apellido, $telefono, $correo]; // Parámetros a incluir
+
+                    // Solo agregar fecha de nacimiento si está presente
+                    if (!empty($fechaNacimiento)) {
+                        $fechaNacimiento = htmlspecialchars($fechaNacimiento, ENT_QUOTES, 'UTF-8');
+                        $sqlUpdate .= ", fechaNacimiento=?";
+                        $types .= "s"; // Agregar tipo para fecha
+                        $params[] = $fechaNacimiento; // Agregar valor para fecha
+                    }
+
+                    $sqlUpdate .= " WHERE idCliente=?";
+                    $types .= "i"; // Tipo para el ID del usuario
+                    $params[] = $user_id; // Agregar ID del usuario
+
+                    // Preparar la consulta
                     if ($stmtUpdate = $conn->prepare($sqlUpdate)) {
-                        $stmtUpdate->bind_param("sssssi", $nombre, $apellido, $telefono, $fechaNacimiento, $correo, $user_id);
+                        $stmtUpdate->bind_param($types, ...$params); // Usar los tipos y parámetros dinámicamente
 
                         if ($stmtUpdate->execute()) {
                             $successMessage = 'Datos actualizados correctamente';
@@ -78,7 +103,6 @@ try {
         if ($stmt->execute()) {
             $stmt->bind_result($nombre, $apellido, $telefono, $fechaNacimiento, $correo, $avatar, $hashedPassword);
             if ($stmt->fetch()) {
-                // Datos ya están disponibles en las variables
                 $contraseña = $hashedPassword; // Guardar la contraseña en una variable para mostrarla en el formulario
             } else {
                 $errorMessage = "No se encontraron datos para el usuario especificado.";
@@ -117,7 +141,25 @@ try {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
 </head>
+<?php 
 
+$pageTitle = 'Café Sabrosos - Cuenta';
+
+$customCSS = [
+    '/public/assets/css/cuenta.css',
+    '/public/assets/css/nav.css',
+    '/public/assets/css/footer.css',
+    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css',
+    'https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css'
+
+];
+$customJS = [
+  '/public/assets/js/languageSelect.js',
+  '/public/assets/js/updateCartCounter.js',
+ 'https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js',
+];
+
+include 'templates/head.php' ?>
 <body>
     <header>
         <?php include 'templates/nav.php'; ?>

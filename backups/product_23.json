@@ -1,0 +1,10 @@
+{
+    "idProducto": 23,
+    "imagen": "\/public\/assets\/img\/productos\/Caf\u00e9s con Leche\/latte-avellana.jpg",
+    "nombre": "Latte Avellana",
+    "stock": 20,
+    "descripcion": "Caf\u00e9 con leche y jarabe de avellana, proporcionando un sabor delicado y a nuez que complementa el caf\u00e9.",
+    "precio": "4.40",
+    "idCategoria": 2,
+    "estadoActivacion": 1
+}

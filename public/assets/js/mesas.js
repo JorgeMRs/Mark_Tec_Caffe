@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 avisoModal.style.display = 'block';
                 avisoClose.addEventListener('click', function() {
                     avisoModal.style.display = 'none';
-                    window.location.href = '/public/login.html';
+                    window.location.href = '/public/login.php';
                 });
                 return;
             }

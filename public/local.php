@@ -21,24 +21,18 @@ $conn->close();
 
 
 <!DOCTYPE html>
-<html lang="es">
+<?php 
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Descubre los locales de Café Sabrosos en todo el mundo. Disfruta de nuestro café de alta calidad y ambiente acogedor.">
-    <meta name="keywords" content="Cafe, Sabrosos, Cafe Sabrosos, Sabrosos Cafe, locales, internacional">
-    <meta name="author" content="Mark Tec">
-    <title>Café Sabrosos - Locales Internacionales</title>
-    <link rel="stylesheet" href="assets/css/stylelocal.css">
-    <link rel="stylesheet" href="assets/css/nav.css">
-    <link rel="stylesheet" href="assets/css/footer.css">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="48x48" href="assets/img/icons/favicon-48x48.png">
-    <link rel="icon" type="image/png" sizes="48x48" href="assets/img/icons/favicon-64x64.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
+$pageTitle = 'Café Sabrosos - Locales';
+
+$customCSS = [
+    '/public/assets/css/stylelocal.css',
+    '/public/assets/css/nav.css',
+    '/public/assets/css/footer.css',
+    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css'
+];
+
+include 'templates/head.php' ?>
 
 <body class="body-local">
     <header>

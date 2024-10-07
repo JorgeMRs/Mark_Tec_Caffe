@@ -1,4 +1,38 @@
-import QrScanner from './qr-scanner.min.js'; // if using plain es6 import
+import QrScanner from './qr-scanner.min.js';
+
+
+function toggleHoraRecogida() {
+  const tipoPedido = document.getElementById("tipoPedido").value;
+  const horaRecogidaContainer = document.getElementById(
+    "horaRecogidaContainer"
+  );
+  const numeroMesaSelect = document.getElementById("numeroMesa");
+
+  if (tipoPedido === "Para llevar") {
+    horaRecogidaContainer.style.display = "block";
+    numeroMesaSelect.style.display = "none";
+  } else {
+    horaRecogidaContainer.style.display = "none";
+    numeroMesaSelect.style.display = "block";
+  }
+}
+
+function filterProducts() {
+  const searchTerm = document
+    .getElementById("buscarProducto")
+    .value.toLowerCase();
+  const productos = document.querySelectorAll(".product-row");
+
+  productos.forEach((producto) => {
+    const productName = producto.getAttribute("data-producto").toLowerCase();
+    if (productName.includes(searchTerm)) {
+      producto.style.display = "flex";
+    } else {
+      producto.style.display = "none";
+    }
+  });
+}
+
 
 document.addEventListener("DOMContentLoaded", function () {
   const productosSeleccionadosContainer = document.getElementById(
@@ -95,6 +129,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 }
 
+ const tipoPedidoElement = document.getElementById("tipoPedido");
+  if (tipoPedidoElement) {
+    tipoPedidoElement.addEventListener("change", toggleHoraRecogida);
+  }
+
+  // Add event listener for "buscarProducto" if it exists
+  const buscarProductoElement = document.getElementById("buscarProducto");
+  if (buscarProductoElement) {
+    buscarProductoElement.addEventListener("keyup", filterProducts);
+  }
+
   function decrementarCantidad(idProducto) {
     const cantidadInput = document.getElementById(`cantidad-${idProducto}`);
     let cantidad = parseInt(cantidadInput ? cantidadInput.textContent : 0, 10);
@@ -187,7 +232,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const notas = document.getElementById("notas").value;
       formData.append("notas", notas);
 
-      fetch("/src/db/mozoPedido.php", {
+      fetch("/src/mozo/mozoPedido.php", {
         method: "POST",
         body: formData,
       })
@@ -208,37 +253,7 @@ document.addEventListener("DOMContentLoaded", function () {
   actualizarProductosSeleccionados();
 });
 
-function toggleHoraRecogida() {
-  const tipoPedido = document.getElementById("tipoPedido").value;
-  const horaRecogidaContainer = document.getElementById(
-    "horaRecogidaContainer"
-  );
-  const numeroMesaSelect = document.getElementById("numeroMesa");
 
-  if (tipoPedido === "Para llevar") {
-    horaRecogidaContainer.style.display = "block";
-    numeroMesaSelect.style.display = "none";
-  } else {
-    horaRecogidaContainer.style.display = "none";
-    numeroMesaSelect.style.display = "block";
-  }
-}
-
-function filterProducts() {
-  const searchTerm = document
-    .getElementById("buscarProducto")
-    .value.toLowerCase();
-  const productos = document.querySelectorAll(".product-row");
-
-  productos.forEach((producto) => {
-    const productName = producto.getAttribute("data-producto").toLowerCase();
-    if (productName.includes(searchTerm)) {
-      producto.style.display = "flex";
-    } else {
-      producto.style.display = "none";
-    }
-  });
-}
 document.addEventListener("DOMContentLoaded", () => {
   const modal = document.getElementById("detalleModal");
   const span = document.getElementsByClassName("close")[0];

@@ -1,18 +1,14 @@
-<?php
-session_start();
-
-?>
 <!DOCTYPE html>
-<html lang="es">
+<?php 
+$pageTitle = 'Café Sabrosos - Reservas';
+$customCSS = [
+    '/public/assets/css/reservas.css',
+    '/public/assets/css/nav.css',
+    '/public/assets/css/footer.css',
+    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css'
+];
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reservas - Café Sabrosos</title>
-    <link rel="stylesheet" href="assets/css/nav.css">
-    <link rel="stylesheet" href="assets/css/footer.css">
-    <link rel="stylesheet" href="assets/css/reservas.css">
-</head>
+include 'templates/head.php' ?>
 
 <body>
     <header>

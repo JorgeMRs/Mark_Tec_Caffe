@@ -1,0 +1,10 @@
+{
+    "idProducto": 19,
+    "imagen": "\/public\/assets\/img\/productos\/Caf\u00e9s Especiales\/capuccino.jpg",
+    "nombre": "Cappuccino",
+    "stock": 25,
+    "descripcion": "Caf\u00e9 con leche y espuma, ofreciendo una textura ligera y una mezcla perfecta de caf\u00e9 y leche.",
+    "precio": "3.80",
+    "idCategoria": 1,
+    "estadoActivacion": 1
+}

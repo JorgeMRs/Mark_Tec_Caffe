@@ -1,0 +1,32 @@
+{
+    "es": {
+        "volver_a_tienda": "Regresar a la tienda",
+        "agregar_al_carrito": "Agregar al Carrito",
+        "comprar_ahora": "Comprar Ahora",
+        "metodos_pago": "Métodos de Pago"
+    },
+    "en": {
+        "volver_a_tienda": "Back to Store",
+        "agregar_al_carrito": "Add to Cart",
+        "comprar_ahora": "Buy Now",
+        "metodos_pago": "Payment Methods"
+    },
+    "fr": {
+        "volver_a_tienda": "Retour à la boutique",
+        "agregar_al_carrito": "Ajouter au panier",
+        "comprar_ahora": "Acheter maintenant",
+        "metodos_pago": "Méthodes de paiement"
+    },
+    "pt": {
+        "volver_a_tienda": "Voltar à loja",
+        "agregar_al_carrito": "Adicionar ao carrinho",
+        "comprar_ahora": "Comprar agora",
+        "metodos_pago": "Métodos de pagamento"
+    },
+    "de": {
+        "volver_a_tienda": "Zurück zum Laden",
+        "agregar_al_carrito": "In den Warenkorb",
+        "comprar_ahora": "Jetzt kaufen",
+        "metodos_pago": "Zahlungsmethoden"
+    }
+}
