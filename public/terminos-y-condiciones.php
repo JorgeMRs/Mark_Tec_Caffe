@@ -1,19 +1,20 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Café Sabrosos - Términos y Condiciones</title>
-    <link rel="stylesheet" href="/public/assets/css/footer.css">
-    <link rel="stylesheet" href="/public/assets/css/nav.css">
-    <link rel="stylesheet" href="/public/assets/css/politicas.css">
-    <link rel="icon" type="image/png" sizes="16x16" href="/public/assets/img/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/public/assets/img/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="48x48" href="/public/assets/img/icons/favicon-48x48.png">
-    <link rel="icon" type="image/png" sizes="48x48" href="/public/assets/img/icons/favicon-64x64.png">
-    <link rel="icon" type="image/x-icon" href="/public/assets/img/icons/favicon.ico">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
-</head>
+<?php 
+
+$pageTitle = 'Café Sabrosos - Términos y Condiciones';
+
+$customCSS = [
+    '/public/assets/css/politicas.css',
+    '/public/assets/css/nav.css',
+    '/public/assets/css/footer.css',
+    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css'
+];
+$customJS = [
+    '/public/assets/js/languageSelect.js',
+    '/public/assets/js/updateCartCounter.js'
+  ];
+include 'templates/head.php' ?>
+
 <body>
     <header>
         <?php include 'templates/nav.php'; ?>

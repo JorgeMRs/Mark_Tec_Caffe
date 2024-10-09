@@ -1,7 +1,7 @@
 <?php
 $current_page = basename($_SERVER['PHP_SELF']);
 $show_dropdown = ($current_page === 'tienda.php') ? 'active' : '';
-$logo_path = ($current_page === 'index.php') ? 'public/assets/img/logo-removebg-preview.png' : 'assets/img/logo-removebg-preview.png';
+$logo_path = ($current_page === 'index.php') ? 'public/assets/icons/favicon.svg' : 'assets/icons/favicon.svg';
 
 // Cambiar el texto y el enlace de "Productos" según la página
 $productos_text = ($current_page === 'tienda.php') ? 'Productos' : 'Tienda';
@@ -16,40 +16,42 @@ $isLoggedIn = isset($_COOKIE['user_token']);
     <div class="logo">
         <a href="/" class="logo-link">
             <img src="<?php echo $logo_path; ?>" alt="Logo" class="logo-image" />
-            <h1 data-translate="nav.logo">Café Sabrosos</h1>
+            <h1 id="nav-logo">Café Sabrosos</h1>
         </a>
     </div>
     <div class="nav-content">
         <ul class="nav-links">
             <li class="dropdown mobile-only <?php echo $show_dropdown; ?>">
-                <a href="<?php echo $productos_link; ?>" class="dropdown-link" data-translate="nav.productos"><?php echo $productos_text; ?> <?php echo $show_icon; ?></a>
+                <a href="<?php echo $productos_link; ?>" class="dropdown-link" id="nav-productos">
+                    <?php echo $productos_text; ?> <?php echo $show_icon; ?>
+                </a>
                 <ul class="dropdown-menu" id="mobile-category-dropdown">
-                    <li><a href="#" data-category="Cafés Especiales" data-category-id="1" data-translate="nav.categoria1">Cafés Especiales</a></li>
-                    <li><a href="#" data-category="Cafés con Leche" data-category-id="2" data-translate="nav.categoria2">Cafés con Leche</a></li>
-                    <li><a href="#" data-category="Cafés Fríos" data-category-id="3" data-translate="nav.categoria3">Cafés Fríos</a></li>
-                    <li><a href="#" data-category="Pasteles y Postres" data-category-id="4" data-translate="nav.categoria4">Pasteles y Postres</a></li>
-                    <li><a href="#" data-category="Té" data-category-id="5" data-translate="nav.categoria5">Té</a></li>
-                    <li><a href="#" data-category="Sandwich y Bocadillos" data-category-id="6" data-translate="nav.categoria6">Sandwiches y Bocadillos</a></li>
+                    <li><a href="#" data-category="Cafés Especiales" data-category-id="1" id="nav-categoria1">Cafés Especiales</a></li>
+                    <li><a href="#" data-category="Cafés con Leche" data-category-id="2" id="nav-categoria2">Cafés con Leche</a></li>
+                    <li><a href="#" data-category="Cafés Fríos" data-category-id="3" id="nav-categoria3">Cafés Fríos</a></li>
+                    <li><a href="#" data-category="Pasteles y Postres" data-category-id="4" id="nav-categoria4">Pasteles y Postres</a></li>
+                    <li><a href="#" data-category="Té" data-category-id="5" id="nav-categoria5">Té</a></li>
+                    <li><a href="#" data-category="Sandwich y Bocadillos" data-category-id="6" id="nav-categoria6">Sandwiches y Bocadillos</a></li>
                 </ul>
             </li>
-            <li class="desktop-only"><a href="<?php echo $productos_link; ?>"> <?php echo $productos_text; ?></a></li>
-            <li><a href="/public/local.php" data-translate="nav.locales">Locales</a></li>
-            <li><a href="#">Ofertas</a></li>
-            <li><a href="/public/reservas.php" data-translate="nav.reservas">Reservas</a></li>
-            <li><a href="/public/contactos.php" data-translate="nav.contacto">Contacto</a></li>
+            <li class="desktop-only"><a href="<?php echo $productos_link; ?>" id="nav-productos-desktop"><?php echo $productos_text; ?></a></li>
+            <li><a href="/public/local.php" id="nav-locales">Locales</a></li>
+            <li><a href="#" id="nav-ofertas">Ofertas</a></li>
+            <li><a href="/public/reservas.php" id="nav-reservas">Reservas</a></li>
+            <li><a href="/public/contactos.php" id="nav-contacto">Contacto</a></li>
             <li id="piston-cup" style="display:none;">
                 <a href="/Doom/doom.html">
                     <img src="/public/assets/img/pistoncup.png" alt="Piston Cup" style="width: 50px; height: auto;">
                 </a>
-            </li> <!-- Botón oculto -->
+            </li>
         </ul>
         <div class="nav-icons">
-        <?php if ($isLoggedIn): ?>
+            <?php if ($isLoggedIn): ?>
                 <a href="/public/favoritos.php" class="favorite-icon">
                     <i class="fas fa-heart2"></i>
                 </a>
             <?php endif; ?>
-            <a href="/public/cuenta.php"><img src="/public/assets/img/image.png" alt="Usuario" class="user-icon" /></a>
+            <a href="/public/cuenta.php"><img src="/public/assets/img/image.png" alt="Usuario" class="user-icon" id="nav-usuario" /></a>
             <div class="cart" id="cart-icon">
                 <a href="/public/carrito.php">
                     <img src="/public/assets/img/cart.png" alt="Carrito" />
@@ -60,7 +62,6 @@ $isLoggedIn = isset($_COOKIE['user_token']);
                     <a href="/public/carrito.php" class="view-cart-button">Ver carrito</a>
                 </div>
             </div>
-            <!-- Selector de idiomas -->
             <select id="language-selector" class="language-selector">
                 <option value="es">Español</option>
                 <option value="en">English</option>

@@ -3,8 +3,8 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 require '../../vendor/autoload.php';
-require '../client/verifyToken.php';
-checkToken();
+require '../auth/verifyToken.php';
+
 use Dotenv\Dotenv;
 
 $dotenv = Dotenv::createImmutable(__DIR__ . '/../../');

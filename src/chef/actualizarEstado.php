@@ -1,12 +1,10 @@
 <?php
-session_start();
+include '../db/db_connect.php';
+require '../../vendor/autoload.php';
+require '../auth/verifyToken.php';
 
-if (!isset($_SESSION['employee_id']) || $_SESSION['role'] !== 'Chef') {
-    echo json_encode(['status' => 'error', 'message' => 'Acceso denegado']);
-    exit();
-}
-
-include '../db/db_connect.php'; // Ajusta la ruta según tu estructura de directorios
+$response = checkToken();
+$idEmpleadoCancelador = $response['idEmpleado'];
 
 // Obtener los datos del formulario
 $idPedido = isset($_POST['idPedido']) ? intval($_POST['idPedido']) : 0;
@@ -68,7 +66,6 @@ try {
     if ($nuevoEstado === 'Cancelado') {
         // Insertar en la tabla de cancelaciones
         $tipoCancelacion = 'Empleado';
-        $idEmpleadoCancelador = $_SESSION['employee_id'];
         $queryCancelacion = "INSERT INTO cancelacionpedido (idPedido, idEmpleado, fechaCancelacion, notas, tipoCancelacion)
         VALUES (?, ?, NOW(), ?, ?)";
         $stmt = $conn->prepare($queryCancelacion);
@@ -88,7 +85,7 @@ try {
     // Añadir mensaje adicional y redirección si el estado es "Completado"
     if ($nuevoEstado === 'Completado') {
         $response['message'] = 'El pedido ha sido completado con éxito.';
-        $response['redirect'] = '/public/chef/cocina.php'; // URL a la que redirigir
+        $response['redirect'] = '../../public/chef/cocina.php'; // URL a la que redirigir
     }
 
     // Confirmar transacción

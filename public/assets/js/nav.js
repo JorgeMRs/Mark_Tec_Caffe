@@ -132,17 +132,15 @@ const productosLink = document.querySelector('.dropdown-link');
 
 // Detectar si estás en un dispositivo móvil
 function isMobileDevice() {
-    return window.innerWidth <= 768; // Ajusta este valor según el ancho de tu diseño móvil
+    return window.innerWidth <= 768;
 }
 
-// Obtén la URL actual
 const currentPage = window.location.pathname;
 
 // Evento para mostrar/ocultar el menú de navegación
 toggleButton.addEventListener('click', function() {
     navLinks.classList.toggle('active');
     
-    // Asegúrate de que el dropdown esté cerrado cuando abras/cierres el menú de navegación en móviles
     if (!navLinks.classList.contains('active')) {
         // Si el menú se cierra, también cierra el dropdown
         if (dropdown.classList.contains('active')) {

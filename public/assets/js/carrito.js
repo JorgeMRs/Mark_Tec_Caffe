@@ -1,95 +1,112 @@
 document.addEventListener('DOMContentLoaded', function () {
-    fetch('/src/db/checkSession.php')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network error.');
-            }
-            return response.json();
-        })
-        .then(sessionData => {
-            const userId = sessionData.loggedIn ? sessionData.userId : null;
+    const languageSelector = document.getElementById('language-selector');
+    let selectedLanguage = localStorage.getItem('selectedLanguage') || languageSelector.value; // Usa el idioma guardado o el por defecto
 
-            if (userId) {
-                fetch(`/src/cart/getCart.php?user_id=${userId}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        const checkoutButton = document.getElementById('checkout-button');
-                        const productsContainer = document.querySelector('.products tbody');
-                        const emptyCartMessage = document.getElementById('empty-cart-message');
+    // Establecer el idioma seleccionado en el selector
+    languageSelector.value = selectedLanguage;
 
-                        checkoutButton.disabled = true;
+    // Listener para cambios en el selector de idioma
+    languageSelector.addEventListener('change', function () {
+        selectedLanguage = this.value; // Actualiza el idioma seleccionado
+        localStorage.setItem('selectedLanguage', selectedLanguage); // Guarda el idioma en localStorage
+        fetchCartProducts(); // Vuelve a obtener los productos con el nuevo idioma
+    });
 
+    function fetchCartProducts() {
+        fetch('/src/db/checkSession.php')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network error.');
+                }
+                return response.json();
+            })
+            .then(sessionData => {
+                const userId = sessionData.loggedIn ? sessionData.userId : null;
 
-                        productsContainer.innerHTML = '';
+                if (userId) {
+                    fetch(`/src/cart/getCart.php?user_id=${userId}&lang=${selectedLanguage}`) // Pasa el idioma como parámetro
+                        .then(response => response.json())
+                        .then(data => {
+                            const checkoutButton = document.getElementById('checkout-button');
+                            const productsContainer = document.querySelector('.products tbody');
+                            const emptyCartMessage = document.getElementById('empty-cart-message');
 
-                        if (data.length === 0) {
-                            emptyCartMessage.style.display = 'block';
-                        } else {
-                            emptyCartMessage.style.display = 'none';
+                            checkoutButton.disabled = true;
+                            productsContainer.innerHTML = '';
 
-                            data.forEach(product => {
-                                const price = parseFloat(product.precio);
-                                if (isNaN(price)) {
-                                    console.error(`Invalid price for product ${product.nombre}:`, product.precio);
-                                    return;
+                            if (data.length === 0) {
+                                emptyCartMessage.style.display = 'block';
+                            } else {
+                                emptyCartMessage.style.display = 'none';
+
+                                data.forEach(product => {
+                                    const price = parseFloat(product.precio);
+                                    if (isNaN(price)) {
+                                        console.error(`Invalid price for product ${product.nombre}: ${product.precio}`);
+                                        return;
+                                    }
+
+                                    const productHTML = `
+                                        <tr class="product" data-product-id="${product.idProducto}">
+                                            <td>
+                                                <img class="product-image" src="${product.imagen}" alt="${product.nombre}">
+                                            </td>
+                                            <td>
+                                                <div class="details">
+                                                    <h2 style="text-transform: uppercase;">${product.nombre}</h2>
+                                                    <p>${product.descripcion}</p>
+                                                </div>
+                                            </td>
+                                            <td>€${price.toFixed(2)}</td>
+                                            <td>
+                                                <div class="controls">
+                                                    <button class="btn icon decrease">-</button>
+                                                    <div class="quantity">${product.cantidad}</div>
+                                                    <button class="btn icon increase">+</button>
+                                                </div>
+                                            </td>
+                                            <td>€${(price * product.cantidad).toFixed(2)}</td>
+                                            <td class="btn-wrapper">
+                                                <button class="btn ghost favorite">
+                                                    <i class="fas fa-heart"></i>
+                                                </button>
+                                                <button class="btn ghost remove">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    `;
+
+                                    productsContainer.innerHTML += productHTML;
+                                });
+
+                                if (data.length > 0) {
+                                    checkoutButton.disabled = false;
                                 }
 
-                                const productHTML = `
-                                    <tr class="product" data-product-id="${product.idProducto}">
-                                        <td>
-                                            <img class="product-image" src="${product.imagen}" alt="${product.nombre}">
-                                        </td>
-                                        <td>
-                                            <div class="details">
-                                                <h2 style="text-transform: uppercase;">${product.nombre}</h2>
-                                                <p>${product.descripcion}</p>
-                                            </div>
-                                        </td>
-                                        <td>€${price.toFixed(2)}</td>
-                                        <td>
-                                            <div class="controls">
-                                                <button class="btn icon decrease">-</button>
-                                                <div class="quantity">${product.cantidad}</div>
-                                                <button class="btn icon increase">+</button>
-                                            </div>
-                                        </td>
-                                        <td>€${(price * product.cantidad).toFixed(2)}</td>
-                                        <td class="btn-wrapper">
-                                            <button class="btn ghost favorite">
-                                                <i class="fas fa-heart"></i>
-                                            </button>
-                                            <button class="btn ghost remove">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                `;
-
-                                productsContainer.innerHTML += productHTML;
-                            });
-
-                            if (data.length > 0) {
-                                checkoutButton.disabled = false;
+                                updateSubtotalAndTax();
+                                addEventListeners();
+                                initializeFavorites();
                             }
+                        })
+                        .catch(error => console.error('Error:', error));
+                } else {
+                    document.querySelector('.products tbody').innerHTML = "<tr><td colspan='5'>Por favor, inicia sesión para ver tu carrito.</td></tr>";
+                }
+            })
+            .catch(error => console.error('Error fetching session data:', error));
+    }
 
-                            updateSubtotalAndTax();
-                            addEventListeners();
-                            initializeFavorites();
-                        }
-                    })
-                    .catch(error => console.error('Error:', error));
-            } else {
-                document.querySelector('.products tbody').innerHTML = "<tr><td colspan='5'>Por favor, inicia sesión para ver tu carrito.</td></tr>";
-            }
-        })
-        .catch(error => console.error('Error fetching session data:', error));
-        const checkoutButton = document.getElementById('checkout-button');
-        checkoutButton.addEventListener('click', function () {
-            if (!checkoutButton.disabled) {
-                // Redirigir a pagar.php
-                window.location.href = 'pagar.php';
-            }
-});
+    // Llama a la función para obtener los productos al cargar
+    fetchCartProducts();
+
+    const checkoutButton = document.getElementById('checkout-button');
+    checkoutButton.addEventListener('click', function () {
+        if (!checkoutButton.disabled) {
+            // Redirigir a pagar.php
+            window.location.href = 'pagar.php';
+        }
+    });
 });
 
 function updateSubtotalAndTax() {
@@ -104,9 +121,9 @@ function updateSubtotalAndTax() {
     const tax = subtotal * taxRate;
     const total = subtotal + tax;
 
-    document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
-    document.getElementById('tax').textContent = `$${tax.toFixed(2)}`;
-    document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+    document.getElementById('subtotal').textContent = `€${subtotal.toFixed(2)}`;
+    document.getElementById('tax').textContent = `€${tax.toFixed(2)}`;
+    document.getElementById('total').textContent = `€${total.toFixed(2)}`;
 }
 
 function addEventListeners() {
@@ -170,7 +187,7 @@ function removeItem(e) {
     const productId = productElement.dataset.productId;
     const checkoutButton = document.getElementById('checkout-button');
 
-    fetch(`/src/cart/removeFromCart.php`, {
+    fetch('/src/cart/removeFromCart.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

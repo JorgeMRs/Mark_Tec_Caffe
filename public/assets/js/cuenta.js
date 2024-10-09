@@ -319,14 +319,15 @@ document.addEventListener('DOMContentLoaded', function() {
               }
   
               pedidoItem.innerHTML = `
-                  <h3>Pedido #${pedido.idPedido}</h3>
-                  <p><strong>Fecha:</strong> ${pedido.fechaPedido}</p>
-                  <p><strong>Estado:</strong> ${pedido.estado}</p>
-                  <p><strong>Total:</strong> $${pedido.total}</p>
-                  ${pedido.fechaCancelacion ? `<p><strong>Fecha de Cancelación:</strong> ${pedido.fechaCancelacion}</p>` : ''}
-                  <div class="productos">${productosHTML}</div>
-                  ${pedido.estado === 'Pendiente' ? '<button class="view-pedidos-btn" onclick="showCancelConfirmationModal(' + pedido.idPedido + ')">Cancelar Pedido</button>' : ''}
-              `;
+              <h3>Pedido #${pedido.idPedido}</h3>
+              <p><strong>Fecha:</strong> ${pedido.fechaPedido}</p>
+              <p><strong>Fecha de Actualización:</strong> ${pedido.fechaModificacion ? pedido.fechaModificacion : 'N/A'}</p>
+              <p><strong>Estado:</strong> ${pedido.estado}</p>
+              <p><strong>Total:</strong> $${pedido.total}</p>
+              ${pedido.fechaCancelacion ? `<p><strong>Fecha de Cancelación:</strong> ${pedido.fechaCancelacion}</p>` : ''}
+              <div class="productos">${productosHTML}</div>
+              ${pedido.estado === 'Pendiente' ? '<button class="view-pedidos-btn" onclick="showCancelConfirmationModal(' + pedido.idPedido + ')">Cancelar Pedido</button>' : ''}
+          `;
               pedidosList.appendChild(pedidoItem);
           });
   

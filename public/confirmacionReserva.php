@@ -1,10 +1,15 @@
 <?php
 require_once '../src/db/db_connect.php';
 require_once '../src/email/codigoReservaEmail.php';
+require '../vendor/autoload.php';
+require '../src/auth/verifyToken.php';
 use Endroid\QrCode\Builder\Builder;
 use Endroid\QrCode\Writer\PngWriter;
 
-session_start();
+$response = checkToken();
+
+$user_id = $response['idCliente']; 
+$emailCliente = $response['email'];
 
 $codigoReserva = isset($_GET['codigoReserva']) ? $_GET['codigoReserva'] : '';
 
@@ -42,9 +47,6 @@ try {
         header("Location: /public/error/403.html");
         exit();
     }
-
-    // Obtener el correo electrónico del cliente desde la sesión
-    $emailCliente = isset($_SESSION['user_email']) ? $_SESSION['user_email'] : '';
 
    
     if (!empty($emailCliente)) {

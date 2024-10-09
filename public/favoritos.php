@@ -6,17 +6,17 @@ $response = checkToken();
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<?php 
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/public/assets/css/nav.css">
-    <link rel="stylesheet" href="/public/assets/css/footer.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <title>Productos Favoritos</title>
-</head>
+$pageTitle = 'Café Sabrosos - Productos Favoritos';
 
+$customCSS = [
+    '/public/assets/css/nav.css',
+    '/public/assets/css/footer.css',
+    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css'
+];
+
+include 'templates/head.php' ?>
 <body>
     <header>
         <?php
@@ -24,7 +24,7 @@ $response = checkToken();
         ?>
     </header>
     <div class="container">
-        <p id="empty-favorites-message" style="display: none; text-align: center;">You have no favorite products.</p>
+        <p id="empty-favorites-message" style="display: none; text-align: center;">No tienes actualmente productos en favoritos.</p>
         <div class="grid" id="favorites">
         </div>
     </div>
@@ -46,7 +46,9 @@ $response = checkToken();
             padding: 2rem;
         }
 
-        .header {
+        header {
+            position: relative;
+            z-index: 100000;
             text-align: center;
             margin-bottom: 2rem;
             font-family: 'Poppins', sans-serif;
@@ -127,14 +129,14 @@ $response = checkToken();
         }
 
         .view-details-button {
-    width: 100%;
-    padding: 0.5rem;
-    background-color: #1b0d0b;
-    color: #daa520;
-    border: none;
-    border-radius: 0.25rem;
-    cursor: pointer;
-}
+            width: 100%;
+            padding: 0.5rem;
+            background-color: #1b0d0b;
+            color: #daa520;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+        }
 
         i.fa-trash-can:hover {
             background-color: #d5d5d5;

@@ -1,9 +1,13 @@
 <?php
-session_start();
-require '../db/db_connect.php'; // Asegúrate de tener la conexión correcta
+include '../db/db_connect.php';
+require '../../vendor/autoload.php';
+require '../auth/verifyToken.php';
 
-$response = ['validPassword' => false, 'message' => ''];
-$email = $_SESSION['employee_email'];
+$response = checkToken();
+$email = $response['correoEmpleado'];
+
+$passwordResponse = ['validPassword' => false, 'message' => ''];
+
 $password = $_POST['password'];
 
 try {
@@ -28,22 +32,22 @@ try {
 
         // Verificar la contraseña
         if (password_verify($password, $hashedPassword)) {
-            $response['validPassword'] = true;
-            $response['message'] = 'Contraseña verificada correctamente.';
+            $passwordResponse['validPassword'] = true;
+            $passwordResponse['message'] = 'Contraseña verificada correctamente.';
         } else {
-            $response['message'] = 'Contraseña incorrecta.';
+            $passwordResponse['message'] = 'Contraseña incorrecta.';
         }
     } else {
-        $response['message'] = 'Empleado no encontrado.';
+        $passwordResponse['message'] = 'Empleado no encontrado.';
     }
 
     $stmt->close();
     $mysqli->close();
 } catch (Exception $e) {
     // En caso de error, se captura la excepción y se devuelve el mensaje de error
-    $response['message'] = 'Error: ' . $e->getMessage();
+    $passwordResponse['message'] = 'Error: ' . $e->getMessage();
 }
 
-// Devolver la respuesta en formato JSON
-echo json_encode($response);
+// Devolver la respuesta de la verificación de contraseña en formato JSON
+echo json_encode($passwordResponse);
 ?>

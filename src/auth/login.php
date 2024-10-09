@@ -3,6 +3,11 @@ ini_set('session.use_cookies', '0');
 use Firebase\JWT\JWT;
 require_once '../db/db_connect.php';
 require_once __DIR__ . '/../../vendor/autoload.php';
+require '../utils/encryptData.php';
+$config = include __DIR__ . '/../config/config.php'; 
+
+$secretKey = $config['secretKey'];
+$encryptionKey = $config['encryptionKey'];
 
 use Dotenv\Dotenv;
 
@@ -40,14 +45,19 @@ try {
                     $response['message'] = 'La cuenta no está activada. Por favor, verifica tu correo para activar tu cuenta.';
                 } else {
                     if (password_verify($contraseña, $hashed_password)) {
+
+                        $encryptedEmail = encryptData($correo, $encryptionKey);
+                        $encryptedUserId = encryptData($user_id, $encryptionKey);
+                        
                         $secretKey = $_ENV['JWT_SECRET'];
                         $expirationTime = time() + 86400;
                         $payload = [
                             'iat' => time(),
                             'exp' => $expirationTime,
-                            'idCliente' => $user_id,
-                            'email' => $correo,
+                            'idCliente' => $encryptedUserId, // ID cifrado
+                            'email' => $encryptedEmail,       // Correo cifrado
                         ];
+                        
                         $jwt = JWT::encode($payload, $secretKey, 'HS256');
                     
                         // Guardar el token en una cookie
@@ -80,14 +90,20 @@ try {
 
                         if (password_verify($contraseña, $hashed_password)) {
                             // Generar el token JWT para el empleado
+
+                            $encryptedEmail = encryptData($correo, $encryptionKey);
+                            $encryptedEmployeeId = encryptData($employee_id, $encryptionKey);
+
                             $secretKey = $_ENV['JWT_SECRET'];
                             $expirationTime = time() + 28800; // 8 horas de validez
                             $payload = [
                                 'iat' => time(),
                                 'exp' => $expirationTime,
-                                'idEmpleado' => $employee_id,
-                                'rol' => $puesto, // Aquí guardas el rol del empleado
+                                'idEmpleado' => $encryptedEmployeeId, // ID cifrado
+                                'rol' => $puesto,
+                                'correo' => $encryptedEmail,          // Correo cifrado
                             ];
+
                             $jwt_employee = JWT::encode($payload, $secretKey, 'HS256');
                         
                             // Guardar el token en una cookie
@@ -99,6 +115,8 @@ try {
                                 $response['redirect'] = '../../public/mozo/mozo.php';
                             } elseif ($puesto === 'Chef') {
                                 $response['redirect'] = '../../public/chef/chef.php';
+                            } elseif ($puesto === 'Gerente' || $puesto === 'Admin') {
+                                $response['redirect'] = '../../public/panel/gerente.php';
                             } else {
                                 $response['redirect'] = '../../index.php';
                             }

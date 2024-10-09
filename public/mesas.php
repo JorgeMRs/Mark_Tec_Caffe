@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once '../vendor/autoload.php'; // Ajusta la ruta según la ubicación de tu archivo
 require_once '../src/db/db_connect.php'; // Incluir el archivo de conexión a la base de datos
 
@@ -58,16 +57,27 @@ try {
 }
 ?>
 <!DOCTYPE html>
-<html lang="es">
+<?php 
 
-<head>
-    <meta charset="UTF-8">
-    <title>Mesas</title>
-    <link rel="stylesheet" href="assets/css/nav.css">
-    <link rel="stylesheet" href="assets/css/footer.css">
-    <link rel="stylesheet" href="assets/css/mesas.css">
-</head>
+$pageTitle = 'Café Sabrosos - Mesas';
+
+$customCSS = [
+    '/public/assets/css/mesas.css',
+    '/public/assets/css/nav.css',
+    '/public/assets/css/footer.css',
+    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css'
+
+];
+$customJS = [
+  '/public/assets/js/languageSelect.js',
+  '/public/assets/js/updateCartCounter.js'
+];
+
+include 'templates/head.php' ?>
+
+<header>
 <?php include 'templates/nav.php' ?>
+</header>
 
 <body>
     <div id="reservaModal" class="modal">

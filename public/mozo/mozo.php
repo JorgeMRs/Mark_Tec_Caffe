@@ -1,15 +1,16 @@
 <?php
-session_start();
+include '../../src/db/db_connect.php';
+require '../../vendor/autoload.php';
+require '../../src/auth/verifyToken.php';
 
-// Verificar si el usuario ha iniciado sesión y si su rol es 'mozo'
-if (!isset($_SESSION['employee_id']) || $_SESSION['role'] !== 'Mozo') {
-    header('Location: /public/error/403.html');
+$response = checkToken();
+
+if ($response['role'] !== 'employee' || $response['rol'] !== 'Mozo') {
+    header('Location: /public/error/403.html'); // Redirigir a la página de inicio de sesión
     exit();
 }
-include '../../src/db/db_connect.php'; // Ajusta la ruta según tu estructura de directorios
 
-// Obtener el nombre del empleado usando el employee_id de la sesión
-$employeeId = $_SESSION['employee_id'];
+$employee_id = $response['idEmpleado']; 
 
 $conn = getDbConnection();
 if (!$conn) {
@@ -19,7 +20,7 @@ if (!$conn) {
 // Consulta para obtener el nombre del empleado
 $query = "SELECT nombre FROM empleado WHERE idEmpleado = ?";
 $stmt = $conn->prepare($query);
-$stmt->bind_param('i', $employeeId);
+$stmt->bind_param('i', $employee_id);
 
 if (!$stmt->execute()) {
     die('Error en la consulta: ' . $stmt->error);
@@ -64,12 +65,9 @@ $conn->close();
             <img class="icon" src="/public/assets/img/reservas.svg" alt="Icono por defecto">
             Reservas
         </a>
-        <a href="/src/db/logout.php" class="logout-button">
+        <a href="/src/auth/logout.php" class="logout-button">
             Cerrar Sesión
         </a>
-        <button id="scanBtn">Escanear QR</button>
-        <video id="video" width="300" height="200" style="display: none;"></video>
-        <div id="response" style="margin-top: 20px;"></div>
     </div>
 </body>
 

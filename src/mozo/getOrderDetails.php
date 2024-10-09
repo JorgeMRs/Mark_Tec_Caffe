@@ -1,5 +1,12 @@
 <?php
 include '../db/db_connect.php';
+require '../../vendor/autoload.php';
+require '../auth/verifyToken.php';
+
+$response = checkToken();
+
+$employee_id = $response['idEmpleado']; 
+$role = $response['rol'];
 
 if (isset($_GET['id'])) {
     $pedidoId = intval($_GET['id']);

@@ -1,0 +1,10 @@
+{
+    "idProducto": 21,
+    "imagen": "\/public\/assets\/img\/productos\/Caf\u00e9s con Leche\/latte-vainilla.jpg",
+    "nombre": "Latte Vainilla",
+    "stock": 30,
+    "descripcion": "Caf\u00e9 con leche y jarabe de vainilla, creando una mezcla dulce y arom\u00e1tica. Perfecto para los amantes de sabores suaves.",
+    "precio": "4.20",
+    "idCategoria": 2,
+    "estadoActivacion": 1
+}

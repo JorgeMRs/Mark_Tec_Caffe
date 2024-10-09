@@ -1,22 +1,21 @@
 <?php
-session_start();
 require '../db/db_connect.php';
+require '../auth/verifyToken.php';
 
-if (!isset($_SESSION['user_id'])) {
-    echo json_encode([]);
-    exit();
-}
+$response = checkToken();
 
-$user_id = $_SESSION['user_id'];
+$user_id = $response['idCliente'];
+
 $conn = getDbConnection();
 
 $response = [];
 try {
     // Obtener los pedidos del cliente junto con la fecha de cancelación (si existe)
-    $sqlPedidos = "SELECT p.idPedido, p.fechaPedido, p.estado, p.total, c.fechaCancelacion 
-                   FROM pedido p
-                   LEFT JOIN cancelacionpedido c ON p.idPedido = c.idPedido
-                   WHERE p.idCliente=?";
+    $sqlPedidos = "SELECT p.idPedido, p.fechaPedido, p.estado, p.total, p.fechaModificacion, c.fechaCancelacion 
+    FROM pedido p
+    LEFT JOIN cancelacionpedido c ON p.idPedido = c.idPedido
+    WHERE p.idCliente=?";
+
     $stmtPedidos = $conn->prepare($sqlPedidos);
     $stmtPedidos->bind_param("i", $user_id);
 
@@ -56,4 +55,3 @@ try {
 
 $conn->close();
 echo json_encode($response);
-?>

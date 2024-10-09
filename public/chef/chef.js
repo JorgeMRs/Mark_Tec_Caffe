@@ -1,4 +1,24 @@
 document.addEventListener("DOMContentLoaded", () => {
+
+  const ws = new WebSocket('ws://localhost:8080');
+  const messageQueue = [];
+
+  const sendMessage = (message) => {
+      if (ws.readyState === WebSocket.OPEN) {
+          ws.send(message);
+      } else {
+          messageQueue.push(message);
+          console.log("Mensaje añadido a la cola:", message);
+      }
+  };
+  
+  ws.onopen = () => {
+      console.log("Conexión WebSocket establecida.");
+      // Enviar mensajes en la cola
+      while (messageQueue.length > 0) {
+          ws.send(messageQueue.shift());
+      }
+  };
   // Manejo del formulario de agregar categoría
   document
     .getElementById("addCategoryForm")
@@ -72,6 +92,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (data.success) {
           messageDiv.textContent = "Producto agregado exitosamente.";
           messageDiv.style.color = "green";
+
+          ws.send(JSON.stringify({ action: 'nuevoProductoAgregado' }));
+          console.log("Mensaje enviado: nuevoProductoAgregado");
 
           // Recarga la página después de agregar el producto
           setTimeout(() => {
@@ -253,6 +276,9 @@ document.addEventListener("DOMContentLoaded", () => {
                   successModal.querySelector("#successMessage").textContent =
                     deleteData.message;
                   successModal.classList.add("show");
+
+                sendMessage(JSON.stringify({ action: 'productoEliminado' }));
+                  
                   console.log("Product deleted successfully.");
                 } else {
                   messageDiv.textContent = deleteData.message;
@@ -311,6 +337,9 @@ document.addEventListener("DOMContentLoaded", () => {
               row.classList.add("desactivado");
               confirmationModal.classList.remove("show");
               confirmationModal.classList.add("hidden");
+
+              sendMessage(JSON.stringify({ action: 'productoDesactivado' }));
+
               successModal.querySelector("#successMessage").textContent =
                 data.message;
               successModal.classList.add("show");
@@ -608,6 +637,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (data.success) {
           messageDiv.textContent = "Categoría actualizada exitosamente.";
           messageDiv.style.color = "green";
+          sendMessage(JSON.stringify({ action: 'categoriaActualizada' }));
 
           // Actualizar la imagen en la tabla solo si hay una nueva imagen
           const updatedCategoryRow = document.querySelector(
@@ -796,6 +826,9 @@ document.addEventListener("DOMContentLoaded", () => {
                   successModal.querySelector("#successMessage").textContent =
                     deleteData.message;
                   successModal.classList.add("show");
+
+                  sendMessage(JSON.stringify({ action: 'categoriaEliminada' }));
+
                   console.log("Categoría eliminada con éxito.");
                 } else {
                   messageDiv.textContent = deleteData.message;
@@ -927,6 +960,7 @@ document.addEventListener("DOMContentLoaded", () => {
             row.classList.remove("desactivado"); // Elimina la clase desactivado
             button.remove(); // Elimina el botón de reactivar
             location.reload();
+            sendMessage(JSON.stringify({ action: 'productoReactivado' }));
           }
         } catch (error) {
           // Maneja errores de red u otros errores

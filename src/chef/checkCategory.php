@@ -1,7 +1,9 @@
 <?php
-// checkCategory.php
-session_start();
-require_once '../db/db_connect.php';
+include '../db/db_connect.php';
+require '../../vendor/autoload.php';
+require '../auth/verifyToken.php';
+
+$response = checkToken();
 
 $response = array('success' => false, 'productLinked' => false, 'message' => '');
 

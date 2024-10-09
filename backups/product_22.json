@@ -1,0 +1,10 @@
+{
+    "idProducto": 22,
+    "imagen": "\/public\/assets\/img\/productos\/Caf\u00e9s con Leche\/latte-caramelo.jpg",
+    "nombre": "Latte Caramelo",
+    "stock": 25,
+    "descripcion": "Caf\u00e9 con leche y jarabe de caramelo, ofreciendo una combinaci\u00f3n rica y dulce de caf\u00e9 y caramelo.",
+    "precio": "4.30",
+    "idCategoria": 2,
+    "estadoActivacion": 1
+}

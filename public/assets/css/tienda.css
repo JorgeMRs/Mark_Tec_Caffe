@@ -143,12 +143,15 @@ h1 {
 
 /* Sidebar Styles */
 .sidebar {
+  position: relative;
     width: 250px; /* Ajusta este valor según sea necesario */
     padding: 20px;
     background-color: #ffffff; /* Color de fondo del sidebar */
     border-radius: 8px; /* Bordes redondeados para un diseño más moderno */
     height: auto; 
     top: 20px; /* El sidebar se pegará cuando alcance 20px desde la parte superior */
+    display: flex;
+    flex-direction: column;
 }
 
 .sticky-sidebar {

@@ -1,16 +1,13 @@
 <?php
-session_start();
-
-// Verificar si el usuario ha iniciado sesión y si su rol es 'Chef'
-if (!isset($_SESSION['employee_id']) || $_SESSION['role'] !== 'Chef') {
-    header('Location: /public/error/403.html');
-    exit();
-}
-
 include '../../src/db/db_connect.php';
+require '../../vendor/autoload.php';
+require '../../src/auth/verifyToken.php';
 
-// Obtener el ID del empleado (chef) de la sesión
-$employeeId = $_SESSION['employee_id'];
+
+$response = checkToken();
+
+$employeeId = $response['idEmpleado']; 
+$role = $response['rol'];
 
 $conn = getDbConnection();
 if (!$conn) {
@@ -48,7 +45,6 @@ $result = $stmtPedidos->get_result();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Café Sabrosos - Pedidos</title>
-    <link rel="stylesheet" href="/public/assets/css/mozo/pedidos.css">
 </head>
 <style>
     /* Estilos generales */

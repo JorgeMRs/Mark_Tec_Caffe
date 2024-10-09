@@ -1,14 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<?php 
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/public/assets/css/footer.css">
-    <link rel="stylesheet" href="/public/assets/css/nav-blur.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <title>Tu Carrito</title>
-</head>
+$pageTitle = 'Café Sabrosos - Tú Carrito';
+
+$customCSS = [
+    '/public/assets/css/nav-blur.css',
+    '/public/assets/css/footer.css',
+    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css'
+
+];
+$customJS = [
+  '/public/assets/js/languageSelect.js',
+  '/public/assets/js/updateCartCounter.js'
+];
+
+include 'templates/head.php' ?>
 
 <body>
     <header>
@@ -16,25 +22,24 @@
     </header>
     <div class="container">
     <div class="header">
-        <h1>Tu Carrito</h1>
+        <h1 id="cart-title">Tu Carrito</h1>
         <a href="/public/tienda.php">
-            <button class="btn outline">
+            <button class="btn outline" id="back-to-store">
                 <i class="fas fa-arrow-left"></i> Volver a la Tienda
             </button>
         </a>
     </div>
 
-    <!-- Contenedor donde se insertarán los productos dinámicamente -->
     <div id="cart-items" class="products">
         <table>
             <thead>
                 <tr>
                     <th>&nbsp;</th>
-                    <th>Producto</th>
-                    <th>Precio</th>
-                    <th>Cantidad</th>
-                    <th>Total</th>
-                    <th>Acciones</th>
+                    <th id="product-header">Producto</th>
+                    <th id="price-header">Precio</th>
+                    <th id="quantity-header">Cantidad</th>
+                    <th id="total-header">Total</th>
+                    <th id="actions-header">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -43,16 +48,15 @@
         </table>
     </div>
 
-    <!-- Mensaje de carrito vacío (oculto por defecto) -->
     <div id="empty-cart-message" style="display: none;">
-        <p>Tu carrito está vacío. ¡Vuelve a la tienda y agrega productos!</p>
+        <p id="empty-cart-text">Tu carrito está vacío. ¡Vuelve a la tienda y agrega productos!</p>
     </div>
 
     <div class="total">
-        <div>Subtotal: <span id="subtotal">$0.00</span></div>
-        <div>Tax (20%): <span id="tax">$0.00</span></div>
-        <div class="total-main">Total: <span id="total">$0.00</span></div>
-        <button id="checkout-button" class="btn primary" disabled>Proceed to Checkout</button>
+        <div id="subtotal-text">Subtotal: <span id="subtotal">$0.00</span></div>
+        <div id="tax-text">Tax (20%): <span id="tax">$0.00</span></div>
+        <div class="total-main" id="total-text">Total: <span id="total">$0.00</span></div>
+        <button id="checkout-button" class="btn primary" disabled>Proceder con el pago</button>
     </div>
 </div>
 
@@ -222,74 +226,47 @@ p {
 .btn.favorite.selected i {
     color: #DAA520; /* Dorado */
 }
-        /* Media Queries para hacer la página responsive */
-        @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
+/* Estilos para pantallas pequeñas */
+@media (max-width: 600px) {
+    .container {
+        margin-top: 100px; /* Reduce el margen superior */
+        margin-bottom: 50px; /* Reduce el margen inferior */
+        padding: 10px; /* Reduce el padding */
+    }
 
-            .header h1 {
-                font-size: 1.5rem;
-            }
+    .header h1 {
+        font-size: 1.5rem; /* Reduce el tamaño de fuente del título */
+    }
 
-            .product {
-                flex-direction: column;
-                /* align-items: flex-start; */
-                text-align: center;
-            }
+    .products th, .products td {
+        padding: 10px; /* Reduce el padding en la tabla */
+        font-size: 12px; /* Reduce el tamaño de la fuente */
+    }
 
-            .product img {
-                width: 70px;
-                height: 70px;
-            }
+    .products img {
+        width: 100px; /* Reduce el tamaño de las imágenes */
+    }
 
-            .details {
-                padding: 10px 0;
-                width: 100%;
-            }
+    .controls {
+        flex-direction: column; /* Apila los controles verticalmente */
+        align-items: flex-start; /* Alinea a la izquierda */
+    }
 
-            .controls {
-                /* width: 100%; */
-                justify-content: space-between;
-            }
+    .quantity {
+        margin: 5px 0; /* Añade un margen entre los elementos */
+    }
 
-            .total {
-                flex-direction: column;
-                align-items: flex-start;
-            }
+    .total {
+        flex-direction: column; /* Apila los elementos en columna */
+        align-items: flex-start; /* Alinea a la izquierda */
+        font-size: 18px; /* Reduce el tamaño de la fuente */
+    }
 
-            .total div,
-            .total button {
-                width: 100%;
-                margin-bottom: 10px;
-                text-align: center;
-            }
+    .btn {
+        font-size: 10px; /* Reduce el tamaño de los botones */
+    }
+}
 
-            .total-main,
-            #total {
-                font-size: 24px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .product img {
-                width: 60px;
-                height: 60px;
-            }
-
-            .details h2 {
-                font-size: 1rem;
-            }
-
-            .details p {
-                font-size: 0.9rem;
-            }
-
-            .total-main,
-            #total {
-                font-size: 20px;
-            }
-        }
     </style>
 </body>
 <script>
@@ -297,5 +274,5 @@ p {
 </script>
 <script src="/public/assets/js/carrito.js"></script>
 <script src="/public/assets/js/updateCartCounter.js"></script>
-
+<script src="/public/assets/js/languageSelect.js"></script>
 </html>

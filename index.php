@@ -1,21 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<?php 
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Café Sabrosos</title>
-    <link rel="icon" type="image/png" sizes="16x16" href="/public/assets/img/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/public/assets/img/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="48x48" href="/public/assets/img/icons/favicon-48x48.png">
-    <link rel="icon" type="image/png" sizes="48x48" href="/public/assets/img/icons/favicon-64x64.png">
-    <link rel="icon" type="image/x-icon" href="/public/assets/img/icons/favicon.ico">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
-    <link rel="stylesheet" href="/public/assets/css/style.css">
-    <link rel="stylesheet" href="/public/assets/css/nav-blur.css">
-    <link rel="stylesheet" href="/public/assets/css/footer.css">
-</head>
+$customCSS = [
+    '/public/assets/css/style.css',
+    '/public/assets/css/nav-blur.css',
+    '/public/assets/css/footer.css',
+    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css'
+];
+$customJS = [
+    '/public/assets/js/languageSelect.js',
+    '/public/assets/js/updateCartCounter.js'
+];
+
+
+include 'public/templates/head.php' ?>
 
 <body>
     <div id="googleRegistrationModal" class="modal google-modal" style="display: none;">
@@ -337,8 +335,6 @@
     <?php include 'public/templates/footer.php' ?>
     <script src="/public/assets/js/nose.js"></script>
     <script src="/public/assets/js/index.js"></script>
-    <script src="/public/assets/js/languageSelect.js"></script>
 </body>
-<script src="/public/assets/js/updateCartCounter.js"></script>
 
 </html>

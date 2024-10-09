@@ -1,15 +1,18 @@
 <?php
-session_start();
-
- if (!isset($_SESSION['employee_id']) || $_SESSION['role'] !== 'Chef') {
-     header('Location: /public/error/403.html');
-     exit();
- }
-
 include '../../src/db/db_connect.php'; // Ajusta la ruta según tu estructura de directorios
+require '../../vendor/autoload.php';
+require '../../src/auth/verifyToken.php';
 
-// Obtener el nombre del empleado usando el employee_id de la sesión
-$employeeId = $_SESSION['employee_id'];
+
+$response = checkToken();
+
+if ($response['role'] !== 'employee' || $response['rol'] !== 'Chef') {
+    header('Location: /public/error/403.html'); // Redirigir a la página de error 403
+    exit();
+}
+
+$employeeId = $response['idEmpleado']; 
+
 
 $conn = getDbConnection();
 if (!$conn) {
@@ -64,7 +67,7 @@ $conn->close();
             <img class="icon" src="/public/assets/img/food-menu-3-svgrepo-com.svg" alt="Icono por defecto">
             Productos
         </a>
-        <a href="/src/db/logout.php" class="logout-button">
+        <a href="/src/auth/logout.php" class="logout-button">
             Cerrar Sesión
         </a>
     </div>
