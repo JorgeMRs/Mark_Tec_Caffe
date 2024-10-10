@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Café Manager - Panel de Control</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .main-content {
+            flex: 1;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            margin-bottom: 15px;
+        }
+        .nav {
+            list-style: none;
+        }
+        .nav li {
+            margin-bottom: 10px;
+        }
+        .nav a {
+            text-decoration: none;
+            color: #333;
+            cursor: pointer;
+        }
+        .nav a.active {
+            font-weight: bold;
+        }
+        .card-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            width: 30%;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .btn {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+            color: #fff;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+            }
+            .card-container {
+                flex-direction: column;
+            }
+            .card {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <h1>Café Manager</h1>
+            <ul class="nav">
+                <li><a class="active" data-target="pedidos">Pedidos</a></li>
+                <li><a data-target="historial">Historial</a></li>
+                <li><a data-target="inventario">Inventario</a></li>
+                <li><a data-target="personal">Personal</a></li>
+                <li><a data-target="finanzas">Finanzas</a></li>
+                <li><a data-target="analisis">Análisis</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <h2>Panel de Control</h2>
+            <div class="card-container">
+                <div class="card">
+                    <h3>Ventas del Día</h3>
+                    <p>$345.50</p>
+                </div>
+                <div class="card">
+                    <h3>Pedidos Activos</h3>
+                    <p>4</p>
+                </div>
+                <div class="card">
+                    <h3>Clientes del Día</h3>
+                    <p>28</p>
+                </div>
+            </div>
+
+            <div id="pedidos" class="tab-content active">
+                <h3>Pedidos Activos</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Fecha</th>
+                            <th>Cliente</th>
+                            <th>Empleado</th>
+                            <th>Total</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pedidosActivos"></tbody>
+                </table>
+            </div>
+
+            <div id="historial" class="tab-content">
+                <h3>Historial de Pedidos</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Fecha</th>
+                            <th>Cliente</th>
+                            <th>Empleado</th>
+                            <th>Total</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historialPedidos"></tbody>
+                </table>
+            </div>
+
+            <div id="inventario" class="tab-content">
+                <h3>Inventario</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Artículo</th>
+                            <th>Cantidad</th>
+                            <th>Unidad</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inventarioItems"></tbody>
+                </table>
+            </div>
+
+            <div id="personal" class="tab-content">
+                <h3>Personal</h3>
+                <p>Aquí se mostrará la información del personal.</p>
+            </div>
+
+            <div id="finanzas" class="tab-content">
+                <h3>Finanzas</h3>
+                <p>Aquí se mostrará la información financiera.</p>
+            </div>
+
+            <div id="analisis" class="tab-content">
+                <h3>Análisis de Ventas</h3>
+                <p>Aquí se mostrarán los gráficos de análisis de ventas.</p>
+            </div>
+        </main>
+    </div>
+
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Editar Pedido</h2>
+            <form id="editForm">
+                <input type="hidden" id="editId">
+                <div class="form-group">
+                    <label for="editDate">Fecha:</label>
+                    <input type="date" id="editDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="editCustomer">Cliente:</label>
+                    <input type="text" id="editCustomer" required>
+                </div>
+                <div class="form-group">
+                    <label for="editEmployee">Empleado:</label>
+                    <input type="text" id="editEmployee" required>
+                </div>
+                <div class="form-group">
+                    <label for="editTotal">Total:</label>
+                    <input type="text" id="editTotal" required>
+                </div>
+                <div class="form-group">
+                    <label for="editStatus">Estado:</label>
+                    <input type="text" id="editStatus" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Datos de ejemplo
+        let pedidosActivos = [
+            { id: 1, date: "2023-06-10", customer: "Mesa 3", employee: "Juan", total: "$15.50", status: "En preparación" },
+            { id: 2, date: "2023-06-10", customer: "Para llevar", employee: "María", total: "$10.00", status: "Listo" },
+        ];
+
+        let historialPedidos = [
+            { id: 101, date: "2023-06-01", customer: "Mesa 5", employee: "Carlos", total: "$22.50", status: "Completado" },
+            { id: 102, date: "2023-06-01", customer: "Para llevar", employee: "Ana", total: "$8.00", status: "Cancelado" },
+            { id: 103, date: "2023-05-31", customer: "Mesa 2", employee: "Juan", total: "$18.75", status: "Completado" },
+        ];
+
+        let inventario = [
+            { id: 1, item: "Café en grano", quantity: 5, unit: "kg" },
+            { id: 2, item: "Leche", quantity: 10, unit: "L" },
+            { id: 3, item: "Croissants", quantity: 15, unit: "unidades" },
+        ];
+
+        // Función para cargar datos en las tablas
+        function cargarDatos() {
+            const pedidosActivosBody = document.getElementById('pedidosActivos');
+            pedidosActivosBody.innerHTML = '';
+            pedidosActivos.forEach(pedido => {
+                const row = `<tr data-id="${pedido.id}">
+                    <td>${pedido.id}</td>
+                    <td>${pedido.date}</td>
+                    <td>${pedido.customer}</td>
+                    <td>${pedido.employee}</td>
+                    <td>${pedido.total}</td>
+                    <td>${pedido.status}</td>
+                    <td>
+                        <button class="btn btn-primary edit-btn">Editar</button>
+                        <button class="btn btn-danger delete-btn">Eliminar</button>
+                    </td>
+                </tr>`;
+                pedidosActivosBody.innerHTML += row;
+            });
+
+            const historialPedidosBody = document.getElementById('historialPedidos');
+            historialPedidosBody.innerHTML = '';
+            historialPedidos.forEach(pedido => {
+                const row = `<tr data-id="${pedido.id}">
+                    <td>${pedido.id}</td>
+                    <td>${pedido.date}</td>
+                    <td>${pedido.customer}</td>
+                    <td>${pedido.employee}</td>
+                    <td>${pedido.total}</td>
+                    <td>${pedido.status}</td>
+                    <td>
+                        <button class="btn btn-primary edit-btn">Editar</button>
+                        <button class="btn btn-danger delete-btn">Eliminar</button>
+                    </td>
+                </tr>`;
+                historialPedidosBody.innerHTML += row;
+            });
+
+            const inventarioBody = document.getElementById('inventarioItems');
+            inventarioBody.innerHTML = '';
+            inventario.forEach(item => {
+                const row = `<tr data-id="${item.id}">
+                    <td>${item.id}</td>
+                    <td>${item.item}</td>
+                    <td>${item.quantity}</td>
+                    <td>${item.unit}</td>
+                    <td>
+                        <button class="btn btn-primary edit-btn">Editar</button>
+                        <button class="btn btn-danger delete-btn">Eliminar</button>
+                    </td>
+                </tr>`;
+                inventarioBody.innerHTML += row;
+            });
+
+            // Agregar event listeners para los botones de editar y eliminar
+            document.querySelectorAll('.edit-btn').forEach(btn => {
+                btn.addEventListener('click', handleEdit);
+            });
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', handleDelete);
+            });
+        }
+
+        // Función para manejar la edición
+        function handleEdit(e) {
+            const row = e.target.closest('tr');
+            const id = row.dataset.id;
+            const tableId = row.closest('tbody').id;
+            
+            let item;
+            switch(tableId) {
+                case 'pedidosActivos':
+                    item = pedidosActivos.find(pedido => pedido.id == id);
+                    break;
+                case 'historialPedidos':
+                    item = historialPedidos.find(pedido => pedido.id == id);
+                    break;
+                case 'inventarioItems':
+                    item = inventario.find(inv => inv.id == id);
+                    break;
+            }
+
+            if (item) {
+                document.getElementById('editId').value = item.id;
+                document.getElementById('editDate').value = item.date || '';
+                document.getElementById('editCustomer').value = item.customer || '';
+                document.getElementById('editEmployee').value = item.employee || '';
+                document.getElementById('editTotal').value = item.total || '';
+                document.getElementById('editStatus').value = item.status || '';
+
+                document.getElementById('editModal').style.display = 'block';
+            }
+        }
+
+        // Función para manejar la eliminación
+        function handleDelete(e) {
+            const row = e.target.closest('tr');
+            const id = row.dataset.id;
+            const tableId = row.closest('tbody').id;
+            
+            if (confirm('¿Estás seguro de que quieres eliminar este elemento?')) {
+                deleteData(id, tableId);
+                cargarDatos();
+            }
+        }
+
+        // Función para actualizar datos
+        function updateData(id, newData, tableId) {
+            let targetArray;
+            switch(tableId) {
+                case  'pedidosActivos':
+                    targetArray = pedidosActivos;
+                    break;
+                case 'historialPedidos':
+                    targetArray = historialPedidos;
+                    break;
+                case 'inventarioItems':
+                    targetArray = inventario;
+                    break;
+            }
+            
+            const index = targetArray.findIndex(item => item.id == id);
+            if (index !== -1) {
+                targetArray[index] = { ...targetArray[index], ...newData };
+            }
+        }
+
+        // Función para eliminar datos
+        function deleteData(id, tableId) {
+            let targetArray;
+            switch(tableId) {
+                case 'pedidosActivos':
+                    targetArray = pedidosActivos;
+                    break;
+                case 'historialPedidos':
+                    targetArray = historialPedidos;
+                    break;
+                case 'inventarioItems':
+                    targetArray = inventario;
+                    break;
+            }
+            
+            const index = targetArray.findIndex(item => item.id == id);
+            if (index !== -1) {
+                targetArray.splice(index, 1);
+            }
+        }
+
+        // Función para manejar la navegación
+        function manejarNavegacion() {
+            const links = document.querySelectorAll('.nav a');
+            const tabs = document.querySelectorAll('.tab-content');
+
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = this.dataset.target;
+
+                    links.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+
+                    tabs.forEach(tab => {
+                        if (tab.id === target) {
+                            tab.classList.add('active');
+                        } else {
+                            tab.classList.remove('active');
+                        }
+                    });
+                });
+            });
+        }
+
+        // Inicializar la aplicación
+        document.addEventListener('DOMContentLoaded', function() {
+            cargarDatos();
+            manejarNavegacion();
+
+            // Modal
+            const modal = document.getElementById('editModal');
+            const span = document.getElementsByClassName('close')[0];
+            const editForm = document.getElementById('editForm');
+
+            span.onclick = function() {
+                modal.style.display = 'none';
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                }
+            }
+
+            editForm.onsubmit = function(e) {
+                e.preventDefault();
+                const id = document.getElementById('editId').value;
+                const newData = {
+                    date: document.getElementById('editDate').value,
+                    customer: document.getElementById('editCustomer').value,
+                    employee: document.getElementById('editEmployee').value,
+                    total: document.getElementById('editTotal').value,
+                    status: document.getElementById('editStatus').value
+                };
+                updateData(id, newData, 'pedidosActivos');
+                modal.style.display = 'none';
+                cargarDatos();
+            }
+        });
+    </script>
+</body>
+</html>

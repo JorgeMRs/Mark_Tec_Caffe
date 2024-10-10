@@ -9,12 +9,75 @@
     <style>
         /* Aquí va todo el CSS de tu página */
         body,
+
         html {
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
             height: 100%;
         }
+
+        /* Estilos para el modal */
+        .modal {
+            /* Oculto por defecto */
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Fin de estilos para el modal */
+
+        .acciones {
+            padding: 5px;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+        }
+
+        .contenedor-graficos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .grafico {
+            flex: 1 1 45%;
+            /* Ajusta el tamaño de las gráficas para que ocupen el 45% del ancho del contenedor */
+            margin: 10px;
+            min-width: 300px;
+            /* Ajusta el ancho mínimo según sea necesario */
+        }
+
 
         .container {
             display: flex;
@@ -128,7 +191,7 @@
         }
 
         .tab-content>div.active {
-            display: block;
+            display: block
         }
     </style>
 </head>
@@ -146,6 +209,7 @@
             </ul>
         </nav>
         <main class="main-content">
+
             <header>
                 <h2>Panel de Control</h2>
                 <button id="notificationsBtn">
@@ -168,6 +232,7 @@
                 </div>
             </div>
             <div class="tab-content">
+
                 <div id="pedidos" class="active">
                     <h3>Pedidos Activos</h3>
                     <table>
@@ -179,6 +244,7 @@
                                 <th>Empleado</th>
                                 <th>Total</th>
                                 <th>Estado</th>
+                                <th>Acciones</th> <!-- Nueva columna para los botones de edición -->
                             </tr>
                         </thead>
                         <tbody id="pedidosActivosmer"></tbody>
@@ -194,6 +260,7 @@
                                 <th>Cliente</th>
                                 <th>Total</th>
                                 <th>Estado</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody id="historialPedidos"></tbody>
@@ -208,6 +275,7 @@
                                 <th>Producto</th>
                                 <th>Cantidad</th>
                                 <th>Precio</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody id="inventarioItems"></tbody>
@@ -223,6 +291,7 @@
                                 <th>Apellido</th>
                                 <th>Correo</th>
                                 <th>Teléfono</th>
+                                <th>Acciones</th> <!-- Nueva columna para los botones de edición -->
                             </tr>
                         </thead>
                         <tbody id="personalItems"></tbody>
@@ -235,50 +304,194 @@
                 </div>
                 <div id="analisis">
                     <h3>Análisis de Ventas</h3>
-                    <div class="row">
-                        <div class="chart-container col-md-6 mb-4">
+                    <div class="contenedor-graficos">
+                        <div class="grafico">
                             <canvas id="ventasSemanales"></canvas>
                         </div>
-                        <div class="col-md-6 mb-4">
+                        <div class="grafico">
                             <canvas id="productosMasVendidos"></canvas>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-4">
-                                <canvas id="tendenciaVentas"></canvas>
-                            </div>
-                            <div class="col-md-6 mb-4">
-                                <canvas id="distribucionVentas"></canvas>
-                            </div>
+                        <div class="grafico">
+                            <canvas id="tendenciaVentas"></canvas>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-4">
-                                <canvas id="satisfaccionClientes"></canvas>
-                            </div>
-                            <div class="col-md-6 mb-4">
-                                <canvas id="rendimientoEmpleados"></canvas>
-                            </div>
+                        <div class="grafico">
+                            <canvas id="distribucionVentas"></canvas>
                         </div>
                     </div>
                 </div>
+
+                <?php include 'modals.html'; ?>
+
         </main>
     </div>
 
     <script>
+        // Función genérica para abrir modales y cargar datos
+        function mostrarFormulario(modalId, url, formFields) {
+    openModal(modalId);
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            console.log('Datos recibidos:', data);
+            for (const field in formFields) {
+                if (formFields.hasOwnProperty(field)) {
+                    // Ajustar los nombres de los campos para que coincidan con los datos devueltos
+                    if (field === 'idHistorial') {
+                        document.getElementById(formFields[field]).value = data['idPedido'];
+                    } else if (field === 'fecha') {
+                        document.getElementById(formFields[field]).value = data['fechaPedido'];
+                    } else {
+                        document.getElementById(formFields[field]).value = data[field];
+                    }
+                }
+            }
+        })
+        .catch(error => console.error('Error al cargar datos:', error));
+}
+
+
+        // Función para abrir modal
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.style.display = 'block';
+        }
+
+        // Función para cerrar modales
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.style.display = 'none';
+        }
+
+        // Asignar eventos a los botones de cerrar
+        document.querySelectorAll('.close').forEach(button => {
+            button.onclick = function () {
+                const modal = button.closest('.modal');
+                modal.style.display = 'none';
+            }
+        });
+
+        // Cerrar el modal al hacer clic fuera de él
+        window.onclick = function (event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+
+        // Función para manejar el envío de formularios
+        function handleFormSubmit(formId, successCallback) {
+            const form = document.getElementById(formId);
+            form.onsubmit = function (e) {
+                e.preventDefault();
+                const formData = new FormData(form);
+                fetch(form.action, {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Operación realizada con éxito');
+                            successCallback();
+                            closeModal(form.closest('.modal').id);
+                        } else {
+                            alert('Error: ' + data.error);
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+        }
+
+        // Función genérica para cargar datos de una URL y mostrarlos en una tabla
         function cargarDatos(url, elementId) {
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
                     const tbody = document.getElementById(elementId);
                     tbody.innerHTML = data.map(item => `
-                    <tr>
-                        <td>${item.idPedido}</td>
-                        <td>${item.fechaPedido}</td>
-                        <td>${item.clienteNombre}</td>
-                        <td>${item.empleadoNombre}</td>
-                        <td>${item.total}</td>
-                        <td>${item.estado}</td>
-                    </tr>
-                    `).join('');
+                <tr>
+                    <td>${item.idPedido}</td>
+                    <td>${item.fechaPedido}</td>
+                    <td>${item.clienteNombre}</td>
+                    <td>${item.empleadoNombre}</td>
+                    <td>${item.total}</td>
+                    <td>${item.estado}</td>
+                    <td>
+                        <select class="acciones" data-id="${item.idPedido}">
+                            <option value="">Seleccionar</option>
+                            <option value="modificar">Modificar</option>
+                            <option value="eliminar">Eliminar</option>
+                        </select>
+                    </td>
+                </tr>
+                `).join('');
+
+                    // Agregar event listeners para los select de acciones
+                    document.querySelectorAll('.acciones').forEach(select => {
+                        select.addEventListener('change', function () {
+                            const id = select.getAttribute('data-id');
+                            const action = select.value;
+                            if (action === 'modificar') {
+                                mostrarFormulario('editModal', `/public/prueba2/obtener_pedido_por_id.php?id=${id}`, {
+                                    idPedido: 'editId',
+                                    fechaPedido: 'editFechaPedido',
+                                    idCliente: 'editClienteId',
+                                    idEmpleado: 'editEmpleadoId',
+                                    total: 'editTotal',
+                                    estado: 'editEstado'
+                                });
+                            } else if (action === 'eliminar') {
+                                eliminarPedido(id);
+                            }
+                            // Reset the select value to default
+                            select.value = '';
+                        });
+                    });
+                })
+                .catch(error => console.error('Error al cargar datos:', error));
+        }
+
+        // Función específica para cargar el historial de pedidos
+        function cargarDatosHistorial(url, elementId) {
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const tbody = document.getElementById(elementId);
+                    tbody.innerHTML = data.map(item => `
+                <tr>
+                    <td>${item.id}</td>
+                    <td>${item.date}</td>
+                    <td>${item.customer}</td>
+                    <td>${item.total}</td>
+                    <td>${item.estado}</td>
+                    <td>
+                        <select class="acciones" data-id="${item.id}">
+                            <option value="">Seleccionar</option>
+                            <option value="modificar">Modificar</option>
+                            <option value="eliminar">Eliminar</option>
+                        </select>
+                    </td>
+                </tr>
+            `).join('');
+                    // Agregar event listeners para los select de acciones
+                    document.querySelectorAll('.acciones').forEach(select => {
+                        select.addEventListener('change', function () {
+                            const id = select.getAttribute('data-id');
+                            const action = select.value;
+                            if (action === 'modificar') {
+                                mostrarFormulario('historialModal', `/public/prueba2/obtener_historial_por_id.php?id=${id}`, {
+                                    idHistorial: 'historialId',
+                                    fecha: 'historialFecha',
+                                    clienteNombre: 'historialClienteNombre',
+                                    total: 'historialTotal',
+                                    estado: 'historialEstado'
+                                });
+                            } else if (action === 'eliminar') {
+                                eliminarPedido(id);
+                            }
+                            // Reset the select value to default
+                            select.value = '';
+                        });
+                    });
                 })
                 .catch(error => console.error('Error al cargar datos:', error));
         }
@@ -290,54 +503,64 @@
                 .then(data => {
                     const tbody = document.getElementById(elementId);
                     tbody.innerHTML = data.map(item => `
-                       <tr>
-                        <td>${item.id}</td>
-                        <td>${item.item}</td>
-                        <td>${item.quantity}</td>
-                        <td>${item.price}</td>
-                        </tr>
-                    `).join('');
+                   <tr>
+                    <td>${item.id}</td>
+                    <td>${item.item}</td>
+                    <td>${item.quantity}</td>
+                    <td>${item.price}</td>
+                     <td>
+                        <select class="acciones" data-id="${item.id}">
+                            <option value="">Seleccionar</option>
+                            <option value="modificar">Modificar</option>
+                            <option value="eliminar">Eliminar</option>
+                        </select>
+                    </td>
+                    </tr>
+                `).join('');
+
+                    // Agregar event listeners para los select de acciones
+                    document.querySelectorAll('.acciones').forEach(select => {
+                        select.addEventListener('change', function () {
+                            const id = select.getAttribute('data-id');
+                            const action = select.value;
+                            if (action === 'modificar') {
+                                mostrarFormulario('inventarioModal', `/public/prueba2/obtener_producto_por_id.php?id=${id}`, {
+                                    idProducto: 'inventarioId',
+                                    nombreProducto: 'inventarioNombre',
+                                    cantidad: 'inventarioCantidad',
+                                    precio: 'inventarioPrecio'
+                                });
+                            } else if (action === 'eliminar') {
+                                eliminarPedido(id);
+                            }
+                            // Reset the select value to default
+                            select.value = '';
+                        });
+                    });
                 })
                 .catch(error => console.error('Error al cargar datos:', error));
         }
 
-        function cargarDatosHistorial(url, elementId) {
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    const tbody = document.getElementById(elementId);
-                    tbody.innerHTML = data.map(item => `
-                        <tr>
-                        <td>${item.id}</td>
-                        <td>${item.date}</td>
-                        <td>${item.customer}</td>
-                        <td>${item.total}</td>
-                        <td>${item.estado}</td>
-
-                        </tr>
-                    `).join('');
-                })
-                .catch(error => console.error('Error al cargar datos:', error));
-        }
-
+        // Función específica para cargar el personal
         function cargarDatosPersonal(url, elementId) {
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
                     const tbody = document.getElementById(elementId);
                     tbody.innerHTML = data.map(item => `
-                    <tr>
-                        <td>${item.id}</td>
-                        <td>${item.firstName}</td>
-                        <td>${item.lastName}</td>
-                        <td>${item.email}</td>
-                        <td>${item.phone}</td>
-                    </tr>
-                `).join('');
+                <tr>
+                    <td>${item.id}</td>
+                    <td>${item.firstName}</td>
+                    <td>${item.lastName}</td>
+                    <td>${item.email}</td>
+                    <td>${item.phone}</td>
+                </tr>
+            `).join('');
                 })
                 .catch(error => console.error('Error al cargar datos:', error));
         }
 
+        // Función para cargar el resumen de ventas
         function cargarResumen() {
             fetch('/public/prueba2/obtener_resumen.php')
                 .then(response => response.json())
@@ -349,33 +572,25 @@
                 .catch(error => console.error('Error al cargar el resumen:', error));
         }
 
+        // Ejecutar la función al cargar la página
         document.addEventListener('DOMContentLoaded', function () {
             cargarResumen();
             crearGraficos(); // Llamar a la función para crear la gráfica
-        });
+            cargarDatos('/public/prueba2/obtener_pedidos_activos.php', 'pedidosActivosmer');
+            cargarDatosHistorial('/public/prueba2/obtener_historial_pedidos.php', 'historialPedidos');
+            cargarDatosInve('/public/prueba2/obtener_inventario.php', 'inventarioItems');
+            cargarDatosPersonal('/public/prueba2/obtener_personal.php', 'personalItems');
+            manejarNavegacion();
 
-        function manejarNavegacion() {
-            const links = document.querySelectorAll('.sidebar a');
-            const tabs = document.querySelectorAll('.tab-content > div');
-
-            links.forEach(link => {
-                link.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const tabId = this.getAttribute('data-tab');
-
-                    // Eliminar la clase 'active' de todos los enlaces y pestañas
-                    links.forEach(l => l.classList.remove('active'));
-                    tabs.forEach(t => t.classList.remove('active'));
-
-                    // Agregar 'active' al enlace y pestaña seleccionada
-                    this.classList.add('active');
-                    document.getElementById(tabId).classList.add('active');
-                });
+            // Manejar el envío de formularios
+            handleFormSubmit('editForm', function () {
+                cargarDatos('/public/prueba2/obtener_pedidos_activos.php', 'pedidosActivosmer');
             });
-        }
 
-
-     
+            handleFormSubmit('historialForm', function () {
+                cargarDatosHistorial('/public/prueba2/obtener_historial_pedidos.php', 'historialPedidos');
+            });
+        });
 
         // Función para crear gráficos
         function crearGraficos() {
@@ -529,7 +744,6 @@
                 })
                 .catch(error => console.error('Error al obtener los datos:', error));
 
-
             // Gráfico de barras horizontales: Ventas por empleado
             fetch('/public/prueba2/obtener_rendimiento_empleados.php')
                 .then(response => response.json())
@@ -571,29 +785,58 @@
                     });
                 })
                 .catch(error => console.error('Error al obtener los datos:', error));
-
-            // Inicializar la aplicación
-            document.addEventListener('DOMContentLoaded', function () {
-                // Cargar los datos dinámicamente para cada tabla
-                cargarDatos('/public/prueba2/obtener_pedidos_activos.php', 'pedidosActivos');
-                cargarDatosHistorial('/public/prueba2/obtener_historial_pedidos.php', 'historialPedidos');
-                cargarDatosInve('/public/prueba2/obtener_inventario.php', 'inventarioItems');
-                cargarDatosPersonal('/public/prueba2/obtener_personal.php', 'personalItems');
-                manejarNavegacion(); // Asegúrate de que esta línea esté aquí
-                crearGraficos();
-            });
         }
 
-        // Inicializar la aplicación
-        document.addEventListener('DOMContentLoaded', function () {
-            // Cargar los datos dinámicamente para cada tabla
-            cargarDatos('/public/prueba2/obtener_pedidos_activos.php', 'pedidosActivosmer');
-            cargarDatosHistorial('/public/prueba2/obtener_historial_pedidos.php', 'historialPedidos');
-            cargarDatosInve('/public/prueba2/obtener_inventario.php', 'inventarioItems');
-            cargarDatosPersonal('/public/prueba2/obtener_personal.php', 'personalItems');
-            manejarNavegacion(); // Asegúrate de que esta línea esté aquí
-            crearGraficos();
-        });
+        // Función para eliminar un pedido
+        function eliminarPedido(id) {
+            if (confirm('¿Estás seguro de que deseas eliminar este pedido?')) {
+                fetch(`/public/prueba2/eliminar_pedido.php?id=${id}`, {
+                    method: 'DELETE'
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Pedido eliminado con éxito');
+                            cargarDatos('/public/prueba2/obtener_pedidos_activos.php', 'pedidosActivosmer');
+                        } else {
+                            alert('Error al eliminar el pedido');
+                        }
+                    })
+                    .catch(error => console.error('Error al eliminar el pedido:', error));
+            }
+        }
+
+        // Función para formatear fechas
+        function formatDateToDatetimeLocal(dateString) {
+            const date = new Date(dateString);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            return `${year}-${month}-${day}T${hours}:${minutes}`;
+        }
+
+        // Función para manejar la navegación
+        function manejarNavegacion() {
+            const links = document.querySelectorAll('.sidebar a');
+            const tabs = document.querySelectorAll('.tab-content > div');
+
+            links.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const tabId = this.getAttribute('data-tab');
+
+                    // Eliminar la clase 'active' de todos los enlaces y pestañas
+                    links.forEach(l => l.classList.remove('active'));
+                    tabs.forEach(t => t.classList.remove('active'));
+
+                    // Agregar 'active' al enlace y pestaña seleccionada
+                    this.classList.add('active');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+        }
     </script>
 </body>
 

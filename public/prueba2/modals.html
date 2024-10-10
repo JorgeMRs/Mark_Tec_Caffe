@@ -1,0 +1,76 @@
+<!-- modals.html -->
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Editar Pedido</h2>
+        <form id="editForm" method="POST" action="/public/prueba2/actualizar_pedido.php">
+            <label for="editId">ID Pedido:</label>
+            <input type="text" id="editId" name="idPedido" readonly><br>
+            <label for="editFechaPedido">Fecha del Pedido:</label>
+            <input type="datetime-local" id="editFechaPedido" name="fechaPedido"><br>
+            <label for="editClienteId">ID Cliente:</label>
+            <input type="number" id="editClienteId" name="idCliente"><br>
+            <label for="editEmpleadoId">ID Empleado:</label>
+            <input type="number" id="editEmpleadoId" name="idEmpleado"><br>
+            <label for="editTotal">Total:</label>
+            <input type="number" step="0.01" id="editTotal" name="total"><br>
+            <label for="editEstado">Estado:</label>
+            <select id="editEstado" name="estado">
+                <option value="Pendiente">Pendiente</option>
+                <option value="En Preparación">En Preparación</option>
+                <option value="Listo para Recoger">Listo para Recoger</option>
+                <option value="Completado">Completado</option>
+                <option value="Cancelado">Cancelado</option>
+            </select><br>
+            <button type="submit">Actualizar</button>
+        </form>
+    </div>
+</div>
+
+<div id="historialModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('historialModal')">&times;</span>
+        <h2>Detalles del Pedido</h2>
+        <form id="historialForm" method="POST" action="/public/prueba2/actualizar_historial.php">
+            <label for="historialId">ID Pedido:</label>
+            <input type="text" id="historialId" name="idHistorial" readonly><br>
+            <label for="historialFecha">Fecha del Pedido:</label>
+            <input type="datetime-local" id="historialFecha" name="fecha"><br>
+            <label for="historialClienteNombre">Cliente:</label>
+            <input type="text" id="historialClienteNombre" name="clienteNombre"><br>
+            <label for="historialTotal">Total:</label>
+            <input type="number" step="0.01" id="historialTotal" name="total"><br>
+            <label for="historialEstado">Estado:</label>
+            <select id="historialEstado" name="estado">
+                <option value="Pendiente">Pendiente</option>
+                <option value="En Preparación">En Preparación</option>
+                <option value="Listo para Recoger">Listo para Recoger</option>
+                <option value="Completado">Completado</option>
+                <option value="Cancelado">Cancelado</option>
+            </select><br>
+            <button type="submit">Guardar</button>
+        </form>
+    </div>
+</div>
+
+
+
+        <!-- modals.html -->
+    <div id="inventarioModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Gestionar Inventario</h2>
+            <form id="inventarioForm" method="POST" action="/public/prueba2/actualizar_inventario.php">
+                <label for="inventarioId">ID Producto:</label>
+                <input type="text" id="inventarioId" name="idProducto" readonly><br>
+                <label for="inventarioNombre">Nombre del Producto:</label>
+                <input type="text" id="inventarioNombre" name="nombreProducto"><br>
+                <label for="inventarioCantidad">Cantidad:</label>
+                <input type="number" id="inventarioCantidad" name="cantidad"><br>
+                <label for="inventarioPrecio">Precio:</label>
+                <input type="number" step="0.01" id="inventarioPrecio" name="precio"><br>
+                <button type="submit">Guardar</button>
+                
+            </form>
+        </div>
+    </div>
