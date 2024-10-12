@@ -1,6 +1,7 @@
 <?php
-require_once '../vendor/autoload.php'; // Ajusta la ruta según la ubicación de tu archivo
-require_once '../src/db/db_connect.php'; // Incluir el archivo de conexión a la base de datos
+session_start();
+require_once '../vendor/autoload.php';
+require_once '../src/db/db_connect.php'; 
 
 use Dotenv\Dotenv;
 
@@ -68,6 +69,7 @@ $customCSS = [
     'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css'
 
 ];
+
 $customJS = [
   '/public/assets/js/languageSelect.js',
   '/public/assets/js/updateCartCounter.js'
@@ -75,9 +77,8 @@ $customJS = [
 
 include 'templates/head.php' ?>
 
-<header>
+
 <?php include 'templates/nav.php' ?>
-</header>
 
 <body>
     <div id="reservaModal" class="modal">

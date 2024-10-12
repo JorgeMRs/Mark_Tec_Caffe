@@ -17,7 +17,9 @@ nav {
   z-index: 1000;
   box-sizing: border-box;
 }
-
+.nav-links.active{ 
+  background-color: #1B0C0A;
+}
 /* Estilos para la sección del logo */
 .logo {
   display: flex;
@@ -179,12 +181,11 @@ nav {
   max-height: 0; /* Inicialmente oculto con altura cero */
   overflow-y: hidden; /* Oculta el contenido que no cabe en el contenedor */
   padding: 0; /* Sin relleno inicial */
-  opacity: 0; /* Siempre visible */
+  opacity: 1; /* Siempre visible */
   transform-origin: top; /* Asegura que la expansión comience desde la parte superior */
   transition: none; /* Sin transición de opacidad */
-  display: block; /* Oculto por defecto */
+  display: none; /* Oculto por defecto */
   z-index: 10000;
-  transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
 /* Personalización del scrollbar para navegadores basados en WebKit */
@@ -294,15 +295,7 @@ h4{
 .nav-toggle {
   display: none;
 }
-.cart-preview.visible {
-  max-height: 350px; /* Altura máxima */
-  opacity: 1; /* Hacer visible */
-}
 
-.cart-preview.hide {
-  max-height: 0; /* Volver a altura cero */
-  opacity: 0; /* Hacer invisible */
-}
 .toggle-button {
   background: transparent;
   border: none;
@@ -472,6 +465,8 @@ h4{
   font-size: 26px;
 }
 
+
+
 .language-selector {
   margin-left: 20px;
   padding: 5px;
@@ -480,18 +475,17 @@ h4{
   border: 1px solid white;
   border-radius: 4px;
   cursor: pointer;
+  margin-bottom: 0;
 }
 
+.language-selector.active {
+  background-color: #444444; /* Cambia este color según tu preferencia */
+}
+
+select:focus {
+  background-color: transparent;
+}
 .language-selector option {
   background-color: #000000;
   color: #ffffff;
-  
 }
-.fa-heart2:before {
-  content: "\f004";
-  color: white;
-  font-size: 26px;
-}
-
-
-

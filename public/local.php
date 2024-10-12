@@ -41,70 +41,7 @@ include 'templates/head.php' ?>
 
     <br>
     <main>
-        <section class="hero">
-            <h1 class="sub-title">Mapa de Nuestros Locales</h1>
-        </section>
-
-        <section class="mapa-world">
-            <div class="map-container">
-                <img src="/public/assets/img/europe.svg" alt="Mapa mundial con ubicaciones de Café Sabrosos">
-
-                <!-- France -->
-                <?php if (isset($locations['Francia'])): ?>
-                    <div class="pin francia" data-country="Francia">
-                        <span class="pin-dot"></span>
-                        <div class="pin-info">
-                            <img src="assets/img/sucursales/paris.jpg" class="pin-image" alt="Café Sabrosos en París">
-                            <div class="pin-details">
-                                <h3><?php echo $locations['Francia']['ciudad']; ?>, <?php echo $locations['Francia']['pais']; ?></h3>
-                                <p><?php echo $locations['Francia']['direccion']; ?></p>
-                            </div>
-                        </div>
-                    </div>
-                <?php endif; ?>
-
-                <!-- Germany -->
-                <?php if (isset($locations['Alemania'])): ?>
-                    <div class="pin alemania" data-country="Alemania">
-                        <span class="pin-dot"></span>
-                        <div class="pin-info">
-                            <img src="assets/img/sucursales/berlin.png" class="pin-image" alt="Café Sabrosos en Berlín">
-                            <div class="pin-details">
-                                <h3><?php echo $locations['Alemania']['ciudad']; ?>, <?php echo $locations['Alemania']['pais']; ?></h3>
-                                <p><?php echo $locations['Alemania']['direccion']; ?></p>
-                            </div>
-                        </div>
-                    </div>
-                <?php endif; ?>
-
-                <!-- Portugal -->
-                <?php if (isset($locations['Portugal'])): ?>
-                    <div class="pin portugal" data-country="Portugal">
-                        <span class="pin-dot"></span>
-                        <div class="pin-info">
-                            <img src="assets/img/sucursales/lisboa.jpg" class="pin-image" alt="Café Sabrosos en Lisboa">
-                            <div class="pin-details">
-                                <h3><?php echo $locations['Portugal']['ciudad']; ?>, <?php echo $locations['Portugal']['pais']; ?></h3>
-                                <p><?php echo $locations['Portugal']['direccion']; ?></p>
-                            </div>
-                        </div>
-                    </div>
-                <?php endif; ?>
-
-                <!-- Spain -->
-                <?php if (isset($locations['España'])): ?>
-                    <div class="pin españa" data-country="España">
-                        <span class="pin-dot"></span>
-                        <div class="pin-info">
-                            <img src="assets/img/sucursales/madrid.jpg" class="pin-image" alt="Café Sabrosos en Barcelona">
-                            <div class="pin-details">
-                                <h3><?php echo $locations['España']['ciudad']; ?>, <?php echo $locations['España']['pais']; ?></h3>
-                                <p><?php echo $locations['España']['direccion']; ?></p>
-                            </div>
-                        </div>
-                    </div>
-                <?php endif; ?>
-            </div>
+         
         </section>
         <script>
             document.querySelectorAll('.pin').forEach(pin => {
@@ -248,6 +185,7 @@ include 'templates/head.php' ?>
             }
 
             .btn-secondary {
+                text-decoration: none;
                 background-color: var(--background-color);
                 border: 1px solid var(--secondary-text);
                 color: var(--secondary-text);
@@ -273,11 +211,13 @@ include 'templates/head.php' ?>
                     </div>
                     <div class="local-info">
                         <h2 class="local-title">Café Sabrosos París</h2>
-                        <p class="local-address">Blv. Saint-Germain 56, Paris, Francia</p>
+                        <p class="local-address">Dirección: Boulevard Saint-Germain 56, Francia</p>
+                        <p class="local-address">Teléfono: +33 1 2345 6789</p>
+                        <p class="local-address">Capacidad: 18 personas</p>
                         <div class="local-hours">
                         <i class="fa-solid fa-clock" style="color: #1b0d0b; margin-right: 10px;"></i> <p>Lunes a Viernes: 7:00 - 19:00</p>
                         </div>
-                        <button class="btn-secondary">Realizar reserva</button>
+                        <a href="mesas.php?sucursal=4" class="btn-secondary">Hacer Reserva</a>
                     </div>
                 </div>
                 <!-- Local en Alemania -->
@@ -287,11 +227,13 @@ include 'templates/head.php' ?>
                     </div>
                     <div class="local-info">
                         <h2 class="local-title">Café Sabrosos Berlin</h2>
-                        <p class="local-address">Kurfürstendamm 100, Berlin, Alemania</p>
+                        <p class="local-address">Dirección: Kurfürstendamm 100, Alemania</p>
+                        <p class="local-address">Teléfono: +49 30 12345678</p>
+                        <p class="local-address">Capacidad: 18 personas</p>
                         <div class="local-hours">
                         <i class="fa-solid fa-clock" style="color: #1b0d0b; margin-right: 10px;"></i><p>Lunes a Sábado: 8:00 - 20:00</p>
                         </div>
-                        <button class="btn-secondary">Realizar reserva</button>
+                        <a href="mesas.php?sucursal=3" class="btn-secondary">Hacer Reserva</a>
                     </div>
                 </div>
                 <!-- Local en Portugal -->
@@ -301,11 +243,13 @@ include 'templates/head.php' ?>
                     </div>
                     <div class="local-info">
                         <h2 class="local-title">Café Sabrosos Lisboa</h2>
-                        <p class="local-address">Rua de São Bento 123, Lisboa, Portugal</p>
+                        <p class="local-address">Dirección: Rua de São Bento 123, Portugal</p>
+                        <p class="local-address">Teléfono: +351 213 456 789</p>
+                        <p class="local-address">Capacidad: 18 personas</p>
                         <div class="local-hours">
                         <i class="fa-solid fa-clock" style="color: #1b0d0b; margin-right: 10px;"></i><p>Lunes a Domingo: 7:00 - 22:00</p>
                         </div>
-                        <button class="btn-secondary">Realizar reserva</button>
+                        <a href="mesas.php?sucursal=1" class="btn-secondary">Hacer Reserva</a>
                     </div>
                 </div>
                 <div class="local-card">
@@ -314,11 +258,13 @@ include 'templates/head.php' ?>
                     </div>
                     <div class="local-info">
                         <h2 class="local-title">Café Sabrosos Madrid</h2>
-                        <p class="local-address">Calle Gran Vía 45, Madrid, España</p>
+                        <p class="local-address">Dirección: Calle Gran Vía 45, España</p>
+                        <p class="local-address">Teléfono: +34 912 345 678</p>
+                        <p class="local-address">Capacidad: 18 personas</p>
                         <div class="local-hours">
                         <i class="fa-solid fa-clock" style="color: #1b0d0b; margin-right: 10px;"></i> <p>Lunes a Domingo: 7:00 - 22:00</p>
                         </div>
-                        <button class="btn-secondary">Realizar reserva</button>
+                        <a href="mesas.php?sucursal=2" class="btn-secondary">Hacer Reserva</a>
                     </div>
                 </div>
             </section>

@@ -5,7 +5,6 @@
   --accent-color: #b8860b;
 }
 
-
 body {
   font-family: "Poppins", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
@@ -58,14 +57,6 @@ body {
     width: 100%;
     height: auto;
     display: block;
-}
-
-.pin {
-  position: absolute;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .pin-dot {
@@ -188,10 +179,10 @@ body {
   transition: opacity 0.3s ease;
   white-space: nowrap;
 }
-
-.pin.hover::after {
-  opacity: 1;
-}
+.hero h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #DAA421;
 
 .pin.francia {
     left: 31.8%;
@@ -247,13 +238,5 @@ body {
   color: var(--text-color);
 }
 
-@media (max-width: 768px) {
-  .nav-links {
-      display: block !important;
-      /* Alinea verticalmente los elementos de la lista */
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      margin-right: 3vh;
-  }
+
 }

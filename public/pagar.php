@@ -73,20 +73,17 @@ if ($product_count == 0) {
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="pagar">
-    <meta name="author" content="MarkTec">
-    <title>Café Sabrososo - Realizar Pedido</title>
-    <link rel="stylesheet" href="assets/css/pagar.css" media="screen and (min-width: 769px)">
-    <link rel="stylesheet" href="assets/css/pagarmobile.css" media="screen and (max-width: 768px)">
-    <link rel="icon" href="assets/img/icons/favicon-32x32.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
+<?php 
 
+$pageTitle = 'Café Sabrosos - Finalizar Pago';
+
+$customCSS = [
+    '/public/assets/css/pagar.css',
+    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css'
+];
+
+include 'templates/head.php' ?>
 <body>
     <div class="form-container">
         <form method="post">
