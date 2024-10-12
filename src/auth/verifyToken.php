@@ -20,11 +20,14 @@ function verifyToken($secretKey, $encryptionKey) {
             // Descifrar el idCliente y el email
             $idCliente = decryptData($decoded->idCliente, $encryptionKey);
             $email = decryptData($decoded->email, $encryptionKey);
+            $uid = decryptData($decoded->uid, $encryptionKey);
 
             $response['success'] = true;
             $response['role'] = 'client'; // Indicar que es un cliente
             $response['idCliente'] = $idCliente;
             $response['email'] = $email;
+            $response['uid'] = $uid; // Agregar uid a la respuesta
+            
             return $response; 
         }
         

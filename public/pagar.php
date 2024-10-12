@@ -73,17 +73,19 @@ if ($product_count == 0) {
 
 ?>
 <!DOCTYPE html>
-<?php 
+<html lang="en">
 
-$pageTitle = 'Café Sabrosos - Finalizar Pago';
-
-$customCSS = [
-    '/public/assets/css/pagar.css',
-    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css'
-];
-
-
-include 'templates/head.php' ?>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="pagar">
+    <meta name="author" content="MarkTec">
+    <title>Café Sabrososo - Realizar Pedido</title>
+    <link rel="stylesheet" href="assets/css/pagar.css" media="screen and (min-width: 769px)">
+    <link rel="stylesheet" href="assets/css/pagarmobile.css" media="screen and (max-width: 768px)">
+    <link rel="icon" href="assets/img/icons/favicon-32x32.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
 
 <body>
     <div class="form-container">
@@ -101,7 +103,7 @@ include 'templates/head.php' ?>
                 </button>
             </div>
             <label class="tarjeta">
-                <input id="tarjeta" type="text" placeholder="Número de tarjeta:" maxlength="16" required>
+                <input id="tarjeta" type="text" placeholder="Número de tarjeta:" maxlength="19" required>
                 <img id="card-logo" class="card-logo" src="" alt="Card Logo" style="display: none;">
             </label>
             <div class="flex-container">
@@ -152,24 +154,13 @@ include 'templates/head.php' ?>
                     ?>
                 </select>
             </div>
-            <div id="pickupTime-container" style="display: none;">
+            <div id="pickupTime-container">
                 <label for="pickupTime">Hora de recogida:</label>
                 <select name="pickupTime" id="pickupTime" required>
                     <option value="" disabled selected>Selecciona una hora</option>
-                    <?php
-                    $start = new DateTime('08:00:00'); // Hora de inicio en formato HH:MM:SS
-                    $end = new DateTime('20:00:00'); // Hora de fin en formato HH:MM:SS
-                    $interval = new DateInterval('PT30M'); // Intervalo de 30 minutos
-
-                    while ($start <= $end) {
-                        $time24 = $start->format('H:i:s'); // Formato de hora en 24 horas
-                        $time12 = $start->format('g:i A'); // Formato de hora en 12 horas
-                        echo "<option value=\"$time24\">$time12</option>";
-                        $start->add($interval);
-                    }
-                    ?>
                 </select>
             </div>
+
 
             <label for="orderNotes">Notas:</label>
             <textarea name="orderNotes" id="orderNotes" rows="4"></textarea>
@@ -197,8 +188,93 @@ include 'templates/head.php' ?>
             </div>
         </div>
     </div>
+    <script>
+        function toggleFields() {
+    const orderType = document.querySelector('input[name="orderType"]:checked').value;
+    const pickupTimeField = document.getElementById('pickupTime');
+
+    document.getElementById('branch-container').style.display = 'block'; // Mostrar siempre el campo de sucursal
+    const isPickup = orderType === 'Para llevar';
+
+    document.getElementById('pickupTime-container').style.display = isPickup ? 'block' : 'none';
+
+    // Si es "Para llevar", el campo pickupTime es requerido; si no, no lo es.
+    if (isPickup) {
+        pickupTimeField.setAttribute('required', 'required');
+    } else {
+        pickupTimeField.removeAttribute('required');
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    toggleFields();
+    obtenerHorasDisponibles();
+});
+async function submitOrder(event) {
+    event.preventDefault(); // Prevenir el envío por defecto del formulario
+
+    const form = event.target;
+    const formData = new FormData(form);
+    const responseDiv = document.getElementById('response-message');
+    const csrfToken = document.getElementById('csrf_token').value;
+
+    formData.append('csrf_token', csrfToken);
+    // Mostrar los valores para depuración
+    for (const [key, value] of formData.entries()) {
+        console.log(`Campo: ${key}, Valor: ${value}`);
+    }
+
+    try {
+        const response = await fetch('/src/client/submitOrder.php', {
+            method: 'POST',
+            body: formData
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            // Redirige a la página de confirmación con el ID del pedido
+            window.location.href = `pagoConfirmado.php?order_id=${result.orderId}`;
+        } else {
+            responseDiv.innerHTML = `<p class="error">Error: ${result.message}</p>`;
+        }
+    } catch (error) {
+        responseDiv.innerHTML = `<p class="error">Error en la solicitud: ${error.message}</p>`;
+    }
+}
+        // Realizar la petición a la API para obtener las horas disponibles
+        async function obtenerHorasDisponibles() {
+    try {
+        let response = await fetch('../src/client/checkDate.php');
+        
+        // Verifica si la respuesta fue exitosa
+        if (!response.ok) {
+            throw new Error('Error en la red: ' + response.status);
+        }
+
+        let data = await response.json();
+
+        if (data.horasDisponibles && data.horasDisponibles.length > 0) {
+            let select = document.getElementById('pickupTime');
+
+            // Limpiar las opciones anteriores
+            select.innerHTML = '<option value="" disabled selected>Selecciona una hora</option>';
+
+            // Agregar las horas disponibles al select
+            data.horasDisponibles.forEach(hora => {
+                let option = document.createElement('option');
+                option.value = hora;
+                option.textContent = hora;
+                select.appendChild(option);
+            });
+        }
+    } catch (error) {
+        console.error('Error al obtener las horas:', error);
+    }
+}
+
+    </script>
     <script src="assets/js/card.js"></script>
-    <script src="assets/js/pagar.js"></script>
 </body>
 
 </html>

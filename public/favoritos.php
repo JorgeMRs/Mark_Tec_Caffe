@@ -6,7 +6,7 @@ $response = checkToken();
 
 ?>
 <!DOCTYPE html>
-<?php 
+<?php
 
 $pageTitle = 'Café Sabrosos - Productos Favoritos';
 
@@ -17,6 +17,7 @@ $customCSS = [
 ];
 
 include 'templates/head.php' ?>
+
 <body>
     <header>
         <?php
@@ -41,6 +42,7 @@ include 'templates/head.php' ?>
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            min-height: 20vh;
             margin-top: 80px;
             margin-bottom: 180px;
             padding: 2rem;

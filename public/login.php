@@ -18,7 +18,6 @@ if (isset($_COOKIE['user_session'])) {
   <link rel="icon" type="image/png" sizes="48x48" href="assets/img/icons/favicon-48x48.png">
   <link rel="icon" type="image/png" sizes="48x48" href="assets/img/icons/favicon-64x64.png">
   <link rel="icon" type="image/x-icon" href="/public/assets/img/icons/favicon.ico">
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <link rel="stylesheet" href="assets/css/login.css" media="screen and (min-width: 769px)">
   <link rel="stylesheet" href="assets/css/loginmobile.css" media="screen and (max-width: 768px)">
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
