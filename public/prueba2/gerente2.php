@@ -1,8 +1,15 @@
 <?php
 session_start();
-// Supongamos que el rol del usuario se almacena en la sesión
-// Puedes cambiar 'admin' o 'gerente' según el usuario logueado
-$_SESSION['role'] = 'gerente'; // o 'admin'
+
+// Verificar si la sesión está activa y si el rol del usuario está definido
+if (!isset($_SESSION['role'])) {
+    // Mostrar un mensaje de error si no hay rol definido
+    $mensaje = "Error: No se ha iniciado sesión correctamente.";
+} else {
+    // Asignar el rol de 'gerente' al usuario para esta sesión de ejemplo
+    $_SESSION['role'] = 'admin'; // o 'admin'
+    $mensaje = "Bienvenido, " . $_SESSION['role'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -359,6 +366,7 @@ $_SESSION['role'] = 'gerente'; // o 'admin'
             </ul>
         </nav>
         <main class="main-content">
+        <h1><?php echo $mensaje; ?></h1>
 
             <header>
                 <h2>Panel de Control</h2>
@@ -519,6 +527,7 @@ $_SESSION['role'] = 'gerente'; // o 'admin'
     </div>
 
     <script>
+        const userRole = '<?php echo $_SESSION['role']; ?>';
         // Función genérica para abrir modales y cargar datos
         function mostrarFormulario(modalId, url, formFields) {
             openModal(modalId);
@@ -668,9 +677,10 @@ $_SESSION['role'] = 'gerente'; // o 'admin'
 
         // Función genérica para cargar datos de una URL y mostrarlos en una tabla
          
-        const userRole = '<?php echo $_SESSION['role']; ?>';
     
+      
         function cargarDatos(url, elementId) {
+            console.log(userRole)
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
@@ -725,7 +735,7 @@ $_SESSION['role'] = 'gerente'; // o 'admin'
 
         // Función específica para cargar el historial de pedidos
        
-        const userRole = '<?php echo $_SESSION['role']; ?>';
+    
     
         function cargarDatosHistorial(url, elementId) {
             fetch(url)
@@ -781,7 +791,7 @@ $_SESSION['role'] = 'gerente'; // o 'admin'
         // Función específica para cargar el inventario
 
       
-        const userRole = '<?php echo $_SESSION['role']; ?>';
+      
     
         function cargarDatosInve(url, elementId) {
             fetch(url)
@@ -919,7 +929,7 @@ $_SESSION['role'] = 'gerente'; // o 'admin'
         }
 
 
-        const userRole = '<?php echo $_SESSION['role']; ?>';
+      
 
         function cargarDatosReservas(url, elementId) {
             fetch(url)
@@ -973,7 +983,7 @@ $_SESSION['role'] = 'gerente'; // o 'admin'
                 .catch(error => console.error('Error al cargar datos:', error));
         }
 
-        const userRole = '<?php echo $_SESSION['role']; ?>';
+     
 
         function cargarDatosCategorias(url, elementId) {
             fetch(url)
