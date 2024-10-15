@@ -3,50 +3,45 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 include '../../src/db/db_connect.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Verificar que todos los campos necesarios estén presentes
-    if (!isset($_POST['idPedido'], $_POST['fechaPedido'], $_POST['idCliente'], $_POST['idEmpleado'], $_POST['total'], $_POST['estado'])) {
-        echo json_encode(['success' => false, 'error' => 'Faltan datos necesarios']);
-        exit;
-    }
+$response = ['success' => false];
 
-    // Obtener y validar los datos del formulario
-    $idPedido = intval($_POST['idPedido']);
-    $fechaPedido = $_POST['fechaPedido'];
-    $idCliente = intval($_POST['idCliente']);
-    $idEmpleado = intval($_POST['idEmpleado']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Obtener los datos del formulario
+    $idHistorial = intval($_POST['idHistorial']);
+    $fecha = $_POST['fecha'];
+    $clienteNombre = $_POST['clienteNombre'];
     $total = floatval($_POST['total']);
     $estado = $_POST['estado'];
 
-    // Validar que los campos no estén vacíos
-    if (empty($idPedido) || empty($fechaPedido) || empty($idCliente) || empty($idEmpleado) || empty($total) || empty($estado)) {
-        echo json_encode(['success' => false, 'error' => 'Todos los campos son obligatorios']);
+    // Validar los datos recibidos
+    if (empty($idHistorial) || empty($fecha) || empty($clienteNombre) || $total < 0 || empty($estado)) {
+        $response['error'] = 'Faltan datos necesarios';
+        echo json_encode($response);
         exit;
     }
 
-    // Conectar a la base de datos
     try {
         $conn = getDbConnection();
     } catch (Exception $e) {
-        echo json_encode(['success' => false, 'error' => 'Error al conectar a la base de datos: ' . $e->getMessage()]);
-        exit;
+        die('Error: ' . $e->getMessage());
     }
 
-    // Actualizar los datos del pedido en la base de datos
-    $query = "UPDATE pedido SET fechaPedido = ?, idCliente = ?, idEmpleado = ?, total = ?, estado = ? WHERE idPedido = ?";
+    // Actualizar los datos en la base de datos
+    $query = "UPDATE pedido SET fechaPedido = ?, total = ?, estado = ? WHERE idPedido = ?";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param('siiisi', $fechaPedido, $idCliente, $idEmpleado, $total, $estado, $idPedido);
+    $stmt->bind_param('sdsi', $fecha, $total, $estado, $idHistorial);
 
     if ($stmt->execute()) {
-        echo json_encode(['success' => true]);
+        echo json_encode(['status' => 'success', 'message' => 'Historial actualizado correctamente.']);
     } else {
-        echo json_encode(['success' => false, 'error' => $stmt->error]);
+        echo 'Error al actualizar el inventario.';
     }
 
-    // Cerrar la conexión
     $stmt->close();
     $conn->close();
 } else {
-    echo json_encode(['success' => false, 'error' => 'Método no permitido']);
+    die('Error: Método de solicitud no permitido.');
 }
+
+
 ?>

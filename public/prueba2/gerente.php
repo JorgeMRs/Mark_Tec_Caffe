@@ -1,11 +1,15 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="es">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Café Manager - Panel de Control</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+     <!-- Otros enlaces y estilos -->
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         /* Aquí va todo el CSS de tu página */
         body,
@@ -244,7 +248,7 @@
                                 <th>Empleado</th>
                                 <th>Total</th>
                                 <th>Estado</th>
-                                <th>Acciones</th> <!-- Nueva columna para los botones de edición -->
+                                <th>Acciones</th> 
                             </tr>
                         </thead>
                         <tbody id="pedidosActivosmer"></tbody>
@@ -275,6 +279,7 @@
                                 <th>Producto</th>
                                 <th>Cantidad</th>
                                 <th>Precio</th>
+                                <th>Categoría</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -287,10 +292,17 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
+                                <th>Correo</th>
+                                <!-- <th>Contraseña</th> -->
                                 <th>Nombre</th>
                                 <th>Apellido</th>
-                                <th>Correo</th>
+                                <th>CI</th>
+                                <th>Puesto</th>
+                                <th>Sucursal</th>
+                                <th>Fecha de Ingreso</th>
+                                <th>Salario</th>
                                 <th>Teléfono</th>
+                                <th>Fecha de Nacimiento</th>
                                 <th>Acciones</th> <!-- Nueva columna para los botones de edición -->
                             </tr>
                         </thead>
@@ -328,26 +340,66 @@
     <script>
         // Función genérica para abrir modales y cargar datos
         function mostrarFormulario(modalId, url, formFields) {
-    openModal(modalId);
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            console.log('Datos recibidos:', data);
-            for (const field in formFields) {
-                if (formFields.hasOwnProperty(field)) {
-                    // Ajustar los nombres de los campos para que coincidan con los datos devueltos
-                    if (field === 'idHistorial') {
-                        document.getElementById(formFields[field]).value = data['idPedido'];
-                    } else if (field === 'fecha') {
-                        document.getElementById(formFields[field]).value = data['fechaPedido'];
-                    } else {
-                        document.getElementById(formFields[field]).value = data[field];
+            openModal(modalId);
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Datos recibidos:', data);
+                    for (const field in formFields) {
+                        if (formFields.hasOwnProperty(field)) {
+                            // Ajustar los nombres de los campos para que coincidan con los datos devueltos
+                            if (field === 'idHistorial') {
+                                document.getElementById(formFields[field]).value = data['idPedido'];
+                            } else if (field === 'fecha') {
+                                document.getElementById(formFields[field]).value = data['fechaPedido'];
+                            } else {
+                                document.getElementById(formFields[field]).value = data[field];
+                            }
+                        }
                     }
-                }
-            }
-        })
-        .catch(error => console.error('Error al cargar datos:', error));
-}
+                })
+                .catch(error => console.error('Error al cargar datos:', error));
+        }
+
+          function mostrarFormulario(modalId, url, formFields) {
+            openModal(modalId);
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Datos recibidos:', data);
+                    for (const field in formFields) {
+                        if (formFields.hasOwnProperty(field)) {
+                            // Ajustar los nombres de los campos para que coincidan con los datos devueltos
+                            if (field === 'idHistorial') {
+                                document.getElementById(formFields[field]).value = data['idPedido'];
+                            } else if (field === 'fecha') {
+                                document.getElementById(formFields[field]).value = data['fechaPedido'];
+                            } else {
+                                document.getElementById(formFields[field]).value = data[field];
+                            }
+                        }
+                    }
+                })
+                .catch(error => console.error('Error al cargar datos:', error));
+        }
+
+                function mostrarFormularioEmpleado(modalId, url, formFields) {
+            openModal(modalId);
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Datos recibidos:', data);
+                    for (const field in formFields) {
+                        if (formFields.hasOwnProperty(field) && field !== 'contrasena') {
+                            document.getElementById(formFields[field]).value = data[field] || '';
+                        }
+                    }
+                    // Asegurarse de que los campos de contraseña estén vacíos
+                    document.getElementById('personalContrasena').value = '';
+                    document.getElementById('personalConfirmarContrasena').value = '';
+                })
+                .catch(error => console.error('Error al cargar datos:', error));
+        }
 
 
         // Función para abrir modal
@@ -497,26 +549,28 @@
         }
 
         // Función específica para cargar el inventario
+
         function cargarDatosInve(url, elementId) {
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
                     const tbody = document.getElementById(elementId);
                     tbody.innerHTML = data.map(item => `
-                   <tr>
+                <tr>
                     <td>${item.id}</td>
                     <td>${item.item}</td>
                     <td>${item.quantity}</td>
                     <td>${item.price}</td>
-                     <td>
+                    <td>${item.category}</td>
+                    <td>
                         <select class="acciones" data-id="${item.id}">
                             <option value="">Seleccionar</option>
                             <option value="modificar">Modificar</option>
                             <option value="eliminar">Eliminar</option>
                         </select>
                     </td>
-                    </tr>
-                `).join('');
+                </tr>
+            `).join('');
 
                     // Agregar event listeners para los select de acciones
                     document.querySelectorAll('.acciones').forEach(select => {
@@ -528,7 +582,8 @@
                                     idProducto: 'inventarioId',
                                     nombreProducto: 'inventarioNombre',
                                     cantidad: 'inventarioCantidad',
-                                    precio: 'inventarioPrecio'
+                                    precio: 'inventarioPrecio',
+                                    idCategoria: 'inventarioCategoria'
                                 });
                             } else if (action === 'eliminar') {
                                 eliminarPedido(id);
@@ -542,24 +597,65 @@
         }
 
         // Función específica para cargar el personal
-        function cargarDatosPersonal(url, elementId) {
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    const tbody = document.getElementById(elementId);
-                    tbody.innerHTML = data.map(item => `
-                <tr>
-                    <td>${item.id}</td>
-                    <td>${item.firstName}</td>
-                    <td>${item.lastName}</td>
-                    <td>${item.email}</td>
-                    <td>${item.phone}</td>
-                </tr>
-            `).join('');
-                })
-                .catch(error => console.error('Error al cargar datos:', error));
-        }
-
+           function cargarDatosPersonal(url, elementId) {
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.getElementById(elementId);
+                tbody.innerHTML = data.map(item => `
+                    <tr>
+                        <td>${item.idEmpleado}</td>
+                        <td>${item.correo}</td>
+                        <td>${item.nombre}</td>
+                        <td>${item.apellido}</td>
+                        <td>${item.ci}</td>
+                        <td>${item.idPuesto}</td>
+                        <td>${item.idSucursal}</td>
+                        <td>${item.fechaIngreso}</td>
+                        <td>${item.salario}</td>
+                        <td>${item.tel}</td>
+                        <td>${item.fechaNacimiento}</td>
+                        <td>
+                            <select class="acciones" data-id="${item.idEmpleado}">
+                                <option value="">Seleccionar</option>
+                                <option value="modificar">Modificar</option>
+                                <option value="eliminar">Eliminar</option>
+                            </select>
+                        </td>
+                    </tr>
+                `).join('');
+    
+                // Agregar event listeners para los select de acciones
+                document.querySelectorAll('.acciones').forEach(select => {
+                    select.addEventListener('change', function () {
+                        const id = select.getAttribute('data-id');
+                        const action = select.value;
+                        if (action === 'modificar') {
+                            mostrarFormularioEmpleado('personalModal', `/public/prueba2/obtener_empleado_por_id.php?id=${id}`, {
+                                idEmpleado: 'personalId',
+                                correo: 'personalCorreo',
+                                // No llenar el campo de contraseña
+                                contrasena: '',
+                                nombre: 'personalNombre',
+                                apellido: 'personalApellido',
+                                ci: 'personalCi',
+                                idPuesto: 'personalPuesto',
+                                idSucursal: 'personalSucursal',
+                                fechaIngreso: 'personalFechaIngreso',
+                                salario: 'personalSalario',
+                                tel: 'personalTel',
+                                fechaNacimiento: 'personalFechaNacimiento'
+                            });
+                        } else if (action === 'eliminar') {
+                            eliminarEmpleado(id);
+                        }
+                        // Reset the select value to default
+                        select.value = '';
+                    });
+                });
+            })
+            .catch(error => console.error('Error al cargar datos:', error));
+    }
         // Función para cargar el resumen de ventas
         function cargarResumen() {
             fetch('/public/prueba2/obtener_resumen.php')
@@ -837,7 +933,84 @@
                 });
             });
         }
-    </script>
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('/public/prueba2/obtener_categorias.php')
+                .then(response => response.json())
+                .then(data => {
+                    const categoriaSelect = document.getElementById('inventarioCategoria');
+                    data.forEach(categoria => {
+                        const option = document.createElement('option');
+                        option.value = categoria.idCategoria;
+                        option.textContent = categoria.nombre;
+                        categoriaSelect.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error al cargar categorías:', error));
+        });
+   
+        function handleFormSubmit(event, modalId) {
+        event.preventDefault(); // Evitar el envío del formulario por defecto
+    
+        const formData = new FormData(event.target);
+        fetch(event.target.action, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Éxito',
+                    text: 'Operación realizada correctamente.',
+                    showConfirmButton: false,
+                    timer: 2000
+                }).then(() => {
+                    closeModal(modalId);
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Error al realizar la operación: ' + data.error,
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error al enviar el formulario:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Error al enviar el formulario.',
+            });
+        });
+    }
+    
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = 'none';
+    }
+function closeModal(modalId) {
+    document.getElementById(modalId).style.display = 'none';
+}
+
+document.getElementById('personalForm').addEventListener('submit', function(event) {
+    handleFormSubmit(event, 'personalModal');
+});
+
+document.getElementById('editForm').addEventListener('submit', function(event) {
+    handleFormSubmit(event, 'editModal');
+});
+
+document.getElementById('historialForm').addEventListener('submit', function(event) {
+    handleFormSubmit(event, 'historialModal');
+});
+
+document.getElementById('inventarioForm').addEventListener('submit', function(event) {
+    handleFormSubmit(event, 'inventarioModal');
+});
+
+
+   </script>
 </body>
 
-</html>
+</html> -->

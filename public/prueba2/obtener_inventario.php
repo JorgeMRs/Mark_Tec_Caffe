@@ -9,15 +9,18 @@ try {
     die('Error: ' . $e->getMessage());
 }
 
-// Consulta para obtener el inventario
+// Consulta para obtener el inventario con la categoría
 $query = "
     SELECT 
         p.idProducto AS id,
         p.nombre AS item,
         p.stock AS quantity,
-        p.precio AS price
+        p.precio AS price,
+        c.nombre AS category
     FROM 
         producto p
+    JOIN 
+        categoria c ON p.idCategoria = c.idCategoria
     ORDER BY 
         p.nombre ASC
 ";

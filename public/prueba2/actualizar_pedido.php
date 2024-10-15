@@ -27,14 +27,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param('siiisi', $fechaPedido, $idCliente, $idEmpleado, $total, $estado, $idPedido);
 
     if ($stmt->execute()) {
-        echo json_encode(['success' => true]);
+        echo json_encode(['status' => 'success', 'message' => 'Inventario actualizado correctamente.']);
     } else {
-        echo json_encode(['success' => false, 'error' => $stmt->error]);
+        echo json_encode(['status' => 'false', 'message' => 'error al actualizar el Inventario  .']);
     }
 
     $stmt->close();
     $conn->close();
 } else {
-    echo json_encode(['success' => false, 'error' => 'Método no permitido']);
+    echo json_encode(['status' => 'false', 'message' => 'Método no permitido']);
 }
 ?>
