@@ -366,7 +366,7 @@ if (!isset($_SESSION['role'])) {
             </ul>
         </nav>
         <main class="main-content">
-        <h1><?php echo $mensaje; ?></h1>
+            <h1><?php echo $mensaje; ?></h1>
 
             <header>
                 <h2>Panel de Control</h2>
@@ -507,6 +507,17 @@ if (!isset($_SESSION['role'])) {
                 <div id="analisis">
                     <h3>Análisis de Ventas</h3>
                     <div class="contenedor-graficos">
+                        <!-- Controles para seleccionar la semana -->
+                        <div>
+                            <label for="weekSelect">Seleccionar Semana:</label>
+                            <select id="weekSelect">
+                                <option value="0">Última Semana</option>
+                                <option value="1">Semana Anterior</option>
+                                <option value="2">Hace 2 Semanas</option>
+                                <!-- Añadir más opciones según sea necesario -->
+                            </select>
+                        </div>
+
                         <div class="grafico">
                             <canvas id="ventasSemanales"></canvas>
                         </div>
@@ -553,23 +564,27 @@ if (!isset($_SESSION['role'])) {
                 })
                 .catch(error => console.error('Error al cargar datos:', error));
         }
-
-        function mostrarFormularioPedido(modalId, url, fieldMapping) {
-
+        function mostrarFormularioPedido(modalId, url, formFields) {
+            openModal(modalId);
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
-                    // Llenar los campos del formulario con los datos obtenidos
-                    for (const [key, value] of Object.entries(fieldMapping)) {
-                        document.getElementById(value).value = data[key];
+                    for (const field in formFields) {
+                        if (formFields.hasOwnProperty(field)) {
+                            const element = document.getElementById(formFields[field]);
+                            if (element) {
+                                element.value = data[field];
+                            }
+                        }
                     }
-                    // Mostrar el modal
-                    openModal(modalId);
+                    // Asignar el estado del pedido al campo correspondiente
+                    const estadoElement = document.getElementById(formFields.estado);
+                    if (estadoElement) {
+                        estadoElement.value = data.estado;
+                    }
                 })
-                .catch(error => console.error('Error al obtener los datos del pedido:', error));
+                .catch(error => console.error('Error al cargar datos:', error));
         }
-
-
         function mostrarFormularioEmpleado(modalId, url, formFields) {
             openModal(modalId);
             fetch(url)
@@ -587,19 +602,26 @@ if (!isset($_SESSION['role'])) {
                 })
                 .catch(error => console.error('Error al cargar datos:', error));
         }
-
         function mostrarFormularioHistorial(modalId, url, fieldMapping) {
+            openModal(modalId);
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
-                    // Llenar los campos del formulario con los datos obtenidos
-                    for (const [key, value] of Object.entries(fieldMapping)) {
-                        document.getElementById(value).value = data[key];
+                    for (const field in fieldMapping) {
+                        if (fieldMapping.hasOwnProperty(field)) {
+                            const element = document.getElementById(fieldMapping[field]);
+                            if (element) {
+                                if (field === 'fechaPedido') {
+                                    // Convertir la fecha al formato compatible con input[type="datetime-local"]
+                                    element.value = new Date(data[field]).toISOString().slice(0, 16);
+                                } else {
+                                    element.value = data[field];
+                                }
+                            }
+                        }
                     }
-                    // Mostrar el modal
-                    openModal(modalId);
                 })
-                .catch(error => console.error('Error al obtener los datos del pedido:', error));
+                .catch(error => console.error('Error al cargar datos:', error));
         }
         function mostrarFormularioReserva(modalId, url, formFields) {
             openModal(modalId);
@@ -676,9 +698,7 @@ if (!isset($_SESSION['role'])) {
         }
 
         // Función genérica para cargar datos de una URL y mostrarlos en una tabla
-         
-    
-      
+
         function cargarDatos(url, elementId) {
             console.log(userRole)
             fetch(url)
@@ -704,7 +724,7 @@ if (!isset($_SESSION['role'])) {
                             ` : ''}
                         </tr>
                     `).join('');
-    
+
                     if (userRole === 'admin') {
                         // Agregar event listeners para los select de acciones
                         document.querySelectorAll('.acciones').forEach(select => {
@@ -732,35 +752,31 @@ if (!isset($_SESSION['role'])) {
                 .catch(error => console.error('Error al cargar datos:', error));
         }
 
-
         // Función específica para cargar el historial de pedidos
-       
-    
-    
         function cargarDatosHistorial(url, elementId) {
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
                     const tbody = document.getElementById(elementId);
                     tbody.innerHTML = data.map(item => `
-                        <tr>
-                            <td>${item.id}</td>
-                            <td>${item.date}</td>
-                            <td>${item.customer}</td>
-                            <td>${item.total}</td>
-                            <td>${item.estado}</td>
-                            ${userRole === 'admin' ? `
-                            <td>
-                                <select class="acciones" data-id="${item.id}">
-                                    <option value="">Seleccionar</option>
-                                    <option value="modificar">Modificar</option>
-                                    <option value="eliminar">Eliminar</option>
-                                </select>
-                            </td>
-                            ` : ''}
-                        </tr>
-                    `).join('');
-    
+                <tr>
+                    <td>${item.id}</td>
+                    <td>${item.date}</td>
+                    <td>${item.customer}</td>
+                    <td>${item.total}</td>
+                    <td>${item.estado}</td>
+                    ${userRole === 'admin' ? `
+                    <td>
+                        <select class="acciones" data-id="${item.id}">
+                            <option value="">Seleccionar</option>
+                            <option value="modificar">Modificar</option>
+                            <option value="eliminar">Eliminar</option>
+                        </select>
+                    </td>
+                    ` : ''}
+                </tr>
+            `).join('');
+
                     if (userRole === 'admin') {
                         // Agregar event listeners para los select de acciones
                         document.querySelectorAll('.acciones').forEach(select => {
@@ -768,9 +784,9 @@ if (!isset($_SESSION['role'])) {
                                 const id = select.getAttribute('data-id');
                                 const action = select.value;
                                 if (action === 'modificar') {
-                                    mostrarFormulario('historialModal', `/public/prueba2/obtener_historial_por_id.php?id=${id}`, {
-                                        idHistorial: 'historialId',
-                                        fecha: 'historialFecha',
+                                    mostrarFormularioHistorial('historialModal', `/public/prueba2/obtener_historial_por_id.php?id=${id}`, {
+                                        idPedido: 'historialId',
+                                        fechaPedido: 'historialFecha',
                                         clienteNombre: 'historialClienteNombre',
                                         total: 'historialTotal',
                                         estado: 'historialEstado'
@@ -786,13 +802,9 @@ if (!isset($_SESSION['role'])) {
                 })
                 .catch(error => console.error('Error al cargar datos:', error));
         }
-  
 
         // Función específica para cargar el inventario
 
-      
-      
-    
         function cargarDatosInve(url, elementId) {
             fetch(url)
                 .then(response => response.json())
@@ -816,7 +828,7 @@ if (!isset($_SESSION['role'])) {
                             ` : ''}
                         </tr>
                     `).join('');
-    
+
                     if (userRole === 'admin') {
                         // Agregar event listeners para los select de acciones
                         document.querySelectorAll('.acciones').forEach(select => {
@@ -842,7 +854,7 @@ if (!isset($_SESSION['role'])) {
                 })
                 .catch(error => console.error('Error al cargar datos:', error));
         }
-    
+
 
         // Función específica para cargar el personal
         function mostrarFormularioPersonal(modalId, url, formFields) {
@@ -929,7 +941,7 @@ if (!isset($_SESSION['role'])) {
         }
 
 
-      
+
 
         function cargarDatosReservas(url, elementId) {
             fetch(url)
@@ -983,7 +995,7 @@ if (!isset($_SESSION['role'])) {
                 .catch(error => console.error('Error al cargar datos:', error));
         }
 
-     
+
 
         function cargarDatosCategorias(url, elementId) {
             fetch(url)
@@ -1029,48 +1041,6 @@ if (!isset($_SESSION['role'])) {
                 .catch(error => console.error('Error al cargar datos:', error));
         }
 
-        function mostrarFormulario(modalId, url, formFields) {
-            openModal(modalId);
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    for (const field in formFields) {
-                        if (formFields.hasOwnProperty(field)) {
-                            const element = document.getElementById(formFields[field]);
-                            if (element) {
-                                element.value = data[field];
-                            }
-                        }
-                    }
-                })
-                .catch(error => console.error('Error al cargar datos:', error));
-        }
-
-        function openModal(modalId) {
-            document.getElementById(modalId).style.display = 'flex';
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
-
-        function eliminarCategoria(id) {
-            if (confirm('¿Estás seguro de que deseas eliminar esta categoría?')) {
-                fetch(`/public/prueba2/eliminar_categoria.php?id=${id}`, {
-                    method: 'DELETE'
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            alert('Categoría eliminada correctamente');
-                            cargarDatosCategorias('/public/prueba2/obtener_categorias.php', 'categoriaItems');
-                        } else {
-                            alert('Error al eliminar la categoría');
-                        }
-                    })
-                    .catch(error => console.error('Error al eliminar la categoría:', error));
-            }
-        }
 
 
         function eliminarCategoria(id) {
@@ -1091,22 +1061,6 @@ if (!isset($_SESSION['role'])) {
             }
         }
 
-        function mostrarFormulario(modalId, url, formFields) {
-            openModal(modalId);
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    for (const field in formFields) {
-                        if (formFields.hasOwnProperty(field)) {
-                            const element = document.getElementById(formFields[field]);
-                            if (element) {
-                                element.value = data[field];
-                            }
-                        }
-                    }
-                })
-                .catch(error => console.error('Error al cargar datos:', error));
-        }
 
         function openModal(modalId) {
             document.getElementById(modalId).style.display = 'flex';
@@ -1116,135 +1070,7 @@ if (!isset($_SESSION['role'])) {
             document.getElementById(modalId).style.display = 'none';
         }
 
-        function eliminarCategoria(id) {
-            if (confirm('¿Estás seguro de que deseas eliminar esta categoría?')) {
-                fetch(`/public/prueba2/eliminar_categoria.php?id=${id}`, {
-                    method: 'DELETE'
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            alert('Categoría eliminada correctamente');
-                            cargarDatosCategorias('/public/prueba2/obtener_categorias.php', 'categoriaItems');
-                        } else {
-                            alert('Error al eliminar la categoría');
-                        }
-                    })
-                    .catch(error => console.error('Error al eliminar la categoría:', error));
-            }
-        }
-
-        function mostrarFormulario(modalId, url, formFields) {
-            openModal(modalId);
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    for (const field in formFields) {
-                        if (formFields.hasOwnProperty(field)) {
-                            const element = document.getElementById(formFields[field]);
-                            if (element) {
-                                element.value = data[field];
-                            }
-                        }
-                    }
-                })
-                .catch(error => console.error('Error al cargar datos:', error));
-        }
-
-        function openModal(modalId) {
-            document.getElementById(modalId).style.display = 'flex';
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
-
-        function eliminarReserva(id) {
-            if (confirm('¿Estás seguro de que deseas eliminar esta reserva?')) {
-                fetch(`/public/prueba2/eliminar_reserva.php?id=${id}`, {
-                    method: 'DELETE'
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            alert('Reserva eliminada correctamente');
-                            cargarDatosReservas('/public/prueba2/obtener_reservas.php', 'reservalItems');
-                        } else {
-                            alert('Error al eliminar la reserva');
-                        }
-                    })
-                    .catch(error => console.error('Error al eliminar la reserva:', error));
-            }
-        }
-
-        function mostrarFormulario(modalId, url, formFields) {
-            openModal(modalId);
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    for (const field in formFields) {
-                        if (formFields.hasOwnProperty(field)) {
-                            const element = document.getElementById(formFields[field]);
-                            if (element) {
-                                element.value = data[field];
-                            }
-                        }
-                    }
-                })
-                .catch(error => console.error('Error al cargar datos:', error));
-        }
-
-        function openModal(modalId) {
-            document.getElementById(modalId).style.display = 'flex';
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
-
-        function eliminarReserva(id) {
-            if (confirm('¿Estás seguro de que deseas eliminar esta reserva?')) {
-                fetch(`/public/prueba2/eliminar_reserva.php?id=${id}`, {
-                    method: 'DELETE'
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            alert('Reserva eliminada correctamente');
-                            cargarDatosReservas('/public/prueba2/obtener_reservas.php', 'reservalItems');
-                        } else {
-                            alert('Error al eliminar la reserva');
-                        }
-                    })
-                    .catch(error => console.error('Error al eliminar la reserva:', error));
-            }
-        }
-
-        function openModal(modalId) {
-            document.getElementById(modalId).style.display = 'flex';
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
-
-        function eliminarReserva(id) {
-            if (confirm('¿Estás seguro de que deseas eliminar esta reserva?')) {
-                fetch(`/public/prueba2/eliminar_reserva.php?id=${id}`, {
-                    method: 'DELETE'
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            alert('Reserva eliminada correctamente');
-                            cargarDatosReservas('/public/prueba2/obtener_reservas.php', 'reservalItems');
-                        } else {
-                            alert('Error al eliminar la reserva');
-                        }
-                    })
-                    .catch(error => console.error('Error al eliminar la reserva:', error));
-            }
-        }
+     
 
 
         function eliminarReserva(id) {
@@ -1542,7 +1368,7 @@ if (!isset($_SESSION['role'])) {
             return `${year}-${month}-${day}T${hours}:${minutes}`;
         }
 
-        // Función para manejar la navegación
+        // Función para manejar la navegación, cargar categorias desde la BD al modal
         function manejarNavegacion() {
             const links = document.querySelectorAll('.sidebar a');
             const tabs = document.querySelectorAll('.tab-content > div');
@@ -1646,6 +1472,51 @@ if (!isset($_SESSION['role'])) {
         });
 
 
+
+        document.getElementById('weekSelect').addEventListener('change', function () {
+            const week = this.value;
+            actualizarGraficoVentasSemanales(week);
+        });
+
+        function actualizarGraficoVentasSemanales(week) {
+            fetch(`/public/prueba2/obtener_ventas_semanales.php?week=${week}`)
+                .then(response => response.json())
+                .then(data => {
+                    const labels = data.map(item => item.dia);
+                    const ventas = data.map(item => item.ventas);
+
+                    const ctxVentas = document.getElementById('ventasSemanales').getContext('2d');
+                    new Chart(ctxVentas, {
+                        type: 'bar',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Ventas diarias',
+                                data: ventas,
+                                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Ventas Diarias de la Semana'
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(error => console.error('Error al obtener los datos:', error));
+        }
+
+        // Inicializar la gráfica con la última semana
+        document.addEventListener('DOMContentLoaded', function () {
+            actualizarGraficoVentasSemanales(0);
+        });
     </script>
 </body>
 
