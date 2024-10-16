@@ -258,8 +258,8 @@ if (!isset($_SESSION['role'])) {
             display: block
         }
 
-        /* Estilos específicos para el modal de personal */
-        /* Estilos específicos para el modal de personal */
+   
+        
         /* Estilos para el fondo sombreado del modal de personal */
         .personal-modal-overlay {
             display: none;
@@ -507,17 +507,7 @@ if (!isset($_SESSION['role'])) {
                 <div id="analisis">
                     <h3>Análisis de Ventas</h3>
                     <div class="contenedor-graficos">
-                        <!-- Controles para seleccionar la semana -->
-                        <div>
-                            <label for="weekSelect">Seleccionar Semana:</label>
-                            <select id="weekSelect">
-                                <option value="0">Última Semana</option>
-                                <option value="1">Semana Anterior</option>
-                                <option value="2">Hace 2 Semanas</option>
-                                <!-- Añadir más opciones según sea necesario -->
-                            </select>
-                        </div>
-
+                    
                         <div class="grafico">
                             <canvas id="ventasSemanales"></canvas>
                         </div>
@@ -1062,6 +1052,11 @@ if (!isset($_SESSION['role'])) {
         }
 
 
+    
+      
+
+
+
         function openModal(modalId) {
             document.getElementById(modalId).style.display = 'flex';
         }
@@ -1146,38 +1141,45 @@ if (!isset($_SESSION['role'])) {
         // Función para crear gráficos
         function crearGraficos() {
             // Gráfico de ventas semanales
-            fetch('/public/prueba2/obtener_ventas_semanales.php')
-                .then(response => response.json())
-                .then(data => {
-                    const labels = data.map(item => item.dia);
-                    const ventas = data.map(item => item.ventas);
+            fetch('/public/panel/obtener_ventas_semanales.php')
+        .then(response => response.json())
+        .then(data => {
+            // Definir las semanas del mes
+            const semanasMes = ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'];
 
-                    const ctxVentas = document.getElementById('ventasSemanales').getContext('2d');
-                    new Chart(ctxVentas, {
-                        type: 'bar',
-                        data: {
-                            labels: labels,
-                            datasets: [{
-                                label: 'Ventas diarias',
-                                data: ventas,
-                                backgroundColor: 'rgba(75, 192, 192, 0.6)',
-                            }]
+            // Mapeo de las ventas para las 4 semanas del mes
+            const ventasPorSemana = semanasMes.map((semana, index) => {
+                const venta = data.find(item => item.semanaMes == index + 1); // Semana 1 corresponde al index 0
+                return venta ? venta.ventas : 0;
+            });
+
+            // Configuración del gráfico
+            const ctxVentas = document.getElementById('ventasSemanales').getContext('2d');
+            new Chart(ctxVentas, {
+                type: 'bar',
+                data: {
+                    labels: semanasMes,
+                    datasets: [{
+                        label: 'Ventas por Semana del Mes',
+                        data: ventasPorSemana,
+                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
                         },
-                        options: {
-                            responsive: true,
-                            plugins: {
-                                legend: {
-                                    position: 'top',
-                                },
-                                title: {
-                                    display: true,
-                                    text: 'Ventas Diarias de la Semana'
-                                }
-                            }
+                        title: {
+                            display: true,
+                            text: 'Ventas Semanales del Mes Actual'
                         }
-                    });
-                })
-                .catch(error => console.error('Error al obtener los datos:', error));
+                    }
+                }
+            });
+        })
+        .catch(error => console.error('Error al obtener los datos:', error));
 
             // Gráfico de productos más vendidos
             fetch('/public/prueba2/obtener_productos_mas_vendidos.php')
@@ -1368,7 +1370,7 @@ if (!isset($_SESSION['role'])) {
             return `${year}-${month}-${day}T${hours}:${minutes}`;
         }
 
-        // Función para manejar la navegación, cargar categorias desde la BD al modal
+        // Función para manejar la navegación
         function manejarNavegacion() {
             const links = document.querySelectorAll('.sidebar a');
             const tabs = document.querySelectorAll('.tab-content > div');

@@ -1,31 +1,4 @@
-<!-- modals.html -->
-<!-- <div id="editModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Editar Pedido</h2>
-        <form id="editForm" method="POST" action="/public/prueba2/actualizar_pedido.php">
-            <label for="editId">ID Pedido:</label>
-            <input type="text" id="editId" name="idPedido" readonly><br>
-            <label for="editFechaPedido">Fecha del Pedido:</label>
-            <input type="datetime-local" id="editFechaPedido" name="fechaPedido"><br>
-            <label for="editClienteId">ID Cliente:</label>
-            <input type="number" id="editClienteId" name="idCliente"><br>
-            <label for="editEmpleadoId">ID Empleado:</label>
-            <input type="number" id="editEmpleadoId" name="idEmpleado"><br>
-            <label for="editTotal">Total:</label>
-            <input type="number" step="0.01" id="editTotal" name="total"><br>
-            <label for="editEstado">Estado:</label>
-            <select id="editEstado" name="estado">
-                <option value="Pendiente">Pendiente</option>
-                <option value="En Preparación">En Preparación</option>
-                <option value="Listo para Recoger">Listo para Recoger</option>
-                <option value="Completado">Completado</option>
-                <option value="Cancelado">Cancelado</option>
-            </select><br>
-            <button type="submit">Actualizar</button>
-        </form>
-    </div>
-</div> -->
+
 <div id="editModal" class="modal-overlay">
     <div class="modal">
         <div class="modal-header">
@@ -98,10 +71,11 @@
             <div class="form-group">
                 <label for="historialEstado">Estado:</label>
                 <select id="historialEstado" name="estado">
-                    <option value="pendiente">Pendiente</option>
-                    <option value="en-proceso">En Proceso</option>
-                    <option value="completado">Completado</option>
-                    <option value="cancelado">Cancelado</option>
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="En Preparación">En Preparación</option>
+                    <option value="Listo para Recoger">Listo para Recoger</option>
+                    <option value="Completado">Completado</option>
+                    <option value="Cancelado">Cancelado</option>
                 </select>
             </div>
             <div class="actions">
@@ -111,47 +85,6 @@
         </form>
     </div>
 </div>
-
-<!-- <div id="historialModal" class="modal-overlay">
-    <div class="modal">
-        <div class="modal-header">
-            <span class="close" onclick="closeModal('historialModal')">&times;</span>
-            <h2 class="modal-title"> editar Historial</h2>
-        </div>
-        <form id="editForm" method="POST" action="/public/prueba2/actualizar_historial.php">
-            <div class="form-group">
-                <label for="editId">ID Pedido:</label>
-                <input type="text" id="editId" name="idPedido" readonly>
-            </div>
-            <div class="form-group">
-                <label for="editFechaPedido">Fecha del Pedido:</label>
-                <input type="datetime-local" id="editFechaPedido" name="fechaPedido">
-            </div>
-            <div class="form-group">
-                <label for="editClienteNombre">Cliente:</label>
-                <input type="text" id="editClienteNombre" name="clienteNombre">
-            </div>
-            <div class="form-group">
-                <label for="editTotal">Total:</label>
-                <input type="number" step="0.01" id="editTotal" name="total">
-            </div>
-            <div class="form-group">
-                <label for="editEstado">Estado:</label>
-                <select id="editEstado" name="estado">
-                    <option value="Pendiente">Pendiente</option>
-                    <option value="En Preparación">En Preparación</option>
-                    <option value="Listo para Recoger">Listo para Recoger</option>
-                    <option value="Completado">Completado</option>
-                    <option value="Cancelado">Cancelado</option>
-                </select>
-            </div>
-            <div class="actions">
-                <button type="button" class="btn btn-cancel" onclick="closeModal('editModal')">Cancelar</button>
-                <button type="submit" class="btn btn-save">Actualizar</button>
-            </div>
-        </form>
-    </div>
-</div> -->
 
 <div id="inventarioModal" class="modal-overlay">
     <div class="modal">
@@ -191,26 +124,6 @@
 </div>
 
 
-<!-- <div id="inventarioModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal('inventarioModal')">&times;</span>
-        <h2>Gestionar Inventario</h2>
-        <form id="inventarioForm" method="POST" action="/public/prueba2/actualizar_inventario.php">
-            <label for="inventarioId">ID Producto:</label>
-            <input type="text" id="inventarioId" name="idProducto" readonly><br>
-            <label for="inventarioNombre">Nombre del Producto:</label>
-            <input type="text" id="inventarioNombre" name="nombreProducto"><br>
-            <label for="inventarioCantidad">Cantidad:</label>
-            <input type="number" id="inventarioCantidad" name="cantidad"><br>
-            <label for="inventarioPrecio">Precio:</label>
-            <input type="number" step="0.01" id="inventarioPrecio" name="precio"><br>
-            <label for="inventarioCategoria">Categoría:</label>
-            <select id="inventarioCategoria" name="idCategoria">
-            </select><br>
-            <button type="submit">Guardar</button>
-        </form>
-    </div>
-</div> -->
 
 <div id="personalModal" class="personal-modal-overlay">
     <div class="personal-modal">
@@ -272,42 +185,6 @@
 </div>
 
 
-<!-- <div id="personalModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal('personalModal')">&times;</span>
-        <h2>Gestionar Personal</h2>
-        <div id="mensajeExito" style="display: none; color: green;"></div>
-        <form id="personalForm" method="POST" action="/public/prueba2/actualizar_empleado.php">
-            <label for="personalId">ID Empleado:</label>
-            <input type="text" id="personalId" name="idEmpleado" readonly><br>
-            <label for="personalCorreo">Correo:</label>
-            <input type="email" id="personalCorreo" name="correo"><br>
-            <label for="personalContrasena">Nueva Contraseña:</label>
-            <input type="password" id="personalContrasena" name="contrasena"><br>
-            <label for="personalConfirmarContrasena">Confirmar Nueva Contraseña:</label>
-            <input type="password" id="personalConfirmarContrasena" name="confirmarContrasena"><br>
-            <label for="personalNombre">Nombre:</label>
-            <input type="text" id="personalNombre" name="nombre"><br>
-            <label for="personalApellido">Apellido:</label>
-            <input type="text" id="personalApellido" name="apellido"><br>
-            <label for="personalCi">CI:</label>
-            <input type="text" id="personalCi" name="ci"><br>
-            <label for="personalPuesto">Puesto:</label>
-            <input type="number" id="personalPuesto" name="idPuesto"><br>
-            <label for="personalSucursal">Sucursal:</label>
-            <input type="number" id="personalSucursal" name="idSucursal"><br>
-            <label for="personalFechaIngreso">Fecha de Ingreso:</label>
-            <input type="date" id="personalFechaIngreso" name="fechaIngreso"><br>
-            <label for="personalSalario">Salario:</label>
-            <input type="number" step="0.01" id="personalSalario" name="salario"><br>
-            <label for="personalTel">Teléfono:</label>
-            <input type="tel" id="personalTel" name="tel"><br>
-            <label for="personalFechaNacimiento">Fecha de Nacimiento:</label>
-            <input type="date" id="personalFechaNacimiento" name="fechaNacimiento"><br>
-            <button type="submit">Guardar</button>
-        </form>
-    </div>
-</div> -->
 
 
 

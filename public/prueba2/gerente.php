@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -1013,4 +1013,4 @@ document.getElementById('inventarioForm').addEventListener('submit', function(ev
    </script>
 </body>
 
-</html> -->
+</html>
