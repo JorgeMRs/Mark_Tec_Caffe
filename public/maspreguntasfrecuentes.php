@@ -53,7 +53,11 @@ Latinoamérica à Los cafés de América Latina tienden a tener sabores bien equ
                 <p>Si deseas obtener más información sobre las bebidas que disfrutas en Café Sabrosos, aquí tienes lo que buscabas. Esta carta contiene datos nutricionales sobre muchos de nuestros clásicos.
 
 
+<<<<<<< HEAD
 En Café Sabrosos servimos un amplio abanico de bebidas deliciosas, y esta información te ayudará a estar seguro de que lo que elijas respete el estilo de vida que deseas llevar.</p>
+=======
+En Starbucks servimos un amplio abanico de bebidas deliciosas, y esta información te ayudará a estar seguro de que lo que elijas respete el estilo de vida que deseas llevar.</p>
+>>>>>>> 5cf31295685b8985158286ec214d662d8d0f7b7e
             </div>
         </section>
     </main>

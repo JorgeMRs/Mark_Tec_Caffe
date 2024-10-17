@@ -1,13 +1,20 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Preguntas Frecuentes</title>
-    <link rel="stylesheet" href="/public/assets/css/preguntasFrecuentes.css">
-    <link rel="stylesheet" href="/public/assets/css/footer.css">
-    <link rel="stylesheet" href="/public/assets/css/nav.css">
-</head>
+<?php 
+
+$pageTitle = 'Café Sabrosos - Preguntas Frecuentes';
+
+$customCSS = [
+    '/public/assets/css/preguntasFrecuentes.css',
+    '/public/assets/css/nav.css',
+    '/public/assets/css/footer.css',
+    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css'
+];
+$customJS = [
+    '/public/assets/js/languageSelect.js',
+    '/public/assets/js/updateCartCounter.js'
+  ];
+include 'templates/head.php' ?>
+
 <body>
 <header>
     <?php include 'templates/nav.php'; ?>

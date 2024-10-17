@@ -80,35 +80,29 @@ include 'templates/head.php' ?>
 <body>
     <?php include 'templates/nav-blur.php' ?>
     <main>
-        <div class="wrapper">
-        <h1 data-translate="contact.title">¡Ponete en contacto con nosotros!</h1>
-<div class="input-box">
-    <form method="POST" action="/src/email/contactoEmail.php" id="contact-form">
-        <label for="name" data-translate="contact.name_label">Nombre</label>
-        <input id="name" name="name" type="text" class="feedback-input" required /> <br>
-        
-        <label for="email" data-translate="contact.email_label">Email</label>
-        <input id="email" name="email" type="email" class="feedback-input" required /><br>
-        
-        <label for="subject" data-translate="contact.subject_label">Asunto</label>
-        <input id="subject" type="text" name="subject" class="feedback-input" required /><br>
-        
-        <label for="message" data-translate="contact.message_label">Comentario o mensaje</label>
-        <textarea id="message" name="message" class="feedback-input" required></textarea><br>
-        
-        <div id="response-message" data-translate="contact.response_message"></div>
-        
-        <button class="btn" type="submit">
-            <span class="submit-text" data-translate="contact.submit_button">ENVIAR</span>
-        </button>
-    </form>
-</div>
-
-                        <div class="loader" style="display: none;"></div>
-                    </button>
-
-                </form>
-            </div>
+    <div class="wrapper">
+        <h1 class="contact-title">¡Ponete en contacto con nosotros!</h1>
+        <div class="input-box contact-form-box">
+            <form method="POST" action="/src/email/contactoEmail.php" id="contact-form">
+                <label for="name" class="contact-label">Nombre</label>
+                <input id="name" name="name" type="text" class="feedback-input contact-input" required /> <br>
+                
+                <label for="email" class="contact-label">Email</label>
+                <input id="email" name="email" type="email" class="feedback-input contact-input" required /><br>
+                
+                <label for="subject" class="contact-label">Asunto</label>
+                <input id="subject" type="text" name="subject" class="feedback-input contact-input" required /><br>
+                
+                <label for="message" class="contact-label">Comentario o mensaje</label>
+                <textarea id="message" name="message" class="feedback-input contact-input" required></textarea><br>
+                
+                <div id="response-message" class="contact-response"></div>
+                
+                <button class="btn contact-btn" type="submit">
+                    <span class="submit-text">ENVIAR</span>
+                    <div class="loader" style="display: none;"></div>
+                </button>
+            </form>
         </div>
     </div>
 </main>
