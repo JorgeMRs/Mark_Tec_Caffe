@@ -8,6 +8,7 @@ $response = checkToken();
 // Verificar si la respuesta fue exitosa antes de acceder a 'idCliente'
 if ($response['success']) {
     $user_id = $response['idCliente'];
+    $uid = $response['uid'];
     // Aquí puedes usar $user_id según sea necesario
 } else {
     // Manejar el caso en que la verificación del token falló
@@ -16,6 +17,7 @@ if ($response['success']) {
     header('Location: /public/login.php');
     exit();
 }
+$uid = $response['uid'];
 
 $conn = getDbConnection();
 

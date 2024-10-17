@@ -8,6 +8,15 @@
                 event.preventDefault();
 
                 const formData = new FormData(this);
+                const captchaResponse = grecaptcha.getResponse(); // Obtener el token de reCAPTCHA
+
+                if (!captchaResponse) {
+                    responseMessage.textContent = 'Por favor, completa el reCAPTCHA.';
+                    responseMessage.style.color = 'red'; // Color de error
+                    return; // Detener el envío del formulario
+                }
+
+                formData.append('g-recaptcha-response', captchaResponse); // Añadir token al FormData
 
                 // Ocultar texto de envío y mostrar loader
                 submitText.style.display = 'none'; // Ocultar el texto
@@ -31,9 +40,11 @@
                         } else {
                             responseMessage.textContent = 'Hubo un error al enviar el mensaje. Por favor, intenta de nuevo.';
                             responseMessage.style.color = 'red'; // Color de error
+                            
                         }
 
                         form.reset();
+                        grecaptcha.reset(); // Reiniciar el reCAPTCHA
                     })
                     .catch(error => {
                         loader.style.display = 'none';

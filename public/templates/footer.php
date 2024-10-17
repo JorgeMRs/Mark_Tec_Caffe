@@ -38,6 +38,7 @@
                 <li><a href="/public/politicas-de-privacidad.php" id="footer-privacy">Política de Privacidad</a></li>
                 <li><a href="/public/politicas-de-eliminacion-de-cuenta.php" id="footer-data-removal">Política de Eliminación de Datos</a></li>
                 <li><a href="/public/preguntasFrecuentes.php" data-translate="footer.data-policy">Preguntas Frecuentes</a></li>
+                <li><a href="/public/sobrenosotros.php" data-translate="footer.data-policy">Sobre Nosotros</a></li>
             </ul>
         </div>
     </div>

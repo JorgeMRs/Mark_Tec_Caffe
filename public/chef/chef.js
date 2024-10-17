@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  const ws = new WebSocket('ws://localhost:8080');
+  const ws = new WebSocket('wss://cafesabrosos.myvnc.com/ws');
   const messageQueue = [];
 
   const sendMessage = (message) => {

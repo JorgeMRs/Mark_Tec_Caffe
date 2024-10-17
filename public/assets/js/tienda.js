@@ -1,5 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const ws = new WebSocket('ws://localhost:8080');
+    const ws = new WebSocket('wss://cafesabrosos.myvnc.com/ws');
+
+    ws.onopen = () => {
+        console.log('Conectado al servidor WebSocket');
+        ws.send('Hola servidor!');
+    };
     const categoryDetails = document.getElementById("category-details");
     const spinner = document.createElement("div");
     spinner.className = "loader"; // Usar la clase del nuevo spinner
@@ -30,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
     ws.onmessage = async (event) => {
         const data = JSON.parse(event.data);
         console.log("Mensaje recibido:", data);
-    
+
         if (data.action === "nuevoProductoAgregado") {
             console.log("Recargando productos y categorías...");
             clearLocalStorage(); // Limpia el localStorage al recibir un nuevo producto
@@ -67,11 +72,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // Cargar las categorías
     function loadCategories(selectedCategory, lang) {
         const sidebar = document.getElementById("sidebar");
-        
+
         return new Promise((resolve, reject) => {
             const cachedCategories = localStorage.getItem(`categories_${lang}`);
             const categoriesTimestamp = localStorage.getItem(`categoriesTimestamp_${lang}`);
-    
+
             if (cachedCategories && categoriesTimestamp && (Date.now() - categoriesTimestamp) < cacheDuration) {
                 categoriesData = JSON.parse(cachedCategories);
                 renderCategories(selectedCategory);
@@ -79,10 +84,11 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
                 // Muestra el spinner exclusivo para el sidebar
                 sidebar.innerHTML = `<div class="sidebar-loader"></div>`;
-                
+
                 fetch(`/src/db/getCategories.php?lang=${lang}`)
                     .then((response) => response.json())
                     .then((categories) => {
+                        console.log("Categorías recibidas:", categories); // Agrega esta línea para verificar la respuesta
                         categoriesData = categories;
                         localStorage.setItem(`categories_${lang}`, JSON.stringify(categories));
                         localStorage.setItem(`categoriesTimestamp_${lang}`, Date.now());

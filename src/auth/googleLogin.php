@@ -1,7 +1,8 @@
 <?php
 header('Content-Type: application/json');
 require_once '../db/db_connect.php';
-session_start();
+require '../utils/encryptData.php';
+$config = include __DIR__ . '/../config/config.php'; 
 
 use Firebase\JWT\JWT;
 use Firebase\JWT\ExpiredException;
@@ -45,13 +46,18 @@ try {
                 if ($estado_activacion == 0) {
                     $response['message'] = 'La cuenta no está activada. Verifica tu correo o contactanos para más información';
                 } else {
+
+                $encryptedEmail = encryptData($correo, $encryptionKey);
+                $encryptedUserId = encryptData($user_id, $encryptionKey);
+                    
                     $secretKey = $_ENV['JWT_SECRET'];
                     $expirationTime = time() + 3600;
                     $payload = [
                         'iat' => time(),
                         'exp' => $expirationTime,
-                        'idCliente' => $user_id,
-                        'email' => $correo,
+                        'idCliente' => $encryptedUserId,
+                        'email' => $encryptedEmail,
+                        'uid' => $uid,
                     ];
                     $jwt = JWT::encode($payload, $secretKey, 'HS256');
                 

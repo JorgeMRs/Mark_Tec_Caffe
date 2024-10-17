@@ -66,7 +66,7 @@ try {
                 throw new Exception("Error ejecutando la consulta: " . $stmt->error);
             }
             $stmt->close();
-        } else {
+        } else {-
             throw new Exception("Error preparando la consulta: " . $conn->error);
         }
         $conn->close();

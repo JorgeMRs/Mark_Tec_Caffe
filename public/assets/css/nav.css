@@ -17,7 +17,9 @@ nav {
   z-index: 1000;
   box-sizing: border-box;
 }
-
+.nav-links.active{ 
+  background-color: #1B0C0A;
+}
 /* Estilos para la sección del logo */
 .logo {
   display: flex;
@@ -465,5 +467,25 @@ h4{
 
 
 
+.language-selector {
+  margin-left: 20px;
+  padding: 5px;
+  background-color: transparent;
+  color: #ffffff;
+  border: 1px solid white;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 0;
+}
 
+.language-selector.active {
+  background-color: #444444; /* Cambia este color según tu preferencia */
+}
 
+select:focus {
+  background-color: transparent;
+}
+.language-selector option {
+  background-color: #000000;
+  color: #ffffff;
+}

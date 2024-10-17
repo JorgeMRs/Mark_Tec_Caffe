@@ -2,93 +2,103 @@ html,
 body {
     height: 100%;
     margin: 0;
+    padding: 0;
 }
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-    margin: 0;
-    padding: 0;
     display: flex;
     flex-direction: column;
-
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
 }
 
 .container {
-    width: 80%;
-    margin: 0 auto;
+    flex: 1;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
     padding: 20px;
-
+    box-sizing: border-box;
 }
 
 h1 {
     text-align: center;
     margin-bottom: 20px;
-    color: #DAA421;
+    color: #5d4037;
+    font-size: 1.8rem;
 }
 
 .mesas {
     display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .mesa {
-    border: 1px solid #ddd;
-    padding: 15px;
+    border: 1px solid #d7ccc8;
+    padding: 12px;
     border-radius: 8px;
-    width: 200px;
-    text-align: center;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    position: relative;
-    transition: background-color 0.3s, transform 0.3s;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(93, 64, 55, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .mesa:hover {
-    transform: scale(1.05);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(93, 64, 55, 0.15);
+}
+
+.mesa h3 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+    color: #3e2723;
+}
+
+.mesa p {
+    margin: 4px 0;
+    font-size: 0.9rem;
+    color: #5d4037;
 }
 
 .ocupada {
-    background-color: #f8d7da;
-    color: #721c24;
+    background-color: #ffebee;
 }
 
 .reservado {
-    background-color: #fff3cd;
-    color: #856404;
+    background-color: #fff8e1;
 }
 
 .disponible {
-    background-color: #d4edda;
-    color: #155724;
+    background-color: #e8f5e9;
 }
 
 .btn-reservar {
     display: inline-block;
-    padding: 10px 15px;
-    margin-top: 10px;
+    padding: 8px 12px;
+    margin-top: 8px;
     text-decoration: none;
     color: #fff;
-    background-color: #DAA421;
-    border-radius: 5px;
+    background-color: #daa520;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
 }
 
 .btn-reservar:hover {
-    background-color: #1B0C0A;
+    background-color: #c69500;
 }
 
 .mensaje-no-disponible {
-    position: absolute;
-    bottom: 10px;
-    width: calc(100% - 20px);
-    left: 10px;
-    text-align: center;
+    margin-top: 8px;
     font-weight: bold;
+    color: #b71c1c;
+    font-size: 0.9rem;
 }
 
-
-/* Estilos del modal */
+/* Modal styles */
 .modal {
     display: none;
     position: fixed;
@@ -97,142 +107,132 @@ h1 {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    /* Fondo oscuro semitransparente */
-    transition: opacity 0.3s ease-in-out;
+    background-color: rgba(93, 64, 55, 0.5);
+    overflow-y: auto;
 }
 
-/* Contenido del modal */
 .modal-content {
-    background-color: white;
+    background-color: #fff;
     margin: 10% auto;
-    padding: 30px;
+    padding: 20px;
     border: none;
     width: 90%;
-    max-width: 500px;
-    border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-    /* Sombra suave */
+    max-width: 360px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(93, 64, 55, 0.1);
     position: relative;
-    animation: fadeIn 0.4s ease-in-out;
-    /* Animación de entrada */
-}
-.modal-content h2{
-    color: #DAA421;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
+.modal-content h2 {
+    color: #3e2723;
+    font-size: 1.3rem;
+    margin-top: 0;
+    margin-bottom: 16px;
 }
 
-/* Botón de cerrar (X) */
 .close {
-    color: #888;
+    color: #8d6e63;
     position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 24px;
+    top: 10px;
+    right: 15px;
+    font-size: 22px;
     cursor: pointer;
     transition: color 0.2s ease;
 }
 
 .close:hover {
-    color: #333;
-    /* Cambio de color al pasar el ratón */
+    color: #5d4037;
 }
 
-/* Estilos del formulario */
 label {
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 4px;
     font-weight: 600;
-    font-size: 1rem;
-    color: #1B0C0A;
+    font-size: 0.9rem;
+    color: #3e2723;
 }
+
 .error-message {
-color: red;
-display: none; /* Ocultar por defecto */
+    color: #b71c1c;
+    display: none;
+    font-size: 0.85rem;
+    margin-top: 4px;
 }
+
 input[type="date"],
 input[type="time"],
 select {
     width: 100%;
-    padding: 10px 0px 10px 0px;
-    margin-bottom: 20px;
-    /* margin-right: 7px; */
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    background-color: #f9f9f9;
-    font-size: 1rem;
-    transition: all 0.3s ease;
+    padding: 8px;
+    margin-bottom: 12px;
+    border-radius: 4px;
+    border: 1px solid #bcaaa4;
+    background-color: #fff;
+    font-size: 0.9rem;
 }
 
 input[type="date"]:focus,
 input[type="time"]:focus,
 select:focus {
     outline: none;
-    border-color: #00aaff;
-    /* Color de borde al enfocar */
+    border-color: #daa520;
     background-color: #fff;
 }
 
-/* Botón de enviar */
 .btn-reservar2 {
-    background-color: #DAA421;
-    color: #1B0C0A;
+    background-color: #daa520;
+    color: #fff;
     border: none;
-    padding: 12px 20px;
+    padding: 10px 16px;
     width: 100%;
-    font-size: 1.2rem;
-    border-radius: 8px;
+    font-size: 1rem;
+    border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    transition: 0.5s ease;
 }
 
 .btn-reservar2:hover {
-    background-color: #1B0C0A;
-    transition: 0.5s ease;
-    color: #DAA421;
-    /* Cambio de color al pasar el ratón */
+    background-color: #c69500;
 }
 
-
-
-/* Modal para aviso de sesion - reservas */
-.aviso-close {
-    color: #888;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 24px;
-    cursor: pointer;
-    transition: color 0.2s ease;
-}
-
-.aviso-close:hover {
-    color: #333;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.9);
+/* Responsive adjustments */
+@media screen and (max-width: 480px) {
+    .container {
+        padding: 15px;
     }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
 
-.modal-content h2 {
-    color: #DAA421;
+    h1 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+    }
+
+    .mesa {
+        padding: 10px;
+    }
+
+    .mesa h3 {
+        font-size: 1rem;
+    }
+
+    .mesa p {
+        font-size: 0.85rem;
+    }
+
+    .btn-reservar {
+        padding: 7px 10px;
+        font-size: 0.85rem;
+    }
+
+    .modal-content {
+        padding: 15px;
+        margin: 5% auto;
+    }
+
+    .modal-content h2 {
+        font-size: 1.2rem;
+    }
+
+    label, input[type="date"], input[type="time"], select, .btn-reservar2 {
+        font-size: 0.9rem;
+    }
 }

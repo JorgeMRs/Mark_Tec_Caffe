@@ -1,10 +1,10 @@
 <?php
 header('Content-Type: application/json');
-session_start(); // Asegúrate de iniciar la sesión
 use Firebase\JWT\JWT;
 use Firebase\JWT\ExpiredException;
 require_once '../db/db_connect.php';
-
+require '../utils/encryptData.php';
+$config = include __DIR__ . '/../config/config.php'; 
 require_once __DIR__ . '/../../vendor/autoload.php'; // Ajusta la ruta según la ubicación de tu archivo
 
 use Dotenv\Dotenv;
@@ -67,15 +67,25 @@ try {
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("ssss", $uid, $email, $displayName, $hashedPassword);
 
+
+
+
+
             if ($stmt->execute()) {
                 $user_id = $conn->insert_id; 
+
+                $encryptedEmail = encryptData($correo, $encryptionKey);
+                $encryptedUserId = encryptData($user_id, $encryptionKey);
+                $encryptedUserUID = encryptData($uid, $encryptionKey);
+
                 $secretKey = $_ENV['JWT_SECRET'];
                 $expirationTime = time() + 3600;
                 $payload = [
                     'iat' => time(),
                     'exp' => $expirationTime,
-                    'idCliente' => $user_id,
-                    'email' => $email,
+                    'idCliente' => $encryptedUserId,
+                    'email' => $encryptedEmail,
+                    'uid' => $encryptedUserUID,
                 ];
                 $jwt = JWT::encode($payload, $secretKey, 'HS256');
             

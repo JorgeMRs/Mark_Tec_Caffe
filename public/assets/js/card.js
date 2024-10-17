@@ -1,7 +1,13 @@
 document.getElementById("tarjeta").addEventListener("input", function () {
-  const tarjeta = this.value;
-  const cardLogo = document.getElementById("card-logo");
 
+  let tarjeta = this.value.replace(/\s/g, "");
+
+  tarjeta = tarjeta.replace(/(.{4})/g, "$1 ").trim();
+
+  this.value = tarjeta;
+
+  // Manejo del logo de la tarjeta
+  const cardLogo = document.getElementById("card-logo");
   if (tarjeta.startsWith("5")) {
     cardLogo.src = "/public/assets/img/Mastercard.png";
     cardLogo.style.display = "block";
@@ -15,6 +21,7 @@ document.getElementById("tarjeta").addEventListener("input", function () {
     cardLogo.style.display = "none";
   }
 });
+
 document.addEventListener("DOMContentLoaded", function () {
   const cvvField = document.getElementById("cvv");
   const cardNumberField = document.getElementById("tarjeta");
@@ -30,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Evento para manejar el cambio en el campo del número de tarjeta
   cardNumberField.addEventListener("input", function () {
-    const cardNumber = cardNumberField.value;
+    const cardNumber = cardNumberField.value.replace(/\s/g, ""); // Eliminar espacios
 
     if (determineCardType(cardNumber) === "amex") {
       cvvField.maxLength = 4;

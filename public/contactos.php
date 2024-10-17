@@ -15,6 +15,10 @@ $customJS = [
   '/public/assets/js/updateCartCounter.js'
 ];
 
+$deferJS = [
+    'https://www.google.com/recaptcha/api.js'
+];
+
 include 'templates/head.php' ?>
 
 <style>
@@ -97,7 +101,9 @@ include 'templates/head.php' ?>
                 <textarea id="message" name="message" class="feedback-input contact-input" required></textarea><br>
                 
                 <div id="response-message" class="contact-response"></div>
-                
+
+                <div class="g-recaptcha" data-sitekey="6LemoDEqAAAAABt_tJuEIjgcf55iauaO5PTSp7lk"></div>
+
                 <button class="btn contact-btn" type="submit">
                     <span class="submit-text">ENVIAR</span>
                     <div class="loader" style="display: none;"></div>
@@ -111,6 +117,7 @@ include 'templates/head.php' ?>
     } ?>
     <?php include 'templates/footer.php' ?>
 </body>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script src="/public/assets/js/updateCartCounter.js"></script>
 <script src="/public/assets/js/contacto.js"></script>
 <script src="/public/assets/js/languageSelect.js"></script>
