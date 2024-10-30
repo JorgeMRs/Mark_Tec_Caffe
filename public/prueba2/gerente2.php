@@ -258,8 +258,8 @@ if (!isset($_SESSION['role'])) {
             display: block
         }
 
-   
-        
+
+
         /* Estilos para el fondo sombreado del modal de personal */
         .personal-modal-overlay {
             display: none;
@@ -507,7 +507,7 @@ if (!isset($_SESSION['role'])) {
                 <div id="analisis">
                     <h3>Análisis de Ventas</h3>
                     <div class="contenedor-graficos">
-                    
+
                         <div class="grafico">
                             <canvas id="ventasSemanales"></canvas>
                         </div>
@@ -554,6 +554,18 @@ if (!isset($_SESSION['role'])) {
                 })
                 .catch(error => console.error('Error al cargar datos:', error));
         }
+
+        function mostrarFormularioinve(modalId, url, campos) {
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    for (const campo in campos) {
+                        document.getElementById(campos[campo]).value = data[campo];
+                    }
+                    document.getElementById(modalId).style.display = 'block';
+                })
+                .catch(error => console.error('Error al cargar el formulario:', error));
+        }
         function mostrarFormularioPedido(modalId, url, formFields) {
             openModal(modalId);
             fetch(url)
@@ -592,6 +604,7 @@ if (!isset($_SESSION['role'])) {
                 })
                 .catch(error => console.error('Error al cargar datos:', error));
         }
+
         function mostrarFormularioHistorial(modalId, url, fieldMapping) {
             openModal(modalId);
             fetch(url)
@@ -613,27 +626,48 @@ if (!isset($_SESSION['role'])) {
                 })
                 .catch(error => console.error('Error al cargar datos:', error));
         }
-        function mostrarFormularioReserva(modalId, url, formFields) {
-            openModal(modalId);
+
+        function mostrarFormularioReserva(modalId, url, campos) {
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
-                    for (const field in formFields) {
-                        if (formFields.hasOwnProperty(field)) {
-                            const element = document.getElementById(formFields[field]);
-                            if (element) {
-                                if (element.tagName === 'SELECT') {
-                                    element.value = data[field];
-                                } else if (element.type === 'datetime-local') {
-                                    element.value = data[field].replace(' ', 'T');
-                                } else {
-                                    element.value = data[field];
-                                }
-                            }
-                        }
+                    if (data.error) {
+                        console.error('Error al cargar el formulario:', data.error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: data.error,
+                        });
+                        return;
                     }
+                    for (const campo in campos) {
+                        document.getElementById(campos[campo]).value = data[campo];
+                    }
+                    document.getElementById(modalId).style.display = 'block';
                 })
-                .catch(error => console.error('Error al cargar datos:', error));
+                .catch(error => console.error('Error al cargar el formulario:', error));
+        }
+
+
+        function mostrarFormularioCategoria(modalId, url, campos) {
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        console.error('Error al cargar el formulario:', data.error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: data.error,
+                        });
+                        return;
+                    }
+                    for (const campo in campos) {
+                        document.getElementById(campos[campo]).value = data[campo];
+                    }
+                    document.getElementById(modalId).style.display = 'block';
+                })
+                .catch(error => console.error('Error al cargar el formulario:', error));
         }
 
         // Función para abrir modal
@@ -663,32 +697,12 @@ if (!isset($_SESSION['role'])) {
             }
         }
 
-        // Función para manejar el envío de formularios
-        function handleFormSubmit(formId, successCallback) {
-            const form = document.getElementById(formId);
-            form.onsubmit = function (e) {
-                e.preventDefault();
-                const formData = new FormData(form);
-                fetch(form.action, {
-                    method: 'POST',
-                    body: formData
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            alert('Operación realizada con éxito');
-                            successCallback();
-                            closeModal(form.closest('.modal').id);
-                        } else {
-                            alert('Error: ' + data.error);
-                        }
-                    })
-                    .catch(error => console.error('Error:', error));
-            }
-        }
 
-        // Función genérica para cargar datos de una URL y mostrarlos en una tabla
 
+
+
+
+        // Cargar datos al cargar la página pedidos activos     
         function cargarDatos(url, elementId) {
             console.log(userRole)
             fetch(url)
@@ -696,25 +710,24 @@ if (!isset($_SESSION['role'])) {
                 .then(data => {
                     const tbody = document.getElementById(elementId);
                     tbody.innerHTML = data.map(item => `
-                        <tr>
-                            <td>${item.idPedido}</td>
-                            <td>${item.fechaPedido}</td>
-                            <td>${item.clienteNombre}</td>
-                            <td>${item.empleadoNombre}</td>
-                            <td>${item.total}</td>
-                            <td>${item.estado}</td>
-                            ${userRole === 'admin' ? `
-                            <td>
-                                <select class="acciones" data-id="${item.idPedido}">
-                                    <option value="">Seleccionar</option>
-                                    <option value="modificar">Modificar</option>
-                                    <option value="eliminar">Eliminar</option>
-                                </select>
-                            </td>
-                            ` : ''}
-                        </tr>
-                    `).join('');
-
+                <tr data-id="${item.idPedido}">
+                    <td data-campo="idPedido">${item.idPedido}</td>
+                    <td data-campo="fechaPedido">${item.fechaPedido}</td>
+                    <td data-campo="clienteNombre">${item.clienteNombre}</td>
+                    <td data-campo="empleadoNombre">${item.empleadoNombre}</td>
+                    <td data-campo="total">${item.total}</td>
+                    <td data-campo="estado">${item.estado}</td>
+                    ${userRole === 'admin' ? `
+                    <td>
+                        <select class="acciones" data-id="${item.idPedido}">
+                            <option value="">Seleccionar</option>
+                            <option value="modificar">Modificar</option>
+                            <option value="eliminar">Eliminar</option>
+                        </select>
+                    </td>
+                    ` : ''}
+                </tr>
+            `).join('');
                     if (userRole === 'admin') {
                         // Agregar event listeners para los select de acciones
                         document.querySelectorAll('.acciones').forEach(select => {
@@ -742,19 +755,18 @@ if (!isset($_SESSION['role'])) {
                 .catch(error => console.error('Error al cargar datos:', error));
         }
 
-        // Función específica para cargar el historial de pedidos
         function cargarDatosHistorial(url, elementId) {
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
                     const tbody = document.getElementById(elementId);
                     tbody.innerHTML = data.map(item => `
-                <tr>
-                    <td>${item.id}</td>
-                    <td>${item.date}</td>
-                    <td>${item.customer}</td>
-                    <td>${item.total}</td>
-                    <td>${item.estado}</td>
+                <tr data-id="${item.id}">
+                    <td data-campo="id">${item.id}</td>
+                    <td data-campo="date">${item.date}</td>
+                    <td data-campo="customer">${item.customer}</td>
+                    <td data-campo="total">${item.total}</td>
+                    <td data-campo="estado">${item.estado}</td>
                     ${userRole === 'admin' ? `
                     <td>
                         <select class="acciones" data-id="${item.id}">
@@ -777,7 +789,7 @@ if (!isset($_SESSION['role'])) {
                                     mostrarFormularioHistorial('historialModal', `/public/prueba2/obtener_historial_por_id.php?id=${id}`, {
                                         idPedido: 'historialId',
                                         fechaPedido: 'historialFecha',
-                                        clienteNombre: 'historialClienteNombre',
+                                        clienteNombre: 'historialCliente',
                                         total: 'historialTotal',
                                         estado: 'historialEstado'
                                     });
@@ -789,61 +801,13 @@ if (!isset($_SESSION['role'])) {
                             });
                         });
                     }
+                    console.log(data);
                 })
                 .catch(error => console.error('Error al cargar datos:', error));
         }
 
         // Función específica para cargar el inventario
 
-        function cargarDatosInve(url, elementId) {
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    const tbody = document.getElementById(elementId);
-                    tbody.innerHTML = data.map(item => `
-                        <tr>
-                            <td>${item.id}</td>
-                            <td>${item.item}</td>
-                            <td>${item.quantity}</td>
-                            <td>${item.price}</td>
-                            <td>${item.category}</td>
-                            ${userRole === 'admin' ? `
-                            <td>
-                                <select class="acciones" data-id="${item.id}">
-                                    <option value="">Seleccionar</option>
-                                    <option value="modificar">Modificar</option>
-                                    <option value="eliminar">Eliminar</option>
-                                </select>
-                            </td>
-                            ` : ''}
-                        </tr>
-                    `).join('');
-
-                    if (userRole === 'admin') {
-                        // Agregar event listeners para los select de acciones
-                        document.querySelectorAll('.acciones').forEach(select => {
-                            select.addEventListener('change', function () {
-                                const id = select.getAttribute('data-id');
-                                const action = select.value;
-                                if (action === 'modificar') {
-                                    mostrarFormulario('inventarioModal', `/public/prueba2/obtener_producto_por_id.php?id=${id}`, {
-                                        idProducto: 'inventarioId',
-                                        nombreProducto: 'inventarioNombre',
-                                        cantidad: 'inventarioCantidad',
-                                        precio: 'inventarioPrecio',
-                                        idCategoria: 'inventarioCategoria'
-                                    });
-                                } else if (action === 'eliminar') {
-                                    eliminarPedido(id);
-                                }
-                                // Reset the select value to default
-                                select.value = '';
-                            });
-                        });
-                    }
-                })
-                .catch(error => console.error('Error al cargar datos:', error));
-        }
 
 
         // Función específica para cargar el personal
@@ -865,8 +829,9 @@ if (!isset($_SESSION['role'])) {
                 .catch(error => console.error('Error al cargar datos:', error));
         }
 
-        // Función genérica para cargar datos de una URL y mostrarlos en una tabla
 
+
+        // Función genérica para cargar datos de una URL y mostrarlos en una tabla
 
         function cargarDatosPersonal(url, elementId) {
             fetch(url)
@@ -874,29 +839,29 @@ if (!isset($_SESSION['role'])) {
                 .then(data => {
                     const tbody = document.getElementById(elementId);
                     tbody.innerHTML = data.map(item => `
-                            <tr>
-                                <td>${item.idEmpleado}</td>
-                                <td>${item.correo}</td>
-                                <td>${item.nombre}</td>
-                                <td>${item.apellido}</td>
-                                <td>${item.ci}</td>
-                                <td>${item.idPuesto}</td>
-                                <td>${item.idSucursal}</td>
-                                <td>${item.fechaIngreso}</td>
-                                <td>${item.salario}</td>
-                                <td>${item.tel}</td>
-                                <td>${item.fechaNacimiento}</td>
-                                ${userRole === 'admin' ? `
-                                <td>
-                                    <select class="acciones" data-id="${item.idEmpleado}">
-                                        <option value="">Seleccionar</option>
-                                        <option value="modificar">Modificar</option>
-                                        <option value="eliminar">Eliminar</option>
-                                    </select>
-                                </td>
-                                ` : ''}
-                            </tr>
-                        `).join('');
+                    <tr data-id="${item.idEmpleado}">
+                        <td data-campo="idEmpleado">${item.idEmpleado}</td>
+                        <td data-campo="correo">${item.correo}</td>
+                        <td data-campo="nombre">${item.nombre}</td>
+                        <td data-campo="apellido">${item.apellido}</td>
+                        <td data-campo="ci">${item.ci}</td>
+                        <td data-campo="idPuesto">${item.idPuesto}</td>
+                        <td data-campo="idSucursal">${item.idSucursal}</td>
+                        <td data-campo="fechaIngreso">${item.fechaIngreso}</td>
+                        <td data-campo="salario">${item.salario}</td>
+                        <td data-campo="tel">${item.tel}</td>
+                        <td data-campo="fechaNacimiento">${item.fechaNacimiento}</td>
+                        ${userRole === 'admin' ? `
+                        <td>
+                            <select class="acciones" data-id="${item.idEmpleado}">
+                                <option value="">Seleccionar</option>
+                                <option value="modificar">Modificar</option>
+                                <option value="eliminar">Eliminar</option>
+                            </select>
+                        </td>
+                        ` : ''}
+                    </tr>
+                `).join('');
 
                     if (userRole === 'admin') {
                         // Agregar event listeners para los select de acciones
@@ -930,8 +895,82 @@ if (!isset($_SESSION['role'])) {
                 .catch(error => console.error('Error al cargar datos:', error));
         }
 
+        function cargarDatosInve(url, elementId) {
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const tbody = document.getElementById(elementId);
+                    tbody.innerHTML = data.map(item => `
+                    <tr data-id="${item.id}">
+                        <td data-campo="id">${item.id}</td>
+                        <td data-campo="item">${item.item}</td>
+                        <td data-campo="quantity">${item.quantity}</td>
+                        <td data-campo="price">${item.price}</td>
+                        <td data-campo="category">${item.category}</td>
+                        ${userRole === 'admin' ? `
+                        <td>
+                            <select class="acciones" data-id="${item.id}">
+                                <option value="">Seleccionar</option>
+                                <option value="modificar">Modificar</option>
+                                <option value="eliminar">Eliminar</option>
+                            </select>
+                        </td>
+                        ` : ''}
+                    </tr>
+                `).join('');
+
+                    if (userRole === 'admin') {
+                        // Agregar event listeners para los select de acciones
+                        document.querySelectorAll('.acciones').forEach(select => {
+                            select.addEventListener('change', function () {
+                                const id = select.getAttribute('data-id');
+                                const action = select.value;
+                                if (action === 'modificar') {
+                                    mostrarFormulario('inventarioModal', `/public/prueba2/obtener_producto_por_id.php?id=${id}`, {
+                                        idProducto: 'inventarioId',
+                                        nombreProducto: 'inventarioNombre',
+                                        cantidad: 'inventarioCantidad',
+                                        precio: 'inventarioPrecio',
+                                        idCategoria: 'inventarioCategoria'
+                                    });
+                                } else if (action === 'eliminar') {
+                                    eliminarInventario(id);
+                                }
+                                // Reset the select value to default
+                                select.value = '';
+                            });
+                        });
+                    }
+                })
+                .catch(error => console.error('Error al cargar datos:', error));
+        }
+
+        function cargarCategorias() {
+            fetch('/public/prueba2/obtener_categorias.php')
+                .then(response => response.json())
+                .then(data => {
+                    const select = document.getElementById('inventarioCategoria');
+                    select.innerHTML = data.map(categoria => `
+                        <option value="${categoria.idCategoria}">${categoria.nombre}</option>
+                    `).join('');
+                })
+                .catch(error => console.error('Error al cargar categorías:', error));
+        }
 
 
+
+        function mostrarFormularioinve(modalId, url, campos) {
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    for (const campo in campos) {
+                        document.getElementById(campos[campo]).value = data[campo];
+                    }
+                    cargarCategorias(); // Cargar categorías antes de mostrar el modal
+                    document.getElementById(modalId).style.display = 'block';
+                })
+                .catch(error => console.error('Error al cargar el formulario:', error));
+        }
 
         function cargarDatosReservas(url, elementId) {
             fetch(url)
@@ -939,24 +978,24 @@ if (!isset($_SESSION['role'])) {
                 .then(data => {
                     const tbody = document.getElementById(elementId);
                     tbody.innerHTML = data.map(item => `
-                <tr>
-                    <td>${item.id}</td>
-                    <td>${item.fecha}</td>
-                    <td>${item.cliente}</td>
-                    <td>${item.mesa}</td>
-                    <td>${item.estado}</td>
-                    <td>${item.empleado}</td>
-                    ${userRole === 'admin' ? `
-                    <td>
-                        <select class="acciones" data-id="${item.id}">
-                            <option value="">Seleccionar</option>
-                            <option value="modificar">Modificar</option>
-                            <option value="eliminar">Eliminar</option>
-                        </select>
-                    </td>
-                    ` : ''}
-                </tr>
-            `).join('');
+                    <tr data-id="${item.id}">
+                        <td data-campo="id">${item.id}</td>
+                        <td data-campo="fecha">${item.fecha}</td>
+                        <td data-campo="cliente">${item.cliente}</td>
+                        <td data-campo="mesa">${item.mesa}</td>
+                        <td data-campo="estado">${item.estado}</td>
+                        <td data-campo="empleado">${item.empleado}</td>
+                        ${userRole === 'admin' ? `
+                        <td>
+                            <select class="acciones" data-id="${item.id}">
+                                <option value="">Seleccionar</option>
+                                <option value="modificar">Modificar</option>
+                                <option value="eliminar">Eliminar</option>
+                            </select>
+                        </td>
+                        ` : ''}
+                    </tr>
+                `).join('');
 
                     if (userRole === 'admin') {
                         // Agregar event listeners para los select de acciones
@@ -993,20 +1032,20 @@ if (!isset($_SESSION['role'])) {
                 .then(data => {
                     const tbody = document.getElementById(elementId);
                     tbody.innerHTML = data.map(item => `
-                        <tr>
-                            <td>${item.idCategoria}</td>
-                            <td>${item.nombre}</td>
-                            ${userRole === 'admin' ? `
-                            <td>
-                                <select class="acciones" data-id="${item.idCategoria}">
-                                    <option value="">Seleccionar</option>
-                                    <option value="modificar">Modificar</option>
-                                    <option value="eliminar">Eliminar</option>
-                                </select>
-                            </td>
-                            ` : ''}
-                        </tr>
-                    `).join('');
+                    <tr data-id="${item.idCategoria}">
+                        <td data-campo="idCategoria">${item.idCategoria}</td>
+                        <td data-campo="nombre">${item.nombre}</td>
+                        ${userRole === 'admin' ? `
+                        <td>
+                            <select class="acciones" data-id="${item.idCategoria}">
+                                <option value="">Seleccionar</option>
+                                <option value="modificar">Modificar</option>
+                                <option value="eliminar">Eliminar</option>
+                            </select>
+                        </td>
+                        ` : ''}
+                    </tr>
+                `).join('');
 
                     if (userRole === 'admin') {
                         // Agregar event listeners para los select de acciones
@@ -1015,7 +1054,7 @@ if (!isset($_SESSION['role'])) {
                                 const id = select.getAttribute('data-id');
                                 const action = select.value;
                                 if (action === 'modificar') {
-                                    mostrarFormulario('categoriaModal', `/public/prueba2/obtener_categoria_por_id.php?id=${id}`, {
+                                    mostrarFormularioCategoria('categoriaModal', `/public/prueba2/obtener_categoria_por_id.php?id=${id}`, {
                                         idCategoria: 'categoriaId',
                                         nombre: 'editNombreCategoria'
                                     });
@@ -1052,8 +1091,8 @@ if (!isset($_SESSION['role'])) {
         }
 
 
-    
-      
+
+
 
 
 
@@ -1065,7 +1104,7 @@ if (!isset($_SESSION['role'])) {
             document.getElementById(modalId).style.display = 'none';
         }
 
-     
+
 
 
         function eliminarReserva(id) {
@@ -1142,44 +1181,44 @@ if (!isset($_SESSION['role'])) {
         function crearGraficos() {
             // Gráfico de ventas semanales
             fetch('/public/panel/obtener_ventas_semanales.php')
-        .then(response => response.json())
-        .then(data => {
-            // Definir las semanas del mes
-            const semanasMes = ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'];
+                .then(response => response.json())
+                .then(data => {
+                    // Definir las semanas del mes
+                    const semanasMes = ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'];
 
-            // Mapeo de las ventas para las 4 semanas del mes
-            const ventasPorSemana = semanasMes.map((semana, index) => {
-                const venta = data.find(item => item.semanaMes == index + 1); // Semana 1 corresponde al index 0
-                return venta ? venta.ventas : 0;
-            });
+                    // Mapeo de las ventas para las 4 semanas del mes
+                    const ventasPorSemana = semanasMes.map((semana, index) => {
+                        const venta = data.find(item => item.semanaMes == index + 1); // Semana 1 corresponde al index 0
+                        return venta ? venta.ventas : 0;
+                    });
 
-            // Configuración del gráfico
-            const ctxVentas = document.getElementById('ventasSemanales').getContext('2d');
-            new Chart(ctxVentas, {
-                type: 'bar',
-                data: {
-                    labels: semanasMes,
-                    datasets: [{
-                        label: 'Ventas por Semana del Mes',
-                        data: ventasPorSemana,
-                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'top',
+                    // Configuración del gráfico
+                    const ctxVentas = document.getElementById('ventasSemanales').getContext('2d');
+                    new Chart(ctxVentas, {
+                        type: 'bar',
+                        data: {
+                            labels: semanasMes,
+                            datasets: [{
+                                label: 'Ventas por Semana del Mes',
+                                data: ventasPorSemana,
+                                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                            }]
                         },
-                        title: {
-                            display: true,
-                            text: 'Ventas Semanales del Mes Actual'
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Ventas Semanales del Mes Actual'
+                                }
+                            }
                         }
-                    }
-                }
-            });
-        })
-        .catch(error => console.error('Error al obtener los datos:', error));
+                    });
+                })
+                .catch(error => console.error('Error al obtener los datos:', error));
 
             // Gráfico de productos más vendidos
             fetch('/public/prueba2/obtener_productos_mas_vendidos.php')
@@ -1405,43 +1444,7 @@ if (!isset($_SESSION['role'])) {
                 .catch(error => console.error('Error al cargar categorías:', error));
         });
 
-        function handleFormSubmit(event, modalId) {
-            event.preventDefault(); // Evitar el envío del formulario por defecto
 
-            const formData = new FormData(event.target);
-            fetch(event.target.action, {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Éxito',
-                            text: 'Operación realizada correctamente.',
-                            showConfirmButton: false,
-                            timer: 2000
-                        }).then(() => {
-                            closeModal(modalId);
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: 'Error al realizar la operación: ' + data.error,
-                        });
-                    }
-                })
-                .catch(error => {
-                    console.error('Error al enviar el formulario:', error);
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Error al enviar el formulario.',
-                    });
-                });
-        }
 
         function closeModal(modalId) {
             document.getElementById(modalId).style.display = 'none';
@@ -1519,6 +1522,382 @@ if (!isset($_SESSION['role'])) {
         document.addEventListener('DOMContentLoaded', function () {
             actualizarGraficoVentasSemanales(0);
         });
+
+
+
+
+
+        function handleFormSubmitPedidos(event, modalId) {
+            event.preventDefault(); // Evitar el envío del formulario por defecto
+
+            const formData = new FormData(event.target);
+            fetch(event.target.action, {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Respuesta del servidor:', data); // Mensaje de depuración
+                    if (data.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Éxito',
+                            text: data.message,
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then(() => {
+                            closeModal(modalId);
+                            actualizarCeldaPedidos(data.id, data.campoModificado, data.valorModificado);
+                            actualizarCeldaHistorial(data.id, data.campoModificado, data.valorModificado); // Actualizar también el historial
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Error al realizar la operación Pedidos: ' + (data.error || 'Error desconocido'),
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al enviar el formulario:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Ocurrió un error al enviar el formulario.',
+                    });
+                });
+        }
+
+
+        function handleFormSubmitHistorial(event, modalId) {
+            event.preventDefault(); // Evitar el envío del formulario por defecto
+
+            const formData = new FormData(event.target);
+            fetch(event.target.action, {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Respuesta del servidor:', data); // Mensaje de depuración
+                    if (data.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Éxito',
+                            text: data.message,
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then(() => {
+                            closeModal(modalId);
+                            actualizarCeldaHistorial(data.id, data.campoModificado, data.valorModificado);
+                            actualizarCeldaPedidos(data.id, data.campoModificado, data.valorModificado); // Actualizar también los pedidos activos
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Error al realizar la operación Historial: ' + (data.error || 'Error desconocido'),
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al enviar el formulario:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Ocurrió un error al enviar el formulario.',
+                    });
+                });
+        }
+
+
+        function handleFormSubmitInventario(event, modalId) {
+            event.preventDefault(); // Evitar el envío del formulario por defecto
+
+            const formData = new FormData(event.target);
+            fetch(event.target.action, {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Respuesta del servidor:', data); // Mensaje de depuración
+                    if (data.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Éxito',
+                            text: data.message,
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then(() => {
+                            closeModal(modalId);
+                            actualizarCeldaInventario(data.id, data.campoModificado, data.valorModificado); // Asegúrate de que 'category' sea el campo correcto
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Error al realizar la operación Inventario: ' + (data.error || 'Error desconocido'),
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al enviar el formulario:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Ocurrió un error al enviar el formulario.',
+                    });
+                });
+        }
+
+
+        function handleFormSubmitPersonal(event, modalId) {
+            event.preventDefault(); // Evitar el envío del formulario por defecto
+
+            const formData = new FormData(event.target);
+            fetch(event.target.action, {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Respuesta del servidor:', data); // Mensaje de depuración
+                    if (data.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Éxito',
+                            text: data.message,
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then(() => {
+                            closeModal(modalId);
+                            actualizarCeldaPersonal(data.id, data.campoModificado, data.valorModificado);
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Error al realizar la operación Personal: ' + (data.error || 'Error desconocido'),
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al enviar el formulario:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Ocurrió un error al enviar el formulario.',
+                    });
+                });
+        }
+
+
+        function handleFormSubmitReserva(event, modalId) {
+            event.preventDefault(); // Evitar el envío del formulario por defecto
+
+            const formData = new FormData(event.target);
+            fetch(event.target.action, {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Respuesta del servidor:', data); // Mensaje de depuración
+                    if (data.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Éxito',
+                            text: data.message,
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then(() => {
+                            closeModal(modalId);
+                            actualizarCeldaReserva(data.id, data.campoModificado, data.valorModificado);
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Error al realizar la operación Reserva: ' + (data.error || 'Error desconocido'),
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al enviar el formulario:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Ocurrió un error al enviar el formulario.',
+                    });
+                });
+        }
+
+
+        function handleFormSubmitCategoria(event, modalId) {
+            event.preventDefault(); // Evitar el envío del formulario por defecto
+
+            const formData = new FormData(event.target);
+            fetch(event.target.action, {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Respuesta del servidor:', data); // Mensaje de depuración
+                    if (data.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Éxito',
+                            text: data.message,
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then(() => {
+                            closeModal(modalId);
+                            actualizarCeldaCategoria(data.id, data.campoModificado, data.valorModificado);
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Error al realizar la operación Categoría: ' + (data.error || 'Error desconocido'),
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al enviar el formulario:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Ocurrió un error al enviar el formulario.',
+                    });
+                });
+        }
+        function actualizarCeldaReserva(id, campoModificado, valorModificado) {
+            console.log('Actualizando celda en reservas:', id, campoModificado, valorModificado); // Mensaje de depuración
+            const fila = document.querySelector(`#reservalItems tr[data-id="${id}"]`);
+            if (fila) {
+                const celda = fila.querySelector(`td[data-campo="${campoModificado}"]`);
+                if (celda) {
+                    celda.textContent = valorModificado;
+                } else {
+                    console.error('Celda no encontrada en reservas:', campoModificado); // Mensaje de depuración
+                }
+            } else {
+                console.error('Fila no encontrada en reservas:', id); // Mensaje de depuración
+            }
+        }
+
+        function actualizarCeldaPedidos(id, campoModificado, valorModificado) {
+            console.log('Actualizando celda en pedidos:', id, campoModificado, valorModificado); // Mensaje de depuración
+            const fila = document.querySelector(`#pedidosActivosmer tr[data-id="${id}"]`);
+            if (fila) {
+                const celda = fila.querySelector(`td[data-campo="${campoModificado}"]`);
+                if (celda) {
+                    celda.textContent = valorModificado;
+                } else {
+                    console.error('Celda no encontrada en pedidos:', campoModificado); // Mensaje de depuración
+                }
+            } else {
+                console.error('Fila no encontrada en pedidos:', id); // Mensaje de depuración
+            }
+        }
+
+
+        function actualizarCeldaHistorial(id, campoModificado, valorModificado) {
+            console.log('Actualizando celda en historial:', id, campoModificado, valorModificado); // Mensaje de depuración
+            const fila = document.querySelector(`#historialPedidos tr[data-id="${id}"]`);
+            if (fila) {
+                const celda = fila.querySelector(`td[data-campo="${campoModificado}"]`);
+                if (celda) {
+                    celda.textContent = valorModificado;
+                } else {
+                    console.error('Celda no encontrada en historial:', campoModificado); // Mensaje de depuración
+                }
+            } else {
+                console.error('Fila no encontrada en historial:', id); // Mensaje de depuración
+            }
+        }
+
+
+
+
+        function actualizarCeldaInventario(id, campoModificado, valorModificado) {
+            console.log('Actualizando celda en inventario:', id, campoModificado, valorModificado); // Mensaje de depuración
+            const fila = document.querySelector(`#inventario tr[data-id="${id}"]`);
+            if (fila) {
+                const celda = fila.querySelector(`td[data-campo="${campoModificado}"]`);
+                if (celda) {
+                    celda.textContent = valorModificado;
+                } else {
+                    console.error('Celda no encontrada en inventario:', campoModificado); // Mensaje de depuración
+                }
+            } else {
+                console.error('Fila no encontrada en inventario:', id); // Mensaje de depuración
+            }
+        }
+
+
+        function actualizarCeldaPersonal(id, campoModificado, valorModificado) {
+            console.log('Actualizando celda en personal:', id, campoModificado, valorModificado); // Mensaje de depuración
+            const fila = document.querySelector(`#personalItems tr[data-id="${id}"]`);
+            if (fila) {
+                const celda = fila.querySelector(`td[data-campo="${campoModificado}"]`);
+                if (celda) {
+                    celda.textContent = valorModificado;
+                } else {
+                    console.error('Celda no encontrada en personal:', campoModificado); // Mensaje de depuración
+                }
+            } else {
+                console.error('Fila no encontrada en personal:', id); // Mensaje de depuración
+            }
+        }
+
+        function actualizarCeldaCategoria(id, campoModificado, valorModificado) {
+            console.log('Actualizando celda en categoría:', id, campoModificado, valorModificado); // Mensaje de depuración
+            const fila = document.querySelector(`#categoriaItems tr[data-id="${id}"]`);
+            if (fila) {
+                const celda = fila.querySelector(`td[data-campo="${campoModificado}"]`);
+                if (celda) {
+                    celda.textContent = valorModificado;
+                } else {
+                    console.error('Celda no encontrada en categoría:', campoModificado); // Mensaje de depuración
+                }
+            } else {
+                console.error('Fila no encontrada en categoría:', id); // Mensaje de depuración
+            }
+        }
+
     </script>
 </body>
 

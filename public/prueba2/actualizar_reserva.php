@@ -38,7 +38,13 @@ $stmt = $conn->prepare($query);
 $stmt->bind_param('siissi', $fechaReserva, $idCliente, $idMesa, $estado, $idEmpleado, $idReserva);
 
 if ($stmt->execute()) {
-    echo json_encode(['status' => 'success', 'message' => 'Inventario actualizado correctamente.']);
+    echo json_encode([
+        'success' => true,
+        'message' => 'Reserva actualizada correctamente.',
+        'id' => $idReserva,
+        'campoModificado' => 'estado', // Cambia esto según el campo que se haya modificado
+        'valorModificado' => $estado // Cambia esto según el valor que se haya modificado
+    ]);
 } else {
     echo json_encode(['success' => false, 'error' => $stmt->error]);
 }

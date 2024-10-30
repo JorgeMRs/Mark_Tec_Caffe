@@ -29,12 +29,16 @@ $query = "
 $stmt = $conn->prepare($query);
 $stmt->bind_param('si', $nombre, $idCategoria);
 
-
 if ($stmt->execute()) {
-    echo json_encode(['status' => 'success', 'message' => 'Inventario actualizado correctamente.']);
-  
+    echo json_encode([
+        'success' => true,
+        'message' => 'Categoría actualizada correctamente.',
+        'id' => $idCategoria,
+        'campoModificado' => 'nombre', // Cambia esto según el campo que se haya modificado
+        'valorModificado' => $nombre // Cambia esto según el valor que se haya modificado
+    ]);
 } else {
-    echo 'Error al actualizar el inventario.';
+    echo json_encode(['success' => false, 'error' => $stmt->error]);
 }
 
 $stmt->close();

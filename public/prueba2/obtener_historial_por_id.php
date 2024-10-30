@@ -20,14 +20,32 @@ $query = "SELECT p.idPedido, p.fechaPedido, p.idCliente, c.nombre AS clienteNomb
           JOIN cliente c ON p.idCliente = c.idCliente
           WHERE p.idPedido = ?";
 
+
+
 $stmt = $conn->prepare($query);
 $stmt->bind_param('i', $idPedido);
 $stmt->execute();
 $result = $stmt->get_result();
 
+// echo "<h1>Historial de Pedidos</h1>";
+// while ($row = $result->fetch_assoc()) {
+//     echo "ID Pedido: " . $row['idPedido'] . "<br>";
+//     echo "Fecha Pedido: " . $row['fechaPedido'] . "<br>";
+//     echo "ID Cliente: " . $row['idCliente'] . "<br>";
+//     echo "Nombre Cliente: " . $row['clienteNombre'] . "<br>";
+//     echo "ID Empleado: " . $row['idEmpleado'] . "<br>";
+//     echo "Total: " . $row['total'] . "<br>";
+//     echo "Estado: " . $row['estado'] . "<br>";
+//     echo "<hr>";
+// }
+ 
+
+
 if ($result->num_rows > 0) {
     $pedido = $result->fetch_assoc();
     echo json_encode($pedido);
+                                                    
+
 } else {
     echo json_encode(['error' => 'Pedido no encontrado']);
 }

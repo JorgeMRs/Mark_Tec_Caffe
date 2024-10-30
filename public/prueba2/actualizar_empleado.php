@@ -7,6 +7,8 @@ $dotenv->load();
 
 include '../../src/db/db_connect.php';
 
+$response = ['success' => false];
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $idEmpleado = $_POST['idEmpleado'] ?? '';
     $correo = $_POST['correo'] ?? '';
@@ -23,11 +25,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fechaNacimiento = $_POST['fechaNacimiento'] ?? '';
 
     if (empty($idEmpleado) || empty($correo) || empty($nombre) || empty($apellido) || empty($ci) || empty($idPuesto) || empty($idSucursal) || empty($fechaIngreso) || empty($salario) || empty($tel) || empty($fechaNacimiento)) {
-        die(json_encode(['error' => 'Todos los campos son obligatorios.']));
+        $response['error'] = 'Todos los campos son obligatorios.';
+        echo json_encode($response);
+        exit;
     }
 
     if (!empty($contrasena) && $contrasena !== $confirmarContrasena) {
-        die(json_encode(['error' => 'Las contraseñas no coinciden.']));
+        $response['error'] = 'Las contraseñas no coinciden.';
+        echo json_encode($response);
+        exit;
     }
 
     $conn = getDbConnection();
@@ -44,14 +50,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->bind_param("si", $hashedPassword, $idEmpleado);
             $stmt->execute();
         }
-        echo json_encode(['status' => 'success', 'message' => 'Empleado actualizado correctamente.']);
+        $response['success'] = true;
+        $response['message'] = 'Empleado actualizado correctamente.';
+        $response['id'] = $idEmpleado;
+        $response['campoModificado'] = 'nombre'; // Cambia esto según el campo que se haya modificado
+        $response['valorModificado'] = $nombre; // Cambia esto según el valor que se haya modificado
     } else {
-        echo json_encode(['error' => 'Error al actualizar el empleado.']);
+        $response['error'] = 'Error al actualizar el empleado.';
     }
 
     $stmt->close();
     $conn->close();
 } else {
-    echo json_encode(['error' => 'Método de solicitud no permitido.']);
+    $response['error'] = 'Método de solicitud no permitido.';
 }
+
+echo json_encode($response);
 ?>

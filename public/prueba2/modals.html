@@ -1,11 +1,11 @@
-
 <div id="editModal" class="modal-overlay">
     <div class="modal">
         <div class="modal-header">
             <span class="close" onclick="closeModal('editModal')">&times;</span>
             <h2 class="modal-title">Editar Pedido</h2>
         </div>
-        <form id="editForm" method="POST" action="/public/prueba2/actualizar_pedido.php">
+        <form id="editForm" method="POST" action="/public/prueba2/actualizar_pedido.php"
+            onsubmit="handleFormSubmitPedidos(event, 'editModal')">
             <div class="form-group">
                 <label for="editId">ID Pedido:</label>
                 <input type="text" id="editId" name="idPedido" readonly>
@@ -16,19 +16,19 @@
             </div>
             <div class="form-group">
                 <label for="editClienteId">ID Cliente:</label>
-                <input type="number" id="editClienteId" name="idCliente">
+                <input type="number" id="editClienteId" name="idClientePedido">
             </div>
             <div class="form-group">
                 <label for="editEmpleadoId">ID Empleado:</label>
-                <input type="number" id="editEmpleadoId" name="idEmpleado">
+                <input type="number" id="editEmpleadoId" name="idEmpleadoPedido">
             </div>
             <div class="form-group">
                 <label for="editTotal">Total:</label>
-                <input type="number" step="0.01" id="editTotal" name="total">
+                <input type="number" step="0.01" id="editTotal" name="totalPedido">
             </div>
             <div class="form-group">
                 <label for="editEstado">Estado:</label>
-                <select id="editEstado" name="estado">
+                <select id="editEstado" name="estadoPedido">
                     <option value="Pendiente">Pendiente</option>
                     <option value="En Preparación">En Preparación</option>
                     <option value="Listo para Recoger">Listo para Recoger</option>
@@ -45,32 +45,34 @@
 </div>
 
 
+
 <div id="historialModal" class="modal-overlay">
     <div class="modal">
         <div class="modal-header">
-            <span class="close" onclick="cerrarModal('historialModal')">&times;</span>
-            <h2>Detalles del Pedido</h2>
+            <span class="close" onclick="closeModal('historialModal')">&times;</span>
+            <h2 class="modal-title">Detalles del Pedido</h2>
         </div>
-        <form id="historialForm" method="POST" action="/public/prueba2/actualizar_historial.php">
+        <form id="historialForm" method="POST" action="/public/prueba2/actualizar_historial.php"
+            onsubmit="handleFormSubmitHistorial(event, 'historialModal')">
             <div class="form-group">
                 <label for="historialId">ID Pedido:</label>
                 <input type="text" id="historialId" name="idHistorial" readonly>
             </div>
             <div class="form-group">
                 <label for="historialFecha">Fecha del Pedido:</label>
-                <input type="datetime-local" id="historialFecha" name="fecha">
+                <input type="datetime-local" id="historialFecha" name="fechaHistorial">
             </div>
             <div class="form-group">
-                <label for="historialClienteNombre">Cliente:</label>
-                <input type="text" id="historialClienteNombre" name="clienteNombre">
+                <label for="historialCliente">Cliente:</label>
+                <input type="text" id="historialCliente" name="clienteNombreHistorial">
             </div>
             <div class="form-group">
                 <label for="historialTotal">Total:</label>
-                <input type="number" step="0.01" id="historialTotal" name="total">
+                <input type="number" step="0.01" id="historialTotal" name="totalHistorial">
             </div>
             <div class="form-group">
                 <label for="historialEstado">Estado:</label>
-                <select id="historialEstado" name="estado">
+                <select id="historialEstado" name="estadoHistorial">
                     <option value="Pendiente">Pendiente</option>
                     <option value="En Preparación">En Preparación</option>
                     <option value="Listo para Recoger">Listo para Recoger</option>
@@ -80,7 +82,7 @@
             </div>
             <div class="actions">
                 <button type="button" class="btn btn-cancel" onclick="closeModal('historialModal')">Cancelar</button>
-                <button type="submit" class="btn btn-save">Guardar Cambios</button>
+                <button type="submit" class="btn btn-save">Actualizar</button>
             </div>
         </form>
     </div>
@@ -89,10 +91,11 @@
 <div id="inventarioModal" class="modal-overlay">
     <div class="modal">
         <div class="modal-header">
-            <span class="close" onclick="cerrarModal('inventarioModal')">&times;</span>
-            <h2>Editar Inventario</h2>
+            <span class="close" onclick="closeModal('inventarioModal')">&times;</span>
+            <h2 class="modal-title">Editar Producto</h2>
         </div>
-        <form id="inventarioForm" method="POST" action="/public/prueba2/actualizar_inventario.php">
+        <form id="inventarioForm" method="POST" action="/public/prueba2/actualizar_inventario.php"
+            onsubmit="handleFormSubmitInventario(event, 'inventarioModal')">
             <div class="form-group">
                 <label for="inventarioId">ID Producto:</label>
                 <input type="text" id="inventarioId" name="idProducto" readonly>
@@ -112,26 +115,25 @@
             <div class="form-group">
                 <label for="inventarioCategoria">Categoría:</label>
                 <select id="inventarioCategoria" name="idCategoria">
-                    <!-- Las opciones de categorías se cargarán aquí -->
-                </select><br>
+                    <!-- Las opciones se cargarán dinámicamente -->
+                </select>
             </div>
             <div class="actions">
                 <button type="button" class="btn btn-cancel" onclick="closeModal('inventarioModal')">Cancelar</button>
-                <button type="submit" class="btn btn-save">Guardar Cambios</button>
+                <button type="submit" class="btn btn-save">Actualizar</button>
             </div>
         </form>
     </div>
 </div>
 
-
-
-<div id="personalModal" class="personal-modal-overlay">
-    <div class="personal-modal">
+<div id="personalModal" class="modal-overlay">
+    <div class="modal">
         <div class="modal-header">
-            <span class="close" onclick="cerrarModal('personalModal')">&times;</span>
-            <h2 class="modal-title">Gestionar Personal</h2>
+            <span class="close" onclick="closeModal('personalModal')">&times;</span>
+            <h2 class="modal-title">Editar Personal</h2>
         </div>
-        <form id="personalForm" method="POST" action="/public/prueba2/actualizar_empleado.php">
+        <form id="personalForm" method="POST" action="/public/prueba2/actualizar_empleado.php"
+            onsubmit="handleFormSubmitPersonal(event, 'personalModal')">
             <div class="form-group">
                 <label for="personalId">ID Empleado:</label>
                 <input type="text" id="personalId" name="idEmpleado" readonly>
@@ -178,7 +180,7 @@
             </div>
             <div class="actions">
                 <button type="button" class="btn btn-cancel" onclick="closeModal('personalModal')">Cancelar</button>
-                <button type="submit" class="btn btn-save">Guardar Cambios</button>
+                <button type="submit" class="btn btn-save">Actualizar</button>
             </div>
         </form>
     </div>
@@ -194,7 +196,8 @@
             <span class="close" onclick="closeModal('reservaModal')">&times;</span>
             <h2 class="modal-title">Editar Reserva</h2>
         </div>
-        <form id="reservaForm" method="POST" action="/public/prueba2/actualizar_reserva.php">
+        <form id="reservaForm" method="POST" action="/public/prueba2/actualizar_reserva.php"
+            onsubmit="handleFormSubmitReserva(event, 'reservaModal')">
             <div class="form-group">
                 <label for="reservaId">ID Reserva:</label>
                 <input type="number" id="reservaId" name="idReserva" readonly>
@@ -230,14 +233,14 @@
     </div>
 </div>
 
-
 <div id="categoriaModal" class="modal-overlay">
     <div class="modal">
         <div class="modal-header">
             <span class="close" onclick="closeModal('categoriaModal')">&times;</span>
             <h2 class="modal-title">Editar Categoría</h2>
         </div>
-        <form id="categoriaForm" method="POST" action="/public/prueba2/actualizar_categoria.php">
+        <form id="categoriaForm" method="POST" action="/public/prueba2/actualizar_categoria.php"
+            onsubmit="handleFormSubmitCategoria(event, 'categoriaModal')">
             <div class="form-group">
                 <label for="categoriaId">ID Categoría:</label>
                 <input type="number" id="categoriaId" name="idCategoria" readonly>
