@@ -20,16 +20,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $idPuesto = $_POST['idPuesto'] ?? '';
     $idSucursal = $_POST['idSucursal'] ?? '';
     $fechaIngreso = $_POST['fechaIngreso'] ?? '';
-    $salario = $_POST['salario'] ?? '';
     $tel = $_POST['tel'] ?? '';
     $fechaNacimiento = $_POST['fechaNacimiento'] ?? '';
 
-    if (empty($idEmpleado) || empty($correo) || empty($nombre) || empty($apellido) || empty($ci) || empty($idPuesto) || empty($idSucursal) || empty($fechaIngreso) || empty($salario) || empty($tel) || empty($fechaNacimiento)) {
+    // Verificar que todos los campos obligatorios estén presentes
+    if (empty($idEmpleado) || empty($correo) || empty($nombre) || empty($apellido) || empty($ci) || empty($idPuesto) || empty($idSucursal) || empty($fechaIngreso) || empty($tel) || empty($fechaNacimiento)) {
         $response['error'] = 'Todos los campos son obligatorios.';
         echo json_encode($response);
         exit;
     }
 
+    // Verificar que las contraseñas coincidan
     if (!empty($contrasena) && $contrasena !== $confirmarContrasena) {
         $response['error'] = 'Las contraseñas no coinciden.';
         echo json_encode($response);
@@ -38,11 +39,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $conn = getDbConnection();
 
-    $query = "UPDATE empleado SET correo = ?, nombre = ?, apellido = ?, ci = ?, idPuesto = ?, idSucursal = ?, fechaIngreso = ?, salario = ?, tel = ?, fechaNacimiento = ? WHERE idEmpleado = ?";
+    // Actualizar los datos del empleado
+    $query = "UPDATE empleado SET correo = ?, nombre = ?, apellido = ?, ci = ?, idPuesto = ?, idSucursal = ?, fechaIngreso = ?, tel = ?, fechaNacimiento = ? WHERE idEmpleado = ?";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("sssiiissssi", $correo, $nombre, $apellido, $ci, $idPuesto, $idSucursal, $fechaIngreso, $salario, $tel, $fechaNacimiento, $idEmpleado);
+    $stmt->bind_param("sssiiisssi", $correo, $nombre, $apellido, $ci, $idPuesto, $idSucursal, $fechaIngreso, $tel, $fechaNacimiento, $idEmpleado);
 
     if ($stmt->execute()) {
+        // Actualizar la contraseña si se proporciona
         if (!empty($contrasena)) {
             $hashedPassword = password_hash($contrasena, PASSWORD_BCRYPT);
             $query = "UPDATE empleado SET contrasena = ? WHERE idEmpleado = ?";
@@ -56,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $response['campoModificado'] = 'nombre'; // Cambia esto según el campo que se haya modificado
         $response['valorModificado'] = $nombre; // Cambia esto según el valor que se haya modificado
     } else {
-        $response['error'] = 'Error al actualizar el empleado.';
+        $response['error'] = 'Error al actualizar el empleado: ' . $stmt->error; // Añadir error de la consulta
     }
 
     $stmt->close();

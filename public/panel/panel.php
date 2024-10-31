@@ -566,6 +566,7 @@ $rol = $response['rol'];
                 })
                 .catch(error => console.error('Error al cargar el formulario:', error));
         }
+
         function mostrarFormularioPedido(modalId, url, formFields) {
             openModal(modalId);
             fetch(url)
@@ -587,6 +588,7 @@ $rol = $response['rol'];
                 })
                 .catch(error => console.error('Error al cargar datos:', error));
         }
+
         function mostrarFormularioEmpleado(modalId, url, formFields) {
             openModal(modalId);
             fetch(url)
@@ -684,14 +686,14 @@ $rol = $response['rol'];
 
         // Asignar eventos a los botones de cerrar
         document.querySelectorAll('.close').forEach(button => {
-            button.onclick = function () {
+            button.onclick = function() {
                 const modal = button.closest('.modal');
                 modal.style.display = 'none';
             }
         });
 
         // Cerrar el modal al hacer clic fuera de él
-        window.onclick = function (event) {
+        window.onclick = function(event) {
             if (event.target.classList.contains('modal')) {
                 event.target.style.display = 'none';
             }
@@ -731,7 +733,7 @@ $rol = $response['rol'];
                     if (userRole === 'Admin') {
                         // Agregar event listeners para los select de acciones
                         document.querySelectorAll('.acciones').forEach(select => {
-                            select.addEventListener('change', function () {
+                            select.addEventListener('change', function() {
                                 const id = select.getAttribute('data-id');
                                 const action = select.value;
                                 if (action === 'modificar') {
@@ -782,7 +784,7 @@ $rol = $response['rol'];
                     if (userRole === 'Admin') {
                         // Agregar event listeners para los select de acciones
                         document.querySelectorAll('.acciones').forEach(select => {
-                            select.addEventListener('change', function () {
+                            select.addEventListener('change', function() {
                                 const id = select.getAttribute('data-id');
                                 const action = select.value;
                                 if (action === 'modificar') {
@@ -845,8 +847,8 @@ $rol = $response['rol'];
                         <td data-campo="nombre">${item.nombre}</td>
                         <td data-campo="apellido">${item.apellido}</td>
                         <td data-campo="ci">${item.ci}</td>
-                        <td data-campo="idPuesto">${item.idPuesto}</td>
-                        <td data-campo="idSucursal">${item.idSucursal}</td>
+                        <td data-campo="idPuesto">${item.nombrePuesto}</td>
+                        <td data-campo="idSucursal">${item.nombreSucursal}</td>
                         <td data-campo="fechaIngreso">${item.fechaIngreso}</td>
                         <td data-campo="salario">${item.salario}</td>
                         <td data-campo="tel">${item.tel}</td>
@@ -866,7 +868,7 @@ $rol = $response['rol'];
                     if (userRole === 'Admin') {
                         // Agregar event listeners para los select de acciones
                         document.querySelectorAll('.acciones').forEach(select => {
-                            select.addEventListener('change', function () {
+                            select.addEventListener('change', function() {
                                 const id = select.getAttribute('data-id');
                                 const action = select.value;
                                 if (action === 'modificar') {
@@ -876,8 +878,8 @@ $rol = $response['rol'];
                                         nombre: 'personalNombre',
                                         apellido: 'personalApellido',
                                         ci: 'personalCI',
-                                        idPuesto: 'personalPuesto',
-                                        idSucursal: 'personalSucursal',
+                                        nombrePuesto: 'personalPuesto',
+                                        nombreSucursal: 'personalSucursal',
                                         fechaIngreso: 'personalFechaIngreso',
                                         salario: 'personalSalario',
                                         tel: 'personalTelefono',
@@ -922,7 +924,7 @@ $rol = $response['rol'];
                     if (userRole === 'Admin') {
                         // Agregar event listeners para los select de acciones
                         document.querySelectorAll('.acciones').forEach(select => {
-                            select.addEventListener('change', function () {
+                            select.addEventListener('change', function() {
                                 const id = select.getAttribute('data-id');
                                 const action = select.value;
                                 if (action === 'modificar') {
@@ -1000,7 +1002,7 @@ $rol = $response['rol'];
                     if (userRole === 'Admin') {
                         // Agregar event listeners para los select de acciones
                         document.querySelectorAll('.acciones').forEach(select => {
-                            select.addEventListener('change', function () {
+                            select.addEventListener('change', function() {
                                 const id = select.getAttribute('data-id');
                                 const action = select.value;
                                 if (action === 'modificar') {
@@ -1050,7 +1052,7 @@ $rol = $response['rol'];
                     if (userRole === 'Admin') {
                         // Agregar event listeners para los select de acciones
                         document.querySelectorAll('.acciones').forEach(select => {
-                            select.addEventListener('change', function () {
+                            select.addEventListener('change', function() {
                                 const id = select.getAttribute('data-id');
                                 const action = select.value;
                                 if (action === 'modificar') {
@@ -1075,8 +1077,8 @@ $rol = $response['rol'];
         function eliminarCategoria(id) {
             if (confirm('¿Estás seguro de que deseas eliminar esta categoría?')) {
                 fetch(`/public/panel/eliminar_categoria.php?id=${id}`, {
-                    method: 'DELETE'
-                })
+                        method: 'DELETE'
+                    })
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
@@ -1110,8 +1112,8 @@ $rol = $response['rol'];
         function eliminarReserva(id) {
             if (confirm('¿Estás seguro de que deseas eliminar esta reserva?')) {
                 fetch(`/public/panel/eliminar_reserva.php?id=${id}`, {
-                    method: 'DELETE'
-                })
+                        method: 'DELETE'
+                    })
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
@@ -1128,8 +1130,8 @@ $rol = $response['rol'];
         function eliminarEmpleado(id) {
             if (confirm('¿Estás seguro de que deseas eliminar este empleado?')) {
                 fetch(`/public/panel/eliminar_empleado.php?id=${id}`, {
-                    method: 'DELETE'
-                })
+                        method: 'DELETE'
+                    })
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
@@ -1155,7 +1157,7 @@ $rol = $response['rol'];
         }
 
         // Ejecutar la función al cargar la página
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             cargarResumen();
             crearGraficos(); // Llamar a la función para crear la gráfica
             cargarDatos('/public/panel/obtener_pedidos_activos.php', 'pedidosActivosmer');
@@ -1168,11 +1170,11 @@ $rol = $response['rol'];
             manejarNavegacion();
 
             // Manejar el envío de formularios
-            handleFormSubmit('editForm', function () {
+            handleFormSubmit('editForm', function() {
                 cargarDatos('/public/panel/obtener_pedidos_activos.php', 'pedidosActivosmer');
             });
 
-            handleFormSubmit('historialForm', function () {
+            handleFormSubmit('historialForm', function() {
                 cargarDatosHistorial('/public/panel/obtener_historial_pedidos.php', 'historialPedidos');
             });
         });
@@ -1382,8 +1384,8 @@ $rol = $response['rol'];
         function eliminarPedido(id) {
             if (confirm('¿Estás seguro de que deseas eliminar este pedido?')) {
                 fetch(`/public/panel/eliminar_pedido.php?id=${id}`, {
-                    method: 'DELETE'
-                })
+                        method: 'DELETE'
+                    })
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
@@ -1413,22 +1415,34 @@ $rol = $response['rol'];
             const links = document.querySelectorAll('.sidebar a');
             const tabs = document.querySelectorAll('.tab-content > div');
 
+            const activeTab = localStorage.getItem('activeTab');
+            if (activeTab) {
+                links.forEach(l => l.classList.remove('active'));
+                tabs.forEach(t => t.classList.remove('active'));
+
+                const activeLink = document.querySelector(`.sidebar a[data-tab="${activeTab}"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                    document.getElementById(activeTab).classList.add('active');
+                }
+            }
+
             links.forEach(link => {
-                link.addEventListener('click', function (e) {
+                link.addEventListener('click', function(e) {
                     e.preventDefault();
                     const tabId = this.getAttribute('data-tab');
 
-                    // Eliminar la clase 'active' de todos los enlaces y pestañas
                     links.forEach(l => l.classList.remove('active'));
                     tabs.forEach(t => t.classList.remove('active'));
 
-                    // Agregar 'active' al enlace y pestaña seleccionada
                     this.classList.add('active');
                     document.getElementById(tabId).classList.add('active');
+
+                    localStorage.setItem('activeTab', tabId);
                 });
             });
         }
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             fetch('/public/panel/obtener_categorias.php')
                 .then(response => response.json())
                 .then(data => {
@@ -1448,36 +1462,38 @@ $rol = $response['rol'];
         function closeModal(modalId) {
             document.getElementById(modalId).style.display = 'none';
         }
+
         function closeModal(modalId) {
             document.getElementById(modalId).style.display = 'none';
         }
 
-        document.getElementById('personalForm').addEventListener('submit', function (event) {
+        document.getElementById('personalForm').addEventListener('submit', function(event) {
             handleFormSubmit(event, 'personalModal');
         });
-        document.getElementById('reservaForm').addEventListener('submit', function (event) {
+        document.getElementById('reservaForm').addEventListener('submit', function(event) {
             handleFormSubmit(event, 'reservaModal');
         });
 
-        document.getElementById('editForm').addEventListener('submit', function (event) {
+        document.getElementById('editForm').addEventListener('submit', function(event) {
             handleFormSubmit(event, 'editModal');
         });
 
-        document.getElementById('historialForm').addEventListener('submit', function (event) {
+        document.getElementById('historialForm').addEventListener('submit', function(event) {
             handleFormSubmit(event, 'historialModal');
         });
 
-        document.getElementById('inventarioForm').addEventListener('submit', function (event) {
+        document.getElementById('inventarioForm').addEventListener('submit', function(event) {
             handleFormSubmit(event, 'inventarioModal');
-        }); categoriaForm
+        });
+        categoriaForm
 
-        document.getElementById('categoriaForm').addEventListener('submit', function (event) {
+        document.getElementById('categoriaForm').addEventListener('submit', function(event) {
             handleFormSubmit(event, 'categoriaModal');
         });
 
 
 
-        document.getElementById('weekSelect').addEventListener('change', function () {
+        document.getElementById('weekSelect').addEventListener('change', function() {
             const week = this.value;
             actualizarGraficoVentasSemanales(week);
         });
@@ -1518,7 +1534,7 @@ $rol = $response['rol'];
         }
 
         // Inicializar la gráfica con la última semana
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             actualizarGraficoVentasSemanales(0);
         });
 
@@ -1531,9 +1547,9 @@ $rol = $response['rol'];
 
             const formData = new FormData(event.target);
             fetch(event.target.action, {
-                method: 'POST',
-                body: formData
-            })
+                    method: 'POST',
+                    body: formData
+                })
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
@@ -1578,9 +1594,9 @@ $rol = $response['rol'];
 
             const formData = new FormData(event.target);
             fetch(event.target.action, {
-                method: 'POST',
-                body: formData
-            })
+                    method: 'POST',
+                    body: formData
+                })
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
@@ -1621,13 +1637,13 @@ $rol = $response['rol'];
 
 
         function handleFormSubmitInventario(event, modalId) {
-            event.preventDefault(); // Evitar el envío del formulario por defecto
+            event.preventDefault();
 
             const formData = new FormData(event.target);
             fetch(event.target.action, {
-                method: 'POST',
-                body: formData
-            })
+                    method: 'POST',
+                    body: formData
+                })
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
@@ -1635,7 +1651,7 @@ $rol = $response['rol'];
                     return response.json();
                 })
                 .then(data => {
-                    console.log('Respuesta del servidor:', data); // Mensaje de depuración
+                    console.log('Respuesta del servidor:', data);
                     if (data.success) {
                         Swal.fire({
                             icon: 'success',
@@ -1645,7 +1661,7 @@ $rol = $response['rol'];
                             timer: 2000
                         }).then(() => {
                             closeModal(modalId);
-                            actualizarCeldaInventario(data.id, data.campoModificado, data.valorModificado); // Asegúrate de que 'category' sea el campo correcto
+                            actualizarCeldaInventario(data.id, data.campoModificado, data.valorModificado);
                         });
                     } else {
                         Swal.fire({
@@ -1671,9 +1687,9 @@ $rol = $response['rol'];
 
             const formData = new FormData(event.target);
             fetch(event.target.action, {
-                method: 'POST',
-                body: formData
-            })
+                    method: 'POST',
+                    body: formData
+                })
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
@@ -1717,9 +1733,9 @@ $rol = $response['rol'];
 
             const formData = new FormData(event.target);
             fetch(event.target.action, {
-                method: 'POST',
-                body: formData
-            })
+                    method: 'POST',
+                    body: formData
+                })
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
@@ -1763,9 +1779,9 @@ $rol = $response['rol'];
 
             const formData = new FormData(event.target);
             fetch(event.target.action, {
-                method: 'POST',
-                body: formData
-            })
+                    method: 'POST',
+                    body: formData
+                })
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
@@ -1802,6 +1818,7 @@ $rol = $response['rol'];
                     });
                 });
         }
+
         function actualizarCeldaReserva(id, campoModificado, valorModificado) {
             console.log('Actualizando celda en reservas:', id, campoModificado, valorModificado); // Mensaje de depuración
             const fila = document.querySelector(`#reservalItems tr[data-id="${id}"]`);
@@ -1896,7 +1913,6 @@ $rol = $response['rol'];
                 console.error('Fila no encontrada en categoría:', id); // Mensaje de depuración
             }
         }
-
     </script>
 </body>
 

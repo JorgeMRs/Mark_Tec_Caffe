@@ -8,7 +8,7 @@ try {
 } catch (Exception $e) {
     die('Error: ' . $e->getMessage());
 }
-
+-
 // Consulta para obtener las ventas del día
 $queryVentas = "SELECT SUM(total) AS ventasDelDia FROM pedido WHERE DATE(fechaPedido) = CURDATE()";
 $resultVentas = $conn->query($queryVentas);

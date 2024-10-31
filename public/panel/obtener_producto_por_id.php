@@ -15,13 +15,18 @@ try {
     die('Error: ' . $e->getMessage());
 }
 
+// Actualizar la consulta para incluir la categoría
 $query = "SELECT 
             p.idProducto AS idProducto,
             p.nombre AS nombreProducto,
             p.stock AS cantidad,
-            p.precio AS precio
+            p.precio AS precio,
+            c.idCategoria AS idCategoria,
+            c.nombre AS nombreCategoria
           FROM 
             producto p
+          LEFT JOIN 
+            categoria c ON p.idCategoria = c.idCategoria
           WHERE 
             p.idProducto = ?";
 

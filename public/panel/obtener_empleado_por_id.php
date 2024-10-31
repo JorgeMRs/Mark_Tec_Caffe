@@ -16,7 +16,33 @@ if (empty($idEmpleado)) {
 
 $conn = getDbConnection();
 
-$query = "SELECT idEmpleado, correo, nombre, apellido, ci, idPuesto, idSucursal, fechaIngreso, salario, tel, fechaNacimiento FROM empleado WHERE idEmpleado = ?";
+// Hacemos un JOIN para obtener el salario del puesto y el nombre de la sucursal
+$query = "
+    SELECT 
+        e.idEmpleado, 
+        e.correo, 
+        e.nombre, 
+        e.apellido, 
+        e.ci, 
+        e.idPuesto, 
+        p.nombre AS nombrePuesto, 
+        e.idSucursal, 
+        s.nombre AS nombreSucursal, 
+        e.fechaIngreso, 
+        p.salario, 
+        e.tel, 
+        e.fechaNacimiento, 
+        e.estadoActivacion 
+    FROM 
+        empleado e
+    JOIN 
+        puesto p ON e.idPuesto = p.idPuesto 
+    JOIN 
+        sucursal s ON e.idSucursal = s.idSucursal
+    WHERE 
+        e.idEmpleado = ?
+";
+
 $stmt = $conn->prepare($query);
 $stmt->bind_param('i', $idEmpleado);
 $stmt->execute();

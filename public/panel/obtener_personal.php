@@ -10,13 +10,27 @@ try {
 }
 
 // Ajustamos la consulta SQL para que incluya el JOIN con las tablas 'puesto' y 'sucursal'
+// Se eliminan idPuesto e idSucursal y se añaden los nombres correspondientes
 $query = "
-    SELECT e.idEmpleado, e.correo, e.contrasena, e.nombre, e.apellido, e.ci, 
-           e.idPuesto, e.idSucursal, e.fechaIngreso, e.tel, e.fechaNacimiento, 
-           p.nombre AS nombrePuesto, p.salario, s.nombre AS nombreSucursal
-    FROM empleado e
-    JOIN puesto p ON e.idPuesto = p.idPuesto
-    JOIN sucursal s ON e.idSucursal = s.idSucursal
+    SELECT 
+        e.idEmpleado, 
+        e.correo, 
+        e.contrasena, 
+        e.nombre, 
+        e.apellido, 
+        e.ci, 
+        p.nombre AS nombrePuesto, 
+        s.nombre AS nombreSucursal, 
+        e.fechaIngreso, 
+        e.tel, 
+        e.fechaNacimiento, 
+        p.salario
+    FROM 
+        empleado e
+    JOIN 
+        puesto p ON e.idPuesto = p.idPuesto
+    JOIN 
+        sucursal s ON e.idSucursal = s.idSucursal
 ";
 
 $result = $conn->query($query);
@@ -28,6 +42,7 @@ if ($result->num_rows > 0) {
     }
 }
 
+// Devolver el resultado en formato JSON
 echo json_encode($personal);
 
 $conn->close();

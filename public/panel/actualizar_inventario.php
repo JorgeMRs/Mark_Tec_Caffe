@@ -13,6 +13,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $precio = isset($_POST['precio']) ? floatval($_POST['precio']) : null;
     $idCategoria = isset($_POST['idCategoria']) ? intval($_POST['idCategoria']) : null;
 
+
+    //debug para msotrar los datos enviados desde el front
+    error_log("idProducto: " . $idProducto);
+    error_log("nombreProducto: " . $nombreProducto);
+    error_log("cantidad: " . $cantidad);
+    error_log("precio: " . $precio);
+    error_log("idCategoria: " . $idCategoria);
+    
+
     // Validar los datos recibidos
     if (empty($idProducto) || empty($nombreProducto) || $cantidad < 0 || $precio < 0 || empty($idCategoria)) {
         $response['error'] = 'Faltan datos necesarios';
