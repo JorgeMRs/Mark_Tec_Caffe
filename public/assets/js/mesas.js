@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
                 return;
             }
-            
+    
             if (data.role === 'Mozo' || data.userId) {
                 capacidadMesa = capacidad;
                 document.getElementById('mesaId').value = mesaId;
@@ -34,6 +34,15 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 alert("Solo clientes o mozos pueden realizar reservas.");
             }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            avisoModal.style.display = 'block';
+            avisoClose.addEventListener('click', function() {
+                avisoModal.style.display = 'none';
+                window.location.href = '/public/login.php';
+            });
+            return;
         });
     }
     function fillCantidadPersonas(max) {

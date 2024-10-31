@@ -17,10 +17,12 @@
         "footer_contact_email": "info@cafesabrosos.com",
         "footer_terms": "Términos y Condiciones",
         "footer_privacy": "Política de Privacidad",
-        "footer_data_removal": "Política de Eliminación de Datos"
+        "footer_data_removal": "Política de Eliminación de Datos",
+        "footer_sobrenosotros": "Sobre Nosotros",
+        "footer_faq": "Preguntas Frecuentes"
     },
     "en": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "footer_title": "Café Sabrosos",
         "footer_intro": "Enjoy the best coffee with us. We care about every detail, from selecting the beans to preparing your drink.",
         "footer_quick_links": "Quick Links",
@@ -37,10 +39,12 @@
         "footer_contact_email": "info@cafesabrosos.com",
         "footer_terms": "Terms and Conditions",
         "footer_privacy": "Privacy Policy",
-        "footer_data_removal": "Data Removal Policy"
+        "footer_data_removal": "Data Removal Policy",
+        "footer_sobrenosotros": "About Us",
+        "footer_faq": "Frequently Asked Questions"
     },
     "fr": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "footer_title": "Café Sabrosos",
         "footer_intro": "Profitez du meilleur café avec nous. Nous nous soucions de chaque détail, de la sélection des grains à la préparation de votre boisson.",
         "footer_quick_links": "Liens Rapides",
@@ -57,10 +61,13 @@
         "footer_contact_email": "info@cafesabrosos.com",
         "footer_terms": "Termes et Conditions",
         "footer_privacy": "Politique de Confidentialité",
-        "footer_data_removal": "Politique de Suppression de Données"
+        "footer_data_removal": "Politique de Suppression de Données",
+        "footer_sobrenosotros": "À Propos de Nous",
+        "footer_faq": "Questions Fréquentes"
+
     },
     "pt": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "footer_title": "Café Sabrosos",
         "footer_intro": "Desfrute do melhor café conosco. Cuidamos de cada detalhe, desde a seleção dos grãos até a preparação da sua bebida.",
         "footer_quick_links": "Links Rápidos",
@@ -77,10 +84,12 @@
         "footer_contact_email": "info@cafesabrosos.com",
         "footer_terms": "Termos e Condições",
         "footer_privacy": "Política de Privacidade",
-        "footer_data_removal": "Política de Remoção de Dados"
+        "footer_data_removal": "Política de Remoção de Dados",
+        "footer_sobrenosotros": "Sobre Nós",
+        "footer_faq": "Perguntas Frequentes"
     },
     "de": {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "footer_title": "Café Sabrosos",
         "footer_intro": "Genießen Sie den besten Kaffee bei uns. Wir kümmern uns um jedes Detail, von der Auswahl der Bohnen bis zur Zubereitung Ihres Getränks.",
         "footer_quick_links": "Schnellzugriffe",
@@ -97,6 +106,8 @@
         "footer_contact_email": "info@cafesabrosos.com",
         "footer_terms": "Nutzungsbedingungen",
         "footer_privacy": "Datenschutzbestimmungen",
-        "footer_data_removal": "Datenlöschrichtlinie"
+        "footer_data_removal": "Datenlöschrichtlinie",
+        "footer_sobrenosotros": "Über Uns",
+        "footer_faq": "Häufig Gestellte Fragen"
     }
 }

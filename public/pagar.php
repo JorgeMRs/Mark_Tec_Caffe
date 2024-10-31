@@ -18,9 +18,9 @@ $csrfToken = $_COOKIE['csrf_token'] ?? '';
 if (!$csrfToken) {
     // Si no hay token, genera uno nuevo
     $csrfPayload = [
-        'csrf_token' => bin2hex(random_bytes(32)), // Genera un token CSRF seguro
-        'iat' => time(), // Emisión (Issued at)
-        'exp' => time() + 600, // Expira en 10 minutos
+        'csrf_token' => bin2hex(random_bytes(32)),
+        'iat' => time(), 
+        'exp' => time() + 600, 
     ];
 
     // Codificar el token CSRF en JWT
@@ -28,11 +28,11 @@ if (!$csrfToken) {
 
     // Guardar el JWT en una cookie segura
     setcookie('csrf_token', $csrfToken, [
-        'expires' => time() + 600, // Expira en 10 minutos
+        'expires' => time() + 600,
         'httponly' => true,
         'secure' => true,
         'samesite' => 'Strict',
-        'path' => '/', // Asegúrate de que sea accesible en toda la aplicación
+        'path' => '/',
     ]);
 }
 
@@ -206,6 +206,10 @@ include 'templates/head.php' ?>
 document.addEventListener('DOMContentLoaded', () => {
     toggleFields();
     obtenerHorasDisponibles();
+    const form = document.querySelector('form');
+    if (form) {
+        form.addEventListener('submit', submitOrder);
+    }
 });
 async function submitOrder(event) {
     event.preventDefault(); // Prevenir el envío por defecto del formulario

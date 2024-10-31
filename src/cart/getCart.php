@@ -19,7 +19,6 @@ try {
 $lang = $_GET['lang'] ?? 'es'; // Si no se proporciona, por defecto es español
 
 function translateText($text, $lang) {
-    // Si el idioma es español, retornar el texto original
     if ($lang === 'es') {
         return $text;
     }

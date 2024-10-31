@@ -46,12 +46,35 @@ $isLoggedIn = isset($_COOKIE['user_token']);
                 </div>
             </div>
             <select id="language-selector" class="language-selector">
-                <option value="es">Español</option>
-                <option value="en">English</option>
-                <option value="fr">Français</option>
-                <option value="pt">Português</option>
-                <option value="de">Deutsch</option>
+                <option value="es" <?= $_SESSION['idioma'] == 'es' ? 'selected' : '' ?>>Español</option>
+                <option value="en" <?= $_SESSION['idioma'] == 'en' ? 'selected' : '' ?>>English</option>
+                <option value="fr" <?= $_SESSION['idioma'] == 'fr' ? 'selected' : '' ?>>Français</option>
+                <option value="pt" <?= $_SESSION['idioma'] == 'pt' ? 'selected' : '' ?>>Português</option>
+                <option value="de" <?= $_SESSION['idioma'] == 'de' ? 'selected' : '' ?>>Deutsch</option>
             </select>
+
+            <script>
+                document.getElementById('language-selector').addEventListener('change', function() {
+                    const selectedLanguage = this.value;
+                    fetch('/public/templates/updateLanguage.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                idioma: selectedLanguage
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.status === 'success') {
+                                location.reload(); // Recargar la página para aplicar el idioma
+                            }
+                        })
+                        .catch(error => console.error('Error al actualizar el idioma:', error));
+                });
+            </script>
+
         </div>
     </div>
     <div class="nav-toggle">

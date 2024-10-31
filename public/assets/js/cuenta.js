@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const cropperImage = document.getElementById("cropperImage");
   const cropImageBtn = document.getElementById("cropImageBtn");
   const cancelCropBtn = document.getElementById("cancelCropBtn");
-  const closeCropperModal = document.querySelector(".cropper-close-button"); // Actualizado para usar la clase
+  const closeCropperModal = document.querySelector(".cropper-close-button");
   let cropper;
 
   function limpiarMensajes() {
@@ -53,10 +53,12 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   cropImageBtn.addEventListener("click", function () {
-    const canvas = cropper.getCroppedCanvas();
-    canvas.toBlob(function (blob) {
+    const file = avatarInput.files[0]; // Obtener el archivo original
+
+    if (file.type === 'image/gif') {
+      // Si es un GIF, subimos directamente el archivo sin recortar
       const formData = new FormData();
-      formData.append("avatar", blob, "avatar.png");
+      formData.append("avatar", file, file.name); // Mantener el nombre original
 
       fetch("/src/client/avatarUpload.php", {
         method: "POST",
@@ -89,7 +91,48 @@ document.addEventListener("DOMContentLoaded", function () {
           errorAvatarDiv.style.display = "block";
           successAvatarDiv.style.display = "none";
         });
-    }, "image/png");
+    } else {
+      // Para otros tipos de archivo, utilizamos el canvas
+      const canvas = cropper.getCroppedCanvas();
+      const formData = new FormData();
+      const fileExtension = file.type === 'image/png' ? 'png' : 'jpg'; // Ajustar la extensión
+
+      canvas.toBlob(function (blob) {
+        formData.append("avatar", blob, `avatar.${fileExtension}`); // Usa la extensión adecuada
+
+        fetch("/src/client/avatarUpload.php", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              avatarImage.src =
+                "/public/assets/img/avatars/" +
+                encodeURIComponent(data.avatar) +
+                "?t=" +
+                new Date().getTime();
+              successAvatarDiv.textContent = data.message;
+              successAvatarDiv.style.display = "block";
+              errorAvatarDiv.style.display = "none";
+              deleteAvatarBtn.style.display = "block";
+              cropperModal.style.display = "none";
+              avatarInput.value = "";
+            } else {
+              errorAvatarDiv.textContent = data.message;
+              errorAvatarDiv.style.display = "block";
+              successAvatarDiv.style.display = "none";
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            errorAvatarDiv.textContent =
+              "Error al subir el avatar. Por favor, intenta de nuevo.";
+            errorAvatarDiv.style.display = "block";
+            successAvatarDiv.style.display = "none";
+          });
+      }, file.type); // Usa el tipo de archivo original
+    }
   });
 
   cancelCropBtn.addEventListener("click", function () {
@@ -166,8 +209,7 @@ document.getElementById("confirmDeleteBtn").onclick = function () {
 
   // Generate and display the random code in the second modal
   var randomCode = generateRandomCode();
-  document.getElementById("generatedCode").textContent =
-    "Código: " + randomCode;
+  document.getElementById("generatedCode").innerHTML += randomCode;
 
   // Show the second modal
   document.getElementById("codeVerificationModal").style.display = "block";

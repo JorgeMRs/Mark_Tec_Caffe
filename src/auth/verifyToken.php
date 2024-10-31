@@ -20,14 +20,18 @@ function verifyToken($secretKey, $encryptionKey) {
             // Descifrar el idCliente y el email
             $idCliente = decryptData($decoded->idCliente, $encryptionKey);
             $email = decryptData($decoded->email, $encryptionKey);
-            $uid = decryptData($decoded->uid, $encryptionKey);
+            
+            // Verificar si uid existe antes de descifrarlo
+            if (isset($decoded->uid)) {
+                $uid = decryptData($decoded->uid, $encryptionKey);
+                $response['uid'] = $uid; // Agregar uid a la respuesta solo si existe
+            }
 
             $response['success'] = true;
-            $response['role'] = 'client'; // Indicar que es un cliente
+            $response['role'] = 'client';
             $response['idCliente'] = $idCliente;
             $response['email'] = $email;
-            $response['uid'] = $uid; // Agregar uid a la respuesta
-            
+
             return $response; 
         }
         
@@ -42,7 +46,7 @@ function verifyToken($secretKey, $encryptionKey) {
             $correo = decryptData($decoded->correo, $encryptionKey);
 
             $response['success'] = true;
-            $response['role'] = 'employee'; // Indicar que es un empleado
+            $response['role'] = 'employee';
             $response['idEmpleado'] = $idEmpleado;
             $response['rol'] = $rol; 
             $response['correoEmpleado'] = $correo;

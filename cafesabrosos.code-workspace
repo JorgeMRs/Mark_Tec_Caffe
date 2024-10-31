@@ -1,14 +1,17 @@
 {
-	"folders": [
-		{
-			"path": "../../log/nginx"
-		},
-		{
-			"path": "../../../etc/nginx"
-		},
-		{
-			"path": ".."
-		}
-	],
-	"settings": {}
+  "folders": [
+    {
+      "path": "../../../etc/nginx"
+    },
+    {
+      "path": ".."
+    },
+    {
+      "path": "../../log/nginx"
+    },
+    {
+      "path": "../../log/php-fpm"
+    }
+  ],
+  "settings": {}
 }

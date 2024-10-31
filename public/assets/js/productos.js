@@ -1,11 +1,15 @@
 document.addEventListener('DOMContentLoaded', function() {
     const quantityElement = document.querySelector('.quantity');
-    const maxQuantity = 10;  // Límite máximo de cantidad
+    const maxQuantity = 9;  // Límite máximo de cantidad
     const productIdInput = document.getElementById('product-id');
     const productId = productIdInput ? productIdInput.value : null;
 
     function updateQuantity() {
         return parseInt(quantityElement.textContent);
+    }
+
+    function showError(message) {
+        alert(message); 
     }
 
     document.querySelector('.quantity-control .btn-outline:first-of-type').addEventListener('click', function() {
@@ -21,6 +25,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (quantity < maxQuantity) {
             quantity += 1;
             quantityElement.textContent = quantity;
+        } else {
+            showError('No puedes agregar más de 9 productos.');
         }
     });
 
@@ -28,8 +34,10 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
 
         const quantity = updateQuantity();
-        console.log('Product ID:', productId);
-        console.log('Quantity:', quantity);
+        if (quantity > maxQuantity) {
+            showError('No puedes agregar más de 9 productos.');
+            return;
+        }
 
         try {
             const session = await checkSession();
@@ -47,8 +55,10 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
 
         const quantity = updateQuantity();
-        console.log('Product ID:', productId);
-        console.log('Quantity:', quantity);
+        if (quantity > maxQuantity) {
+            showError('No puedes comprar más de 9 productos.');
+            return;
+        }
 
         try {
             const session = await checkSession();
@@ -65,6 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     updateCartCounter();
 });
+
 
 async function checkSession() {
     try {
@@ -86,13 +97,21 @@ async function performFetch(url, data) {
             },
             body: data.toString()
         });
-        if (!response.ok) throw new Error('Error en la respuesta del servidor');
-        return await response.json();
+
+        // Verificar si la respuesta fue exitosa
+        if (!response.ok) {
+            const errorResponse = await response.json();
+            console.log('Respuesta de error del servidor:', errorResponse); // Imprimir la respuesta de error
+            throw new Error(`${errorResponse.message || 'error desconocido'}`);
+        }
+
+        return await response.json(); // Retornar la respuesta JSON
     } catch (error) {
         console.error('Error en la solicitud de red:', error);
-        throw error;
+        throw error; // Lanzar error para que el bloque catch lo maneje
     }
 }
+
 
 async function addToCart(productId, quantity) {
     const url = '/src/cart/addCart.php';
@@ -103,16 +122,19 @@ async function addToCart(productId, quantity) {
 
     try {
         const result = await performFetch(url, data);
-        if (result.status === 'success') {
+        
+        // Verificar que el resultado es un objeto y tiene la propiedad 'success'
+        if (result && result.success) {
             updateCartCounter();
             resetQuantity();
             alert('Producto agregado al carrito.');
             document.dispatchEvent(new CustomEvent('cartUpdated'));
         } else {
-            alert('Error: ' + result.message);
+            alert('Error: ' + result.message); // Muestra el mensaje que proviene del servidor
         }
     } catch (error) {
-        alert('Error en la red. Por favor, inténtelo de nuevo.');
+        alert(error);
+        console.error('Error en la solicitud:', error); // Mantener la consola para ver detalles del error
     }
 }
 

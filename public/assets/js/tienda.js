@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Muestra el spinner exclusivo para el sidebar
                 sidebar.innerHTML = `<div class="sidebar-loader"></div>`;
 
-                fetch(`/src/db/getCategories.php?lang=${lang}`)
+                fetch(`/src/client/getCategories.php?lang=${lang}`)
                     .then((response) => response.json())
                     .then((categories) => {
                         console.log("Categorías recibidas:", categories); // Agrega esta línea para verificar la respuesta
@@ -165,7 +165,7 @@ document.addEventListener("DOMContentLoaded", function () {
             productsData[category] = data;
             renderProducts(data, category);
         } else {
-            fetch(`/src/db/product.php?idCategoria=${idCategoria}&lang=${lang}`)
+            fetch(`/src/client/product.php?idCategoria=${idCategoria}&lang=${lang}`)
                 .then((response) => response.json())
                 .then((data) => {
                     productsData[category] = data;

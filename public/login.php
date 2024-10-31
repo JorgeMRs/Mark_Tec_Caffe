@@ -6,103 +6,105 @@ if (isset($_COOKIE['user_session'])) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<link rel="stylesheet" href="assets/css/login.css" media="screen and (min-width: 769px)">
+<link rel="stylesheet" href="assets/css/loginmobile.css" media="screen and (max-width: 768px)">
+<link href="https://fonts.googleapis.com/css2?family=Helvetica:wght@400&display=swap" rel="stylesheet">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/icons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/icons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="48x48" href="assets/img/icons/favicon-48x48.png">
-  <link rel="icon" type="image/png" sizes="48x48" href="assets/img/icons/favicon-64x64.png">
-  <link rel="icon" type="image/x-icon" href="/public/assets/img/icons/favicon.ico">
-  <link rel="stylesheet" href="assets/css/login.css" media="screen and (min-width: 769px)">
-  <link rel="stylesheet" href="assets/css/loginmobile.css" media="screen and (max-width: 768px)">
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-  <title>Café Sabrosos - Login</title>
-</head>
+<?php 
 
+$pageTitle = 'Café Sabrosos - Login';
+
+$customCSS = [
+    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css'
+
+];
+$customJS = [
+  '/public/assets/js/languageSelect.js'
+];
+$deferJS = [
+  'https://www.google.com/recaptcha/api.js'
+];
+include 'templates/head.php' ?>
 <body>
-  <div class="container" id="container">
-    <div class="form-container sign-up-container">
-      <form id="registroForm" action="/src/db/registro.php">
-        <h1>Registrarte</h1>
-        <div class="social-container">
-          <a href="#" id="googleRegisterInBtn" class="social"><i class="fab fa-google"></i></a>
-          <a href="#" id="facebookSignInBtn" class="social"><i class="fab fa-facebook-f"></i></a>
-          <a href="#" id="appleSignInBtn" class="social"><i class="fa-brands fa-apple"></i></a>
-        </div>
-        <span>O usa tu email para registrarte</span>
-        <input type="email" name="email" placeholder="Email">
-        <div class="password-container">
-  <input type="password" name="password" id="password" placeholder="Contraseña" required>
-  <button type="button" class="toggle-password" data-target="password">
-    <i class="fas fa-eye"></i>
-  </button>
-</div>
-<div class="password-container">
-  <input type="password" name="passwordConfirm" id="passwordConfirm" placeholder="Confirmar contraseña" required>
-  <button type="button" class="toggle-password" data-target="passwordConfirm">
-    <i class="fas fa-eye"></i>
-  </button>
-</div>
-        <div id="error-container2" class="error-message" style="color: red;"></div>
-        <div>
-          <input type="checkbox" id="terms" name="terms">
-          <label for="terms">
-            Acepto los <a href="terminos-y-condiciones.php" target="_blank" style="color:#b8860b">Términos y
-              Condiciones</a> y la
-            <a href="politicas-de-privacidad.php" target="_blank" style="color: #b8860b;">Política de Privacidad</a>.
-          </label>
-        </div>
-        <div class="g-recaptcha" name="g-recaptcha-response" data-sitekey="6LemoDEqAAAAABt_tJuEIjgcf55iauaO5PTSp7lk">
-        </div>
-        <br>
-        <button type="submit" class="btn-login">Registrar</button>
-        <br>
-        <span class="ocultar-texto">O si ya tienes una cuenta</span>
-      </form>
-    </div>
-    <div class="form-container sign-in-container">
-      <form id="loginForm" action="/src/db/login.php" method="POST">
-        <h1>Inicia sesión</h1>
-        <div class="social-container">
-          <a href="#" id="googleSignInBtn" class="social"><i class="fab fa-google"></i></a>
-          <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-          <a href="#" class="social"><i class="fa-brands fa-apple"></i></a>
-        </div>
-        <span>O usa tu email</span>
-        <input type="email" name="email" placeholder="Email">
-        <div class="password-container">
-  <input type="password" name="password" id="loginPassword" placeholder="Contraseña">
-  <button type="button" class="toggle-password" data-target="loginPassword">
-    <i class="fas fa-eye"></i>
-  </button>
-</div>
-        <div id="error-container" class="error-message" style="color: red;"></div>
-        <a href="/public/cambiarContrasena.php">¿Olvidaste tu contraseña?</a>
-        <button class="btn-login">Iniciar sesión</button>
-      </form>
-    </div>
-    <div class="overlay-container">
-      <div class="overlay">
-        <div class="overlay-panel overlay-left">
-          <h1>¿Ya tienes una cuenta?</h1>
-          <p>Ingresa tus datos para poder utilizar el sitio</p>
-          <button class="ghost btn-login" id="signIn">Iniciar sesión</button>
-          <a href="/index.php" class="index-button">Inicio</a>
-        </div>
-        <div class="overlay-panel overlay-right">
-          <h1>¡Bienvenido!</h1>
-          <p>Registrate para poder utilizar el sitio</p>
-          <button class="ghost btn-login" id="signUp">Registrarte</button>
-          <a href="/index.php" class="index-button">Inicio</a>
-        </div>
+<div class="container" id="container">
+  <div class="form-container sign-up-container">
+    <form id="registroForm" action="/src/db/registro.php">
+      <h1 id="register-title">Registrarte</h1>
+      <div class="social-container">
+        <a href="#" id="googleRegisterInBtn" class="social"><i class="fab fa-google"></i></a>
+        <a href="#" id="facebookSignInBtn" class="social"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" id="appleSignInBtn" class="social"><i class="fa-brands fa-apple"></i></a>
+      </div>
+      <span id="or-text">O usa tu email para registrarte</span>
+      <input type="email" name="email" placeholder="Email" id="emailInput">
+      <div class="password-container">
+        <input type="password" name="password" id="password" placeholder="Contraseña" required>
+        <button type="button" class="toggle-password" data-target="password">
+          <i class="fas fa-eye"></i>
+        </button>
+      </div>
+      <div class="password-container">
+        <input type="password" name="passwordConfirm" id="passwordConfirm" placeholder="Confirmar contraseña" required>
+        <button type="button" class="toggle-password" data-target="passwordConfirm">
+          <i class="fas fa-eye"></i>
+        </button>
+      </div>
+      <div id="error-container2" class="error-message" style="color: red;"></div>
+      <div>
+        <input type="checkbox" id="terms" name="terms">
+        <label for="terms" id="terms-label">
+          Acepto los <a id="terms-link" href="terminos-y-condiciones.php" target="_blank" style="color:#b8860b">Términos y
+            Condiciones</a> y la
+          <a id="privacy-link" href="politicas-de-privacidad.php" target="_blank" style="color: #b8860b;">Política de Privacidad</a>.
+        </label>
+      </div>
+      <div class="g-recaptcha" name="g-recaptcha-response" data-sitekey="6LemoDEqAAAAABt_tJuEIjgcf55iauaO5PTSp7lk">
+      </div>
+      <br>
+      <button id="registerBtn" type="submit" class="btn-login">Registrar</button>
+      <br>
+      <span id="existAccount" class="ocultar-texto">O si ya tienes una cuenta</span>
+    </form>
+  </div>
+  <div class="form-container sign-in-container">
+    <form id="loginForm" action="/src/db/login.php" method="POST">
+      <h1 id="login-title">Inicia sesión</h1>
+      <div class="social-container">
+        <a href="#" id="googleSignInBtn" class="social"><i class="fab fa-google"></i></a>
+        <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social"><i class="fa-brands fa-apple"></i></a>
+      </div>
+      <span id="or-use-email">O usa tu email</span>
+      <input type="email" name="email" placeholder="Email" id="loginEmailInput">
+      <div class="password-container">
+        <input type="password" name="password" id="loginPassword" placeholder="Contraseña">
+        <button type="button" class="toggle-password" data-target="loginPassword">
+          <i class="fas fa-eye"></i>
+        </button>
+      </div>
+      <div id="error-container" class="error-message" style="color: red;"></div>
+      <a href="/public/cambiarContrasena.php" id="forgot-password-link">¿Olvidaste tu contraseña?</a>
+      <button id="loginBtn" class="btn-login">Iniciar sesión</button>
+    </form>
+  </div>
+  <div class="overlay-container">
+    <div class="overlay">
+      <div class="overlay-panel overlay-left">
+        <h1 id="overlay-left-title">¿Ya tienes una cuenta?</h1>
+        <p id="overlay-left-text">Ingresa tus datos para poder utilizar el sitio</p>
+        <button class="ghost btn-login" id="signIn">Iniciar sesión</button>
+        <a href="/index.php" class="index-button" id="indexBtn">Inicio</a>
+      </div>
+      <div class="overlay-panel overlay-right">
+        <h1 id="overlay-right-title">¡Bienvenido!</h1>
+        <p id="overlay-right-text">Registrate para poder utilizar el sitio</p>
+        <button class="ghost btn-login" id="signUp">Registrarte</button>
+        <a href="/index.php" class="index-button" id="indexBtn2">Inicio</a>
       </div>
     </div>
   </div>
+</div>
+
   <style>
     .modal-overlay {
       position: fixed;
@@ -392,6 +394,7 @@ if (isset($_COOKIE['user_session'])) {
         include 'templates/cookies.php';
     } ?>
   <script type="module" src="assets/js/login.js"></script>
+  <script src="assets/js/languageSelect.js"></script>
 </body>
 
 </html>

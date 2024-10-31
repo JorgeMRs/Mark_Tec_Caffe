@@ -33,9 +33,9 @@ try {
         throw new Exception('Error al cancelar la reserva: ' . $stmt->error);
     }
 
-    // Guardar la cancelación en la tabla cancelacionreserva
-    $sqlCancelacion = "INSERT INTO cancelacionreserva (idReserva, idEmpleado, notas, tipoCancelacion)
-                        VALUES (?, ?, ?, 'Empleado')";
+    // Guardar la cancelación en la tabla cancelacionreserva (sin tipoCancelacion)
+    $sqlCancelacion = "INSERT INTO cancelacionreserva (idReserva, idEmpleado, notas)
+                        VALUES (?, ?, ?)";
     $stmtCancelacion = $conn->prepare($sqlCancelacion);
     $stmtCancelacion->bind_param("iis", $idReserva, $employee_id, $notas); // Usar las notas proporcionadas
     if (!$stmtCancelacion->execute()) {

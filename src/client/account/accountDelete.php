@@ -1,19 +1,12 @@
 <?php
 header('Content-Type: application/json');
-require '../db/db_connect.php';
+require '../../db/db_connect.php';
 
 require '../../auth/verifyToken.php';
-
-$response = checkToken();
-
-$user_id = $response['idCliente']; 
 
 function deactivateAccount($user_id) {
     $conn = getDbConnection();
     $response = array('success' => false, 'message' => '');
-
-    // Inicia la sesión
-    session_start();
 
     try {
         // Inicia la transacción
@@ -100,7 +93,7 @@ function deactivateAccount($user_id) {
                 $clientData['fechaDesactivacion'] = date("Y-m-d H:i:s");
 
                 // Guardar los datos en un archivo JSON
-                $jsonFilePath = "../../backups/users/user_" . $user_id . ".json";
+                $jsonFilePath = "../../../backups/users/user_" . $user_id . ".json";
                 file_put_contents($jsonFilePath, json_encode($clientData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 
                 $conn->commit();
@@ -134,7 +127,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($data['action']) && $data['action'] === 'deactivateAccount' && isset($data['user_id'])) {
         $user_id = intval($data['user_id']);
+        
         deactivateAccount($user_id);
+        session_destroy();
+                
+        // Eliminar la cookie de usuario
+        if (isset($_COOKIE['user_token'])) {
+            setcookie('user_token', '', time() - 3600, '/', '', true, true);
+        }
     } else {
         echo json_encode(['success' => false, 'message' => 'Acción no especificada o falta user_id']);
     }

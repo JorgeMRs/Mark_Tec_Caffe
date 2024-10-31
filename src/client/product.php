@@ -1,5 +1,5 @@
 <?php
-include 'db_connect.php';
+include '../db/db_connect.php';
 use Stichoza\GoogleTranslate\GoogleTranslate;
 
 $lang = $_GET['lang'] ?? 'es';

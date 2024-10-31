@@ -1,9 +1,11 @@
 * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
 body {
-    font-family: 'Montserrat', sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     background: linear-gradient(to right, #ffffff, #aaaaaa);
     display: flex;
     justify-content: center;
@@ -17,7 +19,11 @@ h1 {
     margin: 0;
     font-size: 26px;
 }
-
+input::placeholder {
+    font-family: 'Helvetica', 'Arial', sans-serif; /* Asegúrate de que sea la misma fuente */
+    color: #aaa; /* Puedes cambiar el color del placeholder si lo deseas */
+    opacity: 1; /* Puedes ajustar la opacidad */
+}
 p {
     font-size: 14px;
     font-weight: 100;
@@ -419,3 +425,5 @@ a.index-button:focus {
   .toggle-password i {
     font-size: 20px;
   }
+
+  

@@ -116,7 +116,7 @@ try {
                             } elseif ($puesto === 'Chef') {
                                 $response['redirect'] = '../../public/chef/chef.php';
                             } elseif ($puesto === 'Gerente' || $puesto === 'Admin') {
-                                $response['redirect'] = '../../public/panel/gerente.php';
+                                $response['redirect'] = '../../public/panel/panel.php';
                             } else {
                                 $response['redirect'] = '../../index.php';
                             }

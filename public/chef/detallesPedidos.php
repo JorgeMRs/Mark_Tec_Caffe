@@ -368,6 +368,7 @@ $stmtAnterior->close();
                             respuestaDiv.innerHTML = data.message; // Mensaje de error
                             respuestaDiv.style.color = 'red';
                         }
+                        document.getElementById('cancelacionModal').style.display = 'none'; // Oculta el modal
                     })
                     .catch(error => {
                         console.error('Error en el fetch:', error);
@@ -376,6 +377,11 @@ $stmtAnterior->close();
                         respuestaDiv.style.color = 'red';
                     });
 
+            });
+
+
+            document.getElementById('cancelarCancelacion').addEventListener('click', function() {
+                document.getElementById('cancelacionModal').style.display = 'none'; // Oculta el modal
             });
 
             document.getElementById('confirmarCancelacion').addEventListener('click', function() {

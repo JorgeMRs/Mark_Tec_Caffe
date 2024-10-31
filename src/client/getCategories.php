@@ -1,5 +1,5 @@
 <?php
-include 'db_connect.php';
+include '../db/db_connect.php';
 use Stichoza\GoogleTranslate\GoogleTranslate;
 
 require '../../vendor/autoload.php'; // Asegúrate de que esta línea esté incluida

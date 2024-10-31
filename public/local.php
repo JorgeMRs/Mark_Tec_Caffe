@@ -74,27 +74,27 @@ include 'templates/head.php';
     </header>
 
     <main>
-        <div class="hero">
-            <h1>Nuestros Locales</h1>
+        <div class="hero" id="hero-title">
+            <h1 id="our_locations">Nuestros Locales</h1>
         </div>
         <div id="map" style="height: 500px; width: 100%;"></div>
         <div class="container">
             <section class="locales-grid">
                 <?php foreach ($locations as $local): ?>
-                    <div class="local-card">
+                    <div class="local-card" id="local-<?php echo $local['id']; ?>">
                         <div class="local-image" style="background-image: url('/public/assets/img/sucursales/<?php echo strtolower($local['img']);?>');">
-                            <div class="label"><?php echo $local['pais']; ?></div>
+                            <div class="label" id="label-<?php echo $local['id']; ?>"><?php echo $local['pais']; ?></div>
                         </div>
                         <div class="local-info">
-                            <h2 class="local-title"><?php echo $local['nombre']; ?></h2>
-                            <p class="local-address">Dirección: <?php echo $local['direccion']; ?></p>
-                            <p class="local-address">Teléfono: <?php echo $local['tel']; ?></p>
-                            <div class="local-hours">
+                            <h2 class="local-title" id="title-<?php echo $local['id']; ?>"><?php echo $local['nombre']; ?></h2>
+                            <p class="local-address" id="address-<?php echo $local['id']; ?>">Dirección: <?php echo $local['direccion']; ?></p>
+                            <p class="local-address" id="phone-<?php echo $local['id']; ?>">Teléfono: <?php echo $local['tel']; ?></p>
+                            <div class="local-hours" id="hours-<?php echo $local['id']; ?>">
                                 <i class="fa-solid fa-clock"></i>
                                 <p>Lunes a Domingo: 7:00 - 22:00</p>
                             </div>
-                            <a href="mesas.php?sucursal=<?php echo $local['id']; ?>" class="btn-secondary">Hacer Reserva</a>
-                            <button class="btn-secondary mt-2 view-on-map" data-lat="<?php echo $local['latitud']; ?>" data-lng="<?php echo $local['longitud']; ?>">Ver en el Mapa</button>
+                            <a href="mesas.php?sucursal=<?php echo $local['id']; ?>" class="btn-secondary" id="reserve-btn-<?php echo $local['id']; ?>">Hacer Reserva</a>
+                            <button class="btn-secondary mt-2 view-on-map" data-lat="<?php echo $local['latitud']; ?>" data-lng="<?php echo $local['longitud']; ?>" id="view-map-btn-<?php echo $local['id']; ?>">Ver en el Mapa</button>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -137,5 +137,6 @@ include 'templates/head.php';
             });
         });
     </script>
+    <script src="assets/js/languageSelect.js"></script>
 </body>
 </html>

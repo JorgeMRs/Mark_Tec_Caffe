@@ -6,10 +6,19 @@ header('Content-Type: application/json');
 
 $response = checkToken(); 
 
+if (!$response['success']) {
+    echo json_encode([
+        'loggedIn' => false,
+        'message' => $response['message'] // Devolvemos el mensaje de error en caso de fallo
+    ]);
+    exit();
+}
+
 echo json_encode([
-    'loggedIn' => $response['success'], // Indica si el usuario está conectado
-    'userId' => $response['success'] ? $response['idCliente'] : null, // idCliente si está conectado
-    'employeeId' => $response['success'] && $response['role'] === 'employee' ? $response['idEmpleado'] : null, // idEmpleado si es un empleado
-    'role' => $response['success'] ? $response['role'] : null // Rol si está conectado
+    'loggedIn' => $response['success'],
+    'userId' => $response['idCliente'] ?? null,
+    'employeeId' => $response['idEmpleado'] ?? null,
+    'role' => $response['role'] ?? null
 ]);
+
 ?>

@@ -527,13 +527,16 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", () => {
   const languageSelector = document.getElementById("language-selector");
 
+
+  const isTermsPage = window.location.pathname === "/public/login.php";
+
+  if (isTermsPage) return;
+
   const elementsToTranslate = {
     logo: document.getElementById("nav-logo"),
     productos: document.getElementById("nav-productos"),
     productosDesktop: document.getElementById("nav-productos-desktop"),
     locales: document.getElementById("nav-locales"),
-    ofertas: document.getElementById("nav-ofertas"),
-    reservas: document.getElementById("nav-reservas"),
     contacto: document.getElementById("nav-contacto"),
     usuario: document.getElementById("nav-usuario"),
   };
@@ -595,8 +598,6 @@ document.addEventListener("DOMContentLoaded", () => {
       elementsToTranslate.productosDesktop.textContent = translations.productos;
     }
     elementsToTranslate.locales.textContent = translations.locales;
-    elementsToTranslate.ofertas.textContent = translations.ofertas;
-    elementsToTranslate.reservas.textContent = translations.reservas;
     elementsToTranslate.contacto.textContent = translations.contacto;
     elementsToTranslate.usuario.alt = translations.usuario;
   };
@@ -637,6 +638,10 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", () => {
   const languageSelector = document.getElementById("language-selector");
 
+  const isTermsPage = window.location.pathname === "/public/login.php";
+
+  if (isTermsPage) return;
+
   const elementsToTranslate = {
     title: document.getElementById("footer-title"),
     intro: document.getElementById("footer-intro"),
@@ -647,8 +652,7 @@ document.addEventListener("DOMContentLoaded", () => {
     links: {
       locales: document.getElementById("footer-locales"),
       productos: document.getElementById("footer-productos"),
-      ofertas: document.getElementById("footer-ofertas"),
-      reservas: document.getElementById("footer-reservas"),
+      nosotros: document.getElementById("footer-sobrenosotros"),
       contacto: document.getElementById("footer-contacto"),
     },
     contactInfo: {
@@ -660,6 +664,7 @@ document.addEventListener("DOMContentLoaded", () => {
       terms: document.getElementById("footer-terms"),
       privacy: document.getElementById("footer-privacy"),
       dataRemoval: document.getElementById("footer-data-removal"),
+      faq: document.getElementById("footer-faq"),
     },
   };
 
@@ -706,10 +711,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     elementsToTranslate.links.locales.textContent = translations.footer_locales;
     elementsToTranslate.links.productos.textContent = translations.footer_productos;
-    elementsToTranslate.links.ofertas.textContent = translations.footer_ofertas;
-    elementsToTranslate.links.reservas.textContent = translations.footer_reservas;
     elementsToTranslate.links.contacto.textContent = translations.footer_contacto;
-
+    elementsToTranslate.links.nosotros.textContent = translations.footer_sobrenosotros;
     elementsToTranslate.contactInfo.location.textContent = translations.footer_contact_location;
     elementsToTranslate.contactInfo.phone.textContent = translations.footer_contact_phone;
     elementsToTranslate.contactInfo.email.textContent = translations.footer_contact_email;
@@ -717,11 +720,36 @@ document.addEventListener("DOMContentLoaded", () => {
     elementsToTranslate.legalLinks.terms.textContent = translations.footer_terms;
     elementsToTranslate.legalLinks.privacy.textContent = translations.footer_privacy;
     elementsToTranslate.legalLinks.dataRemoval.textContent = translations.footer_data_removal;
+    elementsToTranslate.legalLinks.faq.textContent = translations.footer_faq;
   };
 
   languageSelector.addEventListener("change", (event) => {
     const selectedLanguage = event.target.value;
-    if (selectedLanguage !== "es") {
+    
+    if (selectedLanguage === "es") {
+      // Si se selecciona español, restablecer el texto a los valores en español
+      updateFooterText({
+        footer_title: "Café Sabrosos",
+        footer_intro: "Disfruta del mejor café con nosotros. Nos preocupamos por cada detalle, desde la selección de los granos hasta la preparación de tu bebida.",
+        footer_quick_links: "Enlaces Rápidos",
+        footer_contact_title: "Contáctanos",
+        footer_legal_title: "Legal",
+        footer_rights: "© 2024 Café Sabrosos. Todos los derechos reservados.",
+        footer_locales: "Locales",
+        footer_productos: "Productos",
+        footer_ofertas: "Ofertas",
+        footer_reservas: "Reservas",
+        footer_contacto: "Contacto",
+        footer_contact_location: "España, Madrid, Calle Gran Vía 45",
+        footer_contact_phone: "+34 912 345 678",
+        footer_contact_email: "info@cafesabrosos.com",
+        footer_terms: "Términos y Condiciones",
+        footer_privacy: "Política de Privacidad",
+        footer_data_removal: "Política de Eliminación de Datos",
+        footer_faq: "Preguntas Frecuentes",
+        footer_sobrenosotros: "Sobre Nosotros"
+      });
+    } else {
       loadFooterTranslations(selectedLanguage).then(translations => {
         if (translations) {
           updateFooterText(translations);
@@ -860,3 +888,482 @@ if (!isTermsPage) return; // Sal del script si no estás en la página correcta
   });
 });
 
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const isAccountPage = window.location.pathname === "/public/cuenta.php";
+
+  if (!isAccountPage) return;
+
+  const languageSelector = document.getElementById("language-selector");
+
+  const elementsToTranslate = {
+    accountSettingsTitle: document.getElementById("account-settings-title"), // ID corregido
+    profilePicture: document.getElementById("profilePicture"),
+    deleteAvatarButton: document.getElementById("deleteAvatarBtn"), // Agregar ID si existe en el HTML
+    firstName: document.getElementById("first-name"), // ID corregido
+    lastName: document.getElementById("last-name"), // ID corregido
+    email: document.getElementById("email"),
+    password: document.getElementById("password"),
+    phone: document.getElementById("phone"),
+    dateOfBirth: document.getElementById("birthdate"), // ID corregido
+    viewMyOrders: document.getElementById("viewPedidosBtn"), // ID corregido
+    saveChangesButton: document.getElementById("save-changes-button"), // ID corregido
+    logOutButton: document.getElementById("log-out-button"), // ID corregido
+    deleteAccountButton: document.getElementById("deleteAccountBtn"), // ID corregido
+    errorMessage: document.getElementById("error-message"), // ID corregido
+    successMessage: document.getElementById("success-message"), // ID corregido
+    deleteAccountConfirmationTitle: document.getElementById("deleteAccountConfirmationTitle"), // ID corregido
+    myOrdersTitle: document.getElementById("myOrdersTitle"), // ID corregido
+    deleteAccountWarning: document.getElementById("deleteAccountWarning"), // ID corregido
+    politicasDeEliminacion: document.getElementById("deletionPolicyLink"), // ID corregido
+    cancelOrderTitle: document.getElementById("cancelDeleteBtn"), // ID corregido
+    confirmCancel: document.getElementById("confirmDeleteBtn"), // ID corregido
+    codeVerificationTitle: document.getElementById("codeVerificationTitle"), // ID corregido
+    enterCodeMessage: document.getElementById("enterCodeMessage"), // ID corregido
+    verifyCodeBtn: document.getElementById("verifyCodeBtn"), // ID corregido
+    codeGenerated: document.getElementById("generatedCode"), // ID corregido
+    backButton: document.getElementById("backToDeleteModalBtn"),
+  };
+
+  // Comprobar que los elementos existen
+  for (const [key, element] of Object.entries(elementsToTranslate)) {
+    if (!element) {
+      console.error(`Elemento no encontrado: ${key}`);
+    }
+  }
+
+  const loadAccountTranslations = async (lang) => {
+    if (lang === "es") {
+      return null; // Para español, no cargamos desde el servidor
+    }
+
+    const currentTime = Date.now();
+    const storedTranslations = localStorage.getItem(`translationsAccount_${lang}`);
+    const translationData = storedTranslations ? JSON.parse(storedTranslations) : null;
+
+    if (translationData && currentTime - translationData.timestamp < 3600000) {
+      return translationData.translations;
+    }
+
+    try {
+      const response = await fetch("/public/translations/cuenta.json");
+      if (!response.ok) throw new Error("Error al cargar traducciones");
+
+      const data = await response.json();
+      const langTranslations = data[lang];
+
+      removeOldTranslations(lang, langTranslations.version);
+
+      const translationsToStore = {
+        version: langTranslations.version,
+        translations: langTranslations,
+        timestamp: currentTime,
+      };
+      localStorage.setItem(`translationsAccount_${lang}`, JSON.stringify(translationsToStore));
+
+      return langTranslations;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const removeOldTranslations = (lang, newVersion) => {
+    const storedTranslations = localStorage.getItem(`translationsAccount_${lang}`);
+    if (!storedTranslations) return;
+
+    const parsedStoredTranslations = JSON.parse(storedTranslations);
+    if (parsedStoredTranslations.version !== newVersion) {
+      localStorage.removeItem(`translationsAccount_${lang}`);
+    }
+  };
+
+  const updateAccountText = (translations) => {
+    elementsToTranslate.accountSettingsTitle.textContent = translations.configuracionCuenta;
+    elementsToTranslate.profilePicture.textContent = translations.fotoPerfil || "";
+    elementsToTranslate.firstName.placeholder = translations.nombre; // Cambiado a placeholder
+    elementsToTranslate.lastName.placeholder = translations.apellido; // Cambiado a placeholder
+    elementsToTranslate.email.placeholder = translations.correo; // Cambiado a placeholder
+    elementsToTranslate.password.placeholder = translations.contraseña; // Cambiado a placeholder
+    elementsToTranslate.phone.placeholder = translations.telefono; // Cambiado a placeholder
+    elementsToTranslate.dateOfBirth.placeholder = translations.fechaNacimiento; // Cambiado a placeholder
+    elementsToTranslate.viewMyOrders.textContent = translations.verMisPedidos;
+    elementsToTranslate.saveChangesButton.textContent = translations.guardarCambios;
+    elementsToTranslate.logOutButton.textContent = translations.cerrarSesion;
+    elementsToTranslate.deleteAccountButton.textContent = translations.eliminarCuenta;
+    elementsToTranslate.deleteAvatarButton.textContent = translations.eliminarAvatar; // Nueva línea añadida
+    elementsToTranslate.deleteAccountConfirmationTitle.textContent = translations.eliminarCuentaConfirmacion; 
+    // Check and update errorMessage if it exists
+    if (elementsToTranslate.errorMessage) {
+      elementsToTranslate.errorMessage.textContent = translations.errorMessage || ""; // Set to empty string if translation not found
+  }
+
+  // Check and update successMessage if it exists
+  if (elementsToTranslate.successMessage) {
+      elementsToTranslate.successMessage.textContent = translations.successMessage || ""; // Set to empty string if translation not found
+  }
+    elementsToTranslate.myOrdersTitle.textContent = translations.misPedidos; 
+    elementsToTranslate.deleteAccountWarning.textContent = translations.eliminarCuentaAdvertencia; 
+    elementsToTranslate.politicasDeEliminacion.innerHTML = translations.politicasDeEliminacion; 
+    elementsToTranslate.cancelOrderTitle.textContent = translations.cancelarPedido; 
+    elementsToTranslate.confirmCancel.textContent = translations.confirmCancel; 
+    elementsToTranslate.codeVerificationTitle.textContent = translations.verificacionCodigo; 
+    elementsToTranslate.enterCodeMessage.textContent = translations.ingresaCodigo; 
+    elementsToTranslate.verifyCodeBtn.textContent = translations.verificarCodigo; 
+    elementsToTranslate.codeGenerated.textContent = translations.codigoGenerado; 
+    elementsToTranslate.backButton.textContent = translations.volverAtras; 
+    elementsToTranslate.cancelOrderMessage.textContent = translations.cancelOrderMessage; 
+
+
+
+
+};
+
+  languageSelector.addEventListener("change", async (event) => {
+    const selectedLang = event.target.value;
+    const translations = await loadAccountTranslations(selectedLang);
+    if (translations) {
+      updateAccountText(translations);
+    }
+  });
+  const savedLanguage = localStorage.getItem("selectedLanguage") || "es";
+  loadAccountTranslations(savedLanguage).then(translations => {
+    if (translations) {
+      updateAccountText(translations);
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const isLoginPage = window.location.pathname === "/public/login.php";
+
+  if (!isLoginPage) return; // Sal del script si no estás en la página correcta
+
+  const elementsToTranslate = {
+    registerTitle: document.getElementById("register-title"),
+    orText: document.getElementById("or-text"),
+    termsText: document.getElementById("terms-link"),
+    privacyText: document.getElementById("privacy-link"),
+    registerButton: document.getElementById("registerBtn"),
+    loginButton: document.getElementById("loginBtn"),
+    createAccountText: document.getElementById("existAccount"),
+    loginTitle: document.getElementById("login-title"),
+    orUseEmailText: document.getElementById("or-use-email"),
+    forgotPasswordLink: document.getElementById("forgot-password-link"),
+    overlayLeftTitle: document.getElementById("overlay-left-title"),
+    overlayLeftText: document.getElementById("overlay-left-text"),
+    overlayRightTitle: document.getElementById("overlay-right-title"),
+    overlayRightText: document.getElementById("overlay-right-text"),
+    SignIn: document.getElementById("signIn"),
+    indexBtn: document.getElementById("indexBtn"),
+    indexBtn2: document.getElementById("indexBtn2"),
+    SignUp: document.getElementById("signUp"),
+  };
+
+  const loadLoginTranslations = async (lang) => {
+    if (lang === "es") {
+      return null; // Para español, no cargamos desde el servidor
+    }
+
+    const currentTime = Date.now();
+    const storedTranslations = localStorage.getItem(`translationsLogin_${lang}`);
+    const translationData = storedTranslations ? JSON.parse(storedTranslations) : null;
+
+    if (translationData && currentTime - translationData.timestamp < 3600000) {
+      return translationData.translations;
+    }
+
+    try {
+      const response = await fetch("/public/translations/login.json");
+      if (!response.ok) throw new Error("Error al cargar traducciones");
+
+      const data = await response.json();
+      const langTranslations = data[lang];
+
+      removeOldTranslations(lang, langTranslations.version);
+
+      const translationsToStore = {
+        version: langTranslations.version,
+        translations: langTranslations,
+        timestamp: currentTime,
+      };
+      localStorage.setItem(`translationsLogin_${lang}`, JSON.stringify(translationsToStore));
+
+      return langTranslations;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const removeOldTranslations = (lang, newVersion) => {
+    const storedTranslations = localStorage.getItem(`translationsLogin_${lang}`);
+    if (!storedTranslations) return;
+
+    const parsedStoredTranslations = JSON.parse(storedTranslations);
+    if (parsedStoredTranslations.version !== newVersion) {
+      localStorage.removeItem(`translationsLogin_${lang}`);
+    }
+  };
+
+  const updateLoginText = (translations) => {
+    elementsToTranslate.registerTitle.textContent = translations.registrarte; // "Sign Up"
+    elementsToTranslate.orText.textContent = translations.usaEmail; // "Or use your email to sign up"
+    elementsToTranslate.termsText.textContent = translations.aceptoTerminos; // "I accept the Terms and Conditions"
+    elementsToTranslate.privacyText.textContent = translations.aceptoPrivacidad; // "I accept the Privacy Policy"
+    elementsToTranslate.registerButton.textContent = translations.registrar; // "Register"
+    elementsToTranslate.loginButton.textContent = translations.iniciarSesion; // "Log In"
+    elementsToTranslate.createAccountText.textContent = translations.tienesCuenta; // "Or if you already have an account"
+    elementsToTranslate.loginTitle.textContent = translations.iniciarSesion; // "Log In"
+    elementsToTranslate.orUseEmailText.textContent = translations.usaEmail; // "Or use your email"
+    elementsToTranslate.forgotPasswordLink.textContent = translations.olvidasteContrasena; // "Forgot your password?"
+    elementsToTranslate.overlayLeftTitle.textContent = translations.yaTienesCuenta; // "Do you already have an account?"
+    elementsToTranslate.overlayLeftText.textContent = translations.ingresaDatos; // "Enter your details to use the site"
+    elementsToTranslate.overlayRightTitle.textContent = translations.bienvenido; // "Welcome!"
+    elementsToTranslate.overlayRightText.textContent = translations.registrate; // "Sign up to use the site"
+    elementsToTranslate.SignIn.textContent = translations.sign_in;
+    elementsToTranslate.indexBtn.textContent = translations.index_button;
+    elementsToTranslate.indexBtn2.textContent = translations.index_button;
+    elementsToTranslate.SignUp.textContent = translations.sign_up;
+  };
+
+  const savedLanguage = localStorage.getItem("selectedLanguage") || "es";
+
+  if (savedLanguage === "es") {
+    // Restablecer los textos al español
+    updateLoginText({
+      registrarte: "Registrarse",
+      usaEmail: "O usa tu correo para registrarte",
+      contraseña: "Contraseña",
+      aceptoTerminos: "Acepto los Términos y Condiciones y la Política de Privacidad.",
+      registrar: "Registrar",
+      tienesCuenta: "O si ya tienes una cuenta",
+      iniciarSesion: "Iniciar Sesión",
+      olvidarContrasena: "¿Olvidaste tu contraseña?",
+      yaTienesCuenta: "¿Ya tienes una cuenta?",
+      ingresaDatos: "Ingresa tus datos para poder utilizar el sitio",
+      bienvenido: "¡Bienvenido!",
+      registrate: "¡Regístrate para poder utilizar el sitio!",
+      index_button: "Inicio",
+      sign_in: "Iniciar Sesion",
+      sign_up: "Registrate",
+    });
+  } else {
+    loadLoginTranslations(savedLanguage).then(translations => {
+      if (translations) {
+        updateLoginText(translations);
+      }
+    });
+  }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const languageDropdown = document.getElementById("language-selector");
+  const savedLanguage = localStorage.getItem("selectedLanguage") || "es";
+
+  // Función para cargar traducciones
+  const loadTranslations = async (lang) => {
+      try {
+          const response = await fetch("/public/translations/local.json");
+          if (!response.ok) throw new Error("Error al cargar las traducciones");
+
+          const data = await response.json();
+          return data[lang];
+      } catch (error) {
+          console.error(error);
+      }
+  };
+
+  // Función para actualizar el texto
+  const updateText = (translations) => {
+      for (const [key, value] of Object.entries(translations)) {
+          const element = document.getElementById(key);
+          if (element) {
+              element.textContent = value;
+          }
+      }
+  };
+
+  // Función para cambiar el idioma
+  const changeLanguage = (lang) => {
+      localStorage.setItem("selectedLanguage", lang);
+      loadTranslations(lang).then(translations => {
+          if (translations) {
+              updateText(translations);
+          }
+      });
+  };
+
+  // Establecer el idioma guardado al cargar la página
+  languageDropdown.value = savedLanguage;
+  changeLanguage(savedLanguage);
+
+  // Event listener para el cambio de idioma
+  languageDropdown.addEventListener("change", (event) => {
+      changeLanguage(event.target.value);
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const isTermsPage = window.location.pathname === "/public/tienda.php";
+  if (!isTermsPage) return; // Sal del script si no estás en la página correcta
+
+  const languageSelector = document.getElementById("language-selector");
+
+  const elementsToTranslate = {
+    topSubtitle: document.getElementById("top-subtitle"),
+    subtitle: document.getElementById("subtitle"),
+    contactButton: document.getElementById("contact-btn"),
+    localButton: document.getElementById("local-btn"),
+  };
+
+  const loadTranslations = async (lang) => {
+    const currentTime = Date.now();
+    const storedTranslations = localStorage.getItem(`translations_${lang}`);
+    const translationData = storedTranslations ? JSON.parse(storedTranslations) : null;
+
+    if (translationData && currentTime - translationData.timestamp < 3600000) {
+      return translationData.translations;
+    }
+
+    try {
+      const response = await fetch("/public/translations/tienda.json");
+      if (!response.ok) throw new Error("Error al cargar traducciones");
+
+      const data = await response.json();
+      const langTranslations = data[lang];
+
+      removeOldTranslations(lang, langTranslations.version);
+
+      const translationsToStore = {
+        version: langTranslations.version,
+        translations: langTranslations,
+        timestamp: currentTime,
+      };
+      localStorage.setItem(`translations_${lang}`, JSON.stringify(translationsToStore));
+
+      return langTranslations;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const removeOldTranslations = (lang, newVersion) => {
+    const storedTranslations = localStorage.getItem(`translations_${lang}`);
+    if (!storedTranslations) return;
+
+    const parsedStoredTranslations = JSON.parse(storedTranslations);
+    if (parsedStoredTranslations.version !== newVersion) {
+      localStorage.removeItem(`translations_${lang}`);
+    }
+  };
+
+  const updateText = (translations) => {
+    elementsToTranslate.topSubtitle.textContent = translations.top_subtitle;
+    elementsToTranslate.subtitle.textContent = translations.subtitle;
+    elementsToTranslate.contactButton.textContent = translations.contact_button;
+    elementsToTranslate.localButton.textContent = translations.local_button;
+  };
+
+  languageSelector.addEventListener("change", (event) => {
+    const selectedLanguage = event.target.value;
+    loadTranslations(selectedLanguage).then(translations => {
+      if (translations) {
+        updateText(translations);
+      }
+    });
+  });
+
+  const savedLanguage = localStorage.getItem("selectedLanguage") || "es";
+  loadTranslations(savedLanguage).then(translations => {
+    if (translations) {
+      updateText(translations);
+    }
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const isContactPage = window.location.pathname === "/public/contactos.php";
+  if (!isContactPage) return; // Sal del script si no estás en la página correcta
+
+  const languageSelector = document.getElementById("language-selector");
+
+  const elementsToTranslate = {
+    contactTitle: document.querySelector(".contact-title"),
+    nameLabel: document.querySelector("label[for='name']"),
+    emailLabel: document.querySelector("label[for='email']"),
+    subjectLabel: document.querySelector("label[for='subject']"),
+    messageLabel: document.querySelector("label[for='message']"),
+    submitButton: document.querySelector(".submit-text"),
+    responseMessage: document.getElementById("response-message"),
+  };
+
+  const loadTranslations = async (lang) => {
+    const currentTime = Date.now();
+    const storedTranslations = localStorage.getItem(`translations_contact_${lang}`);
+    const translationData = storedTranslations ? JSON.parse(storedTranslations) : null;
+
+    if (translationData && currentTime - translationData.timestamp < 3600000) {
+      return translationData.translations;
+    }
+
+    try {
+      const response = await fetch("/public/translations/contactos.json");
+      if (!response.ok) throw new Error("Error al cargar traducciones");
+
+      const data = await response.json();
+      const langTranslations = data[lang];
+
+      removeOldTranslations(lang, langTranslations.version);
+
+      const translationsToStore = {
+        version: langTranslations.version,
+        translations: langTranslations,
+        timestamp: currentTime,
+      };
+      localStorage.setItem(`translations_contact_${lang}`, JSON.stringify(translationsToStore));
+
+      return langTranslations;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const removeOldTranslations = (lang, newVersion) => {
+    const storedTranslations = localStorage.getItem(`translations_contact_${lang}`);
+    if (!storedTranslations) return;
+
+    const parsedStoredTranslations = JSON.parse(storedTranslations);
+    if (parsedStoredTranslations.version !== newVersion) {
+      localStorage.removeItem(`translations_contact_${lang}`);
+    }
+  };
+
+  const updateText = (translations) => {
+    elementsToTranslate.contactTitle.textContent = translations.contact_title;
+    elementsToTranslate.nameLabel.textContent = translations.name_label;
+    elementsToTranslate.emailLabel.textContent = translations.email_label;
+    elementsToTranslate.subjectLabel.textContent = translations.subject_label;
+    elementsToTranslate.messageLabel.textContent = translations.message_label;
+    elementsToTranslate.submitButton.textContent = translations.submit_button;
+  };
+
+  languageSelector.addEventListener("change", (event) => {
+    const selectedLanguage = event.target.value;
+    loadTranslations(selectedLanguage).then(translations => {
+      if (translations) {
+        updateText(translations);
+      }
+    });
+  });
+
+  const savedLanguage = localStorage.getItem("selectedLanguage") || "es";
+  loadTranslations(savedLanguage).then(translations => {
+    if (translations) {
+      updateText(translations);
+    }
+  });
+});

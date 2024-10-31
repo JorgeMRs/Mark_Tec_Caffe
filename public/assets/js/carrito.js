@@ -152,7 +152,13 @@ function updateQuantity(e) {
     const price = parseFloat(productElement.querySelector('td:nth-child(3)').textContent.replace('€', ''));
 
     if (e.target.classList.contains('increase')) {
-        currentQuantity += 1;
+        
+        if (currentQuantity < 9) {
+            currentQuantity += 1;
+        } else {
+            alert('No puedes agregar más de 9 unidades de este producto.');
+            return;
+        }
     } else if (e.target.classList.contains('decrease') && currentQuantity > 1) {
         currentQuantity -= 1;
     }

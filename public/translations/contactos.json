@@ -1,20 +1,47 @@
 {
   "es": {
-      "contact_title": "¡Ponete en contacto con nosotros!",
-      "name_label": "Nombre",
-      "email_label": "Email",
-      "subject_label": "Asunto",
-      "message_label": "Comentario o mensaje",
-      "submit_button": "ENVIAR",
-      "response_message": ""
+    "contact_title": "¡Ponete en contacto con nosotros!",
+    "name_label": "Nombre",
+    "email_label": "Email",
+    "subject_label": "Asunto",
+    "message_label": "Comentario o mensaje",
+    "submit_button": "ENVIAR",
+    "response_message": ""
   },
   "en": {
-      "contact_title": "Get in touch with us!",
-      "name_label": "Name",
-      "email_label": "Email",
-      "subject_label": "Subject",
-      "message_label": "Comment or message",
-      "submit_button": "SEND",
-      "response_message": ""
+    "contact_title": "Get in touch with us!",
+    "name_label": "Name",
+    "email_label": "Email",
+    "subject_label": "Subject",
+    "message_label": "Comment or message",
+    "submit_button": "SEND",
+    "response_message": ""
+  },
+  "fr": {
+    "contact_title": "Contactez-nous!",
+    "name_label": "Nom",
+    "email_label": "Email",
+    "subject_label": "Objet",
+    "message_label": "Commentaire ou message",
+    "submit_button": "ENVOYER",
+    "response_message": ""
+  },
+  "pt": {
+    "contact_title": "Entre em contato conosco!",
+    "name_label": "Nome",
+    "email_label": "Email",
+    "subject_label": "Assunto",
+    "message_label": "Comentário ou mensagem",
+    "submit_button": "ENVIAR",
+    "response_message": ""
+  },
+  "de": {
+    "contact_title": "Nehmen Sie Kontakt mit uns auf!",
+    "name_label": "Name",
+    "email_label": "Email",
+    "subject_label": "Betreff",
+    "message_label": "Kommentar oder Nachricht",
+    "submit_button": "SENDEN",
+    "response_message": ""
   }
 }

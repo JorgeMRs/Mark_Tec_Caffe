@@ -19,11 +19,11 @@ include 'templates/head.php' ?>
     <header>
         <?php include 'templates/nav-blur.php' ?>
         <div class="header-content">
-            <h2 class="top-subtitle">Café Sabrosos</h2>
-            <h2 class="subtitle">Siempre el mejor café</h2>
+            <h2 class="top-subtitle" id="top-subtitle">Café Sabrosos</h2>
+            <h2 class="subtitle" id="subtitle">Siempre el mejor café</h2>
             <div class="header-buttons">
-                <a href="/public/menu.html" class="btn">Menú</a>
-                <a href="/public/reservas.html" class="btn">Reservas</a>
+                <a href="/public/contactos.php" class="btn" id="contact-btn">Contacto</a>
+                <a href="/public/local.php" class="btn" id="local-btn">Locales</a>
             </div>
         </div>
     </header>

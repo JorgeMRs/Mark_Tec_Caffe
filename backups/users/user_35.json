@@ -1,0 +1,81 @@
+{
+    "cliente": {
+        "idCliente": 35,
+        "correo": "lucianobritos154@gmail.com",
+        "contrasena": "$2y$10$M\/gazcvT7gcnS73BvzRTb.SbLCCnCjLJreFXdo2r.VTVLb3bg7MDi",
+        "nombre": null,
+        "apellido": null,
+        "tel": null,
+        "fechaCreacion": "2024-08-30 17:31:22",
+        "fechaActualizacion": "2024-10-28 23:11:04",
+        "estadoActivacion": 1,
+        "tokenVerificacion": null,
+        "fechaNacimiento": null,
+        "avatar": "35_avatar.png",
+        "uid": null
+    },
+    "pedidos": [
+        {
+            "idPedido": 58,
+            "idEmpleado": null,
+            "idCliente": 35,
+            "idCarrito": 5,
+            "idMesa": null,
+            "idSucursal": 3,
+            "estado": "Cancelado",
+            "notas": "safasfas",
+            "horaRecogida": null,
+            "metodoPago": "Tarjeta",
+            "tipoPedido": "En el local",
+            "total": "9.00",
+            "fechaPedido": "2024-10-03 23:08:49",
+            "fechaModificacion": "2024-10-28 22:55:38",
+            "codigoVerificacion": "PEDIDO35199c",
+            "numeroPedidoCliente": 1,
+            "numeroPedidoSucursal": 2
+        },
+        {
+            "idPedido": 70,
+            "idEmpleado": null,
+            "idCliente": 35,
+            "idCarrito": 5,
+            "idMesa": null,
+            "idSucursal": 1,
+            "estado": "Pendiente",
+            "notas": "asdasd",
+            "horaRecogida": null,
+            "metodoPago": "Tarjeta",
+            "tipoPedido": "En el local",
+            "total": "4.20",
+            "fechaPedido": "2024-10-28 22:52:16",
+            "fechaModificacion": "2024-10-28 22:52:16",
+            "codigoVerificacion": "PEDIDO086bd5",
+            "numeroPedidoCliente": 2,
+            "numeroPedidoSucursal": 11
+        }
+    ],
+    "reservas": [
+        {
+            "idReserva": 94,
+            "idCliente": 35,
+            "idMesa": 5,
+            "idEmpleado": null,
+            "fechaReserva": "2024-10-25 14:06:00",
+            "estado": "reservado",
+            "cantidadPersonas": 1,
+            "codigoReserva": "MESA2d60bb"
+        },
+        {
+            "idReserva": 96,
+            "idCliente": 35,
+            "idMesa": 1,
+            "idEmpleado": null,
+            "fechaReserva": "2024-10-11 18:30:00",
+            "estado": "reservado",
+            "cantidadPersonas": 2,
+            "codigoReserva": "MESA3168d3"
+        }
+    ],
+    "retroalimentacion": [],
+    "fechaDesactivacion": "2024-10-29 03:42:22"
+}

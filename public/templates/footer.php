@@ -18,9 +18,8 @@
             <ul id="footer-links">
                 <li><a href="/public/local.php" id="footer-locales">Locales</a></li>
                 <li><a href="/public/tienda.php" id="footer-productos">Productos</a></li>
-                <li><a href="/public/" id="footer-ofertas">Ofertas</a></li>
-                <li><a href="/public/reservas.php" id="footer-reservas">Reservas</a></li>
                 <li><a href="/public/contactos.php" id="footer-contacto">Contacto</a></li>
+                <li><a href="/public/sobrenosotros.php" id="footer-sobrenosotros">Sobre Nosotros</a></li>
             </ul>
         </div>
         <div class="footer-section contact">
@@ -37,7 +36,7 @@
                 <li><a href="/public/terminos-y-condiciones.php" id="footer-terms">Términos y Condiciones</a></li>
                 <li><a href="/public/politicas-de-privacidad.php" id="footer-privacy">Política de Privacidad</a></li>
                 <li><a href="/public/politicas-de-eliminacion-de-cuenta.php" id="footer-data-removal">Política de Eliminación de Datos</a></li>
-                <li><a href="/public/preguntasFrecuentes.php" data-translate="footer.data-policy">Preguntas Frecuentes</a></li>
+                <li><a href="/public/preguntasFrecuentes.php" id="footer-faq">Preguntas Frecuentes</a></li>
             </ul>
         </div>
     </div>

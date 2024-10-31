@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <?php 
 
+$pageTitle = 'Café Sabrosos';
+
 $customCSS = [
     '/public/assets/css/style.css',
     '/public/assets/css/nav-blur.css',

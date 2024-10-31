@@ -14,19 +14,19 @@ function generateQrCode($data): string
         ->size(400)
         ->margin(10)
         ->build();
-    
+
     // Definir el directorio en el sistema de archivos para guardar los QR codes
     $directory = '/var/www/cafesabrosos/src/qrcodes';
-    
+
     // Asegurarse de que el directorio exista
     if (!is_dir($directory)) {
         mkdir($directory, 0755, true); // Crea el directorio si no existe
     }
-    
+
     // Definir el nombre del archivo QR code
     $fileName = 'qr_code_' . uniqid() . '.png';
     $filePath = $directory . '/' . $fileName;
-    
+
     // Guardar el QR code en el archivo especificado
     $qrCode->saveToFile($filePath);
 
@@ -62,19 +62,19 @@ function sendOrderConfirmationEmail($orderId, $email): bool
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';
         $mail->Subject = 'Confirmación de tu Pedido #' . $orderDetails['numeroPedidoCliente'];
-        
+
         // Obtener la URL pública del QR code
         $qrFileUrl = generateQrCode($orderDetails['codigoVerificacion']);
 
         // Obtener el archivo QR code para adjuntar
         $qrFilePath = str_replace('https://cafesabrosos.myvnc.com/src/qrcodes/', '/var/www/cafesabrosos/src/qrcodes/', $qrFileUrl);
-        
+
         // Generar el cuerpo del correo
         $mail->Body = getOrderEmailBody($orderDetails, $qrFileUrl);
 
         // Adjuntar el archivo QR code
         $mail->addAttachment($qrFilePath, 'codigo_qr.png');
-        
+
         $mail->send();
         return true;
     } catch (Exception $e) {
@@ -111,13 +111,13 @@ function getOrderDetails($orderId)
         $stmt->close();
 
         // Obtener el numeroPedidoCliente, codigoVerificacion, tipoPedido y detalles de la sucursal
-        $stmt = $conn->prepare("SELECT numeroPedidoCliente, codigoVerificacion, tipoPedido, s.nombre, s.direccion, s.pais, s.ciudad, s.tel 
-                                FROM pedido p 
-                                LEFT JOIN sucursal s ON p.idSucursal = s.idSucursal
-                                WHERE p.idPedido = ?");
+        $stmt = $conn->prepare("SELECT numeroPedidoCliente, codigoVerificacion, tipoPedido, s.nombre, s.direccion, s.pais, s.ciudad, s.tel, p.fechaPedido
+        FROM pedido p 
+        LEFT JOIN sucursal s ON p.idSucursal = s.idSucursal
+        WHERE p.idPedido = ?");
         $stmt->bind_param("i", $orderId);
         $stmt->execute();
-        $stmt->bind_result($numeroPedidoCliente, $codigoVerificacion, $tipoPedido, $sucursalNombre, $sucursalDireccion, $sucursalPais, $sucursalCiudad, $sucursalTel);
+        $stmt->bind_result($numeroPedidoCliente, $codigoVerificacion, $tipoPedido, $sucursalNombre, $sucursalDireccion, $sucursalPais, $sucursalCiudad, $sucursalTel, $fechaPedido);
         $stmt->fetch();
         $stmt->close();
 
@@ -150,6 +150,7 @@ function getOrderDetails($orderId)
         $orderDetails['numeroPedidoCliente'] = $numeroPedidoCliente;
         $orderDetails['codigoVerificacion'] = $codigoVerificacion;
         $orderDetails['tipoPedido'] = $tipoPedido;
+        $orderDetails['fechaPedido'] = $fechaPedido;
         $orderDetails['sucursal'] = [
             'nombre' => $sucursalNombre,
             'direccion' => $sucursalDireccion,
@@ -168,7 +169,7 @@ function getOrderDetails($orderId)
 
 function getOrderEmailBody($orderDetails, $qrFileUrl): string
 {
-    $timestamp = date('Y-m-d H:i:s');
+    $timestamp = date('Y-m-d H:i:s', strtotime($orderDetails['fechaPedido'])); // Formatear la fecha del pedido
     $uniqueContent = "<p>Fecha del pedido: $timestamp</p>";
     $productosHTML = '';
     $baseImageUrl = 'https://cafesabrosos.myvnc.com';
@@ -204,15 +205,15 @@ function getOrderEmailBody($orderDetails, $qrFileUrl): string
 
     // Agregar código de verificación solo para pedidos para llevar
     $codigoVerificacionHTML = '';
-    
-        $codigoVerificacionHTML = "
+
+    $codigoVerificacionHTML = "
             <p><strong>Código de Verificación:</strong> {$orderDetails['codigoVerificacion']}</p>
             <p style='text-align: center;'>
                 <img src='{$qrFileUrl}' alt='Código QR' style='width: 300px; height: 300px;'>
             </p>
             <p style='width: 700px;'><strong>Por favor, presenta el código de verificación o este código QR al mozo cuando llegues a la sucursal.</strong></p>
         ";
-    
+
 
     return "
     <html>
@@ -291,4 +292,3 @@ function getOrderEmailBody($orderDetails, $qrFileUrl): string
     </body>
     </html>";
 }
-?>

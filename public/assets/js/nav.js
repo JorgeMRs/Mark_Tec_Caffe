@@ -50,6 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
             cartItems.appendChild(subtotalElement);
         } else {
             cartItems.innerHTML = "<p>Tu carrito está vacío.</p>";
+            cartItems.style.color = "#000";
         }
     }
 

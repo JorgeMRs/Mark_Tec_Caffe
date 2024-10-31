@@ -17,15 +17,17 @@ function uploadAvatar($user_id, $file, $conn): array
         if ($file['error'] !== UPLOAD_ERR_OK) {
             throw new Exception('Error en la subida del archivo.');
         }
-        
-        $maxFileSize = 8 * 1024 * 1024; // 3 MB
+
+        // Set the maximum file size (3 MB)
+        $maxFileSize = 8 * 1024 * 1024; // 8 MB
         if ($file['size'] > $maxFileSize) {
-            throw new Exception('El tamaño del archivo excede el límite permitido de 3 MB.');
+            throw new Exception('El tamaño del archivo excede el límite permitido de 8 MB.');
         }
 
-        $allowedTypes = ['image/jpeg', 'image/png'];
+        // Allow JPEG, PNG, and GIF types
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
         if (!in_array($file['type'], $allowedTypes)) {
-            throw new Exception('Tipo de archivo no permitido. Solo se permiten imágenes JPEG y PNG.');
+            throw new Exception('Tipo de archivo no permitido. Solo se permiten imágenes JPEG, PNG y GIF.');
         }
 
         $tempDir = '../../tmp/';
@@ -38,7 +40,9 @@ function uploadAvatar($user_id, $file, $conn): array
             throw new Exception('Directorio de subida no encontrado o ruta incorrecta: ' . $uploadDir);
         }
 
-        $fileName = $user_id . '_avatar.jpg';
+        // Use the original file name to preserve the extension
+        $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
+        $fileName = $user_id . '_avatar.' . $fileExtension; // Keep original extension
         $tempFile = $tempDir . $file['name'];
         $uploadFile = $uploadDir . $fileName;
 

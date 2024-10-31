@@ -1,20 +1,30 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Preguntas Frecuentes - Café Sabrosos</title>
-    <link rel="stylesheet" href="/public/assets/css/maspreguntasfrecuentes.css">
-    <link rel="stylesheet" href="/public/assets/css/nav.css">
-    <link rel="stylesheet" href="/public/assets/css/footer.css">
-</head>
+<?php 
+
+$pageTitle = 'Café Sabrosos - Cuenta';
+
+$customCSS = [
+    '/public/assets/css/maspreguntasfrecuentes.css',
+    '/public/assets/css/nav.css',
+    '/public/assets/css/footer.css',
+    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css'
+
+];
+$customJS = [
+  '/public/assets/js/updateCartCounter.js',
+  '/public/assets/js/languageSelect.js'
+];
+
+include 'templates/head.php' ?>
+
 <body>
-<header>
-    <?php include 'templates/nav.php'; ?>
-</header>
+    <header>
+        <?php include 'templates/nav.php'; ?>
+    </header>
     <main>
-    <h1>Preguntas frecuentes</h1>
+
         <section class="faq">
+        <h1>Preguntas frecuentes</h1>
             <div class="faq-item">
                 <h2>1. Ingresé una dirección incorrecta</h2>
                 <p>Te recomendamos cancelar el pedido rápidamente desde el botón “Cancelar pedido” que se encuentra en la pantalla de confirmación.</p>
@@ -39,27 +49,25 @@
                 <h2>6. ¿Dónde se cultiva el café de Café Sabrosos?</h2>
                 <p>Los árboles del café crecen en la zona ecuatorial entre los trópicos de Cáncer y Capricornio, conocido como “el cinturón del café”.
 
-Hay 62 países productores de café en el mundo; Café Sabrosos compra más o menos a la mitad de ellos. Nuestros compradores de café viajan a través del Cinturón del Café para descubrir y comprar el mejor café verde que cada región tiene para ofrecer: cafés 100% Arábica de alta calidad que se seleccionan cuidadosamente para aquellos que definen características de sabor que distinguen sus orígenes.
+                    Hay 62 países productores de café en el mundo; Café Sabrosos compra más o menos a la mitad de ellos. Nuestros compradores de café viajan a través del Cinturón del Café para descubrir y comprar el mejor café verde que cada región tiene para ofrecer: cafés 100% Arábica de alta calidad que se seleccionan cuidadosamente para aquellos que definen características de sabor que distinguen sus orígenes.
 
-Estas son las tres regiones principales de cultivo de café, cada una distinta en su paisaje, clima, y el sabor que imparte a los cafés cultivados y procesados allí.
+                    Estas son las tres regiones principales de cultivo de café, cada una distinta en su paisaje, clima, y el sabor que imparte a los cafés cultivados y procesados allí.
 
-Latinoamérica à Los cafés de América Latina tienden a tener sabores bien equilibrados a cacao o frutos secos, así como una intensa y fresca acidez.
+                    Latinoamérica à Los cafés de América Latina tienden a tener sabores bien equilibrados a cacao o frutos secos, así como una intensa y fresca acidez.
 
 
-África à Por lo general los cafés de esta región tienen notas florales y cítricas. Asia-Pacífico à Esta región es conocida por tener cafés con cuerpo intenso y sabores terrosos, herbales y especiado</p>
+                    África à Por lo general los cafés de esta región tienen notas florales y cítricas. Asia-Pacífico à Esta región es conocida por tener cafés con cuerpo intenso y sabores terrosos, herbales y especiado</p>
             </div>
             <div class="faq-item">
                 <h2>7. Información nutricional de las bebidas</h2>
                 <p>Si deseas obtener más información sobre las bebidas que disfrutas en Café Sabrosos, aquí tienes lo que buscabas. Esta carta contiene datos nutricionales sobre muchos de nuestros clásicos.
-
-
-En Starbucks servimos un amplio abanico de bebidas deliciosas, y esta información te ayudará a estar seguro de que lo que elijas respete el estilo de vida que deseas llevar.</p>
             </div>
         </section>
     </main>
     <?php if (!isset($_COOKIE['cookie_preference'])) {
-    include 'templates/cookies.php';
-} ?>
-<?php include 'templates/footer.php'; ?>
+        include 'templates/cookies.php';
+    } ?>
+    <?php include 'templates/footer.php'; ?>
 </body>
+
 </html>
