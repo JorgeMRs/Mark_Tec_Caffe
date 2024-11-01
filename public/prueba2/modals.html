@@ -2,7 +2,7 @@
     <div class="modal">
         <div class="modal-header">
             <span class="close" onclick="closeModal('editModal')">&times;</span>
-            <h2 class="modal-title">Editar Pedido</h2>
+            <h2>Editar Pedido</h2>
         </div>
         <form id="editForm" method="POST" action="/public/prueba2/actualizar_pedido.php"
             onsubmit="handleFormSubmitPedidos(event, 'editModal')">
@@ -17,6 +17,14 @@
             <div class="form-group">
                 <label for="editClienteId">ID Cliente:</label>
                 <input type="number" id="editClienteId" name="idClientePedido">
+            </div>
+            <div class="form-group">
+                <label for="editClienteNombre">Nombre del Cliente:</label>
+                <input type="text" id="editClienteNombre" name="clienteNombre">
+            </div>
+            <div class="form-group">
+                <label for="editClienteApellido">Apellido del Cliente:</label>
+                <input type="text" id="editClienteApellido" name="clienteApellido">
             </div>
             <div class="form-group">
                 <label for="editEmpleadoId">ID Empleado:</label>
@@ -36,24 +44,31 @@
                     <option value="Cancelado">Cancelado</option>
                 </select>
             </div>
+            <div class="form-group">
+                <label for="editMetodoPago">Método de Pago:</label>
+                <select id="editMetodoPago" name="metodoPago">
+                    <option value="Efectivo">Efectivo</option>
+                    <option value="Tarjeta">Tarjeta</option>
+                    <option value="Transferencia">Transferencia</option>
+                </select>
+            </div>
             <div class="actions">
                 <button type="button" class="btn btn-cancel" onclick="closeModal('editModal')">Cancelar</button>
-                <button type="submit" class="btn btn-save">Actualizar</button>
+                <button type="submit" class="btn btn-save">Guardar Cambios</button>
             </div>
         </form>
     </div>
 </div>
 
-
-
-<div id="historialModal" class="modal-overlay">
+<!-- 
+<div id="editHistorialModal" class="modal-overlay">
     <div class="modal">
         <div class="modal-header">
-            <span class="close" onclick="closeModal('historialModal')">&times;</span>
-            <h2 class="modal-title">Detalles del Pedido</h2>
+            <span class="close" onclick="closeModal('editHistorialModal')">&times;</span>
+            <h2>Editar Historial</h2>
         </div>
-        <form id="historialForm" method="POST" action="/public/prueba2/actualizar_historial.php"
-            onsubmit="handleFormSubmitHistorial(event, 'historialModal')">
+        <form id="editHistorialForm" method="POST" action="/public/prueba2/actualizar_historial.php"
+            onsubmit="handleFormSubmitHistorial(event, 'editHistorialModal')">
             <div class="form-group">
                 <label for="historialId">ID Pedido:</label>
                 <input type="text" id="historialId" name="idHistorial" readonly>
@@ -81,8 +96,55 @@
                 </select>
             </div>
             <div class="actions">
-                <button type="button" class="btn btn-cancel" onclick="closeModal('historialModal')">Cancelar</button>
-                <button type="submit" class="btn btn-save">Actualizar</button>
+                <button type="button" class="btn btn-cancel"
+                    onclick="closeModal('editHistorialModal')">Cancelar</button>
+                <button type="submit" class="btn btn-save">Guardar Cambios</button>
+            </div>
+        </form>
+    </div>
+</div> -->
+
+
+<div id="editRetroalimentacionModal" class="modal-overlay">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close" onclick="closeModal('editRetroalimentacionModal')">&times;</span>
+            <h2>Editar Retroalimentación</h2>
+        </div>
+        <form id="editRetroalimentacionForm" method="POST" action="/public/prueba2/actualizar_retroalimentacion.php" onsubmit="handleFormSubmitRetroalimentacion(event, 'editRetroalimentacionModal')">
+            <div class="form-group">
+                <label for="retroalimentacionId">ID Retroalimentación:</label>
+                <input type="text" id="retroalimentacionId" name="idRetroalimentacion" readonly>
+            </div>
+            <div class="form-group">
+                <label for="retroalimentacionClienteId">ID Cliente:</label>
+                <input type="text" id="retroalimentacionClienteId" name="idCliente" readonly>
+            </div>
+            <div class="form-group">
+                <label for="retroalimentacionClienteNombre">Nombre del Cliente:</label>
+                <input type="text" id="retroalimentacionClienteNombre" name="clienteNombre" readonly>
+            </div>
+            <div class="form-group">
+                <label for="retroalimentacionClienteApellido">Apellido del Cliente:</label>
+                <input type="text" id="retroalimentacionClienteApellido" name="clienteApellido" readonly>
+            </div>
+            <div class="form-group">
+                <label for="retroalimentacionNivelSatisfaccion">Nivel de Satisfacción:</label>
+                <select id="retroalimentacionNivelSatisfaccion" name="nivelSatisfaccion">
+                    <option value="Muy bajo">Muy bajo</option>
+                    <option value="Bajo">Bajo</option>
+                    <option value="Medio">Medio</option>
+                    <option value="Alto">Alto</option>
+                    <option value="Muy alto">Muy alto</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="retroalimentacionComentario">Comentario:</label>
+                <textarea id="retroalimentacionComentario" name="comentario"></textarea>
+            </div>
+            <div class="actions">
+                <button type="button" class="btn btn-cancel" onclick="closeModal('editRetroalimentacionModal')">Cancelar</button>
+                <button type="submit" class="btn btn-save">Guardar Cambios</button>
             </div>
         </form>
     </div>
@@ -125,6 +187,7 @@
         </form>
     </div>
 </div>
+
 
 <div id="personalModal" class="modal-overlay">
     <div class="modal">

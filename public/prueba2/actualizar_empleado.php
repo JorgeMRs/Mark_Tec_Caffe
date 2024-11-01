@@ -53,8 +53,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $response['success'] = true;
         $response['message'] = 'Empleado actualizado correctamente.';
         $response['id'] = $idEmpleado;
-        $response['campoModificado'] = 'nombre'; // Cambia esto según el campo que se haya modificado
-        $response['valorModificado'] = $nombre; // Cambia esto según el valor que se haya modificado
+        $response['camposModificados'] = [
+            'correo' => $correo,
+            'nombre' => $nombre,
+            'apellido' => $apellido,
+            'ci' => $ci,
+            'idPuesto' => $idPuesto,
+            'idSucursal' => $idSucursal,
+            'fechaIngreso' => $fechaIngreso,
+            'salario' => $salario,
+            'tel' => $tel,
+            'fechaNacimiento' => $fechaNacimiento
+        ];
     } else {
         $response['error'] = 'Error al actualizar el empleado.';
     }

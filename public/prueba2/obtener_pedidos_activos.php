@@ -1,4 +1,3 @@
-
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -10,10 +9,10 @@ try {
     die('Error: ' . $e->getMessage());
 }
 
-$query = "SELECT p.idPedido, p.fechaPedido, c.nombre AS clienteNombre, e.nombre AS empleadoNombre, p.total, p.estado 
-        FROM pedido p 
-        JOIN cliente c ON p.idCliente = c.idCliente 
-        LEFT JOIN empleado e ON p.idEmpleado = e.idEmpleado";
+$query = "SELECT p.idPedido, p.fechaPedido, CONCAT(c.nombre, ' ', c.apellido) AS clienteNombre, e.nombre AS empleadoNombre, p.total, p.estado, p.metodoPago 
+          FROM pedido p 
+          JOIN cliente c ON p.idCliente = c.idCliente 
+          LEFT JOIN empleado e ON p.idEmpleado = e.idEmpleado";
 
 // Consulta para obtener los pedidos
 $result = $conn->query($query);

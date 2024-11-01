@@ -3,53 +3,39 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 include '../../src/db/db_connect.php';
 
-if (!isset($_GET['id'])) {
-    die('Error: ID de pedido no especificado.');
-}
+$response = ['success' => false];
 
-$idPedido = intval($_GET['id']);
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
+    $idHistorial = intval($_GET['id']);
 
-try {
-    $conn = getDbConnection();
-} catch (Exception $e) {
-    die('Error: ' . $e->getMessage());
-}
+    try {
+        $conn = getDbConnection();
+    } catch (Exception $e) {
+        $response['error'] = 'Error al conectar a la base de datos: ' . $e->getMessage();
+        echo json_encode($response);
+        exit;
+    }
 
-$query = "SELECT p.idPedido, p.fechaPedido, p.idCliente, c.nombre AS clienteNombre, p.idEmpleado, p.total, p.estado 
-          FROM pedido p 
-          JOIN cliente c ON p.idCliente = c.idCliente
-          WHERE p.idPedido = ?";
+    $query = "SELECT id AS idHistorial, date AS fechaHistorial, customer AS clienteNombreHistorial, total AS totalHistorial, estado AS estadoHistorial 
+              FROM historial 
+              WHERE id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('i', $idHistorial);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
+    if ($result->num_rows > 0) {
+        $response = $result->fetch_assoc();
+        $response['success'] = true;
+    } else {
+        $response['error'] = 'Historial no encontrado';
+    }
 
-
-$stmt = $conn->prepare($query);
-$stmt->bind_param('i', $idPedido);
-$stmt->execute();
-$result = $stmt->get_result();
-
-// echo "<h1>Historial de Pedidos</h1>";
-// while ($row = $result->fetch_assoc()) {
-//     echo "ID Pedido: " . $row['idPedido'] . "<br>";
-//     echo "Fecha Pedido: " . $row['fechaPedido'] . "<br>";
-//     echo "ID Cliente: " . $row['idCliente'] . "<br>";
-//     echo "Nombre Cliente: " . $row['clienteNombre'] . "<br>";
-//     echo "ID Empleado: " . $row['idEmpleado'] . "<br>";
-//     echo "Total: " . $row['total'] . "<br>";
-//     echo "Estado: " . $row['estado'] . "<br>";
-//     echo "<hr>";
-// }
- 
-
-
-if ($result->num_rows > 0) {
-    $pedido = $result->fetch_assoc();
-    echo json_encode($pedido);
-                                                    
-
+    $stmt->close();
+    $conn->close();
 } else {
-    echo json_encode(['error' => 'Pedido no encontrado']);
+    $response['error'] = 'Método no permitido o ID no proporcionado';
 }
 
-$stmt->close();
-$conn->close();
+echo json_encode($response);
 ?>

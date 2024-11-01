@@ -13,6 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $idEmpleado = isset($_POST['idEmpleadoPedido']) ? intval($_POST['idEmpleadoPedido']) : null;
     $total = isset($_POST['totalPedido']) ? floatval($_POST['totalPedido']) : null;
     $estado = isset($_POST['estadoPedido']) ? $_POST['estadoPedido'] : null;
+    $metodoPago = isset($_POST['metodoPago']) ? $_POST['metodoPago'] : null;
 
     // Mensajes de depuración
     error_log("idPedido: " . $idPedido);
@@ -21,9 +22,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     error_log("idEmpleado: " . $idEmpleado);
     error_log("total: " . $total);
     error_log("estado: " . $estado);
+    error_log("metodoPago: " . $metodoPago);
 
     // Validar los datos recibidos
-    if (empty($idPedido) || empty($fechaPedido) || empty($idCliente) || empty($idEmpleado) || $total < 0 || empty($estado)) {
+    if (empty($idPedido) || empty($fechaPedido) || empty($idCliente) || empty($idEmpleado) || $total < 0 || empty($estado) || empty($metodoPago)) {
         $response['error'] = 'Faltan datos necesarios';
         echo json_encode($response);
         exit;
@@ -38,16 +40,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Actualizar los datos del pedido en la base de datos
-    $query = "UPDATE pedido SET fechaPedido = ?, idCliente = ?, idEmpleado = ?, total = ?, estado = ? WHERE idPedido = ?";
+    $query = "UPDATE pedido SET fechaPedido = ?, idCliente = ?, idEmpleado = ?, total = ?, estado = ?, metodoPago = ? WHERE idPedido = ?";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param('siiisi', $fechaPedido, $idCliente, $idEmpleado, $total, $estado, $idPedido);
+    $stmt->bind_param('siiissi', $fechaPedido, $idCliente, $idEmpleado, $total, $estado, $metodoPago, $idPedido);
 
     if ($stmt->execute()) {
         $response['success'] = true;
         $response['message'] = 'Pedido actualizado correctamente.';
         $response['id'] = $idPedido;
-        $response['campoModificado'] = 'estado'; // Cambia esto según el campo que se haya modificado
-        $response['valorModificado'] = $estado; // Cambia esto según el valor que se haya modificado
+        $response['camposModificados'] = [
+            'fechaPedido' => $fechaPedido,
+            'idCliente' => $idCliente,
+            'idEmpleado' => $idEmpleado,
+            'total' => $total,
+            'estado' => $estado,
+            'metodoPago' => $metodoPago
+        ];
     } else {
         $response['error'] = 'Error al actualizar el pedido.';
     }

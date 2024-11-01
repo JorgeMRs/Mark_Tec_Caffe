@@ -1,54 +1,55 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 include '../../src/db/db_connect.php';
 
-try {
+$response = ['success' => false];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $idReserva = intval($_POST['idReserva']);
+    $fechaReserva = $_POST['fechaReserva'];
+    $idCliente = intval($_POST['idCliente']);
+    $idMesa = intval($_POST['idMesa']);
+    $estado = $_POST['estado'];
+    $idEmpleado = intval($_POST['idEmpleado']);
+
+    // Establecer la conexión a la base de datos
     $conn = getDbConnection();
-} catch (Exception $e) {
-    die('Error: ' . $e->getMessage());
-}
 
-// Verificar si se han proporcionado todos los datos necesarios
-if (!isset($_POST['idReserva']) || !isset($_POST['fechaReserva']) || !isset($_POST['idCliente']) || !isset($_POST['idMesa']) || !isset($_POST['estado']) || !isset($_POST['idEmpleado'])) {
-    die('Error: Datos incompletos');
-}
+    // Consulta para actualizar la reserva
+    $query = "
+        UPDATE reserva
+        SET 
+            fechaReserva = ?,
+            idCliente = ?,
+            idMesa = ?,
+            estado = ?,
+            idEmpleado = ?
+        WHERE 
+            idReserva = ?
+    ";
 
-$idReserva = intval($_POST['idReserva']);
-$fechaReserva = $_POST['fechaReserva'];
-$idCliente = intval($_POST['idCliente']);
-$idMesa = intval($_POST['idMesa']);
-$estado = $_POST['estado'];
-$idEmpleado = intval($_POST['idEmpleado']);
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('siissi', $fechaReserva, $idCliente, $idMesa, $estado, $idEmpleado, $idReserva);
 
-// Consulta para actualizar la reserva
-$query = "
-    UPDATE reserva
-    SET 
-        fechaReserva = ?,
-        idCliente = ?,
-        idMesa = ?,
-        estado = ?,
-        idEmpleado = ?
-    WHERE 
-        idReserva = ?
-";
+    if ($stmt->execute()) {
+        $response['success'] = true;
+        $response['message'] = 'Reserva actualizada correctamente.';
+        $response['id'] = $idReserva;
+        $response['camposModificados'] = [
+            'fecha' => $fechaReserva,
+            'cliente' => $idCliente, // Devolver el ID del cliente
+            'mesa' => $idMesa,
+            'estado' => $estado,
+            'empleado' => $idEmpleado // Devolver el ID del empleado
+        ];
+    } else {
+        $response['error'] = 'Error al actualizar la reserva.';
+    }
 
-$stmt = $conn->prepare($query);
-$stmt->bind_param('siissi', $fechaReserva, $idCliente, $idMesa, $estado, $idEmpleado, $idReserva);
-
-if ($stmt->execute()) {
-    echo json_encode([
-        'success' => true,
-        'message' => 'Reserva actualizada correctamente.',
-        'id' => $idReserva,
-        'campoModificado' => 'estado', // Cambia esto según el campo que se haya modificado
-        'valorModificado' => $estado // Cambia esto según el valor que se haya modificado
-    ]);
+    $stmt->close();
+    $conn->close();
 } else {
-    echo json_encode(['success' => false, 'error' => $stmt->error]);
+    $response['error'] = 'Método de solicitud no permitido.';
 }
 
-$stmt->close();
-$conn->close();
+echo json_encode($response);
 ?>

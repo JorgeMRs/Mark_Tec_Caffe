@@ -13,8 +13,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $precio = isset($_POST['precio']) ? floatval($_POST['precio']) : null;
     $idCategoria = isset($_POST['idCategoria']) ? intval($_POST['idCategoria']) : null;
 
+    // Mensajes de depuración
+    error_log("idProducto: " . $idProducto);
+    error_log("nombreProducto: " . $nombreProducto);
+    error_log("cantidad: " . $cantidad);
+    error_log("precio: " . $precio);
+    error_log("idCategoria: " . $idCategoria);
+
     // Validar los datos recibidos
-    if (empty($idProducto) || empty($nombreProducto) || $cantidad < 0 || $precio < 0 || empty($idCategoria)) {
+    if (empty($idProducto) || empty($nombreProducto) || empty($cantidad) || empty($precio) || empty($idCategoria)) {
         $response['error'] = 'Faltan datos necesarios';
         echo json_encode($response);
         exit;
@@ -28,25 +35,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Actualizar los datos del producto en la base de datos
+    // Actualizar los datos del inventario en la base de datos
     $query = "UPDATE producto SET nombre = ?, stock = ?, precio = ?, idCategoria = ? WHERE idProducto = ?";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param('sidii', $nombreProducto, $cantidad, $precio, $idCategoria, $idProducto);
+    $stmt->bind_param('sddii', $nombreProducto, $cantidad, $precio, $idCategoria, $idProducto);
 
     if ($stmt->execute()) {
-        // Obtener el nombre de la categoría
-        $queryCategoria = "SELECT nombre FROM categoria WHERE idCategoria = ?";
-        $stmtCategoria = $conn->prepare($queryCategoria);
-        $stmtCategoria->bind_param('i', $idCategoria);
-        $stmtCategoria->execute();
-        $resultCategoria = $stmtCategoria->get_result();
-        $categoria = $resultCategoria->fetch_assoc();
-
         $response['success'] = true;
         $response['message'] = 'Inventario actualizado correctamente.';
         $response['id'] = $idProducto;
-        $response['campoModificado'] = 'category'; // Cambia esto según el campo que se haya modificado
-        $response['valorModificado'] = $categoria['nombre']; // Devuelve el nombre de la categoría
+        $response['camposModificados'] = [
+            'nombreProducto' => $nombreProducto,
+            'cantidad' => $cantidad,
+            'precio' => $precio,
+            'idCategoria' => $idCategoria
+        ];
     } else {
         $response['error'] = 'Error al actualizar el inventario.';
     }

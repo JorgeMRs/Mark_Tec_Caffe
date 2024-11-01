@@ -6,7 +6,7 @@ include '../../src/db/db_connect.php';
 $response = ['success' => false];
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
-    $idProducto = intval($_GET['id']);
+    $idRetroalimentacion = intval($_GET['id']);
 
     try {
         $conn = getDbConnection();
@@ -16,11 +16,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
         exit;
     }
 
-    $query = "SELECT p.idProducto, p.nombre AS nombreProducto, p.stock AS cantidad, p.precio, p.idCategoria 
-              FROM producto p 
-              WHERE p.idProducto = ?";
+    $query = "SELECT r.idRetroalimentacion, r.idCliente, c.nombre AS clienteNombre, c.apellido AS clienteApellido, r.nivelSatisfaccion, r.comentario 
+              FROM retroalimentacion r
+              JOIN cliente c ON r.idCliente = c.idCliente
+              WHERE r.idRetroalimentacion = ?";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param('i', $idProducto);
+    $stmt->bind_param('i', $idRetroalimentacion);
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -28,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
         $response = $result->fetch_assoc();
         $response['success'] = true;
     } else {
-        $response['error'] = 'Producto no encontrado';
+        $response['error'] = 'Retroalimentación no encontrada';
     }
 
     $stmt->close();

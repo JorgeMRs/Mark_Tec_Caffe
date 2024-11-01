@@ -5,8 +5,8 @@ include '../../src/db/db_connect.php';
 
 $response = ['success' => false];
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
-    $idProducto = intval($_GET['id']);
+if (isset($_GET['idCategoria'])) {
+    $idCategoria = intval($_GET['idCategoria']);
 
     try {
         $conn = getDbConnection();
@@ -16,25 +16,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
         exit;
     }
 
-    $query = "SELECT p.idProducto, p.nombre AS nombreProducto, p.stock AS cantidad, p.precio, p.idCategoria 
-              FROM producto p 
-              WHERE p.idProducto = ?";
+    $query = "SELECT nombre FROM categoria WHERE idCategoria = ?";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param('i', $idProducto);
+    $stmt->bind_param('i', $idCategoria);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        $response = $result->fetch_assoc();
+        $categoria = $result->fetch_assoc();
         $response['success'] = true;
+        $response['nombre'] = $categoria['nombre'];
     } else {
-        $response['error'] = 'Producto no encontrado';
+        $response['error'] = 'Categoría no encontrada';
     }
 
     $stmt->close();
     $conn->close();
 } else {
-    $response['error'] = 'Método no permitido o ID no proporcionado';
+    $response['error'] = 'ID de categoría no proporcionado';
 }
 
 echo json_encode($response);
