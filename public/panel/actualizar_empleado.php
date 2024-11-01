@@ -23,6 +23,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $tel = $_POST['tel'] ?? '';
     $fechaNacimiento = $_POST['fechaNacimiento'] ?? '';
 
+    //debug de datos con error
+    error_log("idEmpleado: " . $idEmpleado);
+    error_log("correo: " . $correo);
+    error_log("contrasena: " . $contrasena);
+    error_log("confirmarContrasena: " . $confirmarContrasena);
+    error_log("nombre: " . $nombre);
+    error_log("apellido: " . $apellido);
+    error_log("ci: " . $ci);
+    error_log("idPuesto: " . $idPuesto);
+    error_log("idSucursal: " . $idSucursal);
+    error_log("fechaIngreso: " . $fechaIngreso);
+    error_log("tel: " . $tel);
+
+
     // Verificar que todos los campos obligatorios estén presentes
     if (empty($idEmpleado) || empty($correo) || empty($nombre) || empty($apellido) || empty($ci) || empty($idPuesto) || empty($idSucursal) || empty($fechaIngreso) || empty($tel) || empty($fechaNacimiento)) {
         $response['error'] = 'Todos los campos son obligatorios.';
@@ -39,6 +53,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $conn = getDbConnection();
 
+
+
+    
     // Actualizar los datos del empleado
     $query = "UPDATE empleado SET correo = ?, nombre = ?, apellido = ?, ci = ?, idPuesto = ?, idSucursal = ?, fechaIngreso = ?, tel = ?, fechaNacimiento = ? WHERE idEmpleado = ?";
     $stmt = $conn->prepare($query);

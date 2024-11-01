@@ -89,7 +89,7 @@ include 'templates/head.php';
 
 <?php include 'templates/nav.php'; ?>
 
-<body>
+<body data-sucursal-id="<?php echo htmlspecialchars($sucursalId); ?>">
     <div id="reservaModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>

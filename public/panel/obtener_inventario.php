@@ -9,7 +9,7 @@ try {
     die('Error: ' . $e->getMessage());
 }
 
-// Consulta para obtener el inventario con la categoría
+// Consulta para obtener el inventario con la categoría solo de productos activados
 $query = "
     SELECT 
         p.idProducto AS id,
@@ -21,6 +21,8 @@ $query = "
         producto p
     JOIN 
         categoria c ON p.idCategoria = c.idCategoria
+    WHERE 
+        p.estadoActivacion = 1  -- Solo productos activados
     ORDER BY 
         p.nombre ASC
 ";

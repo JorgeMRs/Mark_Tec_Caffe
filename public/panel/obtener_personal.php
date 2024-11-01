@@ -10,7 +10,7 @@ try {
 }
 
 // Ajustamos la consulta SQL para que incluya el JOIN con las tablas 'puesto' y 'sucursal'
-// Se eliminan idPuesto e idSucursal y se añaden los nombres correspondientes
+// Se añaden idPuesto e idSucursal junto con los nombres correspondientes
 $query = "
     SELECT 
         e.idEmpleado, 
@@ -19,6 +19,8 @@ $query = "
         e.nombre, 
         e.apellido, 
         e.ci, 
+        e.idPuesto,         -- Añadir idPuesto
+        e.idSucursal,       -- Añadir idSucursal
         p.nombre AS nombrePuesto, 
         s.nombre AS nombreSucursal, 
         e.fechaIngreso, 

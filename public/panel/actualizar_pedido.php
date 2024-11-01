@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     error_log("estado: " . $estado);
 
     // Validar los datos recibidos
-    if (empty($idPedido) || empty($fechaPedido) || empty($idCliente) || empty($idEmpleado) || $total < 0 || empty($estado)) {
+    if (empty($idPedido) || empty($fechaPedido) || empty($idCliente) || $total < 0 || empty($estado)) {
         $response['error'] = 'Faltan datos necesarios';
         echo json_encode($response);
         exit;

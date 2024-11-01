@@ -23,6 +23,7 @@ $rol = $response['rol'];
     <!-- Otros enlaces y estilos -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <style>
         /* Aquí va todo el CSS de tu página */
         body,
@@ -363,6 +364,7 @@ $rol = $response['rol'];
                 <li><a href="#" data-tab="reservas">Reservas</a></li>
                 <li><a href="#" data-tab="categoria">Categoria</a></li>
                 <li><a href="#" data-tab="analisis">Analisis</a></li>
+                <li><a href="#" data-tab="cerrar" id="logout-link">Cerrar Sesion</a></li>
             </ul>
         </nav>
         <main class="main-content">
@@ -526,8 +528,30 @@ $rol = $response['rol'];
 
         </main>
     </div>
-
+   
     <script>
+
+document.getElementById('logout-link').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevenir el comportamiento predeterminado
+        
+        // Llamar a la API para cerrar sesión
+        fetch('/src/auth/logout.php', {
+            method: 'POST' // O 'GET', dependiendo de cómo estés configurando tu API
+        })
+        .then(response => {
+            if (response.ok) {
+                // Redirigir a la página de inicio de sesión
+                window.location.href = '/public/login.php';
+            } else {
+                alert('Error al cerrar sesión, por favor intenta de nuevo.');
+            }
+        })
+        .catch(error => {
+            console.error('Error al cerrar sesión:', error);
+            alert('Error al cerrar sesión, por favor intenta de nuevo.');
+        });
+    });
+
         const userRole = '<?php echo $rol ?>';
         // Función genérica para abrir modales y cargar datos
         function mostrarFormulario(modalId, url, formFields) {
@@ -699,11 +723,6 @@ $rol = $response['rol'];
             }
         }
 
-
-
-
-
-
         // Cargar datos al cargar la página pedidos activos     
         function cargarDatos(url, elementId) {
             console.log(userRole)
@@ -841,29 +860,29 @@ $rol = $response['rol'];
                 .then(data => {
                     const tbody = document.getElementById(elementId);
                     tbody.innerHTML = data.map(item => `
-                    <tr data-id="${item.idEmpleado}">
-                        <td data-campo="idEmpleado">${item.idEmpleado}</td>
-                        <td data-campo="correo">${item.correo}</td>
-                        <td data-campo="nombre">${item.nombre}</td>
-                        <td data-campo="apellido">${item.apellido}</td>
-                        <td data-campo="ci">${item.ci}</td>
-                        <td data-campo="idPuesto">${item.nombrePuesto}</td>
-                        <td data-campo="idSucursal">${item.nombreSucursal}</td>
-                        <td data-campo="fechaIngreso">${item.fechaIngreso}</td>
-                        <td data-campo="salario">${item.salario}</td>
-                        <td data-campo="tel">${item.tel}</td>
-                        <td data-campo="fechaNacimiento">${item.fechaNacimiento}</td>
-                        ${userRole === 'Admin' ? `
-                        <td>
-                            <select class="acciones" data-id="${item.idEmpleado}">
-                                <option value="">Seleccionar</option>
-                                <option value="modificar">Modificar</option>
-                                <option value="eliminar">Eliminar</option>
-                            </select>
-                        </td>
-                        ` : ''}
-                    </tr>
-                `).join('');
+                <tr data-id="${item.idEmpleado}" id="empleado-${item.idEmpleado}">
+                    <td data-campo="idEmpleado">${item.idEmpleado}</td>
+                    <td data-campo="correo">${item.correo}</td>
+                    <td data-campo="nombre">${item.nombre}</td>
+                    <td data-campo="apellido">${item.apellido}</td>
+                    <td data-campo="ci">${item.ci}</td>
+                    <td data-campo="idPuesto">${item.idPuesto}</td>
+                    <td data-campo="idSucursal">${item.idSucursal}</td>
+                    <td data-campo="fechaIngreso">${item.fechaIngreso}</td>
+                    <td data-campo="salario">${item.salario}</td>
+                    <td data-campo="tel">${item.tel}</td>
+                    <td data-campo="fechaNacimiento">${item.fechaNacimiento}</td>
+                    ${userRole === 'Admin' ? `
+                    <td>
+                        <select class="acciones" data-id="${item.idEmpleado}">
+                            <option value="">Seleccionar</option>
+                            <option value="modificar">Modificar</option>
+                            <option value="eliminar">Eliminar</option>
+                        </select>
+                    </td>
+                    ` : ''}
+                </tr>
+            `).join('');
 
                     if (userRole === 'Admin') {
                         // Agregar event listeners para los select de acciones
@@ -878,8 +897,8 @@ $rol = $response['rol'];
                                         nombre: 'personalNombre',
                                         apellido: 'personalApellido',
                                         ci: 'personalCI',
-                                        nombrePuesto: 'personalPuesto',
-                                        nombreSucursal: 'personalSucursal',
+                                        idPuesto: 'personalPuesto',
+                                        idSucursal: 'personalSucursal',
                                         fechaIngreso: 'personalFechaIngreso',
                                         salario: 'personalSalario',
                                         tel: 'personalTelefono',
@@ -1127,6 +1146,24 @@ $rol = $response['rol'];
             }
         }
 
+        function eliminarInventario(id) {
+            if (confirm('¿Estás seguro de que deseas eliminar esta reserva?')) {
+                fetch(`/public/panel/eliminar_inventario.php?id=${id}`, {
+                        method: 'DELETE'
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Reserva desactivada correctamente');
+                            cargarDatosReservas('/public/panel/eliminar_inventario.php', 'reservalItems');
+                        } else {
+                            alert('Error al desactivar la reserva');
+                        }
+                    })
+                    .catch(error => console.error('Error al desactivar la reserva:', error));
+            }
+        }
+
         function eliminarEmpleado(id) {
             if (confirm('¿Estás seguro de que deseas eliminar este empleado?')) {
                 fetch(`/public/panel/eliminar_empleado.php?id=${id}`, {
@@ -1136,14 +1173,20 @@ $rol = $response['rol'];
                     .then(data => {
                         if (data.success) {
                             alert('Empleado eliminado correctamente');
-                            cargarDatosPersonal('/public/panel/obtener_empleados.php', 'tablaPersonal');
+                            // Aquí elimina la fila correspondiente a la tabla
+                            const row = document.querySelector(`tr[data-id="${id}"]`); // Selecciona la fila usando el data-id
+                            if (row) {
+                                row.remove(); // Elimina la fila del DOM
+                            }
                         } else {
-                            alert('Error al eliminar el empleado');
+                            alert('Error al eliminar el empleado: ' + data.message);
                         }
                     })
                     .catch(error => console.error('Error al eliminar el empleado:', error));
             }
         }
+
+
         // Función para cargar el resumen de ventas
         function cargarResumen() {
             fetch('/public/panel/obtener_resumen.php')
@@ -1415,6 +1458,7 @@ $rol = $response['rol'];
             const links = document.querySelectorAll('.sidebar a');
             const tabs = document.querySelectorAll('.tab-content > div');
 
+            // Cargar la pestaña activa desde el almacenamiento local
             const activeTab = localStorage.getItem('activeTab');
             if (activeTab) {
                 links.forEach(l => l.classList.remove('active'));
@@ -1429,6 +1473,11 @@ $rol = $response['rol'];
 
             links.forEach(link => {
                 link.addEventListener('click', function(e) {
+                    // Ignorar el enlace de cerrar sesión
+                    if (this.getAttribute('data-tab') === 'cerrar') {
+                        return; // No hacer nada si se hace clic en "Cerrar Sesión"
+                    }
+
                     e.preventDefault();
                     const tabId = this.getAttribute('data-tab');
 
@@ -1442,6 +1491,7 @@ $rol = $response['rol'];
                 });
             });
         }
+
         document.addEventListener('DOMContentLoaded', function() {
             fetch('/public/panel/obtener_categorias.php')
                 .then(response => response.json())
@@ -1637,7 +1687,7 @@ $rol = $response['rol'];
 
 
         function handleFormSubmitInventario(event, modalId) {
-            event.preventDefault();
+            event.preventDefault(); // Evitar el envío del formulario por defecto
 
             const formData = new FormData(event.target);
             fetch(event.target.action, {
@@ -1651,7 +1701,7 @@ $rol = $response['rol'];
                     return response.json();
                 })
                 .then(data => {
-                    console.log('Respuesta del servidor:', data);
+                    console.log('Respuesta del servidor:', data); // Mensaje de depuración
                     if (data.success) {
                         Swal.fire({
                             icon: 'success',
@@ -1707,6 +1757,7 @@ $rol = $response['rol'];
                             timer: 2000
                         }).then(() => {
                             closeModal(modalId);
+                            // Actualizar la celda en la tabla
                             actualizarCeldaPersonal(data.id, data.campoModificado, data.valorModificado);
                         });
                     } else {
@@ -1867,30 +1918,37 @@ $rol = $response['rol'];
 
 
 
-
         function actualizarCeldaInventario(id, campoModificado, valorModificado) {
             console.log('Actualizando celda en inventario:', id, campoModificado, valorModificado); // Mensaje de depuración
             const fila = document.querySelector(`#inventario tr[data-id="${id}"]`);
             if (fila) {
+                console.log("Fila encontrada:", fila); // Verificar que se encontró la fila
                 const celda = fila.querySelector(`td[data-campo="${campoModificado}"]`);
                 if (celda) {
-                    celda.textContent = valorModificado;
+                    console.log("Celda encontrada:", celda); // Verificar que se encontró la celda
+                    celda.innerHTML = valorModificado; // Cambiar a innerHTML para asegurar redibujado
+                    celda.style.backgroundColor = "#dff0d8"; // Cambio temporal para verificar visualmente
+                    setTimeout(() => celda.style.backgroundColor = "", 500); // Quitar el color después de 500ms
                 } else {
-                    console.error('Celda no encontrada en inventario:', campoModificado); // Mensaje de depuración
+                    console.error('Celda no encontrada en inventario:', campoModificado);
                 }
             } else {
-                console.error('Fila no encontrada en inventario:', id); // Mensaje de depuración
+                console.error('Fila no encontrada en inventario:', id);
             }
         }
 
-
         function actualizarCeldaPersonal(id, campoModificado, valorModificado) {
             console.log('Actualizando celda en personal:', id, campoModificado, valorModificado); // Mensaje de depuración
+
+            // Buscar la fila correspondiente al ID del empleado
             const fila = document.querySelector(`#personalItems tr[data-id="${id}"]`);
             if (fila) {
+                // Buscar la celda dentro de la fila que corresponde al campo modificado
                 const celda = fila.querySelector(`td[data-campo="${campoModificado}"]`);
                 if (celda) {
+                    // Actualizar el contenido de la celda
                     celda.textContent = valorModificado;
+                    console.log(`Celda actualizada: ${campoModificado} con valor ${valorModificado}`);
                 } else {
                     console.error('Celda no encontrada en personal:', campoModificado); // Mensaje de depuración
                 }
@@ -1913,6 +1971,9 @@ $rol = $response['rol'];
                 console.error('Fila no encontrada en categoría:', id); // Mensaje de depuración
             }
         }
+
+
+
     </script>
 </body>
 

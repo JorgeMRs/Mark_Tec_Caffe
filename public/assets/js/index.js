@@ -302,3 +302,50 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const productsContainer = document.querySelector('.products');
+
+    // Función para obtener los productos más vendidos
+    function fetchTopProducts() {
+        fetch('/src/cart/mostSold.php')
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    displayTopProducts(data.data);
+                } else {
+                    console.error('Error al obtener los productos:', data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error en la solicitud:', error);
+            });
+    }
+
+    // Función para mostrar los productos en la sección 'mostSold'
+    function displayTopProducts(products) {
+        productsContainer.innerHTML = ''; // Limpiar productos anteriores
+    
+        products.forEach(product => {
+            const productItem = document.createElement('div');
+            productItem.classList.add('product-item');
+    
+            // Convertimos el precio a un número antes de aplicar toFixed
+            const precio = parseFloat(product.precio);
+    
+            productItem.innerHTML = `
+                <img src="${product.imagen}" alt="${product.nombre}">
+                <h3>${product.nombre}</h3>
+                <p>Precio: €${precio.toFixed(2)}</p>
+                <a href="/public/productos.php?id=${product.idProducto}">
+                    <button>Ver Más</button>
+                </a>
+            `;
+    
+            productsContainer.appendChild(productItem);
+        });
+    }
+    
+    // Llamada inicial a la función para obtener los productos
+    fetchTopProducts();
+});

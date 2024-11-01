@@ -8,29 +8,27 @@ try {
 } catch (Exception $e) {
     die('Error: ' . $e->getMessage());
 }
--
+
 // Consulta para obtener las ventas del día
 $queryVentas = "SELECT SUM(total) AS ventasDelDia FROM pedido WHERE DATE(fechaPedido) = CURDATE()";
 $resultVentas = $conn->query($queryVentas);
-$ventasDelDia = $resultVentas->fetch_assoc()['ventasDelDia'] ?? 0;
+$ventasDelDia = (float)($resultVentas->fetch_assoc()['ventasDelDia'] ?? 0); // Asegúrate de convertir a float
 
-// Consulta para obtener los pedidos activos
-$queryPedidos = "SELECT COUNT(*) AS pedidosActivos FROM pedido WHERE estado = 'Pendiente'";
+// Consulta para obtener los pedidos activos (excluyendo Completado y Cancelado)
+$queryPedidos = "SELECT COUNT(*) AS pedidosActivos FROM pedido WHERE estado NOT IN ('Completado', 'Cancelado')";
 $resultPedidos = $conn->query($queryPedidos);
-$pedidosActivos = $resultPedidos->fetch_assoc()['pedidosActivos'] ?? 0;
+$pedidosActivos = (int)($resultPedidos->fetch_assoc()['pedidosActivos'] ?? 0); // Asegúrate de convertir a int
 
 // Consulta para obtener el inventario
 $queryInventario = "SELECT COUNT(*) AS totalArticulos FROM producto";
 $resultInventario = $conn->query($queryInventario);
-$totalArticulos = $resultInventario->fetch_assoc()['totalArticulos'] ?? 0;
+$totalArticulos = (int)($resultInventario->fetch_assoc()['totalArticulos'] ?? 0); // Asegúrate de convertir a int
 
 $resumen = [
     'ventasDelDia' => $ventasDelDia,
     'pedidosActivos' => $pedidosActivos,
     'totalArticulos' => $totalArticulos
 ];
-
-
 
 echo json_encode($resumen);
 $conn->close();

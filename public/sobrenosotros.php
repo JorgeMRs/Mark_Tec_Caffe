@@ -25,13 +25,13 @@ include 'templates/head.php';
     <h1>Sobre Nosotros</h1>
 
     <div>
-        <p>Fundado en 1990 por la familia Valdez, este acogedor rincón se convirtió en el punto de encuentro para los amantes del buen café y la conversación sincera. La abuela Carmen Valdez, con su sonrisa cálida y manos hábiles, fue la primera en moler los granos de café en aquel rincón.
+        <p>Fundado en 1990 por la familia Valdez, Café Sabrosos es más que un lugar donde disfrutar de un buen café; es un refugio de historias, recuerdos y momentos compartidos. En sus inicios, este acogedor rincón nació de la visión de la abuela Carmen Valdez, quien con su sonrisa cálida y sus manos hábiles comenzó a moler los granos de café en aquel pequeño espacio, llenando el aire con el aroma que ha conquistado generaciones. La abuela Carmen no solo ofrecía café; brindaba a cada visitante un hogar temporal, donde la hospitalidad y la conversación sincera eran tan esenciales como el propio café.
         </p>
         
-        <p>Sabrosos no es solo un café; es un lugar donde las historias se tejen entre sorbos de espresso. Los vecinos comparten sus alegrías y penas en las mesas de madera desgastada. Los estudiantes estudian para sus exámenes finales mientras el aroma del café flota en el aire. Los turistas, al descubrirlo, lo consideran su secreto mejor guardado. 
+        <p>Con el paso de los años, Sabrosos se ha convertido en un lugar de encuentro único, donde las historias se entrelazan con el sabor del espresso y el susurro del molinillo. Vecinos, amigos y visitantes encuentran aquí un lugar donde las mesas de madera desgastada han sido testigo de incontables charlas, risas, lágrimas y sueños. Es común ver a estudiantes repasando para sus exámenes finales, con la tranquilidad de que en cada rincón de este café encontrarán un espacio de inspiración y concentración. Para los turistas, descubrir Sabrosos es hallar un rincón escondido que se convierte en un pequeño tesoro personal, una historia que contar a su regreso.
         </p>
         
-        <p>Café Sabrosos teniene un fuerte compromiso con la comunidad. Patrocinamos eventos locales, donamos café a la biblioteca y ofrecemos descuentos a los maestros. La gente no solo veniene por el café, sino también por la calidez y el sentido de pertenencia que encontraban en Sabrosos. 
+        <p>Café Sabrosos se enorgullece de su fuerte compromiso con la comunidad. No solo es un negocio, sino un pilar para la vida local. Cada año, el café patrocina eventos que promueven el arte y la cultura de la zona, y ofrece apoyo a iniciativas que enriquecen la vida de sus vecinos. La familia Valdez se asegura de donar café a la biblioteca local, y ofrece descuentos especiales a maestros y a otros trabajadores de la comunidad como muestra de gratitud. Este sentido de comunidad y pertenencia es lo que realmente define a Sabrosos, un lugar donde todos son bienvenidos y donde cada taza de café lleva consigo un abrazo cálido.
         </p>
     </div>
 </main>

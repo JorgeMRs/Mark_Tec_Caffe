@@ -1,5 +1,5 @@
 <?php
-require '../vendor/autoload.php'; // Ajusta la ruta según sea necesario
+require '../vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use Endroid\QrCode\Builder\Builder;
@@ -15,23 +15,19 @@ function generateQrCode($data): string
         ->margin(10)
         ->build();
 
-    // Definir el directorio en el sistema de archivos para guardar los QR codes
     $directory = '/var/www/cafesabrosos/src/qrcodes';
 
-    // Asegurarse de que el directorio exista
     if (!is_dir($directory)) {
-        mkdir($directory, 0755, true); // Crea el directorio si no existe
+        mkdir($directory, 0755, true); 
     }
 
-    // Definir el nombre del archivo QR code
     $fileName = 'qr_code_' . uniqid() . '.png';
     $filePath = $directory . '/' . $fileName;
 
-    // Guardar el QR code en el archivo especificado
     $qrCode->saveToFile($filePath);
 
     // Retorna la URL pública para usar en el correo electrónico
-    return 'https://cafesabrosos.myvnc.com/src/qrcodes/' . $fileName;
+    return 'https://cafesabrosos.myvnc.com/src/qrcodes/' . $fileName; // IMPORTANTE: Las imagenes se vinculan al dominio creado de prueba https://cafesabrosos.myvnc.com que es un dominio publico que GMAIL puede acceder para cargar las imagenes en el correo enviado, si se usa localhost, GMAIL no podra acceder a las imagenes y no se visualizaran estas mismas. En este caso solo se enviaran las imagenes QR adjuntas en el propio correo.
 }
 function sendOrderConfirmationEmail($orderId, $email): bool
 {
@@ -41,11 +37,10 @@ function sendOrderConfirmationEmail($orderId, $email): bool
     $orderDetails = getOrderDetails($orderId);
 
     if (!$orderDetails) {
-        return false; // Si no hay detalles de pedido, no se envía el correo
+        return false;
     }
 
     try {
-        // Configuración del servidor SMTP
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
@@ -69,10 +64,8 @@ function sendOrderConfirmationEmail($orderId, $email): bool
         // Obtener el archivo QR code para adjuntar
         $qrFilePath = str_replace('https://cafesabrosos.myvnc.com/src/qrcodes/', '/var/www/cafesabrosos/src/qrcodes/', $qrFileUrl);
 
-        // Generar el cuerpo del correo
         $mail->Body = getOrderEmailBody($orderDetails, $qrFileUrl);
 
-        // Adjuntar el archivo QR code
         $mail->addAttachment($qrFilePath, 'codigo_qr.png');
 
         $mail->send();
@@ -172,7 +165,7 @@ function getOrderEmailBody($orderDetails, $qrFileUrl): string
     $timestamp = date('Y-m-d H:i:s', strtotime($orderDetails['fechaPedido'])); // Formatear la fecha del pedido
     $uniqueContent = "<p>Fecha del pedido: $timestamp</p>";
     $productosHTML = '';
-    $baseImageUrl = 'https://cafesabrosos.myvnc.com';
+    $baseImageUrl = 'https://cafesabrosos.myvnc.com'; // IMPORTANTE: Las imagenes se vinculan al dominio creado de prueba https://cafesabrosos.myvnc.com que es un dominio publico que GMAIL puede acceder para cargar las imagenes en el correo enviado, si se usa localhost, GMAIL no podra acceder a las imagenes y no se visualizaran estas mismas.
 
     foreach ($orderDetails['productos'] as $producto) {
         $imagePath = rawurlencode(dirname($producto['imagen'])) . '/' . rawurlencode(basename($producto['imagen']));
@@ -203,7 +196,6 @@ function getOrderEmailBody($orderDetails, $qrFileUrl): string
                                 <p><strong>Dirección:</strong> {$sucursal['direccion']}, {$sucursal['ciudad']}, {$sucursal['pais']}</p>
                                 <p><strong>Teléfono:</strong> {$sucursal['tel']}</p>" : '';
 
-    // Agregar código de verificación solo para pedidos para llevar
     $codigoVerificacionHTML = '';
 
     $codigoVerificacionHTML = "

@@ -25,6 +25,7 @@ $isLoggedIn = isset($_COOKIE['user_token']);
             </li>
             <li><a href="/public/local.php" id="nav-locales">Locales</a></li>
             <li><a href="/public/contactos.php" id="nav-contacto">Contacto</a></li>
+            <li><a href="/public/sobrenosotros.php" id="nav-locales">Sobre Nosotros</a></li>
         </ul>
         <div class="nav-icons">
             <?php if ($isLoggedIn): ?>

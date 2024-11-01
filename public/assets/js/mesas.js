@@ -12,38 +12,41 @@ document.addEventListener('DOMContentLoaded', function() {
     let capacidadMesa = 0;
 
     function openModal(mesaId, capacidad) {
+
         const sucursalId = document.body.getAttribute('data-sucursal-id');
+        
+        // Comprobar si el usuario está logueado
         fetch('/src/db/checkSession.php')
-        .then(response => response.json())
-        .then(data => {
-            if (!data.loggedIn) {
+            .then(response => response.json())
+            .then(data => {
+                if (!data.loggedIn) {
+                    avisoModal.style.display = 'block';
+                    avisoClose.addEventListener('click', function() {
+                        avisoModal.style.display = 'none';
+                        window.location.href = '/public/login.php';
+                    });
+                    return;
+                }
+    
+                // Comprobar el rol del usuario
+                if (data.role === 'Mozo' || data.userId) {
+                    capacidadMesa = capacidad;
+                    document.getElementById('mesaId').value = mesaId;
+                    document.getElementById('sucursalId').value = sucursalId; // Asigna el sucursalId al formulario
+                    fillCantidadPersonas(capacidad);
+                    modal.style.display = 'block';
+                } else {
+                    alert("Solo clientes o mozos pueden realizar reservas.");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
                 avisoModal.style.display = 'block';
                 avisoClose.addEventListener('click', function() {
                     avisoModal.style.display = 'none';
                     window.location.href = '/public/login.php';
                 });
-                return;
-            }
-    
-            if (data.role === 'Mozo' || data.userId) {
-                capacidadMesa = capacidad;
-                document.getElementById('mesaId').value = mesaId;
-                document.getElementById('sucursalId').value = sucursalId;
-                fillCantidadPersonas(capacidad);
-                modal.style.display = 'block';
-            } else {
-                alert("Solo clientes o mozos pueden realizar reservas.");
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            avisoModal.style.display = 'block';
-            avisoClose.addEventListener('click', function() {
-                avisoModal.style.display = 'none';
-                window.location.href = '/public/login.php';
             });
-            return;
-        });
     }
     function fillCantidadPersonas(max) {
         cantidadPersonasSelect.innerHTML = '';

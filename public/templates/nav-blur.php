@@ -37,6 +37,7 @@ $isLoggedIn = isset($_COOKIE['user_token']);
             <li class="desktop-only"><a href="<?php echo $productos_link; ?>" id="nav-productos-desktop"><?php echo $productos_text; ?></a></li>
             <li><a href="/public/local.php" id="nav-locales">Locales</a></li>
             <li><a href="/public/contactos.php" id="nav-contacto">Contacto</a></li>
+            <li><a href="/public/sobrenosotros.php" id="nav-locales">Sobre Nosotros</a></li>
             <li id="piston-cup" style="display:none;">
                 <a href="/Doom/doom.html">
                     <img src="/public/assets/img/pistoncup.png" alt="Piston Cup" style="width: 50px; height: auto;">

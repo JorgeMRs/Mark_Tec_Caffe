@@ -7,13 +7,14 @@ $customCSS = [
     '/public/assets/css/style.css',
     '/public/assets/css/nav-blur.css',
     '/public/assets/css/footer.css',
-    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css'
+    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css',
+    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/fontawesome.min.css',
+
 ];
 $customJS = [
     '/public/assets/js/languageSelect.js',
     '/public/assets/js/updateCartCounter.js'
 ];
-
 
 include 'public/templates/head.php' ?>
 
@@ -293,43 +294,18 @@ include 'public/templates/head.php' ?>
             </div>
         </section>
 
-        <section class="mostSold">
-            <div class="content-2">
-                <div class="text-container">
-                    <h1>
-                        <span class="sold_title" data-translate="mostSold-title">Descubre</span><br>
-                        <span class="sold_subtitle" data-translate="mostSold-subtitle">LOS CAFÉS MÁS VENDIDOS</span>
-                    </h1>
-                    <p data-translate="mostSold-description">Explora nuestras creaciones más populares, elaboradas con los granos más selectos y el toque perfecto de tradición. Cada taza es una experiencia que conquista los paladares de quienes buscan lo mejor.</p>
-                </div>
-                <div class="products">
-                    <div class="product-item">
-                        <img src="/public/assets/img/productos/Cafés Fríos/affogato.jpg" alt="Producto 1">
-                        <h3 data-translate="product1-name">CAFÉ AFFOGATO</h3>
-                        <p data-translate="product1-description">Café con helado de vainilla, combinando el sabor intenso del café con la dulzura del helado.</p>
-                        <a href="https://cafesabrosos.myvnc.com/public/productos.php?id=32"><button data-translate="viewMore">Ver Más</button></a>
-                    </div>
-                    <div class="product-item">
-                        <img src="/public/assets/img/productos/Cafés Especiales/flat-white.jpg" alt="Producto 2">
-                        <h3 data-translate="product2-name">FLAT WHITE</h3>
-                        <p data-translate="product2-description">Café con helado de vainilla, combinando el sabor intenso del café con la dulzura del helado.</p>
-                        <a href="https://cafesabrosos.myvnc.com/public/productos.php?id=20"><button data-translate="viewMore">Ver Más</button></a>
-                    </div>
-                    <div class="product-item">
-                        <img src="/public/assets/img/productos/Cafés Especiales/capuccino.jpg" alt="Producto 3">
-                        <h3 data-translate="product3-name">CAFÉ CAPUCCINO</h3>
-                        <p data-translate="product3-description">Café con helado de vainilla, combinando el sabor intenso del café con la dulzura del helado.</p>
-                        <a href="https://cafesabrosos.myvnc.com/public/productos.php?id=19"><button data-translate="viewMore">Ver Más</button></a>
-                    </div>
-                    <div class="product-item">
-                        <img src="/public/assets/img/productos/Cafés con Leche/latte-caramelo.jpg" alt="Producto 4">
-                        <h3 data-translate="product4-name">LATTE DE CARAMELO</h3>
-                        <p data-translate="product4-description">Café con helado de vainilla, combinando el sabor intenso del café con la dulzura del helado.</p>
-                        <a href="https://cafesabrosos.myvnc.com/public/productos.php?id=22"><button data-translate="viewMore">Ver Más</button></a>
-                    </div>
-                </div>
-            </div>
-        </section>
+<section class="mostSold">
+    <div class="content-2">
+        <div class="text-container">
+            <h1>
+                <span class="sold_title" data-translate="mostSold-title">Descubre</span><br>
+                <span class="sold_subtitle" data-translate="mostSold-subtitle">LOS CAFÉS MÁS VENDIDOS</span>
+            </h1>
+            <p data-translate="mostSold-description">Explora nuestras creaciones más populares, elaboradas con los granos más selectos y el toque perfecto de tradición. Cada taza es una experiencia que conquista los paladares de quienes buscan lo mejor.</p>
+        </div>
+        <div class="products"><!-- Productos se cargarán aquí dinámicamente --></div>
+    </div>
+</section>
         <?php 
             include 'public/templates/cookies.php';
          ?>
