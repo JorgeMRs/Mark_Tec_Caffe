@@ -103,7 +103,7 @@ include 'templates/head.php' ?>
                 <div id="response-message" class="contact-response"></div>
 
                 <div class="g-recaptcha" data-sitekey="6LemoDEqAAAAABt_tJuEIjgcf55iauaO5PTSp7lk"></div>
-
+                <br>
                 <button class="btn contact-btn" type="submit">
                     <span class="submit-text">ENVIAR</span>
                     <div class="loader" style="display: none;"></div>

@@ -8,9 +8,9 @@
                 bebida.
             </p>
             <div class="socials" id="footer-socials">
-                <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://www.facebook.com/"><i class="fa-brands fa-facebook"></i></a>
                 <a href="https://www.instagram.com/"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                <a href="https://x.com/home"><i class="fa-brands fa-twitter"></i></a>
             </div>
         </div>
         <div class="footer-section links">
@@ -41,6 +41,14 @@
         </div>
     </div>
     <div class="footer-bottom">
-        <p id="footer-rights">© 2024 Café Sabrosos. Todos los derechos reservados.</p>
+
+    <p id="footer-rights">© 2024 Café Sabrosos. Todos los derechos reservados.</p>
+    <div class="footer-created-logo">
+        <a href="https://marktec.myvnc.com">
+            <img src="/public/assets/icons/MarkTec Logo sin fondo.png" alt="Logo de Mark Tec S.A.S" id="footer-logo">
+        </a>
+        <p id="footer-created">Creado por Mark Tec S.A.S</p>
     </div>
+</div>
+
 </footer>

@@ -1,8 +1,11 @@
 <?php
-session_start();
-require_once './db_connect.php';
+require_once '../db/db_connect.php';
+require_once '../auth/verifyToken.php';
 
 $response = ['status' => 'error', 'message' => ''];
+$response2 = checkToken();
+
+$user_id = $response2['idCliente']; 
 
 try {
     // Crear conexión
@@ -14,7 +17,7 @@ try {
         $comment = $data['comment'] ?? '';
 
         // Verificar si el usuario está autenticado
-        if (!isset($_SESSION['user_id'])) {
+        if ($user_id === null) {
             throw new Exception('No estás autenticado.');
         }
 
@@ -26,15 +29,13 @@ try {
             throw new Exception('Calificación no válida.');
         }
 
-        $userId = $_SESSION['user_id'];
-
         // Convertir el rating en un formato adecuado para la base de datos
         $ratingLevels = ['Muy bajo', 'Bajo', 'Medio', 'Alto', 'Muy alto'];
         $ratingLevel = $ratingLevels[$rating - 1];
 
         $stmt = $conn->prepare('INSERT INTO retroalimentacion (idCliente, nivelSatisfaccion, comentario) VALUES (?, ?, ?)');
         if ($stmt) {
-            $stmt->bind_param('iss', $userId, $ratingLevel, $comment);
+            $stmt->bind_param('iss', $user_id, $ratingLevel, $comment);
 
             if ($stmt->execute()) {
                 $response['status'] = 'success';

@@ -65,7 +65,8 @@ $server = IoServer::factory(
             new Chat()
         )
     ),
-    8080
+    8080,
+    '0.0.0.0'
 );
 
 echo "Servidor WebSocket en funcionamiento en ws://localhost:8080\n"; // Mensaje de estado

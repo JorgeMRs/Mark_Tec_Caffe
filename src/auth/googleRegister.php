@@ -93,7 +93,7 @@ try {
                 setcookie("user_token", $jwt, [
                     'expires' => $expirationTime,
                     'path' => '/',
-                    'secure' => true,    
+                    'secure' => false,    
                     'httponly' => true,   
                     'samesite' => 'Strict'
                 ]);

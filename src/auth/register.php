@@ -82,13 +82,13 @@ try {
 
             if ($stmt->execute()) {
                 // Enviar el correo de verificación
-                $verificationLink = "https://cafesabrosos.myvnc.com/public/registroExitoso.php?token=" . $verificationToken;
+                $verificationLink = "http://localhost/public/registroExitoso.php?token=" . $verificationToken;
                 $emailSubject = "Verifica tu cuenta";
                 $emailBody = getVerificationEmailBody($verificationLink);
 
                 if (sendEmail($email, $emailSubject, $emailBody)) {
                     $response['status'] = 'success';
-                    $response['redirect'] = 'https://cafesabrosos.myvnc.com/';
+                    $response['redirect'] = 'http://localhost/';
                 } else {
                     throw new Exception('No se pudo enviar el correo de verificación.');
                 }

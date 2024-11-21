@@ -2,16 +2,18 @@
 include '../db/db_connect.php'; // Ajusta la ruta según tu estructura de directorios
 require '../../vendor/autoload.php';
 require '../auth/verifyToken.php';
+
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Dotenv\Dotenv;
+
 $dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
 $dotenv->load();
 
 
 $response = checkToken();
 
-$user_id = $response['idCliente']; 
+$user_id = $response['idCliente'];
 
 $response = array('success' => false, 'message' => '');
 
@@ -66,11 +68,11 @@ try {
     if ($orderType === null || $orderNotes === null) {
         throw new Exception('Faltan datos del pedido.');
     }
-    
+
     if (empty($branchId)) {
         throw new Exception('Debe seleccionar una sucursal.');
     }
-    
+
     // Generar el código de verificación
     $codigoVerificacion = 'PEDIDO' . str_pad(substr(md5(uniqid(rand(), true)), 0, 6), 6, '0', STR_PAD_LEFT);
 
@@ -89,7 +91,13 @@ try {
     $conn->begin_transaction();
 
     // Obtener el último idCarrito del cliente
-    $stmt = $conn->prepare("SELECT idCarrito FROM carrito WHERE idCliente = ? ORDER BY idCarrito DESC LIMIT 1");
+    $stmt = $conn->prepare("
+    SELECT idCarrito 
+    FROM carrito 
+    WHERE idCliente = ? 
+    ORDER BY fechaCreacion ASC 
+    LIMIT 1
+");
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
     $stmt->bind_result($cartId);
@@ -157,7 +165,7 @@ try {
     // Insertar el nuevo pedido con el número de pedido específico del usuario
     $stmt = $conn->prepare("INSERT INTO pedido (idCliente, idCarrito, idSucursal, tipoPedido, notas, horaRecogida, metodoPago, total, codigoVerificacion, numeroPedidoCliente, numeroPedidoSucursal) VALUES (?, ?, ?, ?, ?, ?, 'Tarjeta', ?, ?, ?, ?)");
     $stmt->bind_param("iiisssdsii", $user_id, $cartId, $branchId, $orderType, $orderNotes, $pickupTime, $total, $codigoVerificacion, $numeroPedidoCliente, $numeroPedidoSucursal);
-    
+
     if (!$stmt->execute()) {
         throw new Exception('No se pudo realizar el pedido.');
     }
@@ -183,7 +191,6 @@ try {
     $response['codigoVerificacion'] = $codigoVerificacion;
 
     setcookie('csrf_token', '', time() - 3600, '/');
-
 } catch (Exception $e) {
     if (isset($conn) && $conn->errno) {
         $conn->rollback();
@@ -196,4 +203,3 @@ try {
 }
 
 echo json_encode($response);
-?>

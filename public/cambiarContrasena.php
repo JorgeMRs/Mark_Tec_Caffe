@@ -43,7 +43,7 @@ try {
 
                         if ($stmtUpdate->execute()) {
                             // Send the email
-                            $resetLink = "https://cafesabrosos.myvnc.com/public/nuevaContrasena.php?token=" . urlencode($token);
+                            $resetLink = "http://localhost/public/nuevaContrasena.php?token=" . urlencode($token);
                             $emailBody = getPasswordResetEmailBody($resetLink);
                             $subject = "Restablecimiento de Contraseña";
                             if (sendPasswordResetEmail($correo, $subject, $emailBody)) {

@@ -2,14 +2,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const languageSelector = document.getElementById('language-selector');
     let selectedLanguage = localStorage.getItem('selectedLanguage') || languageSelector.value; // Usa el idioma guardado o el por defecto
 
-    // Establecer el idioma seleccionado en el selector
     languageSelector.value = selectedLanguage;
 
     // Listener para cambios en el selector de idioma
     languageSelector.addEventListener('change', function () {
-        selectedLanguage = this.value; // Actualiza el idioma seleccionado
-        localStorage.setItem('selectedLanguage', selectedLanguage); // Guarda el idioma en localStorage
-        fetchCartProducts(); // Vuelve a obtener los productos con el nuevo idioma
+        selectedLanguage = this.value; 
+        localStorage.setItem('selectedLanguage', selectedLanguage);
+        fetchCartProducts(); 
     });
 
     function fetchCartProducts() {
@@ -21,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 return response.json();
             })
             .then(sessionData => {
+                console.log(sessionData); // Verificar el contenido de sessionData
                 const userId = sessionData.loggedIn ? sessionData.userId : null;
 
                 if (userId) {
@@ -102,10 +102,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const checkoutButton = document.getElementById('checkout-button');
     checkoutButton.addEventListener('click', function () {
-        if (!checkoutButton.disabled) {
-            // Redirigir a pagar.php
-            window.location.href = 'pagar.php';
-        }
+        // Verifica el estado de inicio de sesión al hacer clic en el botón de checkout
+        fetch('/src/db/checkSession.php')
+            .then(response => response.json())
+            .then(sessionData => {
+                if (!sessionData.loggedIn) {
+                    // Si no está logueado, redirige a login.php
+                    window.location.href = 'login.php';
+                } else {
+                    // Si está logueado, redirige a pagar.php
+                    window.location.href = 'pagar.php';
+                }
+            })
+            .catch(error => console.error('Error checking session status:', error));
     });
 });
 

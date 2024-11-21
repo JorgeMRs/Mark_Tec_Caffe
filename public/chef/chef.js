@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  const ws = new WebSocket('wss://cafesabrosos.myvnc.com/ws');
+  const ws = new WebSocket('ws://172.17.144.126/ws');
   const messageQueue = [];
 
   const sendMessage = (message) => {
@@ -542,6 +542,9 @@ document.addEventListener("DOMContentLoaded", () => {
           const productId = formData.get("idProducto");
           const newImage = URL.createObjectURL(formData.get("nuevaImagen"));
 
+          ws.send(JSON.stringify({ action: 'imagenProductoActualizada'}));
+          console.log("Imagen actualizada:", newImage);
+
           document
             .querySelector(`#productTable tbody tr[data-id="${productId}"]`)
             .setAttribute("data-image", newImage);
@@ -595,6 +598,9 @@ document.addEventListener("DOMContentLoaded", () => {
           messageDiv.textContent =
             "Detalles del producto actualizados exitosamente.";
           messageDiv.style.color = "green";
+          ws.send(JSON.stringify({ action: 'detallesActualizados'}));
+          console.log("detalles actualizados" + data.success);
+
         } else {
           messageDiv.textContent =
             data.message || "Error al actualizar los detalles del producto.";
@@ -637,7 +643,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (data.success) {
           messageDiv.textContent = "Categoría actualizada exitosamente.";
           messageDiv.style.color = "green";
-          sendMessage(JSON.stringify({ action: 'categoriaActualizada' }));
+          ws.send(JSON.stringify({ action: 'categoriaActualizada'}));
+          console.log("categoria actualizada" + data.success);
 
           // Actualizar la imagen en la tabla solo si hay una nueva imagen
           const updatedCategoryRow = document.querySelector(

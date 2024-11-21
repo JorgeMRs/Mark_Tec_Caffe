@@ -151,67 +151,56 @@ include 'templates/head.php' ?>
 
 
     <script>
-      document.addEventListener('DOMContentLoaded', () => {
+  // Manejo de retroalimentación
+  document.addEventListener('DOMContentLoaded', () => {
         const stars = document.querySelectorAll('.star-rating .fas');
         let rating = 0;
 
         stars.forEach((star, index) => {
-          star.addEventListener('mouseover', () => {
-            highlightStars(index + 1);
-          });
-
+          star.addEventListener('mouseover', () => highlightStars(index + 1));
           star.addEventListener('click', () => {
             rating = index + 1;
             highlightStars(rating);
-            console.log('Rating selected:', rating); // Agregado para verificar la cantidad de estrellas
+            console.log('Rating selected:', rating);
           });
-
-          star.addEventListener('mouseout', () => {
-            highlightStars(rating);
-          });
+          star.addEventListener('mouseout', () => highlightStars(rating));
         });
 
+        // Definición de la función highlightStars en el ámbito correcto
         function highlightStars(count) {
           stars.forEach((star, index) => {
             star.style.color = index < count ? '#ffdd57' : '#ccc';
           });
         }
-      });
 
-      document.getElementById('submit-feedback').addEventListener('click', async () => {
-        const stars = document.querySelectorAll('.star-rating .fas');
-        let rating = 0;
-        stars.forEach((star) => {
-          if (star.style.color === 'rgb(255, 221, 87)') {
-            rating = parseInt(star.getAttribute('data-value'));
-          }
-        });
-        const comment = document.getElementById('comment').value;
+        document.getElementById('submit-feedback').addEventListener('click', async () => {
+          const comment = document.getElementById('comment').value;
 
-        const response = await fetch('/src/db/submitFeedback.php', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            rating: rating,
-            comment: comment
-          })
-        });
+          const response = await fetch('/src/client/submitFeedback.php', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              rating: rating,
+              comment: comment
+            })
+          });
 
-        const result = await response.json();
+          const result = await response.json();
+          const errorContainer = document.getElementById('error-container');
 
-        const errorContainer = document.getElementById('error-container');
-        if (result.status === 'success') {
-          alert(result.message);
-          // Opcional: limpiar el formulario o hacer algo adicional
-        } else {
-          if (errorContainer) {
-            errorContainer.textContent = result.message;
-          } else {
+          if (result.status === 'success') {
             alert(result.message);
+            // Restablecer el formulario
+            rating = 0; // Reiniciar la calificación
+            highlightStars(rating); // Actualizar la visualización de las estrellas
+            document.getElementById('comment').value = ''; // Limpiar el campo de comentario
+            errorContainer.textContent = ''; // Limpiar errores previos
+          } else {
+            errorContainer.textContent = result.message; // Mostrar mensaje de error
           }
-        }
+        });
       });
     </script>
     <script src="/public/assets/js/updateCartCounter.js"></script>

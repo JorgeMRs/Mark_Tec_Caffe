@@ -25,24 +25,38 @@ try {
     $conn = getDbConnection();
     $conn->begin_transaction();
 
-    // Verificar si el cliente ya tiene un carrito
-    $queryCarrito = $conn->prepare('SELECT idCarrito FROM carrito WHERE idCliente = ? LIMIT 1');
+    // Seleccionar el carrito más antiguo asociado al cliente
+    $queryCarrito = $conn->prepare('
+        SELECT idCarrito 
+        FROM carrito 
+        WHERE idCliente = ? 
+        ORDER BY fechaCreacion ASC 
+        LIMIT 1
+    ');
     $queryCarrito->bind_param('i', $user_id);
     $queryCarrito->execute();
     $resultCarrito = $queryCarrito->get_result();
     $carrito = $resultCarrito->fetch_assoc();
 
+    // Si no hay un carrito existente, crear uno nuevo
     if ($carrito) {
         $idCarrito = $carrito['idCarrito'];
     } else {
-        $queryInsertCarrito = $conn->prepare('INSERT INTO carrito (idCliente, fechaCreacion) VALUES (?, NOW())');
+        $queryInsertCarrito = $conn->prepare('
+            INSERT INTO carrito (idCliente, fechaCreacion) 
+            VALUES (?, NOW())
+        ');
         $queryInsertCarrito->bind_param('i', $user_id);
         $queryInsertCarrito->execute();
         $idCarrito = $conn->insert_id;
     }
 
     // Verificar si el producto ya está en el carrito
-    $queryDetalle = $conn->prepare('SELECT cantidad FROM carritodetalle WHERE idCarrito = ? AND idProducto = ?');
+    $queryDetalle = $conn->prepare('
+        SELECT cantidad 
+        FROM carritodetalle 
+        WHERE idCarrito = ? AND idProducto = ?
+    ');
     $queryDetalle->bind_param('ii', $idCarrito, $idProducto);
     $queryDetalle->execute();
     $resultDetalle = $queryDetalle->get_result();
@@ -52,18 +66,25 @@ try {
         // Verificar si la suma supera el límite de 9
         $cantidadActual = $detalle['cantidad'];
         if ($cantidadActual + $cantidad > 9) {
-            throw new Exception('No se puede agregar al carrito: cantidad máxima excedida (9 unidades).');
+            throw new Exception('No se puede agregar al carrito: cantidad máxima excedida (9 unidades) para este producto.');
         }
 
         // Actualizar la cantidad sumando a la cantidad actual
         $nuevaCantidad = $cantidadActual + $cantidad;
-        $queryUpdate = $conn->prepare('UPDATE carritodetalle SET cantidad = ? WHERE idCarrito = ? AND idProducto = ?');
+        $queryUpdate = $conn->prepare('
+            UPDATE carritodetalle 
+            SET cantidad = ? 
+            WHERE idCarrito = ? AND idProducto = ?
+        ');
         $queryUpdate->bind_param('iii', $nuevaCantidad, $idCarrito, $idProducto);
         $queryUpdate->execute();
     } else {
         // Limitar la cantidad a 9 en la inserción si es un producto nuevo
         $cantidad = min(9, $cantidad);
-        $queryInsertDetalle = $conn->prepare('INSERT INTO carritodetalle (idCarrito, idProducto, cantidad, precio) VALUES (?, ?, ?, (SELECT precio FROM producto WHERE idProducto = ?))');
+        $queryInsertDetalle = $conn->prepare('
+            INSERT INTO carritodetalle (idCarrito, idProducto, cantidad, precio) 
+            VALUES (?, ?, ?, (SELECT precio FROM producto WHERE idProducto = ?))
+        ');
         $queryInsertDetalle->bind_param('iiii', $idCarrito, $idProducto, $cantidad, $idProducto);
         $queryInsertDetalle->execute();
     }
@@ -85,4 +106,5 @@ try {
 
 // Devolver la respuesta en formato JSON
 echo json_encode($response);
+
 ?>

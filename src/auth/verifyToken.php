@@ -12,45 +12,46 @@ function verifyToken($secretKey, $encryptionKey) {
     $response = array('success' => false, 'message' => '');
 
     try {
-        // Verificar el token de usuario
+        // Verificar el token de usuario (cliente)
         if (isset($_COOKIE['user_token'])) {
             $jwt = $_COOKIE['user_token'];
             $decoded = JWT::decode($jwt, new Key($secretKey, 'HS256'));
 
-            // Descifrar el idCliente y el email
-            $idCliente = decryptData($decoded->idCliente, $encryptionKey);
-            $email = decryptData($decoded->email, $encryptionKey);
-            
-            // Verificar si uid existe antes de descifrarlo
-            if (isset($decoded->uid)) {
-                $uid = decryptData($decoded->uid, $encryptionKey);
-                $response['uid'] = $uid; // Agregar uid a la respuesta solo si existe
+            // Descifrar idCliente y email
+            if (isset($decoded->idCliente) && isset($decoded->email)) {
+                $idCliente = decryptData($decoded->idCliente, $encryptionKey);
+                $email = decryptData($decoded->email, $encryptionKey);
+
+                $response['success'] = true;
+                $response['role'] = 'client';
+                $response['idCliente'] = $idCliente;
+                $response['email'] = $email;
+                return $response;
+            } else {
+                throw new Exception("El token no contiene los datos necesarios para un cliente.");
             }
-
-            $response['success'] = true;
-            $response['role'] = 'client';
-            $response['idCliente'] = $idCliente;
-            $response['email'] = $email;
-
-            return $response; 
         }
-        
+
         // Verificar el token de empleado
         if (isset($_COOKIE['employee_token'])) {
             $jwt_employee = $_COOKIE['employee_token'];
             $decoded = JWT::decode($jwt_employee, new Key($secretKey, 'HS256'));
 
-            // Descifrar el idEmpleado y el correo
-            $idEmpleado = decryptData($decoded->idEmpleado, $encryptionKey);
-            $rol = $decoded->rol; // El rol no estaba cifrado
-            $correo = decryptData($decoded->correo, $encryptionKey);
+            // Descifrar idEmpleado, rol y correo
+            if (isset($decoded->idEmpleado) && isset($decoded->rol) && isset($decoded->correo)) {
+                $idEmpleado = decryptData($decoded->idEmpleado, $encryptionKey);
+                $rol = $decoded->rol;
+                $correo = decryptData($decoded->correo, $encryptionKey);
 
-            $response['success'] = true;
-            $response['role'] = 'employee';
-            $response['idEmpleado'] = $idEmpleado;
-            $response['rol'] = $rol; 
-            $response['correoEmpleado'] = $correo;
-            return $response; 
+                $response['success'] = true;
+                $response['role'] = 'employee';
+                $response['idEmpleado'] = $idEmpleado;
+                $response['rol'] = $rol;
+                $response['correoEmpleado'] = $correo;
+                return $response;
+            } else {
+                throw new Exception("El token no contiene los datos necesarios para un empleado.");
+            }
         }
 
         $response['message'] = "Token no proporcionado.";
@@ -70,10 +71,6 @@ function checkToken() {
     $encryptionKey = $config['encryptionKey'];
     
     $tokenResponse = verifyToken($secretKey, $encryptionKey);
-    if (!$tokenResponse['success']) {
-        header('Location: /public/login.php');
-        exit();
-    }
     return $tokenResponse; // Retorna todo el array de respuesta
 }
 ?>

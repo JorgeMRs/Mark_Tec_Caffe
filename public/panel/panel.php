@@ -364,6 +364,7 @@ $rol = $response['rol'];
                 <li><a href="#" data-tab="reservas">Reservas</a></li>
                 <li><a href="#" data-tab="categoria">Categoria</a></li>
                 <li><a href="#" data-tab="analisis">Analisis</a></li>
+                <li><a href="#" data-tab="retroalimentacion">Retroalimentacion</a></li>
                 <li><a href="#" data-tab="cerrar" id="logout-link">Cerrar Sesion</a></li>
             </ul>
         </nav>
@@ -410,6 +411,23 @@ $rol = $response['rol'];
                             </tr>
                         </thead>
                         <tbody id="pedidosActivosmer"></tbody>
+                    </table>
+                </div>
+                <div id="retroalimentacion">
+                    <h3>Retroalimentación</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>ID Cliente</th>
+                                <th>Nivel de Satisfacción</th>
+                                <th>Comentario</th>
+                                <?php if ($rol == 'Admin'): ?>
+                                    <th>Acciones</th>
+                                <?php endif; ?>
+                            </tr>
+                        </thead>
+                        <tbody id="retroalimentacionItems"></tbody>
                     </table>
                 </div>
                 <div id="historial">
@@ -652,6 +670,58 @@ document.getElementById('logout-link').addEventListener('click', function(event)
                 })
                 .catch(error => console.error('Error al cargar datos:', error));
         }
+
+
+        function cargarDatosRetroalimentacion(url, elementId) {
+            console.log(userRole)
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const tbody = document.getElementById(elementId);
+                    tbody.innerHTML = data.map(item => `
+                    <tr data-id="${item.id}">
+                        <td data-campo="idRetroalimentacion">${item.id}</td>
+                        <td data-campo="clienteNombre">${item.clienteNombre} ${item.clienteApellido}</td>
+                        <td data-campo="nivelSatisfaccion">${item.nivelSatisfaccion}</td>
+                        <td data-campo="comentario">${item.comentario}</td>
+                        ${userRole === 'Admin' ? `
+                        <td>
+                            <select class="acciones" data-id="${item.id}">
+                                <option value="">Seleccionar</option>
+                                <option value="modificar">Modificar</option>
+                                <option value="eliminar">Eliminar</option>
+                            </select>
+                        </td>
+                        ` : ''}
+                    </tr>
+                `).join('');
+                    if (userRole === 'Admin') {
+                        // Agregar event listeners para los select de acciones
+                        document.querySelectorAll('.acciones').forEach(select => {
+                            select.addEventListener('change', function () {
+                                const id = select.getAttribute('data-id');
+                                const action = select.value;
+                                if (action === 'modificar') {
+                                    mostrarFormularioRetroalimentacion('editRetroalimentacionModal', `/public/prueba2/obtener_retroalimentacion_por_id.php?id=${id}`, {
+                                        idRetroalimentacion: 'retroalimentacionId',
+                                        idCliente: 'retroalimentacionClienteId',
+                                        clienteNombre: 'retroalimentacionClienteNombre',
+                                        clienteApellido: 'retroalimentacionClienteApellido',
+                                        nivelSatisfaccion: 'retroalimentacionNivelSatisfaccion',
+                                        comentario: 'retroalimentacionComentario'
+                                    });
+                                } else if (action === 'eliminar') {
+                                    eliminarRetroalimentacion(id);
+                                }
+                                // Reset the select value to default
+                                select.value = '';
+                            });
+                        });
+                    }
+                })
+                .catch(error => console.error('Error al cargar datos:', error));
+        }
+        // Función específica para cargar el inventario
 
         function mostrarFormularioReserva(modalId, url, campos) {
             fetch(url)
@@ -1206,6 +1276,7 @@ document.getElementById('logout-link').addEventListener('click', function(event)
             cargarDatos('/public/panel/obtener_pedidos_activos.php', 'pedidosActivosmer');
             cargarDatosHistorial('/public/panel/obtener_historial_pedidos.php', 'historialPedidos');
             cargarDatosInve('/public/panel/obtener_inventario.php', 'inventarioItems');
+            cargarDatosRetroalimentacion('/public/panel/obtener_retroalimentacion.php', 'retroalimentacionItems');
             cargarDatosPersonal('/public/panel/obtener_personal.php', 'personalItems');
             cargarDatosReservas('/public/panel/obtener_reserva.php', 'reservalItems');
             cargarDatosCategorias('/public/panel/obtener_categorias.php', 'categoriaItems');
@@ -1824,6 +1895,57 @@ document.getElementById('logout-link').addEventListener('click', function(event)
                 });
         }
 
+        function handleFormSubmitRetroalimentacion(event, modalId) {
+            event.preventDefault(); // Evitar el envío del formulario por defecto
+
+            const formData = new FormData(event.target);
+            const id = formData.get('idRetroalimentacion'); // Obtener el ID de la retroalimentación
+
+            fetch(event.target.action, {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Respuesta del servidor:', data); // Mensaje de depuración
+                    if (data.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Éxito',
+                            text: data.message,
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then(() => {
+                            closeModal(modalId);
+                            const camposModificados = data.camposModificados;
+                            for (const campo in camposModificados) {
+                                if (camposModificados.hasOwnProperty(campo)) {
+                                    actualizarCeldaRetroalimentacion(id, campo, camposModificados[campo]);
+                                }
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Error al realizar la operación Retroalimentación: ' + (data.error || 'Error desconocido'),
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al enviar el formulario:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Ocurrió un error al enviar el formulario.',
+                    });
+                });
+        }
 
         function handleFormSubmitCategoria(event, modalId) {
             event.preventDefault(); // Evitar el envío del formulario por defecto
@@ -1869,7 +1991,20 @@ document.getElementById('logout-link').addEventListener('click', function(event)
                     });
                 });
         }
-
+        function actualizarCeldaRetroalimentacion(id, campoModificado, valorModificado) {
+            console.log('Actualizando celda en retroalimentación:', id, campoModificado, valorModificado); // Mensaje de depuración
+            const fila = document.querySelector(`#retroalimentacionItems tr[data-id="${id}"]`);
+            if (fila) {
+                const celda = fila.querySelector(`td[data-campo="${campoModificado}"]`);
+                if (celda) {
+                    celda.textContent = valorModificado;
+                } else {
+                    console.error('Celda no encontrada en retroalimentación:', campoModificado); // Mensaje de depuración
+                }
+            } else {
+                console.error('Fila no encontrada en retroalimentación:', id); // Mensaje de depuración
+            }
+        }
         function actualizarCeldaReserva(id, campoModificado, valorModificado) {
             console.log('Actualizando celda en reservas:', id, campoModificado, valorModificado); // Mensaje de depuración
             const fila = document.querySelector(`#reservalItems tr[data-id="${id}"]`);

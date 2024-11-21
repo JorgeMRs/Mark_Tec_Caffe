@@ -64,9 +64,9 @@ try {
                         setcookie("user_token", $jwt, [
                             'expires' => $expirationTime,
                             'path' => '/',
-                            'secure' => true,    
-                            'httponly' => true,   
-                            'samesite' => 'Strict'
+                            'secure' => false,    // Desactivar 'secure' para localhost (sin HTTPS)
+                            'httponly' => true,   // La cookie no será accesible a través de JavaScript
+                            'samesite' => 'Strict' // Evitar CSRF
                         ]);
 
                         $response['success'] = true;
@@ -83,32 +83,45 @@ try {
                     $stmt->bind_param("s", $correo);
                     $stmt->execute();
                     $stmt->store_result();
-
+                
                     if ($stmt->num_rows > 0) {
                         $stmt->bind_result($employee_id, $hashed_password, $puesto);
                         $stmt->fetch();
-
+                
                         if (password_verify($contraseña, $hashed_password)) {
                             // Generar el token JWT para el empleado
-
+                
+                            // Asegúrate de que la función encryptData esté correctamente definida
                             $encryptedEmail = encryptData($correo, $encryptionKey);
                             $encryptedEmployeeId = encryptData($employee_id, $encryptionKey);
-
-                            $secretKey = $_ENV['JWT_SECRET'];
+                
+                            // Verifica que la variable de entorno JWT_SECRET esté cargada correctamente
+                            $secretKey = $_ENV['JWT_SECRET']; 
+                            if (empty($secretKey)) {
+                                die('JWT_SECRET no está definido en .env');
+                            }
+                
                             $expirationTime = time() + 28800; // 8 horas de validez
                             $payload = [
                                 'iat' => time(),
                                 'exp' => $expirationTime,
-                                'idEmpleado' => $encryptedEmployeeId, // ID cifrado
-                                'rol' => $puesto,
-                                'correo' => $encryptedEmail,          // Correo cifrado
+                                'idEmpleado' => $encryptedEmployeeId, // ID del empleado cifrado
+                                'rol' => $puesto,  // El puesto del empleado
+                                'correo' => $encryptedEmail, // Correo cifrado
                             ];
-
-                            $jwt_employee = JWT::encode($payload, $secretKey, 'HS256');
-                        
-                            // Guardar el token en una cookie
-                            setcookie("employee_token", $jwt_employee, $expirationTime, "/", "", true, true);
-
+                
+                            // Generar el JWT
+                            $jwt = JWT::encode($payload, $secretKey, 'HS256');
+                
+                            // Guarda el token en una cookie
+                            setcookie("employee_token", $jwt, [
+                                'expires' => $expirationTime,
+                                'path' => '/',
+                                'secure' => false,    // Asegúrate de usar HTTPS si el entorno lo permite
+                                'httponly' => true,   // La cookie no será accesible a través de JavaScript
+                                'samesite' => 'Strict' // Evitar CSRF
+                            ]);
+                            
                             // Redirigir según el rol
                             $response['success'] = true;
                             if ($puesto === 'Mozo') {

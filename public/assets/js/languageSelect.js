@@ -538,6 +538,7 @@ document.addEventListener("DOMContentLoaded", () => {
     productosDesktop: document.getElementById("nav-productos-desktop"),
     locales: document.getElementById("nav-locales"),
     contacto: document.getElementById("nav-contacto"),
+    sobre: document.getElementById("nav-sobrenosotros"),
     usuario: document.getElementById("nav-usuario"),
   };
 
@@ -599,6 +600,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     elementsToTranslate.locales.textContent = translations.locales;
     elementsToTranslate.contacto.textContent = translations.contacto;
+    elementsToTranslate.sobre.textContent = translations.sobre;
     elementsToTranslate.usuario.alt = translations.usuario;
   };
 
@@ -616,6 +618,7 @@ document.addEventListener("DOMContentLoaded", () => {
           ofertas: "Ofertas",
           reservas: "Reservas",
           contacto: "Contacto",
+          sobre: "Sobre Nosotros",
           favoritos: "Favoritos",
           usuario: "Usuario",
         });
@@ -649,6 +652,7 @@ document.addEventListener("DOMContentLoaded", () => {
     contactTitle: document.getElementById("footer-contact-title"),
     legalTitle: document.getElementById("footer-legal-title"),
     rights: document.getElementById("footer-rights"),
+    created: document.getElementById("footer-created"),
     links: {
       locales: document.getElementById("footer-locales"),
       productos: document.getElementById("footer-productos"),
@@ -708,6 +712,7 @@ document.addEventListener("DOMContentLoaded", () => {
     elementsToTranslate.contactTitle.textContent = translations.footer_contact_title;
     elementsToTranslate.legalTitle.textContent = translations.footer_legal_title;
     elementsToTranslate.rights.textContent = translations.footer_rights;
+    elementsToTranslate.created.textContent = translations.footer_created;
 
     elementsToTranslate.links.locales.textContent = translations.footer_locales;
     elementsToTranslate.links.productos.textContent = translations.footer_productos;
@@ -1160,7 +1165,9 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", () => {
   const languageDropdown = document.getElementById("language-selector");
   const savedLanguage = localStorage.getItem("selectedLanguage") || "es";
+  const isLoginPage = window.location.pathname === "/public/local.php";
 
+  if (!isLoginPage) return; // Sal del script si no estás en la página correcta
   // Función para cargar traducciones
   const loadTranslations = async (lang) => {
       try {
@@ -1217,6 +1224,7 @@ document.addEventListener("DOMContentLoaded", () => {
     subtitle: document.getElementById("subtitle"),
     contactButton: document.getElementById("contact-btn"),
     localButton: document.getElementById("local-btn"),
+    categorias: document.getElementById("category-title"),
   };
 
   const loadTranslations = async (lang) => {
@@ -1265,6 +1273,7 @@ document.addEventListener("DOMContentLoaded", () => {
     elementsToTranslate.subtitle.textContent = translations.subtitle;
     elementsToTranslate.contactButton.textContent = translations.contact_button;
     elementsToTranslate.localButton.textContent = translations.local_button;
+    elementsToTranslate.categorias.textContent = translations.category_title;
   };
 
   languageSelector.addEventListener("change", (event) => {
@@ -1365,5 +1374,53 @@ document.addEventListener("DOMContentLoaded", () => {
     if (translations) {
       updateText(translations);
     }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const languageDropdown = document.getElementById("language-selector");
+  const savedLanguage = localStorage.getItem("selectedLanguage") || "es";
+
+  // Función para cargar traducciones
+  const loadTranslations = async (lang) => {
+      try {
+          const response = await fetch("/public/translations/sobrenosotros.json");
+          if (!response.ok) throw new Error("Error al cargar las traducciones");
+
+          const data = await response.json();
+          return data[lang];
+      } catch (error) {
+          console.error(error);
+      }
+  };
+
+  // Función para actualizar el texto
+  const updateText = (translations) => {
+      for (const [key, value] of Object.entries(translations)) {
+          const element = document.getElementById(key);
+          if (element) {
+              element.textContent = value;
+          }
+      }
+  };
+
+  // Función para cambiar el idioma
+  const changeLanguage = (lang) => {
+      localStorage.setItem("selectedLanguage", lang);
+      loadTranslations(lang).then(translations => {
+          if (translations) {
+              updateText(translations);
+          }
+      });
+  };
+
+  // Establecer el idioma guardado al cargar la página
+  languageDropdown.value = savedLanguage;
+  changeLanguage(savedLanguage);
+
+  // Event listener para el cambio de idioma
+  languageDropdown.addEventListener("change", (event) => {
+      changeLanguage(event.target.value);
   });
 });

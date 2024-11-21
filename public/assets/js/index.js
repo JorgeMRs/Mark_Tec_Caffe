@@ -321,10 +321,47 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.error('Error en la solicitud:', error);
             });
     }
-
-    // Función para mostrar los productos en la sección 'mostSold'
-    function displayTopProducts(products) {
+    async function translate(text, lang) {
+        const response = await fetch('/src/utils/translate.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ text: text, idioma: lang }),
+        });
+        const data = await response.json();
+        if (data.status === 'success') {
+            return data.translated; // Devuelve la traducción
+        } else {
+            console.error(data.message);
+            return text; // En caso de error, devolver el texto original
+        }
+    }
+    
+    async function displayTopProducts(products) {
         productsContainer.innerHTML = ''; // Limpiar productos anteriores
+    
+        // Obtener el idioma de la sesión o por defecto "es" (español)
+        const response = await fetch('/public/templates/updateLanguage.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({}) // Enviar un cuerpo vacío para obtener el idioma actual
+        });
+    
+        const data = await response.json();
+        const idioma = data.idioma; // Obtener el idioma actual
+    
+        // Verificar que el idioma es válido antes de traducir
+        if (!['es', 'en', 'fr', 'pt', 'de'].includes(idioma)) {
+            console.error('Idioma no válido');
+            return; // Terminar si el idioma no es válido
+        }
+    
+        // Traducir las etiquetas fijas
+        const precioLabel = await translate('Precio:', idioma);
+        const verMasLabel = await translate('Ver Más', idioma);
     
         products.forEach(product => {
             const productItem = document.createElement('div');
@@ -336,9 +373,9 @@ document.addEventListener('DOMContentLoaded', function() {
             productItem.innerHTML = `
                 <img src="${product.imagen}" alt="${product.nombre}">
                 <h3>${product.nombre}</h3>
-                <p>Precio: €${precio.toFixed(2)}</p>
+                <p>${precioLabel} €${precio.toFixed(2)}</p>
                 <a href="/public/productos.php?id=${product.idProducto}">
-                    <button>Ver Más</button>
+                    <button data-translate="viewMore">${verMasLabel}</button>
                 </a>
             `;
     

@@ -169,7 +169,7 @@ async function buyNow(productId, quantity) {
         if (result.status === 'success') {
             window.location.href = `/public/carrito.php`;
         } else {
-            alert('Error: ' + result.message);
+            window.location.href = `/public/carrito.php`;
         }
     } catch (error) {
         alert('Error en la red. Por favor, inténtelo de nuevo.');

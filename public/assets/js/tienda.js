@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const ws = new WebSocket('wss://cafesabrosos.myvnc.com/ws');
+    const ws = new WebSocket('ws://172.17.144.126/ws');
 
     ws.onopen = () => {
         console.log('Conectado al servidor WebSocket');
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.setItem("selectedLanguage", selectedLang);
         loadPageContent(selectedLang);
     });
-
+    
     ws.onmessage = async (event) => {
         const data = JSON.parse(event.data);
         console.log("Mensaje recibido:", data);
@@ -62,6 +62,16 @@ document.addEventListener("DOMContentLoaded", function () {
             const savedLang = languageSelector.value;
             await loadCategories(null, savedLang); // Recargar categorías
         } else if (data.action === "categoriaEliminada") {
+            console.log("Categoría eliminada, actualizando la vista...");
+            clearLocalStorage(); // Limpia el localStorage si es necesario
+            const savedLang = languageSelector.value;
+            await loadCategories(null, savedLang); // Recargar categorías
+        }else if (data.action === "imagenProductoActualizada") {
+            console.log("Categoría eliminada, actualizando la vista...");
+            clearLocalStorage(); // Limpia el localStorage si es necesario
+            const savedLang = languageSelector.value;
+            await loadCategories(null, savedLang); // Recargar categorías
+        }else if (data.action === "detallesActualizados") {
             console.log("Categoría eliminada, actualizando la vista...");
             clearLocalStorage(); // Limpia el localStorage si es necesario
             const savedLang = languageSelector.value;
@@ -123,7 +133,6 @@ document.addEventListener("DOMContentLoaded", function () {
         `).join('');
 
         sidebar.innerHTML = `
-            <h2>Nuestras categorías</h2>
             ${categoriesHtml}
         `;
 
@@ -252,4 +261,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     initializePage();
+
+    
 });

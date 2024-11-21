@@ -4,8 +4,7 @@
         "logo": "Café Sabrosos",
         "productos": "Products",
         "locales": "Locations",
-        "ofertas": "Offers",
-        "reservas": "Reservations",
+        "sobre": "About Us",
         "contacto": "Contact",
         "favoritos": "Favorites",
         "usuario": "User"
@@ -15,8 +14,7 @@
         "logo": "Café Sabrosos",
         "productos": "Produits",
         "locales": "Lieux",
-        "ofertas": "Offres",
-        "reservas": "Réservations",
+        "sobre": "À propos de nous",
         "contacto": "Contact",
         "favoritos": "Favoris",
         "usuario": "Utilisateur"
@@ -26,8 +24,7 @@
         "logo": "Café Sabrosos",
         "productos": "Produtos",
         "locales": "Locais",
-        "ofertas": "Ofertas",
-        "reservas": "Reservas",
+        "sobre": "Sobre Nós",
         "contacto": "Contato",
         "favoritos": "Favoritos",
         "usuario": "Usuário"
@@ -37,8 +34,7 @@
         "logo": "Café Sabrosos",
         "productos": "Produkte",
         "locales": "Standorte",
-        "ofertas": "Angebote",
-        "reservas": "Reservierungen",
+        "sobre": "Über Uns",
         "contacto": "Kontakt",
         "favoritos": "Favoriten",
         "usuario": "Benutzer"

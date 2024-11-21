@@ -256,3 +256,49 @@
         </form>
     </div>
 </div>
+
+
+<div id="editRetroalimentacionModal" class="modal-overlay">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close" onclick="closeModal('editRetroalimentacionModal')">&times;</span>
+            <h2>Editar Retroalimentación</h2>
+        </div>
+        <form id="editRetroalimentacionForm" method="POST" action="/public/prueba2/actualizar_retroalimentacion.php" onsubmit="handleFormSubmitRetroalimentacion(event, 'editRetroalimentacionModal')">
+            <div class="form-group">
+                <label for="retroalimentacionId">ID Retroalimentación:</label>
+                <input type="text" id="retroalimentacionId" name="idRetroalimentacion" readonly>
+            </div>
+            <div class="form-group">
+                <label for="retroalimentacionClienteId">ID Cliente:</label>
+                <input type="text" id="retroalimentacionClienteId" name="idCliente" readonly>
+            </div>
+            <div class="form-group">
+                <label for="retroalimentacionClienteNombre">Nombre del Cliente:</label>
+                <input type="text" id="retroalimentacionClienteNombre" name="clienteNombre" readonly>
+            </div>
+            <div class="form-group">
+                <label for="retroalimentacionClienteApellido">Apellido del Cliente:</label>
+                <input type="text" id="retroalimentacionClienteApellido" name="clienteApellido" readonly>
+            </div>
+            <div class="form-group">
+                <label for="retroalimentacionNivelSatisfaccion">Nivel de Satisfacción:</label>
+                <select id="retroalimentacionNivelSatisfaccion" name="nivelSatisfaccion">
+                    <option value="Muy bajo">Muy bajo</option>
+                    <option value="Bajo">Bajo</option>
+                    <option value="Medio">Medio</option>
+                    <option value="Alto">Alto</option>
+                    <option value="Muy alto">Muy alto</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="retroalimentacionComentario">Comentario:</label>
+                <textarea id="retroalimentacionComentario" name="comentario"></textarea>
+            </div>
+            <div class="actions">
+                <button type="button" class="btn btn-cancel" onclick="closeModal('editRetroalimentacionModal')">Cancelar</button>
+                <button type="submit" class="btn btn-save">Guardar Cambios</button>
+            </div>
+        </form>
+    </div>
+</div>

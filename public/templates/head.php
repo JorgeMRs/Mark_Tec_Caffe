@@ -21,6 +21,8 @@ $pageTitleTranslated = isset($pageTitle) ? $tr->translate($pageTitle) : $tr->tra
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($pageTitleTranslated); ?></title>
     <meta name="description" content="Bienvenido a Café Sabrosos, tu tienda online para comprar los mejores cafés artesanales.">
+    <meta name="keywords" content="café, cafetería, café sabrosos, café en línea, café orgánico, espresso, tés, dulces, comunidad, sostenibilidad">
+    <meta name="author" content="Mark Tec S.A.S">
 
     <!-- Meta etiquetas para Open Graph (redes sociales) -->
     <meta property="og:title" content="<?php echo htmlspecialchars($pageTitleTranslated); ?>">

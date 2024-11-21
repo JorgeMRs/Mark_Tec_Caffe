@@ -10,6 +10,7 @@ $productos_link = ($current_page === 'tienda.php') ? '/public/tienda.php' : '/pu
 $show_icon = ($current_page === 'tienda.php') ? '<i class="fa fa-plus"></i>' : '';
 
 $isLoggedIn = isset($_COOKIE['user_token']);
+
 ?>
 <nav>
     <div class="logo">
@@ -20,22 +21,36 @@ $isLoggedIn = isset($_COOKIE['user_token']);
     </div>
     <div class="nav-content">
         <ul class="nav-links">
-            <li class="desktop-only">
-                <a href="<?php echo $productos_link; ?>" id="nav-productos"><?php echo $productos_text; ?></a>
+            <li class="dropdown mobile-only <?php echo $show_dropdown; ?>">
+                <a href="<?php echo $productos_link; ?>" class="dropdown-link" id="nav-productos">
+                    <?php echo $productos_text; ?> <?php echo $show_icon; ?>
+                </a>
+                <ul class="dropdown-menu" id="mobile-category-dropdown">
+                    <li><a href="#" data-category="Cafés Especiales" data-category-id="1" id="nav-categoria1">Cafés Especiales</a></li>
+                    <li><a href="#" data-category="Cafés con Leche" data-category-id="2" id="nav-categoria2">Cafés con Leche</a></li>
+                    <li><a href="#" data-category="Cafés Fríos" data-category-id="3" id="nav-categoria3">Cafés Fríos</a></li>
+                    <li><a href="#" data-category="Pasteles y Postres" data-category-id="4" id="nav-categoria4">Pasteles y Postres</a></li>
+                    <li><a href="#" data-category="Té" data-category-id="5" id="nav-categoria5">Té</a></li>
+                    <li><a href="#" data-category="Sandwich y Bocadillos" data-category-id="6" id="nav-categoria6">Sandwiches y Bocadillos</a></li>
+                </ul>
             </li>
+            <li class="desktop-only"><a href="<?php echo $productos_link; ?>" id="nav-productos-desktop"><?php echo $productos_text; ?></a></li>
             <li><a href="/public/local.php" id="nav-locales">Locales</a></li>
             <li><a href="/public/contactos.php" id="nav-contacto">Contacto</a></li>
-            <li><a href="/public/sobrenosotros.php" id="nav-locales">Sobre Nosotros</a></li>
+            <li><a href="/public/sobrenosotros.php" id="nav-sobrenosotros">Sobre Nosotros</a></li>
+            <li id="piston-cup" style="display:none;">
+                <a href="/Doom/doom.html">
+                    <img src="/public/assets/img/pistoncup.png" alt="Piston Cup" style="width: 50px; height: auto;">
+                </a>
+            </li>
         </ul>
         <div class="nav-icons">
             <?php if ($isLoggedIn): ?>
-                <a href="/public/favoritos.php" class="favorite-icon" id="nav-favoritos">
+                <a href="/public/favoritos.php" class="favorite-icon">
                     <i class="fas fa-heart2"></i>
                 </a>
             <?php endif; ?>
-            <a href="/public/cuenta.php" id="nav-usuario">
-                <img src="/public/assets/img/image.png" alt="Usuario" class="user-icon" />
-            </a>
+            <a href="/public/cuenta.php"><img src="/public/assets/img/image.png" alt="Usuario" class="user-icon" id="nav-usuario" /></a>
             <div class="cart" id="cart-icon">
                 <a href="/public/carrito.php">
                     <img src="/public/assets/img/cart.png" alt="Carrito" />
@@ -75,7 +90,6 @@ $isLoggedIn = isset($_COOKIE['user_token']);
                         .catch(error => console.error('Error al actualizar el idioma:', error));
                 });
             </script>
-
         </div>
     </div>
     <div class="nav-toggle">
@@ -84,4 +98,5 @@ $isLoggedIn = isset($_COOKIE['user_token']);
         </button>
     </div>
 </nav>
+
 <script src="/public/assets/js/nav.js"></script>

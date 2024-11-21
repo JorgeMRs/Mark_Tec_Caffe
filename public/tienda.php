@@ -33,7 +33,8 @@ include 'templates/head.php' ?>
 
         <div class="sidebar" id="sidebar">
         <!-- Las categorías se cargarán aquí -->
-         
+        <h2 id="category-title">Nuestras categorías</h2>
+
     </div>
         </div>
 

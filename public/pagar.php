@@ -30,7 +30,7 @@ if (!$csrfToken) {
     setcookie('csrf_token', $csrfToken, [
         'expires' => time() + 600,
         'httponly' => true,
-        'secure' => true,
+        'secure' => false,
         'samesite' => 'Strict',
         'path' => '/',
     ]);

@@ -7,10 +7,9 @@ require '../../src/auth/verifyToken.php';
 $response = checkToken();
 
 if ($response['role'] !== 'employee' || $response['rol'] !== 'Chef') {
-    header('Location: /public/error/403.html'); // Redirigir a la página de error 403
+    header('Location: /public/error/403.html'); // Redirigir a la página de inicio de sesión
     exit();
 }
-
 $employeeId = $response['idEmpleado']; 
 
 
