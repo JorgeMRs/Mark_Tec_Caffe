@@ -1,5 +1,5 @@
 <?php
-require '../vendor/autoload.php';
+require realpath(__DIR__ . '/../vendor/autoload.php');
 
 use Ratchet\Http\HttpServer;
 use Ratchet\Server\IoServer;
@@ -65,8 +65,7 @@ $server = IoServer::factory(
             new Chat()
         )
     ),
-    8080,
-    '0.0.0.0'
+    8080
 );
 
 echo "Servidor WebSocket en funcionamiento en ws://localhost:8080\n"; // Mensaje de estado

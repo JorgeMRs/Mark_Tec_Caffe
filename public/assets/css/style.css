@@ -759,7 +759,7 @@ svg {
   background-size: cover;
   background-attachment: fixed;
   background-repeat: no-repeat;
-  background-position: center -250px; /* Mueve la imagen hacia arriba */
+  background-position: center -150px; /* Mueve la imagen hacia arriba */
   position: relative;
   display: flex;
   justify-content: center;

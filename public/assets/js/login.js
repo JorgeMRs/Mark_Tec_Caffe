@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (data.status === "success") {
               setTimeout(function () {
                 window.location.href =
-                  "https://cafesabrosos.myvnc.com/index.php?showModal=true";
+                  "http://localhost/index.php?showModal=true";
               }, 1500);
             } else {
               errorContainer.textContent = data.message;

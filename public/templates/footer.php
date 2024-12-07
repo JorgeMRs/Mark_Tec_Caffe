@@ -44,10 +44,10 @@
 
     <p id="footer-rights">© 2024 Café Sabrosos. Todos los derechos reservados.</p>
     <div class="footer-created-logo">
-        <a href="https://marktec.myvnc.com">
+        <a href="https://marktecsas.myvnc.com">
             <img src="/public/assets/icons/MarkTec Logo sin fondo.png" alt="Logo de Mark Tec S.A.S" id="footer-logo">
         </a>
-        <p id="footer-created">Creado por Mark Tec S.A.S</p>
+        <p id="footer-created">Creado por MarkTec S.A.S</p>
     </div>
 </div>
 

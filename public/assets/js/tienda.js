@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const ws = new WebSocket('ws://172.17.144.126/ws');
+    const ws = new WebSocket('wss://cafesabrosos.myvnc.com/ws');
 
     ws.onopen = () => {
         console.log('Conectado al servidor WebSocket');
@@ -116,28 +116,49 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function renderCategories(selectedCategory) {
         const sidebar = document.getElementById("sidebar");
-
+    
+        // Traducciones para el título
+        const translations = {
+            es: "Nuestras categorías",
+            en: "Our Categories",
+            fr: "Nos Catégories",
+            de: "Unsere Kategorien",
+            it: "Le nostre categorie",
+        };
+    
+        const lang = languageSelector.value; // Obtener el idioma seleccionado
+        const translatedTitle = translations[lang] || translations["es"]; // Usar español por defecto si no hay traducción
+    
         // Si no hay categoría seleccionada, seleccionar la primera
         if (!selectedCategory && categoriesData.length > 0) {
             selectedCategory = categoriesData[0].nombre;
-            localStorage.setItem(`selectedCategory_${languageSelector.value}`, JSON.stringify({ category: selectedCategory, idCategoria: categoriesData[0].idCategoria }));
+            localStorage.setItem(
+                `selectedCategory_${lang}`,
+                JSON.stringify({ category: selectedCategory, idCategoria: categoriesData[0].idCategoria })
+            );
         }
-
-        const categoriesHtml = categoriesData.map((category) => `
-            <div class="category-item${category.nombre === selectedCategory ? " selected" : ""}" 
-                 data-category="${category.nombre}" 
-                 data-category-id="${category.idCategoria}">
-                <img src="${category.imagen}" alt="${category.nombre}">
-                <p>${category.nombre}</p>
-            </div>
-        `).join('');
-
+    
+        const categoriesHtml = categoriesData
+            .map(
+                (category) => `
+                <div class="category-item${category.nombre === selectedCategory ? " selected" : ""}" 
+                     data-category="${category.nombre}" 
+                     data-category-id="${category.idCategoria}">
+                    <img src="${category.imagen}" alt="${category.nombre}">
+                    <p>${category.nombre}</p>
+                </div>
+            `
+            )
+            .join("");
+    
+        // Renderizar el contenido del sidebar con el título traducido
         sidebar.innerHTML = `
+            <h2 id="category-title">${translatedTitle}</h2>
             ${categoriesHtml}
         `;
-
+    
         addSidebarEvents();
-
+    
         const categoryTitle = document.getElementById("category-title");
         if (categoryTitle) {
             categoryTitle.textContent = selectedCategory;

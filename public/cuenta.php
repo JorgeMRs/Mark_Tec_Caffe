@@ -10,12 +10,10 @@ if ($response['success']) {
     $uid = $response['uid'];
     // Aquí puedes usar $user_id según sea necesario
 } else {
-    // Manejar el caso en que la verificación del token falló
-    echo $response['message']; // Muestra un mensaje de error
-    // O redirige a otra página
     header('Location: /public/login.php');
     exit();
 }
+
 $uid = $response['uid'];
 
 $conn = getDbConnection();

@@ -20,7 +20,7 @@
         "footer_data_removal": "Política de Eliminación de Datos",
         "footer_sobrenosotros": "Sobre Nosotros",
         "footer_faq": "Preguntas Frecuentes",
-        "footer_created": "Creado por Mark Tec S.A.S"
+        "footer_created": "Creado por MarkTec S.A.S"
     },
     "en": {
         "version": "1.0.1",
@@ -43,7 +43,7 @@
         "footer_data_removal": "Data Removal Policy",
         "footer_sobrenosotros": "About Us",
         "footer_faq": "Frequently Asked Questions",
-        "footer_created": "Created by Mark Tec S.A.S"
+        "footer_created": "Created by MarkTec S.A.S"
     },
     "fr": {
         "version": "1.0.1",
@@ -66,7 +66,7 @@
         "footer_data_removal": "Politique de Suppression de Données",
         "footer_sobrenosotros": "À Propos de Nous",
         "footer_faq": "Questions Fréquentes",
-        "footer_created": "Créé par Mark Tec S.A.S"
+        "footer_created": "Créé par MarkTec S.A.S"
     },
     "pt": {
         "version": "1.0.1",
@@ -89,7 +89,7 @@
         "footer_data_removal": "Política de Remoção de Dados",
         "footer_sobrenosotros": "Sobre Nós",
         "footer_faq": "Perguntas Frequentes",
-        "footer_created": "Criado por Mark Tec S.A.S"
+        "footer_created": "Criado por MarkTec S.A.S"
     },
     "de": {
         "version": "1.0.1",
@@ -112,6 +112,6 @@
         "footer_data_removal": "Datenlöschrichtlinie",
         "footer_sobrenosotros": "Über Uns",
         "footer_faq": "Häufig Gestellte Fragen",
-        "footer_created": "Erstellt von Mark Tec S.A.S"
+        "footer_created": "Erstellt von MarkTec S.A.S"
     }
 }

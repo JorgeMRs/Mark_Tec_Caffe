@@ -13,7 +13,7 @@ $dotenv->load();
 // Función para obtener la conexión a la base de datos
 function getDbConnection(): mysqli
 {
-    $host = 'localhost'; // El valor del host debe ser 'localhost'
+    $host = $_ENV['DB_HOST']; // El valor del host debe ser 'localhost'
     $user = $_ENV['DB_USER'];
     $password = $_ENV['DB_PASS'];
     $database = $_ENV['DB_NAME']; // Nombre de la base de datos

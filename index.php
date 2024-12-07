@@ -303,7 +303,7 @@ include 'public/templates/head.php' ?>
             </h1>
             <p data-translate="mostSold-description">Explora nuestras creaciones más populares, elaboradas con los granos más selectos y el toque perfecto de tradición. Cada taza es una experiencia que conquista los paladares de quienes buscan lo mejor.</p>
         </div>
-        <div class="products"><!-- Productos se cargarán aquí dinámicamente --></div>
+        <div class="products"></div>
     </div>
 </section>
         <?php 
